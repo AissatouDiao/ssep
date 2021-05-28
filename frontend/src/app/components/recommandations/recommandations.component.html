@@ -1,0 +1,161 @@
+<table class="table bg-white">
+    <thead class="table-dark">
+        <tr>
+            <td>#</td>
+            <td>Nom</td>
+            <td>Document</td>
+            <td>Date création</td>
+            <td>Date finale</td>
+            <td>Statut</td>
+            <td>Options</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let r of recommandations">
+            <td>{{r.id}}</td>
+            <td>{{r.titre}}</td>
+            <td>{{r.recommandation}}
+                <div>
+                    <a href="http://localhost:8000/.{{r.recommandation}}" target="blank">Consulter le PDF</a>
+                </div>
+            </td>
+            <td>{{r.created_at|date:'d-MM-y' }}</td>
+            <td>{{r.date_finale|date:'d-MM-y'}}</td>
+            <td>
+                <form action="" #test="ngForm">
+                    <select name="statut" id="" class="bg-primary form-select" [(ngModel)]="r.statut" (change)="changeStatut($event,r)" required>
+                        <option value="exécuté">Executé</option>
+                        <option selected value="non exécuté" >Non executé</option>
+                        <option  value="en cours">En cours</option>
+                       
+                    </select>
+                </form>
+            </td>
+            <td class="td-actions text-right float-right">
+                <button type="button" rel="tooltip" title="Modifier recommandation" data-toggle="modal" attr.data-target="#m{{r.id}}" class="btn btn-primary btn-link btn-sm">
+                    <i class="material-icons">edit</i>
+                </button>
+                <button type="button" rel="tooltip" title="Supprimer recommansation" (click)="delete(r.id)" class="btn btn-danger btn-link btn-sm">
+                    <i class="material-icons">close</i>
+                </button>
+            </td>
+            <!-- Modal Modifier -->
+            <div class="modal fade" id="m{{r.id}}" tabindex="-1" role="dialog" attr.aria-labelledby="m{{r.id}}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Modifier la recommandation {{r.titre}}.</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form #recommandationForm=ngForm name="recommandationForm" (ngSubmit)="update(r)" enctype="multipart/form-data">
+                                <div class="alert alert-danger" [hidden]="!error">
+                                    {{error}}
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Titre</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="r.titre" required>
+                                    </div>
+                                </div><br>
+                                <div class="row mb-3">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label text-break">Recommandation</label>
+                                    <div class="col-sm-10">
+                                        <input type="file" class="form-control" name="recommandation" (change)="uploadImage1($event)" id="file1" [(ngModel)]="r.recommandation">
+                                    </div>
+                                    <div class="text-center">
+                                        <a href="http://localhost:8000/.{{r.recommandation}}" target="blank">Veuillez consulter le PDF déja défini, avant modification.</a>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row mb-3">
+                                    <label for="date_finale" class="col-sm-2 col-form-label">Date Finale</label>
+                                    <div class="col-sm-10">
+                                        <input type="date" class="form-control" name="date_finale" id="date_finale" value="{{r.date_finale|date: 'yyyy-MM-dd'}}" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Statut (par défaut)</label>
+                                    <div class="col-sm-10">
+                                        <select name="statut" id="statut" class="form-select" [(ngModel)]="r.statut" required>
+                                            <option value="exécuté">Executé</option>
+                                            <option  value="en cours">En cours</option>
+                                            <option selected value="non exécuté" >Non executé</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary" [disabled]="!recommandationForm.valid">Enregistrer</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Modifier -->
+        </tr>
+    </tbody>
+</table>
+<button class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Nouvelle recommandation</button>
+
+
+<!-- Modal ajout -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Ajouter une nouvelle recommandation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <form #recommandationForm=ngForm name="recommandationForm" (ngSubmit)="ajouter()" enctype="multipart/form-data">
+                    <div class="alert alert-danger" [hidden]="!error">
+                        {{error}}
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Titre</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="recommandation.titre" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputPassword3" class="col-sm-2 col-form-label">Recommandation</label>
+                        <div class="col-sm-10">
+                            <input type="file" (change)="uploadImage($event)" class="form-control" name="recommandation" id="file" [(ngModel)]="recommandation.recommandation" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputPassword3" class="col-sm-2 col-form-label">Date Finale</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" name="date_finale" id="inputPassword3" [(ngModel)]="recommandation.date_finale" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputPassword3" class="col-sm-2 col-form-label">Statut (par défaut)</label>
+                        <div class="col-sm-10">
+                            <select name="statut" id="statut" class="form-select" [(ngModel)]="recommandation.statut" required disabled>
+                                <option value="exécuté">Executé</option>
+                                <option  value="en cours">En cours</option>
+                                <option selected value="non exécuté" >Non executé</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" [disabled]="!recommandationForm.valid">Enregistrer</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal ajout-->

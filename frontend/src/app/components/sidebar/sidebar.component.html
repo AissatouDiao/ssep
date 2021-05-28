@@ -1,0 +1,118 @@
+<div *ngIf="loggedIn">
+
+    <div class="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-1.jpg">
+        <!--
+    Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+    Tip 2: you can also add an image using data-image tag
+ -->
+        <div class="logo"><a href="#" class="simple-text logo-normal">
+     SSEP / PNDL
+    </a></div>
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+
+                <li class="nav-item " routerLinkActive="">
+                    <a class="nav-link" data-toggle="collapse" routerLinkActive="active" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <i class="material-icons">person</i>
+                        <p>Utilisateurs</p>
+                    </a>
+
+                </li>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body bg-light">
+                        <a class="nav-link" routerLink="add-role">Gestion des roles</a>
+                        <hr>
+                        <a class="nav-link" routerLink="gestion-utilisateurs">Gestion des utilisateurs</a>
+                    </div>
+
+                </div>
+                <li class="nav-item " routerLinkActive="active">
+                    <a class="nav-link" routerLink="recommandations">
+                        <i class="material-icons">hourglass_empty</i> Gestion des recommandations
+                    </a>
+                </li>
+                <li class="nav-item " routerLinkActive="active">
+                    <a class="nav-link" routerLink="documents">
+                        <i class="material-icons">note_add</i> Gestion des documents partagés
+                    </a>
+                </li>
+
+
+
+                <li class="nav-item ">
+                    <a class="nav-link" href="./tables.html">
+                        <i class="material-icons">content_paste</i>
+                        <p>Gestion PTBA</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="./tables.html">
+                        <i class="material-icons">content_paste</i>
+                        <p>Gestion Chaines de valeurs</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="./tables.html">
+                        <i class="material-icons">content_paste</i>
+                        <p>Gestion pistes bavardes</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="./typography.html">
+                        <i class="material-icons">content_paste</i>
+                        <p>Gestion Partenaire du projet</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="./icons.html">
+                        <i class="material-icons">content_paste</i>
+                        <p>Gestion passations des marchés</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="./map.html">
+                        <i class="material-icons">content_paste</i>
+                        <p>Gestion et suivis des indicateurs</p>
+                    </a>
+                </li>
+
+                <li class="nav-item ">
+                    <a class="nav-link" href="./rtl.html">
+                        <i class="material-icons">content_paste</i>
+                        <p>Evaluation</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="./rtl.html">
+                        <i class="material-icons">content_paste</i>
+                        <p>Gestion des evaluations</p>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+
+
+</div>
+
+<div *ngIf="!loggedIn">
+    <div class="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-3.jpg ">
+        <!--
+    Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger "
+
+    Tip 2: you can also add an image using data-image tag
+ -->
+        <div class="logo "><a href="# " class="simple-text logo-normal ">SSEP / PNDL</a></div>
+        <div class="pt-4">
+            <img src="assets/img/meteo.png" />
+        </div>
+        <div class="m-5 p-2">
+            <p><i> {{ date |date :'fullDate'}}</i> </p><br>
+            <p><b>{{ date |date :'h:mm a z'}}</b></p>
+        </div>
+
+    </div>
+</div>

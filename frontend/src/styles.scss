@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~ng-snotify/styles/material';
+@import 'assets/css/material-dashboard-rtl.css';
+@import 'assets/css/material-dashboard.min.css';
+@import 'assets/demo/demo.css';
+.ng-invalid:not(form) {
+    border-left: 5px solid red;
+}
+
+.ng-valid:not(form) {
+    border-left: 5px solid green;
+}
