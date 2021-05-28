@@ -22,7 +22,7 @@ export class RequestResetComponent implements OnInit {
   }
 
   onSubmit() {
-    this.notify.info('Wait', { timeout: 5000 })
+    this.notify.info('Patientez...', { timeout: 5000 })
     this.jarwisService.sendPasswordResetLink(this.form).subscribe(
       data => this.handleResponse(data),
       error => this.notify.error(error.error.error)

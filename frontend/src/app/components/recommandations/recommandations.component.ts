@@ -71,10 +71,36 @@ export class RecommandationsComponent implements OnInit {
 
   //Supprimer recommandation.
   delete(id: any) {
-    this.jarwisService.deleterecommandation(id).subscribe(
-      (data: any) => { console.log(data); this.getRecommandations(); this.notify.success(data.message); },
-      error => console.log(error)
-    );
+
+
+
+    //notification et changement de statut.
+    this.notify.confirm('Voulez vous vraiment supprimer cette recommandation ?', 'Attention !Suppression de Recommandation ?', {
+      timeout: 0,
+      position: SnotifyPosition.rightTop,
+      showProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+
+      buttons: [
+        {
+          text: 'Oui',
+          action: () => {
+
+            this.jarwisService.deleterecommandation(id).subscribe(
+              (data: any) => { console.log(data); this.getRecommandations(); this.notify.success(data.message); },
+              error => console.log(error)
+            );
+
+          }, bold: false
+        },
+        {
+          text: 'Non',
+          action: () =>
+            this.notify.info('Suppression annulée !')
+        },
+      ]
+    });
   }
 
   changeStatut(e: any, r: any) {
@@ -82,7 +108,7 @@ export class RecommandationsComponent implements OnInit {
     let statut = {
       id: r.id,
       statut: e.target.value
-    }
+    };
 
     //notification et changement de statut.
     this.notify.confirm('Voulez vous vraiment changer le statut de la recommandation?', 'Changer statut ?', {
@@ -138,15 +164,11 @@ export class RecommandationsComponent implements OnInit {
       data => {
         console.log(data); this.notify.success('Modification effectuée avec succés !'); this.getRecommandations();
         window.location.reload();
-
-
       },
-      error => { console.log(error); this.handleError1(error) }
+      error => { console.log(error); this.notify.error('Modification non effective. Veuillez revoir les formats des données entrées. ') }
     );
   }
-  handleError1(error: any) {
-    this.notify.error(error.error.error);
-  }
+
 
 
 }

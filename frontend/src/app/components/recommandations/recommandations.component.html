@@ -65,9 +65,10 @@
                                     <label for="inputPassword3" class="col-sm-2 col-form-label text-break">Recommandation</label>
                                     <div class="col-sm-10">
                                         <input type="file" class="form-control" name="recommandation" (change)="uploadImage1($event)" id="file1" [(ngModel)]="r.recommandation">
+                                        <div class="text-left"> (.pdf ou .docx seulement)</div>
                                     </div>
                                     <div class="text-center">
-                                        <a href="http://localhost:8000/.{{r.recommandation}}" target="blank">Veuillez consulter le PDF déja défini, avant modification.</a>
+                                        <a href="http://localhost:8000/.{{r.recommandation}}" target="blank">Veuillez consulter ici le PDF déja défini, avant modification.</a>
                                     </div>
                                 </div>
                                 <br>
@@ -78,7 +79,7 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Statut (par défaut)</label>
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Statut </label>
                                     <div class="col-sm-10">
                                         <select name="statut" id="statut" class="form-select" [(ngModel)]="r.statut" required>
                                             <option value="exécuté">Executé</option>
@@ -127,9 +128,10 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="inputPassword3" class="col-sm-2 col-form-label">Recommandation</label>
+                        <label for="inputPassword3" class="col-sm-2 col-form-label text-break">Recommandation</label>
                         <div class="col-sm-10">
                             <input type="file" (change)="uploadImage($event)" class="form-control" name="recommandation" id="file" [(ngModel)]="recommandation.recommandation" required>
+                            <div class="text-left"> (.pdf ou .docx seulement)</div>
                         </div>
                     </div>
                     <div class="row mb-3">

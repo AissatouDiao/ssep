@@ -38,7 +38,7 @@ class RecommandationController extends Controller
     public function delete($request){
         $recommandation= Recommandation::find($request);
         $recommandation->delete();
-        return response()->json(["data" => "suppressonn recommandation effective!"]); 
+        return response()->json(["message" => "suppression recommandation effective!"]); 
         
     }
 
@@ -70,7 +70,7 @@ class RecommandationController extends Controller
 
             return response()->json([
                 "message"=>"recommandation avec nouveau document mis à jour avec succès  !",
-                 "error"=>"La recommandation n'a pu être effectuée, veuillez revoir les données remplies."
+                 "error"=>"La recommandation n'a pu être mise à jour, veuillez revoir les données remplies."
             ]); }
        }
 
@@ -83,7 +83,7 @@ class RecommandationController extends Controller
        $recommandation->save();
        return response()->json([
            "message"=>"recommandation mis à jour avec succès !",
-            "error"=>"La recommandation n'a pu être effectuée, veuillez revoir les données remplies."
+            "error"=>"La recommandation n'a pu être mise à jour, veuillez revoir les données remplies."
        ]);
 
     }
