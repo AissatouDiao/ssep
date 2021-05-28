@@ -69,8 +69,8 @@ class RecommandationController extends Controller
            $recommandation->save();
 
             return response()->json([
-                "message"=>"recommandation mis à jour avec succès  2!",
-                 "recommandation"=>$recommandation
+                "message"=>"recommandation avec nouveau document mis à jour avec succès  !",
+                 "error"=>"La recommandation n'a pu être effectuée, veuillez revoir les données remplies."
             ]); }
        }
 
@@ -83,7 +83,7 @@ class RecommandationController extends Controller
        $recommandation->save();
        return response()->json([
            "message"=>"recommandation mis à jour avec succès !",
-            "recommandation"=>$recommandation
+            "error"=>"La recommandation n'a pu être effectuée, veuillez revoir les données remplies."
        ]);
 
     }
@@ -97,7 +97,10 @@ class RecommandationController extends Controller
         $recommandation=Recommandation::find($request->id);
         $recommandation->statut=$request->statut;
         $recommandation->save();
-        return response()->json(["message" => "recommandation mis à jour"]); 
+        return response()->json([
+            "message" => "recommandation mis à jour",
+            
+            ]); 
     }
 }
 

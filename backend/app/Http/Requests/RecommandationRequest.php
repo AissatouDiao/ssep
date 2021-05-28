@@ -25,7 +25,7 @@ class RecommandationRequest extends FormRequest
     {
         return [
             'titre'=>'required',
-            'recommandation.*'=>'required|file|mimes:csv,txt,xlx,xls,pdf|max:2048',
+            'recommandation'=>'required|file|mimes:docx,pdf|max:2048',
             'date_finale'=>'required',
             'statut'=>'required'
         ];

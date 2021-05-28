@@ -72,7 +72,7 @@ export class RecommandationsComponent implements OnInit {
   //Supprimer recommandation.
   delete(id: any) {
     this.jarwisService.deleterecommandation(id).subscribe(
-      data => { console.log(data); this.getRecommandations(); },
+      (data: any) => { console.log(data); this.getRecommandations(); this.notify.success(data.message); },
       error => console.log(error)
     );
   }
