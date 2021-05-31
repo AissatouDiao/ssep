@@ -1,5 +1,6 @@
 import { NullVisitor } from '@angular/compiler/src/render3/r3_ast';
 import { asNativeElements, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { SnotifyPosition, SnotifyService } from 'ng-snotify';
 import { JarwisService } from 'src/app/services/jarwis.service';
 
 @Component({
@@ -21,7 +22,8 @@ export class AddRolesComponent implements OnInit {
 
   role: any
 
-  constructor(private jarwisService: JarwisService, hoElement: ElementRef) {
+  constructor(private jarwisService: JarwisService, hoElement: ElementRef,
+    private notify: SnotifyService) {
 
 
   }
@@ -30,11 +32,8 @@ export class AddRolesComponent implements OnInit {
 
 
   ngOnInit(): void {
-    //recuperation des roles
-    this.jarwisService.getRoles().subscribe(
-      data => { console.log(data); this.roles = data; },
-      error => console.log(error)
-    );
+
+    this.getRoles();
     //recuperation des modules
     this.jarwisService.getModules().subscribe(
       data => { console.log(data); this.modules = data; },
@@ -42,13 +41,23 @@ export class AddRolesComponent implements OnInit {
     );
 
   }
+  getRoles() {
+    //recuperation des roles
+    this.jarwisService.getRoles().subscribe(
+      data => { console.log(data); this.roles = data; },
+      error => console.log(error)
+    );
+  }
 
   onSubmit() {
     this.jarwisService.addRole(this.form).subscribe(
       data => {
-        console.log(data); //window.location.reload();
+        console.log(data);
+        this.getRoles();
+        //window.location.reload();
         this.role = data
         this.table1 = false;
+
 
       },
       error => console.log(error)
@@ -93,12 +102,43 @@ export class AddRolesComponent implements OnInit {
     );
 
 
-    if (i == 5) {
+    if (i == 9) {
       window.location.reload();
     }
   }
 
+  delete(id: any) {
 
+
+    //notification et changement de statut.
+    this.notify.confirm('Voulez vous vraiment supprimer ce rôle ?', 'Attention !Suppression de rôle ?', {
+      timeout: 0,
+      position: SnotifyPosition.rightTop,
+      showProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+
+      buttons: [
+        {
+          text: 'Oui',
+          action: () => {
+            this.jarwisService.deleterole(id).subscribe(
+              (data: any) => { this.getRoles(); this.notify.success(data.message); },
+              error => console.log(error)
+            );
+
+
+
+          }, bold: false
+        },
+        {
+          text: 'Non',
+          action: () =>
+            this.notify.info('Suppression annulée !')
+        },
+      ]
+    });
+  }
 
 
 

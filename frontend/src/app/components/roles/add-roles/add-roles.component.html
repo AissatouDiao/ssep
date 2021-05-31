@@ -1,235 +1,200 @@
 <div class="container">
-    <h4 class="text-center"> Ajouter le nom du rôle </h4><br>
-    <form #addRoleForm=ngForm (ngSubmit)="onSubmit()">
 
 
-        <div class="row mb-3">
-            <label for="inputEmail3" class="col-sm-2 col-form-label">Nom du role</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" name="libelle_roles" id="inputEmail3" [(ngModel)]="form.libelle_role" required>
+
+
+
+
+
+    <div id="accordion">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+               Nouveau rôle et permissions.
+              </button>
+                </h5>
             </div>
-        </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    <h4 class="text-center"> Ajouter le nom du rôle </h4><br>
+                    <form #addRoleForm=ngForm (ngSubmit)="onSubmit()">
 
 
-
-
-        <div class="form-group row">
-
-            <div class="col-sm-10 offset-2">
-                <button type="submit" class="btn btn-primary" [disabled]="!addRoleForm.valid">Add a new role</button>
-
-            </div>
-        </div>
-
-    </form><br><br>
-
-    <div *ngIf="role!=null">
-        <span *ngIf="role|keyvalue">Role ajouté :{{role[0]['id']}}</span>
-    </div>
-
-
-    <h4 class="text-center"> Ajouter les modules et permissions</h4><br>
-
-
-    <!--<div *ngFor="let m of modules; let i = index;">
-        <div id="accordion">
-            <div class="card">
-                <div class="card-header" id="h{{m.id}}">
-                    <h5 class="mb-0">
-                        <div class="btn btn-link" data-toggle="collapse" attr.data-target="#{{m.id}}" aria-expanded="false" attr.aria-controls="{{m.id}}">
-                            {{m.libelle_module}}
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Nom du role</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="libelle_roles" id="inputEmail3" [(ngModel)]="form.libelle_role" required>
+                            </div>
                         </div>
-                    </h5>
-                </div>
 
-                <div id="{{m.id}}" class="collapse show" attr.aria-labelledby="{{m.id}}" data-parent="#accordion">
-                    <div class="card-body">
-                        <form action="" class="text-center">
-                            <div class="form-check p-3">
-                                Ajouter lecture
-                                <label class="form-check-label">
-                                    <input class="form-check-input form-control" type="checkbox" attr.name="lire{{m.id}}" id="l{{m.id}}"
-                                    [(ngModel)]="fake_permissions.permissions_to_module.lire" [ngModelOptions]="{standalone: true}">
-                                    <span class="form-check-sign">
-                                    <span class="check"></span>
-                                    </span>
-                                </label>
-                            </div>
-                            <div class=" form-check  ">
-                                Activer l'ajout
-                                <label class="form-check-label">
-                                    <input class="form-check-input form-control" type="checkbox" attr.name="ajouter{{m.id}}" id="a{{m.id}}" 
-                                    [(ngModel)]="fake_permissions[i].permissions_to_module.ajouter" [ngModelOptions]="{standalone: true}">
-                                    <span class="form-check-sign">
-                                    <span class="check"></span>
-                                    </span>
-                                </label>
+
+
+
+                        <div class="form-group row">
+
+                            <div class="col-sm-10 offset-2">
+                                <button type="submit" class="btn btn-primary" [disabled]="!addRoleForm.valid">Ajouter un nouveau rôle</button>
 
                             </div>
-                            <div class="form-check ">
-                                Activer la modification
-                                <label class="form-check-label">
-                                    <input class="form-check-input form-control" type="checkbox" attr.name="modifier{{m.id}} " id="m{{m.id}} " 
-                                    [(ngModel)]="fake_permissions[i].permissions_to_module.modifier" [ngModelOptions]="{standalone: true}">
-                                    <span class="form-check-sign">
-                                    <span class="check"></span>
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-check ">
-                                Activer la suppression
-                                <label class="form-check-label">
-                                    <input class="form-check-input form-control" type="checkbox" attr.name="s{{m.id}}" id="s{{m.id}} "
-                                    [(ngModel)]="fake_permissions[i].permissions_to_module.supprimer" [ngModelOptions]="{standalone: true}">
-                                    <span class="form-check-sign">
-                                    <span class="check"></span>
-                                    </span>
-                                </label>
-                            </div>
-                            <button type="submit">
-                                Save
-                            </button>
-                        </form>
+                        </div>
+
+                    </form><br><br>
+
+                    <div *ngIf="role!=null">
+                        <span *ngIf="role|keyvalue">Role ajouté :{{role[0]['id']}}</span>
                     </div>
+
+
+                    <h4 class="text-center"> Ajouter les modules et permissions</h4><br>
+
+
+
+                    <table class="table table-dark" [hidden]="table1">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Modules</th>
+                                <th scope="col">Permissions</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let m of modules; let i =index">
+                                <td>{{m.id}}</td>
+                                <td>{{m.libelle_module}}</td>
+                                <td>
+
+                                    <form action="">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class=" form-control" type="hidden" attr.value="{{m.id}}" name="module_id" id="{{m.id}}" />
+                                                <span class="">
+                                                <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div class="form-check" *ngIf="role!=null">
+                                            <label class="form-check-label">
+                                                <input class=" form-control" type="hidden" attr.value="{{role[0]['id']}}" name="role_id"id="{{role[0]['id']}}"  />
+                                                <span class="">
+                                                <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            Ajouter lecture
+                                            <label class="form-check-label">
+                                                <input class="form-check-input form-control" type="checkbox" name="lecture" id="lecture"/>
+                                                <span class="form-check-sign">
+                                                <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div class=" form-check  ">
+                                            Activer l'ajout
+                                            <label class="form-check-label">
+                                                <input class="form-check-input form-control" type="checkbox" name="ajout" id="ajout" />
+                                                <span class="form-check-sign">
+                                                <span class="check"></span>
+                                                </span>
+                                            </label>
+
+                                        </div>
+                                        <div class="form-check ">
+                                            Activer la modification
+                                            <label class="form-check-label">
+                                                <input class="form-check-input form-control" type="checkbox" name="modification" id="modification" />
+                                                <span class="form-check-sign">
+                                                <span class="check"></span>
+                                                </span>
+                                           </label>
+                                        </div>
+                                        <div class="form-check ">
+                                            Activer la suppression
+                                            <label class="form-check-label">
+                                                <input class="form-check-input form-control" type="checkbox" name="suppression" id="suppression" />
+                                                <span class="form-check-sign">
+                                                <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary text-center" name="buttontable" (click)="onIn(i)" [disabled]="button_table">valider pour {{m.libelle_module}}</button>
+                                    </form>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+
+                    </table><br>
+
+                    <table class="table table-dark" [hidden]="!table1">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+
+                                <th scope="col">Permissions</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>0</td>
+                                <td>(Ajouter un rôle pour ajouter les permissions pour chaque module)</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-
         </div>
-    </div><br>-->
-    <table class="table table-dark" [hidden]="table1">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Modules</th>
-                <th scope="col">Permissions</th>
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Gestion des rôles.
+              </button>
+                </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                    <!--Table of roles-->
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td>
+                                    #
+                                </td>
+                                <td>
+                                    Nom role
+                                </td>
+                                <td>
+                                    options
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let r of roles">
+                                <td>{{r.id}}</td>
+                                <td>{{r.libelle_role}}</td>
+                                <td class="td-actions ">
+                                    <button type="button" rel="tooltip" title="Modifier role" data-toggle="modal" data-target="#exampleModalCenter1" class="btn btn-primary btn-link btn-sm">
+                                        <i class="material-icons">edit</i>
+                                    </button>
+                                    <button type="button" rel="tooltip" title="Supprimer role" (click)="delete(r.id)" class="btn btn-danger btn-link btn-sm">
+                                        <i class="material-icons">close</i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- Fin Table of roles-->
+                </div>
+            </div>
+        </div>
 
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let m of modules; let i =index">
-                <td>{{m.id}}</td>
-                <td>{{m.libelle_module}}</td>
-                <td>
-
-                    <form action="">
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input class=" form-control" type="hidden" attr.value="{{m.id}}" name="module_id" id="{{m.id}}" />
-                                <span class="">
-                                <span class="check"></span>
-                                </span>
-                            </label>
-                        </div>
-                        <div class="form-check" *ngIf="role!=null">
-                            <label class="form-check-label">
-                                <input class=" form-control" type="hidden" attr.value="{{role[0]['id']}}" name="role_id"id="{{role[0]['id']}}"  />
-                                <span class="">
-                                <span class="check"></span>
-                                </span>
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            Ajouter lecture
-                            <label class="form-check-label">
-                                <input class="form-check-input form-control" type="checkbox" name="lecture" id="lecture"/>
-                                <span class="form-check-sign">
-                                <span class="check"></span>
-                                </span>
-                            </label>
-                        </div>
-                        <div class=" form-check  ">
-                            Activer l'ajout
-                            <label class="form-check-label">
-                                <input class="form-check-input form-control" type="checkbox" name="ajout" id="ajout" />
-                                <span class="form-check-sign">
-                                <span class="check"></span>
-                                </span>
-                            </label>
-
-                        </div>
-                        <div class="form-check ">
-                            Activer la modification
-                            <label class="form-check-label">
-                                <input class="form-check-input form-control" type="checkbox" name="modification" id="modification" />
-                                <span class="form-check-sign">
-                                <span class="check"></span>
-                                </span>
-                           </label>
-                        </div>
-                        <div class="form-check ">
-                            Activer la suppression
-                            <label class="form-check-label">
-                                <input class="form-check-input form-control" type="checkbox" name="suppression" id="suppression" />
-                                <span class="form-check-sign">
-                                <span class="check"></span>
-                                </span>
-                            </label>
-                        </div>
-                        <button type="submit" class="btn btn-primary text-center" name="buttontable" (click)="onIn(i)" [disabled]="button_table">valider pour {{m.libelle_module}}</button>
-                    </form>
-                </td>
-            </tr>
-
-        </tbody>
-
-
-    </table><br>
-
-    <table class="table table-dark" [hidden]="!table1">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-
-                <th scope="col">Permissions</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>0</td>
-                <td>(Ajouter un rôle pour ajouter les permissions pour chaque module)</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <h4 class="text-center"> Gestion des roles</h4><br>
-    <!--Table of roles-->
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <td>
-                    #
-                </td>
-                <td>
-                    Nom role
-                </td>
-                <td>
-                    options
-                </td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let r of roles">
-                <td>{{r.id}}</td>
-                <td>{{r.libelle_role}}</td>
-                <td class="td-actions ">
-                    <button type="button" rel="tooltip" title="Modifier role" data-toggle="modal" data-target="#exampleModalCenter1" class="btn btn-primary btn-link btn-sm">
-                        <i class="material-icons">edit</i>
-                    </button>
-                    <button type="button" rel="tooltip" title="Supprimer role" class="btn btn-danger btn-link btn-sm">
-                        <i class="material-icons">close</i>
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <!-- Fin Table of roles-->
-
-
-
-
-
-
+    </div>
 
 
 

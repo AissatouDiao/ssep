@@ -9,8 +9,8 @@ import { JarwisService } from 'src/app/services/jarwis.service';
 export class ProfileComponent implements OnInit {
   user: any; password: any; password1 = { id: null, password: null, confirm_password: null }
   constructor(private jarwisService: JarwisService) {
-    let ho: any = localStorage.getItem('data');
-    this.user = JSON.parse(ho);
+    let data_user: any = localStorage.getItem('data');
+    this.user = JSON.parse(data_user);
 
   }
 
@@ -20,7 +20,6 @@ export class ProfileComponent implements OnInit {
     let ha: any = localStorage.getItem('password');
     this.password = JSON.parse(ha);
 
-    console.log(this.password.password);
   }
 
   updateProfile(user: any) {

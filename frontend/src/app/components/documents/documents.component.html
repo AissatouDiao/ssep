@@ -1,1 +1,140 @@
-<p>documents works!</p>
+<table class="table bg-white">
+    <thead class="table-dark">
+        <tr>
+            <td>#</td>
+            <td>Nom</td>
+            <td>Document</td>
+            <td>Date création</td>
+            <td>Mise en ligne par</td>
+            <td>Options</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let d of documents">
+
+            <td>{{d.id}}</td>
+            <td>{{d.titre}}</td>
+            <td>{{d.documentpartage}}
+                <div>
+                    <a href="http://localhost:8000/.{{d.documentpartage}}" target="blank">Consulter le PDF</a>
+                </div>
+            </td>
+            <td>{{d.created_at|date:'d-MM-y' }}</td>
+            <td>
+                <div *ngFor="let u of users">
+                    <div *ngIf="u.id==d.user_id">{{u.surname}} {{u.name}}</div>
+                </div>
+            </td>
+            <td class="td-actions text-right float-right">
+                <button type="button" rel="tooltip" title="Modifier document" data-toggle="modal" attr.data-target="#m{{d.id}}" class="btn btn-primary btn-link btn-sm">
+                    <i class="material-icons">edit</i>
+                </button>
+                <button type="button" rel="tooltip" title="Supprimer recommansation" (click)="delete(d.id)" class="btn btn-danger btn-link btn-sm">
+                    <i class="material-icons">close</i>
+                </button>
+            </td>
+            <!-- Modal Modifier -->
+            <div class="modal fade" id="m{{d.id}}" tabindex="-1" role="dialog" attr.aria-labelledby="m{{d.id}}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Modifier la document {{d.titre}}.</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form #documentForm=ngForm name="documentForm" (ngSubmit)="update(d)" enctype="multipart/form-data">
+                                <div class="alert alert-danger" [hidden]="!error">
+                                    {{error}}
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Titre</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="d.titre" required>
+                                    </div>
+                                </div><br>
+                                <div class="row mb-3">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label text-break">Document</label>
+                                    <div class="col-sm-10">
+                                        <input type="file" class="form-control" name="documentpartage" (change)="uploadDocument1($event)" id="file1" [(ngModel)]="d.documentpartage">
+                                        <div class="text-left"> (.pdf ou .docx seulement)</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <a href="http://localhost:8000/.{{d.documentpartage}}" target="blank">Veuillez consulter ici le PDF déja défini, avant modification.</a>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row mb-3">
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="user_id" id="user_id" value="{{d.user_id}}" [(ngModel)]="d.user_id" hidden required>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary" [disabled]="!documentForm.valid">Enregistrer</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Modifier -->
+
+        </tr>
+    </tbody>
+</table>
+<button class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Nouvelle document</button>
+
+
+<!-- Modal ajout -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Ajouter une nouvelle document</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <form #documentForm=ngForm name="documentForm" (ngSubmit)="ajouter()" enctype="multipart/form-data">
+                    <div class="alert alert-danger" [hidden]="!error">
+                        {{error}}
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Titre</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="document.titre" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputPassword3" class="col-sm-2 col-form-label text-break">Document</label>
+                        <div class="col-sm-10">
+                            <input type="file" (change)="uploadDocument($event)" class="form-control" name="document" id="file" [(ngModel)]="document.documentpartage" required>
+                            <div class="text-left"> (.pdf ou .docx seulement)</div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="user_id" id="user_id" [(ngModel)]="user.id" hidden required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" [disabled]="!documentForm.valid">Enregistrer</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal ajout-->

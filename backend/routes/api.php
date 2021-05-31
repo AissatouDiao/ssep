@@ -7,6 +7,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\RecommandationController;
+use App\Http\Controllers\PartagedocumentController;
+use App\Http\Controllers\DocumentsevaluationController;
 Use App\Http\Controllers\AuthController;
 
 /*
@@ -43,6 +45,7 @@ Route::group([
     Route::post('resetPassword',[ChangePasswordController::class,'process']);
     Route::post('addRole',[RoleController::class,'addRole']);
     Route::get('getRoles',[RoleController::class,'getroles']);
+    Route::delete('deleteRole/{id}',[RoleController::class,'delete']);
     Route::get('getModules',[RoleController::class,'getmodules']);
     Route::post('addpermissions',[RoleController::class,'addpermissions']);
     Route::get('getUsers',[UserController::class,'getusers']);
@@ -56,6 +59,14 @@ Route::group([
     Route::delete('deleteRecommandation/{id}',[RecommandationController::class,'delete']);
     Route::post('updaterecommandation',[RecommandationController::class,'update']); 
     Route::post('changestatutrecommandation',[RecommandationController::class,'changeStatut']);
-   
-
+   //Partagedocuments
+    Route::post('adddocument',[PartagedocumentController::class,'add']);
+    Route::get('getdocuments', [PartagedocumentController::class,'getDocumentpartages']);
+    Route::delete('deleteDocument/{id}',[PartagedocumentController::class,'delete']);
+    Route::post('updatedocument',[PartagedocumentController::class,'update']); 
+   //Evaluations
+    Route::post('addevaluation',[DocumentsevaluationController::class,'add']);
+    Route::get('getevaluations', [DocumentsevaluationController::class,'getEvaluations']);
+    Route::delete('deleteEvaluation/{id}',[DocumentsevaluationController::class,'delete']);
+    Route::post('updateevaluation',[DocumentsevaluationController::class,'update']); 
 });

@@ -30,6 +30,8 @@ export class AppComponent {
     // this.authService.changeAuthStatus(false);
     event.preventDefault();
     this.tokenService.remove();
+    localStorage.clear();
+    window.location.reload();
     this.route.navigateByUrl('/login');
 
 

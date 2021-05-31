@@ -42,10 +42,16 @@ export class JarwisService {
     return this.http.post(`${this.baseUrl}/addRole`, data)
   }
 
-  //Recuperer tous les rôles dans la base de données
+  //Recuperer tous les rôles dans la base de données   
   getRoles() {
     return this.http.get(`${this.baseUrl}/getRoles`);
   }
+
+  //supprimer role
+  deleterole(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteRole/` + data);
+  }
+
 
   //recuperer toutes les noms de modules dans la base
   getModules() {
@@ -103,6 +109,24 @@ export class JarwisService {
   //Ajouter une nouvelle recommandation
   changeStatutRecommandation(data: object) {
     return this.http.post(`${this.baseUrl}/changestatutrecommandation`, data)
+  }
+
+  //Recuperer tous les documents partagés dans la base de données
+  getDocuments() {
+    return this.http.get(`${this.baseUrl}/getdocuments`);
+  }
+  //Ajouter un nouveau document
+  addDocument(data: object) {
+    return this.http.post(`${this.baseUrl}/adddocument`, data, { responseType: 'blob' });
+  }
+  //update document
+  updateDocument(data: object) {
+    return this.http.post(`${this.baseUrl}/updatedocument`, data)
+  }
+
+  //supprimer document
+  deletedocument(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteDocument/` + data);
   }
 
 }

@@ -43,7 +43,7 @@ export class RecommandationsComponent implements OnInit {
 
   //Ajouter une nouvelle recommandation.
   files: any
-  uploadImage(event: any) {
+  uploadDocument(event: any) {
     this.files = event.target.files[0];
     console.log(this.files)
   }
@@ -143,7 +143,7 @@ export class RecommandationsComponent implements OnInit {
   //Mettre à jour une recommendation.
 
   files1: any
-  uploadImage1(event: any) {
+  uploadDocument1(event: any) {
     this.files1 = event.target.files[0];
     console.log(this.files1)
   }

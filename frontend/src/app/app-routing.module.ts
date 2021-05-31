@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { GestionsutilisateursComponent } from './compenents/gestionsutilisateurs/gestionsutilisateurs.component';
 import { DocumentsComponent } from './components/documents/documents.component';
+import { DocumentsevaluationsComponent } from './components/documentsevaluations/documentsevaluations.component';
 import { LoginComponent } from './components/login/login.component';
 import { Module1Component } from './components/module1/module1.component';
 import { Module2Component } from './components/module2/module2.component';
@@ -60,6 +61,10 @@ const routes: Routes = [
   },
   {
     path: 'recommandations', component: RecommandationsComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'documents-evaluations', component: DocumentsevaluationsComponent,
     canActivate: [AfterloginService]
   },
 

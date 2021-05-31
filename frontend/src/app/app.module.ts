@@ -18,6 +18,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { GestionsutilisateursComponent } from './compenents/gestionsutilisateurs/gestionsutilisateurs.component';
 import { DocumentsComponent } from './components/documents/documents.component';
 import { RecommandationsComponent } from './components/recommandations/recommandations.component';
+import { DocumentsevaluationsComponent } from './components/documentsevaluations/documentsevaluations.component';
 
 
 
@@ -35,6 +36,7 @@ import { RecommandationsComponent } from './components/recommandations/recommand
     GestionsutilisateursComponent,
     DocumentsComponent,
     RecommandationsComponent,
+    DocumentsevaluationsComponent,
 
   ],
   imports: [

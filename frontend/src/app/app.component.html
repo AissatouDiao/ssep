@@ -12,10 +12,15 @@
             <div class="container-fluid">
 
                 <div class="navbar-wrapper">
-                    <a class="navbar-brand" href="javascript:;" *ngIf="loggedIn">Système de suivi et d'évaluation du PDZP /PNDL</a>
+                    <h2>
+                        <a class="navbar-brand" href="javascript:;" *ngIf="loggedIn">
+                        Système de suivi et d'évaluation du PDZP /PNDL</a>
+                    </h2>
                 </div>
                 <div class="text-left">
-                    <a class="navbar-brand " href="javascript:;" *ngIf="!loggedIn">Système de suivi et d'évaluation du PDZP /PNDL</a>
+                    <h2>
+                        <a class="navbar-brand " href="javascript:;" *ngIf="!loggedIn">Système de suivi et d'évaluation du PDZP /PNDL</a>
+                    </h2>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="sr-only">Toggle navigation</span>
@@ -50,6 +55,10 @@
 
 
         <router-outlet></router-outlet>
+        <div class="text-center" style="margin: 30%;" hidden>
+            <h1 class=""></h1><br>
+            <h1> <b>😩 404 NOT FOUND.</b> </h1>
+        </div>
 
     </div>
 

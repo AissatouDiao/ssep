@@ -54,8 +54,6 @@ class RoleController extends Controller
 
     public function addpermissions(AddPermissionsRequest $request){
     
-    
-    
         Permission::create([
             'module_id'=>$request->module_id,
             'role_id'=>$request->role_id,
@@ -66,4 +64,12 @@ class RoleController extends Controller
             "error"=>$request
         ]);
     }
+
+    public function delete($request){
+        $role= Role::find($request);
+        $role->delete();
+        return response()->json(["message" => "suppression rôle effective!"]); 
+        
+    }
 }
+
