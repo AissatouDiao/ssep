@@ -10,7 +10,7 @@ import { JarwisService } from 'src/app/services/jarwis.service';
 export class DocumentsComponent implements OnInit {
   documents: any; error: any; user: any; users: any;
 
-  document = {//Pour ajouter une recommandation
+  document = {
     titre: '',
     user_id: '',
     documentpartage: <any>null,

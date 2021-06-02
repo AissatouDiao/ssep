@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Documentsevaluation;
 use App\Http\Requests\DocumentevaluationRequest;
 
 class DocumentsevaluationController extends Controller
@@ -10,7 +11,7 @@ class DocumentsevaluationController extends Controller
       //documentpartage
       public function add(DocumentevaluationRequest $request){
       
-        $document = $request->file('documentpartage');
+        $document = $request->file('evaluation');
         $path;
             
         if($document){

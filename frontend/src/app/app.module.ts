@@ -19,6 +19,8 @@ import { GestionsutilisateursComponent } from './compenents/gestionsutilisateurs
 import { DocumentsComponent } from './components/documents/documents.component';
 import { RecommandationsComponent } from './components/recommandations/recommandations.component';
 import { DocumentsevaluationsComponent } from './components/documentsevaluations/documentsevaluations.component';
+import { NotfoundComponent } from './notfound/notfound.component';
+import { PtbaComponent } from './components/ptba/ptba.component';
 
 
 
@@ -37,6 +39,8 @@ import { DocumentsevaluationsComponent } from './components/documentsevaluations
     DocumentsComponent,
     RecommandationsComponent,
     DocumentsevaluationsComponent,
+    NotfoundComponent,
+    PtbaComponent,
 
   ],
   imports: [

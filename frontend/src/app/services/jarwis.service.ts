@@ -129,4 +129,22 @@ export class JarwisService {
     return this.http.delete(`${this.baseUrl}/deleteDocument/` + data);
   }
 
+  //Recuperer tous les evaluations partagés dans la base de données
+  getEvaluations() {
+    return this.http.get(`${this.baseUrl}/getevaluations`);
+  }
+  //Ajouter un nouveau evaluation
+  addEvaluation(data: object) {
+    return this.http.post(`${this.baseUrl}/addevaluation`, data, { responseType: 'blob' });
+  }
+  //update evaluation
+  updateEvaluation(data: object) {
+    return this.http.post(`${this.baseUrl}/updateevaluation`, data)
+  }
+
+  //supprimer evaluation
+  deleteEvaluation(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteEvaluation/` + data);
+  }
+
 }

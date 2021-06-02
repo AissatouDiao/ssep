@@ -14,6 +14,7 @@ import { AddRolesComponent } from './components/roles/add-roles/add-roles.compon
 import { SignupComponent } from './components/signup/signup.component';
 import { AfterloginService } from './services/afterlogin.service';
 import { BeforeloginService } from './services/beforelogin.service';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 const routes: Routes = [
 
@@ -21,6 +22,12 @@ const routes: Routes = [
     path: 'login', component: LoginComponent,
     canActivate: [BeforeloginService]
   },
+
+  {
+    path: '', redirectTo: 'login', pathMatch: 'full'
+  },
+  { path: '404-page-non-trouvee', component: NotfoundComponent },
+  { path: '***', redirectTo: '/404-page-non-trouvee' },
   {
     path: 'signup', component: SignupComponent,
     canActivate: [BeforeloginService]
