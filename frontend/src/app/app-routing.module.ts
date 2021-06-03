@@ -15,6 +15,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { AfterloginService } from './services/afterlogin.service';
 import { BeforeloginService } from './services/beforelogin.service';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { PtbaComponent } from './components/ptba/ptba.component';
 
 const routes: Routes = [
 
@@ -74,7 +75,10 @@ const routes: Routes = [
     path: 'documents-evaluations', component: DocumentsevaluationsComponent,
     canActivate: [AfterloginService]
   },
-
+  {
+    path: 'gestion-ptba', component: PtbaComponent,
+    canActivate: [AfterloginService]
+  },
 ];
 
 @NgModule({

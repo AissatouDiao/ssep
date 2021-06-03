@@ -1,3 +1,13 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <i class="material-icons pr-1 ">person</i>
+        <li class="breadcrumb-item">
+            <p class=""> Utilisateurs</p>
+        </li>
+        <li class="breadcrumb-item text-primary active" aria-current="page">Gestion des utilisateurs</li>
+    </ol>
+</nav>
+
 <div class="card">
     <!-- Button trigger modal -->
 
@@ -17,7 +27,8 @@
                     <tbody>
                         <tr *ngFor="let user of users">
 
-                            <td data-toggle="modal" attr.data-target='#m{{user.id}}'>{{user.name}}</td>
+                            <td><a href="#" class="nav-link text-capitalize" data-toggle="modal" attr.data-target='#m{{user.id}}'>{{user.surname}} {{user.name}}</a>
+                            </td>
                             <td class="td-actions text-right float-right">
                                 <button type="button" rel="tooltip" title="Modifier utilisateur" data-toggle="modal" attr.data-target='#m1{{user.id}}' class="btn btn-primary btn-link btn-sm">
                                     <i class="material-icons">edit</i>
@@ -30,16 +41,22 @@
                             <div class="modal fade" id="m{{user.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title text-center" id="{{user.id}}">Informations de l'utilisateur</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                        <div class="card-header card-header-primary text-center">
+                                            <div class="modal-header">
+
+                                                <h5 class="modal-title text-center" id="{{user.id}}">Informations de l'utilisateur</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
                                         </div>
                                         <div class="modal-body">
-                                            <span>ID : {{user.id}}</span><br>
-                                            <span>Nom : {{user.name}}</span><br>
-                                            <span>Email : {{user.email}}</span>
+                                            <span> <b> ID</b> :  {{user.id}}</span><br>
+                                            <span>  <b>Nom</b>: {{user.name}}</span><br>
+                                            <span> <b>Prenom</b>: {{user.surname}}</span><br>
+                                            <span> <b>Email</b>  : {{user.email}}</span><br>
+                                            <span> <b>Telephone</b>  : {{user.phonenumber}}</span><br>
+                                            <span> <b>Adresse</b>: {{user.adress}}</span><br>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -53,11 +70,15 @@
                             <div class="modal fade" id="m1{{user.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Modification du rôle de l'utilisateur</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+
+
+                                        <div class="card-header card-header-primary text-center">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Modification du rôle de l'utilisateur</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                               <span aria-hidden="true">&times;</span>
+                                               </button>
+                                            </div>
                                         </div>
                                         <form #signupForm=ngForm (ngSubmit)="onSubmit1(user)">
 
@@ -139,106 +160,111 @@
 
 
 <!-- Modal inscripion-->
-<div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Ajout d'un nouveau utilisateur</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-            </div>
+<div class="card">
+    <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
 
-            <form #signupForm=ngForm (ngSubmit)="onSubmit()">
+                <div class="card-header card-header-primary text-center">
+                    <div class="modal-header">
 
-                <div class="modal-body">
-                    <div class="row mb-3">
-                        <label for="inputName3" class="col-sm-2 col-form-label">Nom</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="name" id="inputName3" [(ngModel)]="form.name" required>
-                            <div class="alert alert-danger" [hidden]="!error.name">
-                                {{error.name}}
-                            </div>
-                        </div>
+                        <h5 class="modal-title text-center" id="exampleModalLongTitle">Ajout d'un nouveau utilisateur</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                     </div>
-                    <div class="row mb-3">
-                        <label for="inputName3" class="col-sm-2 col-form-label">Prénom</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="surname" id="inputName3" [(ngModel)]="form.surname" required>
-                            <div class="alert alert-danger" [hidden]="!error.surname">
-                                {{error.surname}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="inputName3" class="col-sm-2 col-form-label">Téléphone</label>
-                        <div class="col-sm-10">
-                            <input type="telephone" class="form-control" name="phonenumber" id="inputName3" [(ngModel)]="form.phonenumber" required>
-                            <div class="alert alert-danger" [hidden]="!error.phonenumber">
-                                {{error.phonenumber}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="inputName3" class="col-sm-2 col-form-label">Adresse</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="adress" id="inputName3" [(ngModel)]="form.adress" required>
-                            <div class="alert alert-danger" [hidden]="!error.adress">
-                                {{error.adress}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10">
-                            <input type="email" class="form-control" name="email" id="inputEmail3" [(ngModel)]="form.email" required>
-                            <div class="alert alert-danger" [hidden]="!error.email">
-                                {{error.email}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" name="password" id="inputPassword3" [(ngModel)]="form.password" required>
-                        </div>
-                        <div class="alert alert-danger" [hidden]="!error.password">
-                            {{error.password}}
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="inputConfirmedPassword3" class="col-sm-2 col-form-label">Confirm Password</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" name="password_confirmation" id="inputConfirmedPassword3" [(ngModel)]="form.password_confirmation" required>
-                        </div>
-                        <div class="alert alert-danger" [hidden]="!error.password">
-                            {{error.password}}
-                        </div>
-                    </div>
+                </div>
 
-                    <div class="row mb-3">
-                        <label for="inputConfirmedPassword3" class="col-sm-2 col-form-label">Role de l'utilisateur</label>
-                        <div class="col-sm-10">
-                            <select name="role_id" id="" class="form-control" [(ngModel)]="form.role_id" required> Veuillez choisir
+                <form #signupForm=ngForm (ngSubmit)="onSubmit()">
+
+                    <div class="modal-body">
+                        <div class="row mb-3">
+                            <label for="inputName3" class="col-sm-2 col-form-label">Nom</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="name" id="inputName3" [(ngModel)]="form.name" required>
+                                <div class="alert alert-danger" [hidden]="!error.name">
+                                    {{error.name}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputName3" class="col-sm-2 col-form-label">Prénom</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="surname" id="inputName3" [(ngModel)]="form.surname" required>
+                                <div class="alert alert-danger" [hidden]="!error.surname">
+                                    {{error.surname}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputName3" class="col-sm-2 col-form-label">Téléphone</label>
+                            <div class="col-sm-10">
+                                <input type="telephone" class="form-control" name="phonenumber" id="inputName3" [(ngModel)]="form.phonenumber" required>
+                                <div class="alert alert-danger" [hidden]="!error.phonenumber">
+                                    {{error.phonenumber}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputName3" class="col-sm-2 col-form-label">Adresse</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="adress" id="inputName3" [(ngModel)]="form.adress" required>
+                                <div class="alert alert-danger" [hidden]="!error.adress">
+                                    {{error.adress}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" name="email" id="inputEmail3" [(ngModel)]="form.email" required>
+                                <div class="alert alert-danger" [hidden]="!error.email">
+                                    {{error.email}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" name="password" id="inputPassword3" [(ngModel)]="form.password" required>
+                            </div>
+                            <div class="alert alert-danger" [hidden]="!error.password">
+                                {{error.password}}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputConfirmedPassword3" class="col-sm-2 col-form-label">Confirm Password</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" name="password_confirmation" id="inputConfirmedPassword3" [(ngModel)]="form.password_confirmation" required>
+                            </div>
+                            <div class="alert alert-danger" [hidden]="!error.password">
+                                {{error.password}}
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputConfirmedPassword3" class="col-sm-2 col-form-label">Role de l'utilisateur</label>
+                            <div class="col-sm-10">
+                                <select name="role_id" id="" class="form-control" [(ngModel)]="form.role_id" required> Veuillez choisir
                                 <option>Hello</option>
                                 <option  *ngFor="let role of roles"  value="{{role.id}}">{{role.libelle_role}}</option>
 
                             </select>
+                            </div>
+                            <div class="alert alert-danger" [hidden]="!error.role_id">
+                                {{error.role_id}}
+                            </div>
                         </div>
-                        <div class="alert alert-danger" [hidden]="!error.role_id">
-                            {{error.role_id}}
-                        </div>
+
+
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid">Enregistrer</button>
+                    </div>
+                </form>
 
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid">Enregistrer</button>
-                </div>
-            </form>
-
-
+            </div>
         </div>
     </div>
 </div>
