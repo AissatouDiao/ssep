@@ -132,8 +132,10 @@ export class RecommandationsComponent implements OnInit {
         },
         {
           text: 'Non',
-          action: () =>
+          action: () => {
             this.notify.info('Changement annulé !')
+            this.getRecommandations();
+          }
         },
       ]
     });

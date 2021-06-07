@@ -16,6 +16,7 @@ import { AfterloginService } from './services/afterlogin.service';
 import { BeforeloginService } from './services/beforelogin.service';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { PtbaComponent } from './components/ptba/ptba.component';
+import { PlanificationComponent } from './components/ptba/planification/planification.component';
 
 const routes: Routes = [
 
@@ -79,6 +80,10 @@ const routes: Routes = [
     path: 'gestion-ptba', component: PtbaComponent,
     canActivate: [AfterloginService]
   },
+  {
+    path: 'planification-ptba', component: PlanificationComponent,
+    canActivate: [AfterloginService]
+  }
 ];
 
 @NgModule({

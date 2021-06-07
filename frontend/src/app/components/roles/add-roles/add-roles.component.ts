@@ -103,7 +103,7 @@ export class AddRolesComponent implements OnInit {
 
 
     if (i == 9) {
-      window.location.reload();
+      // window.location.reload();
     }
   }
 

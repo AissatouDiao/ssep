@@ -10,7 +10,7 @@ import { TokenService } from 'src/app/services/token.service';
   styleUrls: ['./gestionsutilisateurs.component.scss']
 })
 export class GestionsutilisateursComponent implements OnInit {
-  users: any; roles: any; form1: any
+  users: any; roles: any; form1: any; searchText: any; searchFilter: any = '';
   public error: any = [];
   constructor(private http: HttpClient,
     private jarwisService: JarwisService,//gere le http

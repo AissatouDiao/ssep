@@ -21,6 +21,8 @@ import { RecommandationsComponent } from './components/recommandations/recommand
 import { DocumentsevaluationsComponent } from './components/documentsevaluations/documentsevaluations.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { PtbaComponent } from './components/ptba/ptba.component';
+import { PlanificationComponent } from './components/ptba/planification/planification.component';
+import { SearchFilterPipe } from './search-filter.pipe';
 
 
 
@@ -41,6 +43,8 @@ import { PtbaComponent } from './components/ptba/ptba.component';
     DocumentsevaluationsComponent,
     NotfoundComponent,
     PtbaComponent,
+    PlanificationComponent,
+    SearchFilterPipe,
 
   ],
   imports: [

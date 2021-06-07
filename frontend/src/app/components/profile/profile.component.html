@@ -4,7 +4,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header card-header-primary">
-                        <h4 class="card-title">Mis à jour profil</h4>
+                        <h4 class="card-title">Mise à jour profil</h4>
                         <p class="card-category">Vous pouvez mettre à jour les données de votre profil ici.</p>
                     </div>
                     <div class="card-body">
@@ -57,18 +57,17 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card card-profile">
-                    <div class="card-avatar">
-                        <a href="javascript:;">
-                            <img class="img" src="" />
-                        </a>
-                    </div>
-                    <div class="card-body">
-                        <h6 class="card-category text-gray">SSEP / PDZP</h6>
-                        <h4 class="card-title">{{user.surname}} {{user.name}}</h4>
+                <div class="card ">
+                    <div class="card-header card-header-danger">
+
+                        <h4 class="card-title">{{user.surname |titlecase}} {{user.name|titlecase}}</h4>
                         <p class="card-description">
                             Voulez vous réinitiliser votre mot de passe ?
                         </p>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-category text-gray">SSEP / PDZP</h6>
+
                         <div class="form-group">
                             <form #ResetPasswordProfileForm=ngForm (ngSubmit)="updatePassword()">
 
@@ -100,11 +99,11 @@
 
                                 </div>
 
-                                <div class="form-group row center">
+                                <div class="form-group row-mb3  text-center">
 
-                                    <div class="col-sm-10 offset-2 ">
-                                        <button type="submit " class="btn btn-primary btn-round " [disabled]="!ResetPasswordProfileForm.valid">Change password</button>
-                                    </div>
+
+                                    <button type="submit " class="btn btn-primary btn-round " [disabled]="!ResetPasswordProfileForm.valid">Change password</button>
+
                                 </div>
 
                             </form>

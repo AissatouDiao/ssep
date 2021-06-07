@@ -8,6 +8,17 @@
     </ol>
 </nav>
 
+<div class="navbar-form" class="col-6 float-right">
+    <div class="input-group no-border">
+        <input type="text" name="search" [(ngModel)]="searchText" autocomplete="off" class="form-control" placeholder="Rechercher...">
+        <button type="submit" class="btn btn-white btn-round btn-just-icon">
+            <i class="material-icons">search</i>
+            <div class="ripple-container"></div>
+        </button>
+    </div>
+</div><br><br><br>
+
+
 <div class="card">
     <!-- Button trigger modal -->
 
@@ -25,7 +36,7 @@
             <div class="tab-pane active" id="profile">
                 <table class="table">
                     <tbody>
-                        <tr *ngFor="let user of users">
+                        <tr *ngFor="let user of users |searchFilter:searchText">
 
                             <td><a href="#" class="nav-link text-capitalize" data-toggle="modal" attr.data-target='#m{{user.id}}'>{{user.surname}} {{user.name}}</a>
                             </td>

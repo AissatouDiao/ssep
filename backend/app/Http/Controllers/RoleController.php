@@ -50,10 +50,12 @@ class RoleController extends Controller
 
         $roles= Module::all();
         return $roles;
+        
     }
 
     public function addpermissions(AddPermissionsRequest $request){
     
+        
         Permission::create([
             'module_id'=>$request->module_id,
             'role_id'=>$request->role_id,
@@ -61,7 +63,7 @@ class RoleController extends Controller
         ]);
         return response()->json([
             "message"=>"Module et permissions ajoutés !",
-            "error"=>$request
+            "error"=>$request->permisions_to_module
         ]);
     }
 

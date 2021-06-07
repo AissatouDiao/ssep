@@ -63,6 +63,11 @@ export class JarwisService {
     return this.http.post(`${this.baseUrl}/addpermissions`, data)
   }
 
+
+  //recuperer tous les permissions dans la base de données.
+  getPermissions() {
+    return this.http.get(`${this.baseUrl}/getPermissions`);
+  }
   //recuperer tous les utilisateurs dans la base de données.
   getUsers() {
     return this.http.get(`${this.baseUrl}/getUsers`);

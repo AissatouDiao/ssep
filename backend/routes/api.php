@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\RecommandationController;
@@ -48,6 +49,7 @@ Route::group([
     Route::delete('deleteRole/{id}',[RoleController::class,'delete']);
     Route::get('getModules',[RoleController::class,'getmodules']);
     Route::post('addpermissions',[RoleController::class,'addpermissions']);
+    Route::get('getPermissions',[PermissionController::class,'getPermissions']);
     Route::get('getUsers',[UserController::class,'getusers']);
     Route::delete('deleteUser/{id}',[UserController::class,'deleteUser']);
     Route::post('updateuserrole',[UserController::class,'updateRoleUser']);
