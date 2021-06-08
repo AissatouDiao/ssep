@@ -10,6 +10,9 @@ import { JarwisService } from 'src/app/services/jarwis.service';
 })
 export class AddRolesComponent implements OnInit {
 
+  @Input() page: any = 1;
+  @Input() pageSize: any = 5;
+  searchText: any; searchFilter: any = ''
 
   form = {
     libelle_role: null

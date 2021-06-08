@@ -36,7 +36,7 @@
             <div class="tab-pane active" id="profile">
                 <table class="table">
                     <tbody>
-                        <tr *ngFor="let user of users |searchFilter:searchText">
+                        <tr *ngFor="let user of users|slice: (page-1)*pageSize:page*pageSize| searchFilter:searchText">
 
                             <td><a href="#" class="nav-link text-capitalize" data-toggle="modal" attr.data-target='#m{{user.id}}'>{{user.surname}} {{user.name}}</a>
                             </td>
@@ -165,6 +165,9 @@
         </div>
     </div>
 </div>
+<ngb-pagination [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="users.length" class="active"></ngb-pagination>
+
+
 
 <button class='btn btn-primary float-right' data-toggle="modal" data-target="#exampleModalCenter1"><i class="material-icons">add</i> Nouveau utilisateur</button>
 

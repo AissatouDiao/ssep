@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JarwisService } from 'src/app/services/jarwis.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -10,6 +10,9 @@ import { TokenService } from 'src/app/services/token.service';
   styleUrls: ['./gestionsutilisateurs.component.scss']
 })
 export class GestionsutilisateursComponent implements OnInit {
+  @Input() page: any = 1;
+  @Input() pageSize: any = 10;
+
   users: any; roles: any; form1: any; searchText: any; searchFilter: any = '';
   public error: any = [];
   constructor(private http: HttpClient,

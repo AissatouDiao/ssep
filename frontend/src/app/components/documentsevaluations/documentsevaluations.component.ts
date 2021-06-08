@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { SnotifyPosition, SnotifyService } from 'ng-snotify';
 import { JarwisService } from 'src/app/services/jarwis.service';
 
@@ -8,6 +8,12 @@ import { JarwisService } from 'src/app/services/jarwis.service';
   styleUrls: ['./documentsevaluations.component.scss']
 })
 export class DocumentsevaluationsComponent implements OnInit {
+
+  @Input() page: any = 1;
+  @Input() pageSize: any = 10;
+  searchText: any; searchFilter: any = '';
+
+
   evaluations: any; error: any; user: any; users: any;
   evaluation = {
     titre: '',

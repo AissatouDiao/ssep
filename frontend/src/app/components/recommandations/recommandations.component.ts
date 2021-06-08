@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { SnotifyPosition, SnotifyService, SnotifyStyle } from 'ng-snotify';
 
 import { JarwisService } from 'src/app/services/jarwis.service';
@@ -10,6 +10,9 @@ import { JarwisService } from 'src/app/services/jarwis.service';
 })
 
 export class RecommandationsComponent implements OnInit {
+  @Input() page: any = 1;
+  @Input() pageSize: any = 10;
+  searchText: any; searchFilter: any = '';
 
   //Déclarations de variable
   recommandations: any //pour les recommandations

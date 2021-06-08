@@ -23,6 +23,8 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { PtbaComponent } from './components/ptba/ptba.component';
 import { PlanificationComponent } from './components/ptba/planification/planification.component';
 import { SearchFilterPipe } from './search-filter.pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -52,7 +54,9 @@ import { SearchFilterPipe } from './search-filter.pipe';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    SnotifyModule
+    SnotifyModule,
+    NgxPaginationModule,
+    NgbModule
   ],
   providers: [{ provide: 'SnotifyToastConfig', useValue: ToastDefaults },
     SnotifyService],

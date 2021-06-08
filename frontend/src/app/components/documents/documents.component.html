@@ -6,7 +6,16 @@
         </li>
 
     </ol>
-</nav>
+</nav><br>
+<div class="navbar-form" class="col-6 float-right">
+    <div class="input-group no-border">
+        <input type="text" name="search" [(ngModel)]="searchText" autocomplete="off" class="form-control" placeholder="Rechercher...">
+        <button type="submit" class="btn btn-white btn-round btn-just-icon">
+            <i class="material-icons">search</i>
+            <div class="ripple-container"></div>
+        </button>
+    </div>
+</div><br><br>
 <div class="card">
     <table class="table bg-white">
         <thead class="table-dark">
@@ -20,7 +29,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let d of documents">
+            <tr *ngFor="let d of documents|slice: (page-1)*pageSize:page*pageSize| searchFilter:searchText">
 
                 <td>{{d.id}}</td>
                 <td>{{d.titre}}</td>
@@ -102,6 +111,8 @@
         </tbody>
     </table>
 </div>
+<ngb-pagination [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="documents.length" class="active">
+</ngb-pagination>
 <button class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Nouvelle document</button>
 
 
