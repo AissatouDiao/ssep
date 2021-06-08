@@ -15,6 +15,9 @@ class CreatePtbasTable extends Migration
     {
         Schema::create('ptbas', function (Blueprint $table) {
             $table->id();
+            $table->integer('annee')->unsigned();
+            $table->string('etat');
+            $table->double('budget')->unsigned();
             $table->timestamps();
         });
     }

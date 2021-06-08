@@ -159,19 +159,32 @@ export class RecommandationsComponent implements OnInit {
     //r.recommandation = (<HTMLInputElement>document.getElementById('file1')).value;
     console.log(r);
     const formdata2 = new FormData();
-    formdata2.append('id', r.id);
-    formdata2.append('titre', r.titre);
-    formdata2.append('recommandation', this.files1);
-    formdata2.append('date_finale', r.date_finale);
-    formdata2.append('statut', r.statut);
 
-    this.jarwisService.updateRecommandation(formdata2).subscribe(
-      data => {
-        console.log(data); this.notify.success('Modification effectuée avec succés !'); this.getRecommandations();
-        window.location.reload();
-      },
-      error => { console.log(error); this.notify.error('Modification non effective. Veuillez revoir les formats des données entrées. ') }
-    );
+    if (this.files1 == null) {
+      this.jarwisService.updateRecommandation(r).subscribe(
+        data => {
+          console.log(data); this.notify.success('Modification effectuée avec succés !'); this.getRecommandations();
+          window.location.reload();
+        },
+        error => { console.log(error); this.notify.error('Modification non effective. Veuillez revoir les formats des données entrées. ') }
+      );
+    } else {
+      formdata2.append('id', r.id);
+      formdata2.append('titre', r.titre);
+      formdata2.append('recommandation', this.files1);
+      formdata2.append('date_finale', r.date_finale);
+      formdata2.append('statut', r.statut);
+
+      this.jarwisService.updateRecommandation(formdata2).subscribe(
+        data => {
+          console.log(data); this.notify.success('Modification effectuée avec succés !'); this.getRecommandations();
+          window.location.reload();
+        },
+        error => { console.log(error); this.notify.error('Modification non effective. Veuillez revoir les formats des données entrées. ') }
+      );
+    }
+
+
   }
 
 

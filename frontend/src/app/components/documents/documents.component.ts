@@ -116,6 +116,7 @@ export class DocumentsComponent implements OnInit {
   uploadDocument1(event: any) {
     this.files1 = event.target.files[0];
     console.log(this.files1)
+    return this.files1;
   }
   data1: any; fileURL1: any;
 
@@ -124,18 +125,30 @@ export class DocumentsComponent implements OnInit {
     //r.recommandation = (<HTMLInputElement>document.getElementById('file1')).value;
     console.log(d);
     const formdata2 = new FormData();
-    formdata2.append('id', d.id);
-    formdata2.append('titre', d.titre);
-    formdata2.append('user_id', d.user_id);
-    formdata2.append('documentpartage', this.files1);
 
-    this.jarwisService.updateDocument(formdata2).subscribe(
-      data => {
-        console.log(data); this.notify.success('Modification effectuée avec succés !'); this.getDocuments();
-        window.location.reload();
-      },
-      error => { console.log(error); this.notify.error('Modification non effective. Veuillez revoir les formats des données entrées. ') }
-    );
+
+    if (this.files1 == null) {
+      this.jarwisService.updateDocument(d).subscribe(
+        data => {
+          console.log(data); this.notify.success('Modification effectuée avec succés !'); this.getDocuments();
+          window.location.reload();
+        },
+        error => { console.log(error); this.notify.error('Modification non effective. Veuillez revoir les formats des données entrées. ') }
+      );
+    } else {
+      formdata2.append('id', d.id);
+      formdata2.append('titre', d.titre);
+      formdata2.append('user_id', d.user_id);
+      formdata2.append('documentpartage', this.files1);
+      this.jarwisService.updateDocument(formdata2).subscribe(
+        data => {
+          console.log(data); this.notify.success('Modification effectuée avec succés !'); this.getDocuments();
+          window.location.reload();
+        },
+        error => { console.log(error); this.notify.error('Modification non effective. Veuillez revoir les formats des données entrées. ') }
+      );
+    }
+
   }
 
 

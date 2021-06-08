@@ -15,6 +15,12 @@ class CreateComposantesTable extends Migration
     {
         Schema::create('composantes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('ptba_id')
+            ->constrained('ptbas')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->string('libelle');
+            $table->double('budget')->unsigned()->nullable();
             $table->timestamps();
         });
     }

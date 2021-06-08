@@ -15,6 +15,19 @@ class CreateSousactivitesTable extends Migration
     {
         Schema::create('sousactivites', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('activite_id')
+            ->constrained('activites')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->string('libelle');
+            $table->double('budget')->unsigned();
+            $table->string('etat');
+            $table->double('cout_estimatif')->unsigned();
+            $table->double('cout_reel')->unsigned();
+            $table->date('debut_reel');
+            $table->date('fin_reel');
+            $table->date('debut_planifie');
+            $table->date('fin_planifie');
             $table->timestamps();
         });
     }

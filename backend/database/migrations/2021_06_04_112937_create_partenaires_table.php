@@ -15,7 +15,11 @@ class CreatePartenairesTable extends Migration
     {
         Schema::create('partenaires', function (Blueprint $table) {
             $table->id();
+            $table->string('libelle');
+            $table->string('type');
+            $table->double('apport_financier_total')->unsigned();
             $table->timestamps();
+            
         });
     }
 

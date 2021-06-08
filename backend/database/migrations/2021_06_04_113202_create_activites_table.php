@@ -15,6 +15,13 @@ class CreateActivitesTable extends Migration
     {
         Schema::create('activites', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('composante_id')
+            ->constrained('composantes')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->string('libelle');
+            $table->string('extrant');
+            $table->double('budget')->unsigned()->nullable();
             $table->timestamps();
         });
     }
