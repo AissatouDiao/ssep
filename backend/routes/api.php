@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PartenaireController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ChangePasswordController;
@@ -71,4 +72,10 @@ Route::group([
     Route::get('getevaluations', [DocumentsevaluationController::class,'getEvaluations']);
     Route::delete('deleteEvaluation/{id}',[DocumentsevaluationController::class,'delete']);
     Route::post('updateevaluation',[DocumentsevaluationController::class,'update']); 
+    //Partenaires
+    Route::post('addpartenaire',[PartenaireController::class,'ajouterPartenaire']);
+    Route::get('getpartenaires', [PartenaireController::class,'getPartenaires']);
+    Route::delete('deletePartenaire/{id}',[PartenaireController::class,'deletePartenaire']);
+    Route::post('updatepartenaire',[PartenaireController::class,'updatePartenaire']); 
+    Route::post('updatepartenaireapport',[PartenaireController::class,'updatePartenaireApport']);
 });

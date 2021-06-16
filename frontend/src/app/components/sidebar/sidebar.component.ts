@@ -38,8 +38,14 @@ export class SidebarComponent implements OnInit {
   getPermissions() {
 
     this.jarwisService.getPermissions().subscribe(
-      (data: any) => {
-        console.log(data); this.permissions = data; console.log(JSON.stringify(this.permissions))
+      async (data: any) => {
+
+        await data.forEach((d: any, index: any) => {
+          d.permisions_to_module = JSON.parse(d.permisions_to_module);
+
+
+        });
+        console.log(data); this.permissions = data
       },
       error => console.log(error)
 

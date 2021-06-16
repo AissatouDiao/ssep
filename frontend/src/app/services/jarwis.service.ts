@@ -152,4 +152,30 @@ export class JarwisService {
     return this.http.delete(`${this.baseUrl}/deleteEvaluation/` + data);
   }
 
+  //Recuperer tous les evaluations partagés dans la base de données
+  getPartenaires() {
+    return this.http.get(`${this.baseUrl}/getpartenaires`);
+  }
+  //Ajouter un nouveau partenaire
+  addPartenaire(data: object) {
+    return this.http.post(`${this.baseUrl}/addpartenaire`, data);
+  }
+  //update partenaire
+  updatePartenaire(data: object) {
+    return this.http.post(`${this.baseUrl}/updatepartenaire`, data)
+  }
+
+  //supprimer partenaire
+  deletePartenaire(data: any) {
+    return this.http.delete(`${this.baseUrl}/deletePartenaire/` + data);
+  }
+
+  //update partenaire apport
+  updatePartenaireApport(data: object) {
+    return this.http.post(`${this.baseUrl}/updatepartenaireapport`, data)
+  }
+
+
+
+
 }

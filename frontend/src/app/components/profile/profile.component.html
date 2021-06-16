@@ -42,7 +42,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Adress</label>
+                                        <label class="bmd-label-floating">Adresse</label>
                                         <input type="text" class="form-control" [(ngModel)]="user.adress" name="adress" value="{{user.adress}}">
                                     </div>
                                 </div>
@@ -76,34 +76,32 @@
                                     <label for="inputEmail3" class=" col-form-label">Ancien mot de passe</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" name="email" id="inputEmail3" [(ngModel)]="password.password" name="password" value="{{password.password}}" required disabled />
-                                        <span class=" text-danger " [hidden]=" ">
-                                           </span>
+
                                     </div>
 
                                 </div>
                                 <div class="row mb-3 ">
                                     <label for="inputPassword3 " class=" col-form-label ">Nouveau mot de passe</label>
                                     <div class="col-sm-10 ">
-                                        <input type="password" class="form-control " name="password " id="inputPassword3" [(ngModel)]="password1.password" required>
-                                        <span class="text-danger ">
-                                            </span>
+                                        <input type="password" class="form-control" name="password " id="inputPassword3" [(ngModel)]="password1.password" required>
+                                        <span class="text-danger" [hidden]="!error.password">
+                                            {{error}}
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="row mb-3 ">
-                                    <label for="inputPassword4 " class="col-form-label ">Confirmation mot de passe</label>
+                                    <label for="inputPassword3 " class="col-form-label ">Confirmation mot de passe</label>
                                     <div class="col-sm-10 ">
-                                        <input type="password" class="form-control " name="password_confirmation " id="inputPassword4 " [(ngModel)]="password1.confirm_password" required>
-                                        <span class="text-danger ">
-                                            </span>
+                                        <input type="password" class="form-control" name="confirm_password" id="inputPassword3" [(ngModel)]="password1.confirm_password" required>
+                                        <span class="text-danger" [hidden]="!error.password">
+                                            {{error}}
+                                        </span>
                                     </div>
 
                                 </div>
 
                                 <div class="form-group row-mb3  text-center">
-
-
-                                    <button type="submit " class="btn btn-primary btn-round " [disabled]="!ResetPasswordProfileForm.valid">Change password</button>
-
+                                    <button type="submit " class="btn btn-primary btn-round " [disabled]="!ResetPasswordProfileForm.valid">Changer de mot de passe</button>
                                 </div>
 
                             </form>

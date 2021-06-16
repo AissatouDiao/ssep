@@ -17,7 +17,9 @@ import { BeforeloginService } from './services/beforelogin.service';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { PtbaComponent } from './components/ptba/ptba.component';
 import { PlanificationComponent } from './components/ptba/planification/planification.component';
-
+import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { PartenairesComponent } from './components/partenaires/partenaires.component';
 
 const routes: Routes = [
 
@@ -26,15 +28,22 @@ const routes: Routes = [
     canActivate: [BeforeloginService]
   },
 
-  {
-    path: '', redirectTo: 'login', pathMatch: 'full'
-  },
   { path: '404-page-non-trouvee', component: NotfoundComponent },
   { path: '***', redirectTo: '/404-page-non-trouvee' },
   {
     path: 'signup', component: SignupComponent,
     canActivate: [BeforeloginService]
   },
+  {
+    path: 'tableau-de-bord', component: DashboardComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: '', redirectTo: 'tableau-de-bord', pathMatch: 'full'
+  }
+
+  ,
+
   {
     path: 'profile', component: ProfileComponent,
     canActivate: [AfterloginService]
@@ -83,6 +92,10 @@ const routes: Routes = [
   },
   {
     path: 'planification-ptba', component: PlanificationComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-partenaires', component: PartenairesComponent,
     canActivate: [AfterloginService]
   }
 ];

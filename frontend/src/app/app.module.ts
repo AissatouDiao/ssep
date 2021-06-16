@@ -25,6 +25,8 @@ import { PlanificationComponent } from './components/ptba/planification/planific
 import { SearchFilterPipe } from './search-filter.pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { PartenairesComponent } from './components/partenaires/partenaires.component';
 
 
 
@@ -47,6 +49,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     PtbaComponent,
     PlanificationComponent,
     SearchFilterPipe,
+    DashboardComponent,
+    PartenairesComponent,
 
   ],
   imports: [

@@ -4,21 +4,24 @@
         <!--
     Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
-    Tip 2: you can also add an image using data-image tag
+    Tip 2: you can also add an image using data-image tag0
  -->
         <div class="logo text-primary"><a href="#" class="simple-text logo-normal">
      SSEP / PNDL
     </a></div>
         <div class="sidebar-wrapper">
             <ul class="nav">
-                <li class="nav-item ">
 
-                    {{permissions.read}}
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" routerLink="tableau-de-bord">
+                        <i class="material-icons">dashboard</i>
+                        <p>Tableau de bord</p>
+                    </a>
                 </li>
                 <li class="nav-item " routerLinkActive="active">
-                    <a class="nav-link" data-toggle="collapse" routerLinkActive="active" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    <a class="nav-link" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                         <i class="material-icons">person</i>
-                        <p>Utilisateurs</p>
+                        <p routerLinkActive="active">Utilisateurs</p>
                     </a>
                 </li>
                 <div class="collapse" id="collapseExample">
@@ -38,8 +41,8 @@
                         <p>Gestion PTBA</p>
                     </a>
                 </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="./typography.html">
+                <li class="nav-item " routerLinkActive="active">
+                    <a class="nav-link" routerLink="gestion-partenaires">
                         <i class="material-icons">work</i>
                         <p>Gestion des partenaires </p>
                     </a>
