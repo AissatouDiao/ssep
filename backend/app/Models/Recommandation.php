@@ -21,10 +21,13 @@ class Recommandation extends Model
      * @var array
      */
     protected $fillable = [
+      'evaluation_id',
      'titre',
-     'recommandation',
+     'description',
      'created_at',
      'date_finale',
-     'statut'
+     'statut',
+     'responsable',
+     'pourcentage'
     ]; 
 }

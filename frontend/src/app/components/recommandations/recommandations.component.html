@@ -53,73 +53,74 @@
                 </td>
                 <td class="td-actions text-right float-right">
                     <button type="button" rel="tooltip" title="Modifier recommandation" data-toggle="modal" attr.data-target="#m{{r.id}}" class="btn btn-primary btn-link btn-sm">
-                    <i class="material-icons">edit</i>
-                </button>
-                    <button type="button" rel="tooltip" title="Supprimer recommandation" (click)="delete(r.id)" class="btn btn-danger btn-link btn-sm">
-                    <i class="material-icons">close</i>
-                </button>
-                </td>
-                <!-- Modal Modifier -->
-                <div class="modal fade" id="m{{r.id}}" tabindex="-1" role="dialog" attr.aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="card-header card-header-primary text-center">
-                                <div class="modal-header">
-                                    <h5 class="modal-title text-center" id="exampleModalLongTitle">Modifier la recommandation {{r.titre}}.</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <i class="material-icons">edit</i>
+                    </button>
+                    <!-- Modal Modifier -->
+                    <div class="modal fade" id="m{{r.id}}" tabindex="-1" role="dialog" attr.aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="card-header card-header-primary text-center">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-center" id="exampleModalLongTitle">Modifier la recommandation {{r.titre}}.</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                   <span aria-hidden="true">&times;</span>
                                 </button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="modal-body">
-                                <form #recommandationForm=ngForm name="recommandationForm" (ngSubmit)="update(r)" enctype="multipart/form-data">
-                                    <div class="alert alert-danger" [hidden]="!error">
-                                        {{error}}
-                                    </div>
+                                <div class="modal-body">
+                                    <form #recommandationForm=ngForm name="recommandationForm" (ngSubmit)="update(r)" enctype="multipart/form-data">
+                                        <div class="alert alert-danger" [hidden]="!error">
+                                            {{error}}
+                                        </div>
 
-                                    <div class="row mb-3">
-                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Titre</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="r.titre" required>
+                                        <div class="row mb-3">
+                                            <label for="inputEmail3" class="col-sm-2 col-form-label">Titre</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="r.titre" required>
+                                            </div>
+                                        </div><br>
+                                        <div class="row mb-3">
+                                            <label for="inputPassword3" class="col-sm-2 col-form-label text-break">Recommandation</label>
+                                            <div class="col-sm-10">
+                                                <input type="file" class="form-control" name="recommandation" (change)="uploadDocument1($event)" id="file1" [(ngModel)]="r.recommandation">
+                                                <div class="text-left"> (.pdf ou .docx seulement)</div>
+                                            </div>
+                                            <div class="text-center">
+                                                <a href="http://localhost:8000/.{{r.recommandation}}" target="blank">Veuillez consulter ici le PDF déja défini, avant modification.</a>
+                                            </div>
                                         </div>
-                                    </div><br>
-                                    <div class="row mb-3">
-                                        <label for="inputPassword3" class="col-sm-2 col-form-label text-break">Recommandation</label>
-                                        <div class="col-sm-10">
-                                            <input type="file" class="form-control" name="recommandation" (change)="uploadDocument1($event)" id="file1" [(ngModel)]="r.recommandation">
-                                            <div class="text-left"> (.pdf ou .docx seulement)</div>
+                                        <br>
+                                        <div class="row mb-3">
+                                            <label for="date_finale" class="col-sm-2 col-form-label">Date Finale</label>
+                                            <div class="col-sm-10">
+                                                <input type="date" class="form-control" name="date_finale" id="date_finale" value="{{r.date_finale|date: 'yyyy-MM-dd'}}" required>
+                                            </div>
                                         </div>
-                                        <div class="text-center">
-                                            <a href="http://localhost:8000/.{{r.recommandation}}" target="blank">Veuillez consulter ici le PDF déja défini, avant modification.</a>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row mb-3">
-                                        <label for="date_finale" class="col-sm-2 col-form-label">Date Finale</label>
-                                        <div class="col-sm-10">
-                                            <input type="date" class="form-control" name="date_finale" id="date_finale" value="{{r.date_finale|date: 'yyyy-MM-dd'}}" required>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label for="inputPassword3" class="col-sm-2 col-form-label">Statut </label>
-                                        <div class="col-sm-10">
-                                            <select name="statut" id="statut" class="form-select" [(ngModel)]="r.statut" required>
+                                        <div class="row mb-3">
+                                            <label for="inputPassword3" class="col-sm-2 col-form-label">Statut </label>
+                                            <div class="col-sm-10">
+                                                <select name="statut" id="statut" class="form-select" [(ngModel)]="r.statut" required>
                                             <option value="exécuté">Executé</option>
                                             <option  value="en cours">En cours</option>
                                             <option selected value="non exécuté" >Non executé</option>
                                         </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary" [disabled]="!recommandationForm.valid">Enregistrer</button>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" [disabled]="!recommandationForm.valid">Enregistrer</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Modal Modifier -->
+                    <!-- Modal Modifier -->
+                    <button type="button" rel="tooltip" title="Supprimer recommandation" (click)="delete(r.id)" class="btn btn-danger btn-link btn-sm">
+                    <i class="material-icons">close</i>
+                </button>
+                </td>
+
             </tr>
         </tbody>
     </table>

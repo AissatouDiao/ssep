@@ -8,8 +8,8 @@ use App\Http\Requests\DocumentevaluationRequest;
 
 class DocumentsevaluationController extends Controller
 {
-      //documentpartage
-      public function add(DocumentevaluationRequest $request){
+    //documentpartage
+    public function add(DocumentevaluationRequest $request){
       
         $document = $request->file('evaluation');
         $path;
@@ -25,15 +25,15 @@ class DocumentsevaluationController extends Controller
             $evaluation = Documentsevaluation::create([
                 "titre"=>$request->titre,
                 "evaluation"=>$path,
-                "user_id"=>$request->user_id,
-               
+                "user_id"=>$request->user_id,        
             ]);
+            $latest=Documentsevaluation::latest()->first();
+           return response()->json([
+            "message" => "enregistrement du document effectué !",
+            "latest"=>$latest]);
+   
         }
-       
-     
-        return response()->json(["message" => "enregistrement du document effectué !"]);
-       
-       
+
     }
 
     public function delete($request){

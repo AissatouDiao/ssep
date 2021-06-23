@@ -97,9 +97,13 @@ export class JarwisService {
   getRecommandations() {
     return this.http.get(`${this.baseUrl}/getrecommandations`);
   }
+  //Recuperer tous les reommandations dans la base de données
+  getRecommandationsByEvaluationId(data: any) {
+    return this.http.post(`${this.baseUrl}/getrecommandationsbyevaluationsid`, data);
+  }
   //Ajouter une nouvelle recommandation
   addRecommandation(data: object) {
-    return this.http.post(`${this.baseUrl}/addrecommandation`, data, { responseType: 'blob' });
+    return this.http.post(`${this.baseUrl}/addrecommandation`, data);
   }
   //update recommandation
   updateRecommandation(data: object) {
@@ -140,7 +144,7 @@ export class JarwisService {
   }
   //Ajouter un nouveau evaluation
   addEvaluation(data: object) {
-    return this.http.post(`${this.baseUrl}/addevaluation`, data, { responseType: 'blob' });
+    return this.http.post(`${this.baseUrl}/addevaluation`, data, { responseType: 'json' });
   }
   //update evaluation
   updateEvaluation(data: object) {
@@ -174,6 +178,41 @@ export class JarwisService {
   updatePartenaireApport(data: object) {
     return this.http.post(`${this.baseUrl}/updatepartenaireapport`, data)
   }
+  //-------PTBA--------//
+  getPtbas() {
+    return this.http.get(`${this.baseUrl}/getptbas`);
+  }
+  //Ajouter un nouveau ptba
+  addPtba(data: object) {
+    return this.http.post(`${this.baseUrl}/addptba`, data);
+  }
+  //update ptba
+  updatePtba(data: object) {
+    return this.http.post(`${this.baseUrl}/updateptba`, data)
+  }
+
+  //supprimer ptba
+  deletePtba(data: any) {
+    return this.http.delete(`${this.baseUrl}/deletePtba/` + data);
+  }
+  //-------Composante--------//
+  getComposantes() {
+    return this.http.get(`${this.baseUrl}/getcomposantes`);
+  }
+  //Ajouter un nouveau composante
+  addComposante(data: object) {
+    return this.http.post(`${this.baseUrl}/addcomposante`, data);
+  }
+  //update composante
+  updateComposante(data: object) {
+    return this.http.post(`${this.baseUrl}/updatecomposante`, data)
+  }
+
+  //supprimer composante
+  deleteComposante(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteComposante/` + data);
+  }
+
 
 
 

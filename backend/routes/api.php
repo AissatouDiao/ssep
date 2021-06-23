@@ -2,8 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PtbaController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ActiviteController;
+use App\Http\Controllers\ComposanteController;
 use App\Http\Controllers\PartenaireController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ResetPasswordController;
@@ -59,6 +62,7 @@ Route::group([
     //Recommandations
     Route::post('addrecommandation',[RecommandationController::class,'add']);
     Route::get('getrecommandations', [RecommandationController::class,'getRecommandations']);
+    Route::post('getrecommandationsbyevaluationsid', [RecommandationController::class,'getRecommandationsByEvaluationId']);
     Route::delete('deleteRecommandation/{id}',[RecommandationController::class,'delete']);
     Route::post('updaterecommandation',[RecommandationController::class,'update']); 
     Route::post('changestatutrecommandation',[RecommandationController::class,'changeStatut']);
@@ -78,4 +82,19 @@ Route::group([
     Route::delete('deletePartenaire/{id}',[PartenaireController::class,'deletePartenaire']);
     Route::post('updatepartenaire',[PartenaireController::class,'updatePartenaire']); 
     Route::post('updatepartenaireapport',[PartenaireController::class,'updatePartenaireApport']);
+    //Ptba
+    Route::post('addptba',[PtbaController::class,'add']);
+    Route::get('getptbas', [PtbaController::class,'getAll']);
+    Route::delete('deletePtba/{id}',[PtbaController::class,'delete']);
+    Route::post('updateptba',[PtbaController::class,'update']);
+    //Composante
+    Route::post('addcomposante',[ComposanteController::class,'add']);
+    Route::get('getcomposantes', [ComposanteController::class,'getAll']);
+    Route::delete('deleteComposante/{id}',[ComposanteController::class,'delete']);
+    Route::post('updatecomposante',[ComposanteController::class,'update']);
+    //Activite
+    Route::post('addactivite',[ActiviteController::class,'add']);
+    Route::get('getactivites', [ActiviteController::class,'getAll']);
+    Route::delete('deleteActivite/{id}',[ActiviteController::class,'delete']);
+    Route::post('updateactivite',[ActiviteController::class,'update']);
 });

@@ -18,7 +18,7 @@ class PartenaireController extends Controller
     public function deletePartenaire( $request){
         $partenaire= Partenaire::find($request);
         $partenaire->delete();
-        return response()->json(["data" => "suppressonn efective!"]); 
+        return response()->json(["data" => "suppression efective!"]); 
       
     }
 
@@ -30,13 +30,11 @@ class PartenaireController extends Controller
         ]);
     }
 
-    public function updatePartenaire(Request $request){
+    public function updatePartenaire(PartenaireRequest $request){
         $Partenaire=Partenaire::find($request->id);
         $Partenaire->libelle=$request->libelle;
         $Partenaire->type=$request->type;
         $Partenaire->apport_financier_total=$request->apport_financier_total;
-        $Partenaire->phonenumber=$request->phonenumber;
-        $Partenaire->adress=$request->adress;
         $Partenaire->save();
        return response()->json([
            "message"=>"Partenaire mis à jour avec succès !",

@@ -1,0 +1,11 @@
+﻿<!doctype html>
+<html>
+<head>
+<title>bonjour<title>
+<meta charset="UTF-8"/>
+<script language="javascript"></scriptt>
+</head>
+<body>
+<a href ='#' onclick="alert('salut!!!');">lien</a>
+</body>
+</html>

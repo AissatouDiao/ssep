@@ -13,7 +13,7 @@ export class PartenairesComponent implements OnInit {
   partenaireForm!: any;
 
   @Input() page: any = 1;
-  @Input() pageSize: any = 10;
+  @Input() pageSize: any = 5;
   searchText: any; searchFilter: any = '';
 
   partenaires: any;
@@ -48,8 +48,8 @@ export class PartenairesComponent implements OnInit {
     );
   }
 
-  update(data: any) {
-    this.jarwisService.updatePartenaire(data).subscribe(
+  update(p: any) {
+    this.jarwisService.updatePartenaire(p).subscribe(
       (data: any) => { console.log(data); this.notify.success(data.message); },
       error => { console.log(error); this.notify.error('Veuillez revoir les données renseignées.') }
     );

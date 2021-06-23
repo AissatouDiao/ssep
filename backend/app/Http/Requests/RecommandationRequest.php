@@ -24,10 +24,13 @@ class RecommandationRequest extends FormRequest
     public function rules()
     {
         return [
+            'evaluation_id'=>'required',
             'titre'=>'required',
-            'recommandation.*'=>'required|file|mimes:docx,pdf|max:2048',
+          'description'=>'required',
             'date_finale'=>'required',
-            'statut'=>'required'
+            'statut'=>'required',
+            'responsable'=>'required',
+            'pourcentage'=>'required'
         ];
     }
 }
