@@ -213,6 +213,25 @@ export class JarwisService {
     return this.http.delete(`${this.baseUrl}/deleteComposante/` + data);
   }
 
+  //-------Activite--------//
+  getActivites() {
+    return this.http.get(`${this.baseUrl}/getactivites`);
+  }
+  //Ajouter un nouveau activite
+  addActivite(data: object) {
+    return this.http.post(`${this.baseUrl}/addactivite`, data);
+  }
+  //update activite
+  updateActivite(data: object) {
+    return this.http.post(`${this.baseUrl}/updateactivite`, data)
+  }
+
+  //supprimer activite
+  deleteActivite(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteActivite/` + data);
+  }
+
+
 
 
 

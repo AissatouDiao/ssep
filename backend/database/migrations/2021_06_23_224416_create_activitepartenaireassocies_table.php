@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSousactivitesTable extends Migration
+class CreateActivitepartenaireassociesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,16 @@ class CreateSousactivitesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sousactivites', function (Blueprint $table) {
+        Schema::create('activitepartenaireassocies', function (Blueprint $table) {
             $table->id();
             $table->foreignId('activite_id')
             ->constrained('activites')
             ->onUpdate('cascade')
             ->onDelete('cascade');
-            $table->string('libelle');
-            $table->string('etat');
-            $table->double('cout_estimatif')->unsigned();
-            $table->double('cout_reel')->unsigned();
-            $table->date('debut_reel');
-            $table->date('fin_reel');
-            $table->date('debut_planifie');
-            $table->date('fin_planifie');
+            $table->foreignId('partenaire_id')
+            ->constrained('partenaires')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -38,6 +34,6 @@ class CreateSousactivitesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sousactivites');
+        Schema::dropIfExists('activitepartenaireassocies');
     }
 }

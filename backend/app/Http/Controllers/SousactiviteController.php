@@ -22,7 +22,6 @@ class SousactiviteController extends Controller
         $sousactivite->composante_id=$request->composante_id;
         $sousactivite->libelle=$request->libelle;
         $sousactivite->extrant=$request->extrant;
-        $sousactivite->budget=$request->budget;
         $sousactivite->etat=$request->etat;
         $sousactivite->pourcentage=$request->pourcentage;
         $sousactivite->save();

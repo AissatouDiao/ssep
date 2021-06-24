@@ -9,7 +9,7 @@ import { JarwisService } from 'src/app/services/jarwis.service';
 })
 export class PlanificationComponent implements OnInit {
   //Declarations des variables
-  erreur: any; composantes: any;
+  erreur: any; composantes: any; partenaires: any; activites: any;
   ptba_id: any
   last_ptba: any;
   ptba = {
@@ -28,14 +28,31 @@ export class PlanificationComponent implements OnInit {
     composante_id: <any>null,
     libelle: '',
     extrant: '',
-    budget: <any>null,
+    budget: 0,
     etat: 'non démarrée',
+    pourcentage: 0
+  }
+
+  sousactivite = {
+    activite_id: <any>null,
+    libelle: '',
+    etat: '',
+    budget: 0,
+    cout_estimatif: <any>null,
     pourcentage: 0
   }
 
   constructor(private jarwisService: JarwisService, private notify: SnotifyService) { }
 
   ngOnInit(): void {
+    this.getPartenaires();
+  }
+
+  getPartenaires() {
+    this.jarwisService.getPartenaires().subscribe(
+      (data: any) => { this.partenaires = data },
+      (error: any) => { console.log(error); }
+    );
   }
 
   addPtba() {
@@ -44,7 +61,7 @@ export class PlanificationComponent implements OnInit {
     } else {
       this.erreur = null;
       this.jarwisService.addPtba(this.ptba).subscribe(
-        (data: any) => { console.log(data); this.last_ptba = data.last; this.notify.success('le ptba fut ajouté') },
+        (data: any) => { console.log(data); this.last_ptba = data.last; this.notify.success('le ptba a été ajouté') },
         (error: any) => { console.log(error) },
       );
     }
@@ -59,7 +76,7 @@ export class PlanificationComponent implements OnInit {
       this.jarwisService.addComposante(this.composante).subscribe(
         (data: any) => {
           console.log(data);
-          this.notify.success('la composante fut ajoutée');
+          this.notify.success('la composante a été ajoutée');
           this.getComposantes();
         },
         (error: any) => { console.log(error) },
@@ -74,5 +91,23 @@ export class PlanificationComponent implements OnInit {
     );
   }
 
+  addActivite() {
+    this.activite.composante_id = (<HTMLInputElement>document.getElementById('composante_id')).value;
+    this.jarwisService.addActivite(this.activite).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.notify.success('l\'activité a été ajoutée');
+        this.getActivites();
+      },
+      (error: any) => { console.log(error) }
+    );
+  }
+
+  getActivites() {
+    this.jarwisService.getActivites().subscribe(
+      (data: any) => { console.log(data); this.activites = data },
+      (error: any) => { console.log(error); }
+    )
+  }
 
 }

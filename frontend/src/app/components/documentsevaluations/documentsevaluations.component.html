@@ -51,18 +51,21 @@
                     recommandations
                    </button>
                     <!-- Modal -->
-                    <div class="modal  bd-example-modal-lg" id="exampleModal{{e.id}}" tabindex="-1" aria-labelledby="" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal " id="exampleModal{{e.id}}" tabindex="-1" aria-labelledby="" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-scrollable">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                    <h5 class="modal-title font-weight-light primary text-primary text-center" id="exampleModalLabel ">
+
+                                        Tableau des recommandations pour l'évaluation: {{e.titre}}.
+                                    </h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                                 </div>
                                 <div class="modal-body">
                                     <div>
-                                        <table class="table bg-white">
+                                        <table class="table table-bordered bg-white">
                                             <thead class="table-dark">
                                                 <tr>
                                                     <td>#</td>
@@ -192,7 +195,7 @@
                 </td>
                 <!-- Modal Modifier Evaluation -->
                 <div class="modal " id="m{{e.id}}" tabindex="-1" role="dialog" attr.aria-labelledby="m{{e.id}}" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-dialog  modal-lg modal-dialog-scrollable" role="document">
                         <div class="modal-content">
                             <div class="card-header card-header-primary text-center">
                                 <div class="modal-header">
@@ -207,59 +210,66 @@
                                     <div class="alert alert-danger" [hidden]="!error">
                                         {{error}}
                                     </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h6 class="p-3 mb-2 bg-primary text-white">Mofifier les données de l'évaluation.</h6>
+                                            <div class="row mb-3">
+                                                <label for="inputEmail3" class="col-sm-2 col-form-label">Titre</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="e.titre" required>
+                                                </div>
+                                            </div><br>
+                                            <div class="row mb-3">
+                                                <label for="inputPassword3" class="col-sm-2 col-form-label text-break">Evaluation</label>
+                                                <div class="col-sm-10">
+                                                    <input type="file" class="form-control" name="evaluation" (change)="uploadDocument1($event)" id="file1" [(ngModel)]="e.evaluation">
+                                                    <div class="text-left"> (.pdf ou .docx seulement)</div>
+                                                </div>
+                                                <div class="text-center">
+                                                    <a href="http://localhost:8000/.{{e.evaluation}}" target="blank">Veuillez consulter ici le PDF déja défini, avant modification.</a>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row mb-3">
 
-                                    <div class="row mb-3">
-                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Titre</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="e.titre" required>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" name="user_id" id="user_id" value="{{e.user_id}}" [(ngModel)]="e.user_id" hidden required>
+                                                </div>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary" [disabled]="!documentForm.valid">Enregistrer</button>
                                         </div>
-                                    </div><br>
-                                    <div class="row mb-3">
-                                        <label for="inputPassword3" class="col-sm-2 col-form-label text-break">Evaluation</label>
-                                        <div class="col-sm-10">
-                                            <input type="file" class="form-control" name="evaluation" (change)="uploadDocument1($event)" id="file1" [(ngModel)]="e.evaluation">
-                                            <div class="text-left"> (.pdf ou .docx seulement)</div>
-                                        </div>
-                                        <div class="text-center">
-                                            <a href="http://localhost:8000/.{{e.evaluation}}" target="blank">Veuillez consulter ici le PDF déja défini, avant modification.</a>
+
+
+                                        <div class="col-6">
+                                            <h6 class="p-3 mb-2 bg-primary text-white">Ajouter nouvelle recommandation à l'évaluation.</h6>
+                                            <form #recommandationForm=ngForm name="documentForm" (ngSubmit)="addRecommandationmodif()">
+                                                <input type="text" name="evaluation_id" id="evaluation_id1" class="form-control" value="{{e.id}}" hidden />
+                                                <label>Titre</label>
+                                                <input type="text" class="form-control" name="titre" [(ngModel)]="recommandation.titre" required />
+                                                <label>Description</label>
+                                                <input type="text" class="form-control" name="description" [(ngModel)]="recommandation.description" required/><br>
+                                                <label>Responsable</label>
+                                                <select [(ngModel)]="recommandation.responsable" id="responsable" name="responsable" class="form-control" required>
+                                                    <option *ngFor="let u  of users" value="{{u.surname}} {{u.name}}">{{u.surname}} {{u.name}}</option>
+                                                </select><br>
+                                                <label>Date finale d'execution</label>
+                                                <input type="date" class="form-control" id="date_finale" name="date_finale" [(ngModel)]="recommandation.date_finale" required />
+                                                <label>Statut  (par défaut)</label>
+
+                                                <select name="statut" id="statut" class="form-select" [(ngModel)]="recommandation.statut" required disabled>
+                                                    <option value="non démarrée" selected="selected">Non démarré</option>
+                                                    <option  value="en cours">En cours</option>
+                                                    <option  value="non executée">Dû & Non executé</option>
+                                                    <option selected value="executée" >Executé</option>
+                                                </select>
+                                                <label>Pourcentage</label>
+                                                <input type="number" class="form-control" name="number" [(ngModel)]="recommandation.pourcentage" required/>
+                                                <button class="btn btn-primary" [disabled]="!recommandationForm.valid">Ajouter une nouvelle recommandation</button>
+                                            </form>
                                         </div>
                                     </div>
-                                    <br>
-                                    <div class="row mb-3">
 
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="user_id" id="user_id" value="{{e.user_id}}" [(ngModel)]="e.user_id" hidden required>
-                                        </div>
-                                    </div>
-
-                                    <button type="submit" class="btn btn-primary" [disabled]="!documentForm.valid">Enregistrer</button>
-                                    <div class="col-sm-4">
-                                        <h6>Ajout Recommandation</h6>
-                                        <form #recommandationForm=ngForm name="documentForm" (ngSubmit)="addRecommandationmodif()">
-                                            <input type="text" name="evaluation_id" id="evaluation_id1" class="form-control" value="{{e.id}}" hidden />
-                                            <label>Titre</label>
-                                            <input type="text" class="form-control" name="titre" [(ngModel)]="recommandation.titre" required />
-                                            <label>Description</label>
-                                            <input type="text" class="form-control" name="description" [(ngModel)]="recommandation.description" required/><br>
-                                            <label>Responsable</label>
-                                            <select [(ngModel)]="recommandation.responsable" id="responsable" name="responsable" class="form-control" required>
-                                                <option *ngFor="let u  of users" value="{{u.surname}} {{u.name}}">{{u.surname}} {{u.name}}</option>
-                                            </select><br>
-                                            <label>Date finale d'execution</label>
-                                            <input type="date" class="form-control" id="date_finale" name="date_finale" [(ngModel)]="recommandation.date_finale" required />
-                                            <label>Statut  (par défaut)</label>
-
-                                            <select name="statut" id="statut" class="form-select" [(ngModel)]="recommandation.statut" required disabled>
-                                                <option value="non démarrée" selected="selected">Non démarré</option>
-                                                <option  value="en cours">En cours</option>
-                                                <option  value="non executée">Dû & Non executé</option>
-                                                <option selected value="executée" >Executé</option>
-                                            </select>
-                                            <label>Pourcentage</label>
-                                            <input type="number" class="form-control" name="number" [(ngModel)]="recommandation.pourcentage" required/>
-                                            <button class="btn btn-primary" [disabled]="!recommandationForm.valid">Ajouter une new recommandation</button>
-                                        </form>
-                                    </div>
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -282,7 +292,7 @@
 <div class="w-100">
     <div class="card">
         <div class="modal " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-dialog  modal-lg modal-dialog-scrollable" role="document">
                 <div class="modal-content ">
 
                     <div class="card-header card-header-primary text-center">
@@ -296,7 +306,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-4">
-                                <h6>Ajout Evaluation</h6>
+                                <h6 class="p-3 mb-2 bg-primary text-white">Ajout Evaluation</h6>
                                 <form #documentForm=ngForm name="documentForm" (ngSubmit)="ajouter()" enctype="multipart/form-data">
                                     <div class="alert alert-danger" [hidden]="!error">
                                         {{error}}
@@ -324,7 +334,7 @@
                                 </form>
                             </div>
                             <div class="col-sm-4">
-                                <h6>Ajout Recommandation</h6>
+                                <h6 class="p-3 mb-2 bg-primary text-white">Ajout Recommandation</h6>
                                 <form #recommandationForm=ngForm name="documentForm" (ngSubmit)="addRecommandation()">
                                     <input type="text" name="evaluation_id" class="form-control" hidden />
                                     <label>Titre</label>
@@ -351,10 +361,10 @@
                                 </form>
                             </div>
                             <div class="col-sm-4">
-                                <h6>Recommandations</h6>
-                                <ul *ngFor="let r of recommandationsEvaluationById">
-                                    <li>{{r.titre}}</li>
-                                </ul>
+                                <h6 class="p-3 mb-2 bg-primary text-white">Recommandations</h6>
+                                <ng-container *ngFor="let r of recommandationsEvaluationById">
+                                    <div class="alert alert-primary" role="alert">{{r.titre}}</div>
+                                </ng-container>
                             </div>
                         </div>
 

@@ -91,7 +91,7 @@ const routes: Routes = [
     canActivate: [AfterloginService]
   },
   {
-    path: 'planification-ptba', component: PlanificationComponent,
+    path: 'gestion-ptba/planification-ptba', component: PlanificationComponent,
     canActivate: [AfterloginService]
   },
   {

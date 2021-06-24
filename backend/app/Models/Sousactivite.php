@@ -24,7 +24,6 @@ class Sousactivite extends Model
   protected $fillable = [
 'activite_id',
 	'libelle', 	
-    'budget' ,
     'etat' ,
     'cout_estimatif', 
     'cout_reel' ,	

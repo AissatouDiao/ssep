@@ -1,3 +1,12 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <i class="material-icons pr-1">event</i>
+        <li class="breadcrumb-item">
+            <p class=""> Gestion PTBA</p>
+        </li>
+        <li class="breadcrumb-item text-primary active" aria-current="page">Planification</li>
+    </ol>
+</nav>
 <div class="accordion" id="accordionExample">
     <div class="card">
         <div class="card-header" id="headingOne">
@@ -54,7 +63,7 @@
                         </form>
                     </div>
                     <div class="col-6">
-                        Composantes Ajoutée(s)
+                        <p class="p-3 mb-2 bg-primary text-white text-center">Composante(s) Ajoutée(s)</p>
                         <div *ngFor="let c of composantes">
                             <div *ngIf="last_ptba.id==c.ptba_id" class="alert alert-primary" role="alert">
                                 {{c.libelle}}
@@ -70,21 +79,24 @@
         <div class="card-header" id="headingThree">
             <h2 class="mb-0">
                 <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            Ajouter activitées
+            Ajout activité(s)
           </button>
             </h2>
         </div>
         <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
             <div class="card-body">
-                <div *ngFor="let c of composantes">
+                <div *ngIf="composantes">
 
                     <div class="row">
                         <div class="col-6">
-                            <div *ngIf="last_ptba.id==c.ptba_id">
-                                {{c.libelle}} <br>
-                                <form #composanteForm=ngForm name="documentForm" (ngSubmit)="addComposante()">
-                                    <input type="text" name="composante_id" id="ptba_id" value="{{c.id}}" class="form-control" hidden />
+                            <div>
+                                <form #composanteForm=ngForm name="documentForm" (ngSubmit)="addActivite()">
 
+                                    <select name="composante_id" id="composante_id" class="form-select" [(ngModel)]="activite.composante_id" required>
+                                            <ng-container *ngFor="let c of composantes">
+                                                <option  *ngIf="last_ptba.id==c.ptba_id" value="{{c.id}}" >{{c.libelle}}</option>
+                                            </ng-container>
+                                    </select>
                                     <label>Titre</label>
                                     <input type="text" class="form-control" name="titre" [(ngModel)]="activite.libelle" required />
 
@@ -92,9 +104,10 @@
                                     <input type="text" class="form-control" name="extrant" [(ngModel)]="activite.extrant" required />
 
                                     <label>Etat</label>
-                                    <select name="etat" id="etat" class="form-select" [(ngModel)]="ptba.etat" required disabled>
-                                        <option value="non révisé" >Non révisé</option>
-                                        <option  value="révisé" >Révisé</option>
+                                    <select name="etat" id="etat" class="form-select" [(ngModel)]="activite.etat" required disabled>
+                                        <option value="non démarrée" >Non démarrée</option>
+                                        <option  value="en cours" >En cours</option>
+                                        <option  value="exécution complète" >Exécution complète</option>
                                     </select>
 
                                     <label>Pourcentage (par défaut)</label>
@@ -106,7 +119,18 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="col-6"></div>
+                        <div class="col-6">
+                            <div *ngFor="let c of composantes">
+                                <div *ngIf="last_ptba.id==c.ptba_id">
+                                    <p class="p-3 mb-2 bg-primary text-white text-center">{{c.libelle}} -- Activité(s) ajoutée(s)</p>
+                                    <div *ngFor="let a of activites">
+                                        <div *ngIf="c.id==a.composante_id" class="alert alert-primary" role="alert">
+                                            {{a.libelle}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -117,13 +141,13 @@
         <div class="card-header" id="headingFour">
             <h2 class="mb-0">
                 <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-            Collapsible Group Item #4
-          </button>
+                    Ajout sous-activité(s)
+                </button>
             </h2>
         </div>
         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
             <div class="card-body">
-                And lastly, the placeholder content for the third and final accordion panel. This panel is hidden by default.
+
             </div>
         </div>
     </div>
