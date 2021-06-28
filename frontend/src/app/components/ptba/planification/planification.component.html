@@ -7,6 +7,12 @@
         <li class="breadcrumb-item text-primary active" aria-current="page">Planification</li>
     </ol>
 </nav>
+<div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+    <label class="form-check-label" for="flexCheckDefault">
+      Default checkbox
+    </label>
+</div>
 <div class="accordion" id="accordionExample">
     <div class="card">
         <div class="card-header" id="headingOne">
@@ -19,7 +25,7 @@
 
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
             <div class="card-body">
-                <form #ptbaForm=ngForm name="documentForm" (ngSubmit)="addPtba()">
+                <form #ptbaForm=ngForm (ngSubmit)="addPtba()">
                     <input type="text" name="evaluation_id" class="form-control" hidden />
                     <label>Titre</label>
                     <input type="text" class="form-control" name="titre" [(ngModel)]="ptba.libelle" required />
@@ -35,7 +41,7 @@
                     </select>
                     <label>Budget (par défaut)</label>
                     <input type="number" class="form-control" name="budget" [(ngModel)]="ptba.budget" value="0" required disabled/>
-                    <button class="btn btn-primary" [disabled]="!ptbaForm.valid">Ajouter une new ptba</button>
+                    <button class="btn btn-primary" [disabled]="!ptbaForm.valid">Ajouter un ptba</button>
                 </form>
             </div>
         </div>
@@ -53,7 +59,7 @@
                 <h6 *ngIf="last_ptba">{{last_ptba.libelle}}</h6>
                 <div *ngIf="last_ptba" class="row">
                     <div class="col-6">
-                        <form #composanteForm=ngForm name="documentForm" (ngSubmit)="addComposante()">
+                        <form #composanteForm=ngForm (ngSubmit)="addComposante()">
                             <input type="text" name="ptba_id" id="ptba_id" value="{{last_ptba.id}}" class="form-control" hidden />
                             <label>Titre</label>
                             <input type="text" class="form-control" name="titre" [(ngModel)]="composante.libelle" required />
@@ -61,6 +67,7 @@
                             <input type="number" class="form-control" name="budget" [(ngModel)]="composante.budget" value="0" required disabled/>
                             <button class="btn btn-primary" [disabled]="!composanteForm.valid">Ajouter Composante</button>
                         </form>
+
                     </div>
                     <div class="col-6">
                         <p class="p-3 mb-2 bg-primary text-white text-center">Composante(s) Ajoutée(s)</p>
@@ -79,8 +86,8 @@
         <div class="card-header" id="headingThree">
             <h2 class="mb-0">
                 <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            Ajout activité(s)
-          </button>
+                    Ajout activité(s)
+                </button>
             </h2>
         </div>
         <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
@@ -90,12 +97,11 @@
                     <div class="row">
                         <div class="col-6">
                             <div>
-                                <form #composanteForm=ngForm name="documentForm" (ngSubmit)="addActivite()">
-
+                                <form #activiteForm=ngForm (ngSubmit)="addActivite()">
                                     <select name="composante_id" id="composante_id" class="form-select" [(ngModel)]="activite.composante_id" required>
-                                            <ng-container *ngFor="let c of composantes">
-                                                <option  *ngIf="last_ptba.id==c.ptba_id" value="{{c.id}}" >{{c.libelle}}</option>
-                                            </ng-container>
+                                        <ng-container *ngFor="let c of composantes">
+                                            <option  *ngIf="last_ptba.id==c.ptba_id" value="{{c.id}}" >{{c.libelle}}</option>
+                                        </ng-container>
                                     </select>
                                     <label>Titre</label>
                                     <input type="text" class="form-control" name="titre" [(ngModel)]="activite.libelle" required />
@@ -115,8 +121,45 @@
 
                                     <label>Budget (par défaut)</label>
                                     <input type="number" class="form-control" name="budget" [(ngModel)]="activite.budget" value="0" required disabled/>
-                                    <button class="btn btn-primary" [disabled]="!composanteForm.valid">Ajouter activité</button>
+                                    <button class="btn btn-primary" [disabled]="!activiteForm.valid">Ajouter activité</button>
                                 </form>
+                                <hr>
+                                <!--Partenaires associées, financiers, responsables-->
+                                <div *ngIf="last_activite">
+                                    <label>Choisir partenaires associés</label>
+                                    <div>Une fois cochée, appuyez sur OK pour confirmer le choix.</div>
+                                    <div *ngFor="let p of partenaires; let i=index">
+                                        <input type="text" name="activiteassocie_id" id="activiteassocie_id" value="{{last_activite.id}}" class="form-control" hidden />
+                                        <div *ngIf="p.type=='technique' || p.type=='financier/technique'">
+                                            <div class="font-weight-bold text-uppercase"> {{p.libelle}} <input type="checkbox" id="partenaireassocie_id" name="partenaireassocie_id" value="{{p.id}}" /></div>
+                                            <button class="btn btn-primary" (click)="addPartenairesAssocies(i)" name="bouton" [disabled]="boutonstate"> OK</button>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <label>Choisir partenaires financiers</label>
+                                    <div>Une fois cochée, appuyez sur OK pour confirmer le choix.</div>
+                                    <div *ngFor="let p of partenaires; let i=index">
+                                        <input type="text" name="activiteassocie_id" id="activiteassocie_id" value="{{last_activite.id}}" class="form-control" hidden />
+                                        <div *ngIf="p.type=='financier' || p.type=='financier/technique'">
+                                            <div class="font-weight-bold text-uppercase"> {{p.libelle}} <input type="checkbox" id="partenaireassocie_id" name="partenaireassocie_id" value="{{p.id}}" /></div>
+                                            <button class="btn btn-primary" (click)="addPartenairesFinanciers(i)" name="bouton" [disabled]="boutonstate"> OK</button>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <label>Choisir partenaires responsables</label>
+                                    <div>Une fois cochée, appuyez sur OK pour confirmer le choix.</div>
+                                    <div *ngFor="let p of partenaires; let i=index">
+                                        <input type="text" name="activiteassocie_id" id="activiteassocie_id" value="{{last_activite.id}}" class="form-control" hidden />
+                                        <div>
+                                            <div class="font-weight-bold text-uppercase"> {{p.libelle}} <input type="checkbox" id="partenaireassocie_id" name="partenaireassocie_id" value="{{p.id}}" /></div>
+                                            <button class="btn btn-primary" (click)="addPartenairesResponsables(i)" name="bouton" [disabled]="boutonstate"> OK</button>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <hr>
+
+
                             </div>
                         </div>
                         <div class="col-6">
@@ -147,7 +190,75 @@
         </div>
         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
             <div class="card-body">
+                <div *ngIf="activites">
 
+                    <div class="row">
+                        <div class="col-6">
+                            <div>
+                                <form #activiteForm=ngForm (ngSubmit)="addSousactivite()">
+                                    <select name="activite_id" id="activite_id" class="form-select" [(ngModel)]="sousactivite.activite_id" required>
+                                        <ng-container *ngFor="let c of composantes">
+                                            <div  *ngIf="last_ptba.id==c.ptba_id">
+                                                    <ng-container *ngFor="let a of activites">
+                                                    <option  *ngIf="c.id==a.composante_id" value="{{a.id}}" >{{a.libelle}}  </option>   
+                                                </ng-container>
+                                           </div>
+                                        </ng-container>
+                                    </select>
+                                    <label>Titre</label>
+                                    <input type="text" class="form-control" name="titre" [(ngModel)]="sousactivite.libelle" required />
+
+                                    <label>Etat</label>
+                                    <select name="etat" id="etat" class="form-select" [(ngModel)]="sousactivite.etat" required disabled>
+                                        <option value="non complet" >non complet</option>
+                                        <option  value="complet" >complet</option>
+                                    </select>
+                                    <label>Pourcentage (par défaut)</label>
+                                    <input type="number" class="form-control" name="pourcentage" [(ngModel)]="sousactivite.pourcentage" value="0" required disabled/>
+
+                                    <label>Budget (par défaut)</label>
+                                    <input type="number" class="form-control" name="cout_estimatif" [(ngModel)]="sousactivite.cout_estimatif" value="0" required disabled/>
+                                    <button class="btn btn-primary" [disabled]="!activiteForm.valid">Ajouter activité</button>
+                                </form>
+                                <hr>
+                                <!--Partenaires associées, financiers, responsables-->
+                                <div *ngIf="last_activite">
+
+                                    <label>Choisir partenaires financiers</label>
+                                    <div>Une fois cochée, appuyez sur OK pour confirmer le choix.</div>
+                                    <div *ngFor="let p of partenaires; let i=index">
+                                        <input type="text" name="activiteassocie_id" id="activiteassocie_id" value="{{last_activite.id}}" class="form-control" hidden />
+                                        <div *ngIf="p.type=='financier' || p.type=='financier/technique'">
+                                            <div class="font-weight-bold text-uppercase"> {{p.libelle}} <input type="checkbox" id="partenaireassocie_id" name="partenaireassocie_id" value="{{p.id}}" /></div>
+                                            <button class="btn btn-primary" (click)="addPartenairesFinanciers(i)" name="bouton" [disabled]="boutonstate"> OK</button>
+                                        </div>
+                                    </div>
+                                    <hr>
+
+                                </div>
+                                <hr>
+
+
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div *ngFor="let c of composantes">
+                                <div *ngIf="last_ptba.id==c.ptba_id">
+                                    <div *ngFor="let a of activites">
+                                        <ng-container *ngIf="c.id==a.composante_id">{{a.libelle}} --Sous-activité(s) ajoutée(s)</ng-container>
+
+                                        <ng-container *ngFor="let s of sousactivites">
+                                            <div *ngIf="a.id==s.activite_id" class="alert alert-primary" role="alert">
+                                                <p class="p-3 mb-2 bg-primary text-white text-center"></p>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>

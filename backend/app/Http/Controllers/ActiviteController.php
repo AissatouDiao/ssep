@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Activite;
 use Illuminate\Http\Request;
+use App\Models\Activitepartenaireassocie;
+use App\Models\Activitepartenairefinancier;
+use App\Models\Activitepartenairesponsable;
 
 class ActiviteController extends Controller
 {
@@ -12,9 +15,32 @@ class ActiviteController extends Controller
         $lastRecordDate = Activite::latest()->first();
         return response()->json([
             "message"=>"Un nouveau activite a été ajouté !",
-            $lastRecordDate,
+             "last"=>$lastRecordDate,
         ]);
     }
+
+    public function addPartenairesAssocies(Request $request){
+        Activitepartenaireassocie::create($request->all());
+        return response()->json([
+            "message"=>"Un nouveau partenaire associé a été ajouté !",
+        ]);
+    }
+
+    public function addPartenaireFinanciers(Request $request){
+        Activitepartenairefinancier::create($request->all());
+        return response()->json([
+            "message"=>"Un nouveau partenaire financier a été ajouté !",
+        ]);
+    }
+
+    public function addPartenairesponsables(Request $request){
+        Activitepartenairesponsable::create($request->all());
+        return response()->json([
+            "message"=>"Un nouveau partenaire responsable a été ajouté !",
+        ]);
+    }
+
+
     
     public function update(Request $request){
 

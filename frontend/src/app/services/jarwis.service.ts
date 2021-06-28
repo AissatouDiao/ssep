@@ -221,6 +221,18 @@ export class JarwisService {
   addActivite(data: object) {
     return this.http.post(`${this.baseUrl}/addactivite`, data);
   }
+  //Ajouter un nouveau partenaire associé
+  addActivitePartenaireAssocies(data: object) {
+    return this.http.post(`${this.baseUrl}/addactivitepartenairesassocies`, data);
+  }
+  //Ajouter un nouveau partenaire associé
+  addActivitePartenaireFinanciers(data: object) {
+    return this.http.post(`${this.baseUrl}/addactivitepartenairefinanciers`, data);
+  }
+  //Ajouter un nouveau partenaire associé
+  addActivitePartenaireResponsable(data: object) {
+    return this.http.post(`${this.baseUrl}/addactivitepartenaireresponsables`, data);
+  }
   //update activite
   updateActivite(data: object) {
     return this.http.post(`${this.baseUrl}/updateactivite`, data)
@@ -231,7 +243,23 @@ export class JarwisService {
     return this.http.delete(`${this.baseUrl}/deleteActivite/` + data);
   }
 
+  //-------Sousactivite--------//
+  getSousactivites() {
+    return this.http.get(`${this.baseUrl}/getsousactivites`);
+  }
+  //Ajouter un nouveau sousactivite
+  addSousactivite(data: object) {
+    return this.http.post(`${this.baseUrl}/addsousactivite`, data);
+  }
+  //update sousactivite
+  updateSousactivite(data: object) {
+    return this.http.post(`${this.baseUrl}/updatesousactivite`, data)
+  }
 
+  //supprimer sousactivite
+  deleteSousactivite(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteSousactivite/` + data);
+  }
 
 
 

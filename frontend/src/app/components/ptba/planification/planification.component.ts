@@ -9,9 +9,13 @@ import { JarwisService } from 'src/app/services/jarwis.service';
 })
 export class PlanificationComponent implements OnInit {
   //Declarations des variables
-  erreur: any; composantes: any; partenaires: any; activites: any;
-  ptba_id: any
-  last_ptba: any;
+  erreur: any; composantes: any; partenaires: any;
+  activites: any; hideactivites = false; partenaire: any;
+  ptba_id: any; last_ptba: any; last_activite: any;
+  boutonstate = false; last_sousactivite: any;
+  sousactivites: any;
+
+
   ptba = {
     libelle: '',
     annee: <any>null,
@@ -37,9 +41,13 @@ export class PlanificationComponent implements OnInit {
     activite_id: <any>null,
     libelle: '',
     etat: '',
-    budget: 0,
-    cout_estimatif: <any>null,
+    cout_estimatif: 0,
     pourcentage: 0
+  }
+
+  partenaireassocie = {
+    activite_id: <any>null,
+    partenaire_id: <any>null
   }
 
   constructor(private jarwisService: JarwisService, private notify: SnotifyService) { }
@@ -98,14 +106,76 @@ export class PlanificationComponent implements OnInit {
         console.log(data);
         this.notify.success('l\'activité a été ajoutée');
         this.getActivites();
+        this.last_activite = data.last;
+        this.hideactivites = true;
       },
       (error: any) => { console.log(error) }
+    );
+  }
+
+  addPartenairesAssocies(i: any) {
+    this.partenaireassocie.activite_id = (<HTMLInputElement>document.getElementsByName('activiteassocie_id')[i]).value;
+    this.partenaireassocie.partenaire_id = (<HTMLInputElement>document.getElementsByName('partenaireassocie_id')[i]).value;
+    this.jarwisService.addActivitePartenaireAssocies(this.partenaireassocie).subscribe(
+      (data: any) => {
+        console.log(data);
+        (<HTMLInputElement>document.getElementsByName('bouton')[i]).disabled = true;
+        this.notify.success('Partenaire associé ajouté !');
+      },
+      (error: any) => console.log(error)
+    );
+  }
+  addPartenairesFinanciers(i: any) {
+    this.partenaireassocie.activite_id = (<HTMLInputElement>document.getElementsByName('activiteassocie_id')[i]).value;
+    this.partenaireassocie.partenaire_id = (<HTMLInputElement>document.getElementsByName('partenaireassocie_id')[i]).value;
+    this.jarwisService.addActivitePartenaireFinanciers(this.partenaireassocie).subscribe(
+      (data: any) => {
+        console.log(data);
+        (<HTMLInputElement>document.getElementsByName('bouton')[i]).disabled = true;
+        this.notify.success('Partenaire associé ajouté !');
+      },
+      (error: any) => console.log(error)
+    );
+  }
+  addPartenairesResponsables(i: any) {
+    this.partenaireassocie.activite_id = (<HTMLInputElement>document.getElementsByName('activiteassocie_id')[i]).value;
+    this.partenaireassocie.partenaire_id = (<HTMLInputElement>document.getElementsByName('partenaireassocie_id')[i]).value;
+    this.jarwisService.addActivitePartenaireResponsable(this.partenaireassocie).subscribe(
+      (data: any) => {
+        console.log(data);
+        (<HTMLInputElement>document.getElementsByName('bouton')[i]).disabled = true;
+        this.notify.success('Partenaire associé ajouté !');
+      },
+      (error: any) => console.log(error)
     );
   }
 
   getActivites() {
     this.jarwisService.getActivites().subscribe(
       (data: any) => { console.log(data); this.activites = data },
+      (error: any) => { console.log(error); }
+    )
+  }
+
+  addSousactivite() {
+    this.sousactivite.activite_id = (<HTMLInputElement>document.getElementById('activite_id')).value;
+
+
+    this.jarwisService.addSousactivite(this.sousactivite).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.notify.success('la sous-activité a été ajoutée');
+        this.getsousActivites();
+        this.last_sousactivite = data.last;
+      },
+      (error: any) => { console.log(error) },
+    );
+
+  }
+
+  getsousActivites() {
+    this.jarwisService.getSousactivites().subscribe(
+      (data: any) => { console.log(data); this.sousactivites = data },
       (error: any) => { console.log(error); }
     )
   }

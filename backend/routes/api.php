@@ -9,6 +9,7 @@ use App\Http\Controllers\ActiviteController;
 use App\Http\Controllers\ComposanteController;
 use App\Http\Controllers\PartenaireController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\SousactiviteController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\RecommandationController;
@@ -92,9 +93,17 @@ Route::group([
     Route::get('getcomposantes', [ComposanteController::class,'getAll']);
     Route::delete('deleteComposante/{id}',[ComposanteController::class,'delete']);
     Route::post('updatecomposante',[ComposanteController::class,'update']);
-    //Activite
+    //Activite 
     Route::post('addactivite',[ActiviteController::class,'add']);
+    Route::post('addactivitepartenairesassocies',[ActiviteController::class,'addPartenairesAssocies']);
+    Route::post('addactivitepartenairefinanciers',[ActiviteController::class,'addPartenaireFinanciers']);
+    Route::post('addactivitepartenaireresponsables',[ActiviteController::class,'addPartenairesponsables']);
     Route::get('getactivites', [ActiviteController::class,'getAll']);
     Route::delete('deleteActivite/{id}',[ActiviteController::class,'delete']);
     Route::post('updateactivite',[ActiviteController::class,'update']);
+    //Sous-activite
+    Route::post('addsousactivite',[SousactiviteController::class,'add']);
+    Route::get('getsousactivites', [SousactiviteController::class,'getAll']);
+    Route::delete('deleteSousactivite/{id}',[SousactiviteController::class,'delete']);
+    Route::post('updatesousactivite',[SousactiviteController::class,'update']);
 });

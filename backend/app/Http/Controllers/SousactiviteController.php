@@ -12,7 +12,7 @@ class SousactiviteController extends Controller
         $lastRecordDate = Sousactivite::latest()->first();
         return response()->json([
             "message"=>"Une nouvelle sous-activité a été ajouté !",
-            $lastRecordDate,
+            "last"=>$lastRecordDate,
         ]);
     }
     
