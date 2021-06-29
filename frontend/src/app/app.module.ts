@@ -27,6 +27,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PartenairesComponent } from './components/partenaires/partenaires.component';
+import { GestionptbasComponent } from './components/ptba/gestionptbas/gestionptbas.component';
 
 
 
@@ -51,6 +52,7 @@ import { PartenairesComponent } from './components/partenaires/partenaires.compo
     SearchFilterPipe,
     DashboardComponent,
     PartenairesComponent,
+    GestionptbasComponent,
 
   ],
   imports: [

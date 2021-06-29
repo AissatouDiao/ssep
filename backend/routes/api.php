@@ -106,4 +106,5 @@ Route::group([
     Route::get('getsousactivites', [SousactiviteController::class,'getAll']);
     Route::delete('deleteSousactivite/{id}',[SousactiviteController::class,'delete']);
     Route::post('updatesousactivite',[SousactiviteController::class,'update']);
+    Route::post('addactivitepartenairefinancierssousactivites',[SousactiviteController::class,'addPartenaireFinanciersSousactivite']);
 });

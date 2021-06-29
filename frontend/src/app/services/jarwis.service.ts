@@ -261,6 +261,10 @@ export class JarwisService {
     return this.http.delete(`${this.baseUrl}/deleteSousactivite/` + data);
   }
 
+  //Ajouter un nouveau partenaire financier pour une sous activité
+  addActivitePartenaireFinanciersSousactivites(data: object) {
+    return this.http.post(`${this.baseUrl}/addactivitepartenairefinancierssousactivites`, data);
+  }
 
 
 

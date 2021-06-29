@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sousactivite;
 use Illuminate\Http\Request;
+use App\Models\Sousactivitepartenaire;
 
 class SousactiviteController extends Controller
 {
@@ -13,6 +14,13 @@ class SousactiviteController extends Controller
         return response()->json([
             "message"=>"Une nouvelle sous-activité a été ajouté !",
             "last"=>$lastRecordDate,
+        ]);
+    }
+
+    public function addPartenaireFinanciersSousactivite(Request $request){
+        Sousactivitepartenaire::create($request->all());
+        return response()->json([
+            "message"=>"Un nouveau partenaire financier a été ajouté !",
         ]);
     }
     

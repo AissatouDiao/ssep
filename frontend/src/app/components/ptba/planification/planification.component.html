@@ -7,12 +7,7 @@
         <li class="breadcrumb-item text-primary active" aria-current="page">Planification</li>
     </ol>
 </nav>
-<div class="form-check">
-    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-    <label class="form-check-label" for="flexCheckDefault">
-      Default checkbox
-    </label>
-</div>
+
 <div class="accordion" id="accordionExample">
     <div class="card">
         <div class="card-header" id="headingOne">
@@ -73,7 +68,7 @@
                         <p class="p-3 mb-2 bg-primary text-white text-center">Composante(s) Ajoutée(s)</p>
                         <div *ngFor="let c of composantes">
                             <div *ngIf="last_ptba.id==c.ptba_id" class="alert alert-primary" role="alert">
-                                {{c.libelle}}
+                                <i class="material-icons" (click)="deleteComposante(c.id)" style="cursor:pointer">close</i> {{c.libelle}}
                             </div>
                         </div>
                     </div>
@@ -123,41 +118,6 @@
                                     <input type="number" class="form-control" name="budget" [(ngModel)]="activite.budget" value="0" required disabled/>
                                     <button class="btn btn-primary" [disabled]="!activiteForm.valid">Ajouter activité</button>
                                 </form>
-                                <hr>
-                                <!--Partenaires associées, financiers, responsables-->
-                                <div *ngIf="last_activite">
-                                    <label>Choisir partenaires associés</label>
-                                    <div>Une fois cochée, appuyez sur OK pour confirmer le choix.</div>
-                                    <div *ngFor="let p of partenaires; let i=index">
-                                        <input type="text" name="activiteassocie_id" id="activiteassocie_id" value="{{last_activite.id}}" class="form-control" hidden />
-                                        <div *ngIf="p.type=='technique' || p.type=='financier/technique'">
-                                            <div class="font-weight-bold text-uppercase"> {{p.libelle}} <input type="checkbox" id="partenaireassocie_id" name="partenaireassocie_id" value="{{p.id}}" /></div>
-                                            <button class="btn btn-primary" (click)="addPartenairesAssocies(i)" name="bouton" [disabled]="boutonstate"> OK</button>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <label>Choisir partenaires financiers</label>
-                                    <div>Une fois cochée, appuyez sur OK pour confirmer le choix.</div>
-                                    <div *ngFor="let p of partenaires; let i=index">
-                                        <input type="text" name="activiteassocie_id" id="activiteassocie_id" value="{{last_activite.id}}" class="form-control" hidden />
-                                        <div *ngIf="p.type=='financier' || p.type=='financier/technique'">
-                                            <div class="font-weight-bold text-uppercase"> {{p.libelle}} <input type="checkbox" id="partenaireassocie_id" name="partenaireassocie_id" value="{{p.id}}" /></div>
-                                            <button class="btn btn-primary" (click)="addPartenairesFinanciers(i)" name="bouton" [disabled]="boutonstate"> OK</button>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <label>Choisir partenaires responsables</label>
-                                    <div>Une fois cochée, appuyez sur OK pour confirmer le choix.</div>
-                                    <div *ngFor="let p of partenaires; let i=index">
-                                        <input type="text" name="activiteassocie_id" id="activiteassocie_id" value="{{last_activite.id}}" class="form-control" hidden />
-                                        <div>
-                                            <div class="font-weight-bold text-uppercase"> {{p.libelle}} <input type="checkbox" id="partenaireassocie_id" name="partenaireassocie_id" value="{{p.id}}" /></div>
-                                            <button class="btn btn-primary" (click)="addPartenairesResponsables(i)" name="bouton" [disabled]="boutonstate"> OK</button>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                </div>
-                                <hr>
 
 
                             </div>
@@ -168,12 +128,55 @@
                                     <p class="p-3 mb-2 bg-primary text-white text-center">{{c.libelle}} -- Activité(s) ajoutée(s)</p>
                                     <div *ngFor="let a of activites">
                                         <div *ngIf="c.id==a.composante_id" class="alert alert-primary" role="alert">
-                                            {{a.libelle}}
+                                            <i class="material-icons" (click)="deleteActivite(a.id)" style="cursor:pointer">close</i> {{a.libelle}}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div><br>
+                    <div class="row" *ngIf="last_activite">
+                        <!--Partenaires associées, financiers, responsables-->
+
+
+                        <div class="col">
+                            <label class="p-3 mb-2 bg-primary text-white">Choisir partenaires associés</label>
+                            <div class="text-primary">Une fois cochée, appuyez sur OK pour confirmer le choix du partenaire associé.</div>
+                            <div *ngFor="let p of partenaires; let i=index">
+                                <input type="text" name="activiteassocie_id" id="a1{{p.id}}" value="{{last_activite.id}}" class="form-control" hidden />
+                                <div *ngIf="p.type=='technique' || p.type=='financier/technique'">
+                                    <div class="font-weight-bold text-uppercase"> {{p.libelle}} <input type="checkbox" id="p1{{p.id}}" name="partenaireassocie_id" value="{{p.id}}" (change)="hide1(p.id)" /></div>
+                                    <button class="btn btn-primary" (click)="addPartenairesAssocies(p.id)" name="bouton" id="b1{{p.id}}" [disabled]="true"> OK</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col">
+                            <label class="p-3 mb-2 bg-warning text-white">Choisir partenaires financiers</label>
+                            <div class="text-warning">Une fois cochée, appuyez sur OK pour confirmer le choix du partenaire financier.</div>
+                            <div *ngFor="let p of partenaires; let i=index">
+                                <div *ngIf="p.type=='financier' || p.type=='financier/technique'">
+                                    <input type="text" name="activitefinancier_id" id="a{{p.id}}" value="{{last_activite.id}}" class="form-control" hidden />
+                                    <div class="font-weight-bold text-uppercase"> {{p.libelle}} <input type="checkbox" id="p{{p.id}}" name="partenairefinancier_id" value="{{p.id}}" (change)="hide2(p.id)" /></div>
+                                    <button class="btn btn-warning" (click)="addPartenairesFinanciers(p.id)" name="bouton1" id="b{{p.id}}" [disabled]="true"> OK</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <label class="p-3 mb-2 bg-danger text-white">Choisir partenaires responsables</label>
+                            <div class="text-danger">Une fois cochée, appuyez sur OK pour confirmer le choix du partenaire responsable.</div>
+                            <div *ngFor="let p of partenaires; let i=index">
+                                <input type="text" name="activiteresponsable_id" id="a2{{p.id}}" value="{{last_activite.id}}" class="form-control" hidden />
+                                <div>
+                                    <div class="font-weight-bold text-uppercase"> {{p.libelle}} <input type="checkbox" id="p2{{p.id}}" name="partenaireresponsable_id" value="{{p.id}}" (change)="hide3(p.id)" /></div>
+                                    <button class="btn btn-danger" (click)="addPartenairesResponsables(p.id)" name="bouton2" id="b2{{p.id}}" [disabled]="true"> OK</button>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
 
                 </div>
@@ -196,13 +199,13 @@
                         <div class="col-6">
                             <div>
                                 <form #activiteForm=ngForm (ngSubmit)="addSousactivite()">
-                                    <select name="activite_id" id="activite_id" class="form-select" [(ngModel)]="sousactivite.activite_id" required>
+                                    <select name="sousactivite_id" id="sousactivite_id" class="form-select" [(ngModel)]="sousactivite.activite_id" required>
                                         <ng-container *ngFor="let c of composantes">
-                                            <div  *ngIf="last_ptba.id==c.ptba_id">
-                                                    <ng-container *ngFor="let a of activites">
-                                                    <option  *ngIf="c.id==a.composante_id" value="{{a.id}}" >{{a.libelle}}  </option>   
+                                            <ng-container *ngIf="last_ptba.id==c.ptba_id">
+                                                <ng-container *ngFor="let a of activites">
+                                                    <option *ngIf="c.id==a.composante_id"  value="{{a.id}}" >{{a.libelle}}  </option>
                                                 </ng-container>
-                                           </div>
+                                            </ng-container>
                                         </ng-container>
                                     </select>
                                     <label>Titre</label>
@@ -220,24 +223,6 @@
                                     <input type="number" class="form-control" name="cout_estimatif" [(ngModel)]="sousactivite.cout_estimatif" value="0" required disabled/>
                                     <button class="btn btn-primary" [disabled]="!activiteForm.valid">Ajouter activité</button>
                                 </form>
-                                <hr>
-                                <!--Partenaires associées, financiers, responsables-->
-                                <div *ngIf="last_activite">
-
-                                    <label>Choisir partenaires financiers</label>
-                                    <div>Une fois cochée, appuyez sur OK pour confirmer le choix.</div>
-                                    <div *ngFor="let p of partenaires; let i=index">
-                                        <input type="text" name="activiteassocie_id" id="activiteassocie_id" value="{{last_activite.id}}" class="form-control" hidden />
-                                        <div *ngIf="p.type=='financier' || p.type=='financier/technique'">
-                                            <div class="font-weight-bold text-uppercase"> {{p.libelle}} <input type="checkbox" id="partenaireassocie_id" name="partenaireassocie_id" value="{{p.id}}" /></div>
-                                            <button class="btn btn-primary" (click)="addPartenairesFinanciers(i)" name="bouton" [disabled]="boutonstate"> OK</button>
-                                        </div>
-                                    </div>
-                                    <hr>
-
-                                </div>
-                                <hr>
-
 
                             </div>
                         </div>
@@ -245,17 +230,36 @@
                             <div *ngFor="let c of composantes">
                                 <div *ngIf="last_ptba.id==c.ptba_id">
                                     <div *ngFor="let a of activites">
-                                        <ng-container *ngIf="c.id==a.composante_id">{{a.libelle}} --Sous-activité(s) ajoutée(s)</ng-container>
-
-                                        <ng-container *ngFor="let s of sousactivites">
-                                            <div *ngIf="a.id==s.activite_id" class="alert alert-primary" role="alert">
-                                                <p class="p-3 mb-2 bg-primary text-white text-center"></p>
-                                            </div>
+                                        <ng-container *ngIf="c.id==a.composante_id">
+                                            <p class="p-3 mb-2 bg-primary text-white text-center">
+                                                {{a.libelle}} --Sous-activité(s) ajoutée(s)
+                                            </p>
+                                            <ng-container *ngFor="let s of sousactivites">
+                                                <div *ngIf="a.id==s.activite_id" class="alert alert-primary" role="alert">
+                                                    <i class="material-icons" (click)="deleteSousactivite(s.id)" style="cursor:pointer">close</i> {{s.libelle}}
+                                                </div>
+                                            </ng-container>
                                         </ng-container>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div><br>
+                    <div class="row">
+                        <!--Partenaires financiers-->
+                        <div *ngIf="last_sousactivite">
+                            <label class="p-3 mb-2 bg-dark text-white">Choisir partenaires financiers</label>
+                            <div class="text-success">Une fois cochée, appuyez sur OK pour remplir le coût estimatif pour la sous-activité.</div>
+                            <div *ngFor="let p of partenaires; let i=index">
+                                <input type="text" name="sousactivite_id" id="s{{p.id}}" value="{{last_sousactivite.id}}" class="form-control" hidden />
+                                <div *ngIf="p.type=='financier' || p.type=='financier/technique'">
+                                    <div class="font-weight-bold text-uppercase"> {{p.libelle}} <input type="checkbox" id="p3{{p.id}}" name="partenaire_sa_id" value="{{p.id}}" (change)="budgethide1(p.id)" /></div>
+                                    <input type="number" name="sa_budget" id="sa_budget{{p.id}}" placeholder="budget partenaire pour la sous-activité" [hidden]="budgethide" />
+                                    <button class="btn btn-success" (click)="addPartenairesFinanciersSousactivite(p.id)" id="b3{{p.id}}" name="bouton3" [disabled]="true"> OK</button>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                 </div>

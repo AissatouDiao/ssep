@@ -20,6 +20,7 @@ import { PlanificationComponent } from './components/ptba/planification/planific
 import { NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PartenairesComponent } from './components/partenaires/partenaires.component';
+import { GestionptbasComponent } from './components/ptba/gestionptbas/gestionptbas.component';
 
 const routes: Routes = [
 
@@ -92,6 +93,10 @@ const routes: Routes = [
   },
   {
     path: 'gestion-ptba/planification-ptba', component: PlanificationComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-ptba/ptbas', component: GestionptbasComponent,
     canActivate: [AfterloginService]
   },
   {
