@@ -3,26 +3,49 @@ import { SnotifyPosition, SnotifyService } from 'ng-snotify';
 import { JarwisService } from 'src/app/services/jarwis.service';
 
 @Component({
-  selector: 'app-gestionptbas',
-  templateUrl: './gestionptbas.component.html',
-  styleUrls: ['./gestionptbas.component.scss']
+  selector: 'app-suivi',
+  templateUrl: './suivi.component.html',
+  styleUrls: ['./suivi.component.scss']
 })
-export class GestionptbasComponent implements OnInit {
+export class SuiviComponent implements OnInit {
   @Input() page: any = 1;
   @Input() pageSize: any = 5;
   searchText: any; searchFilter: any = '';
-
   //variables 
-  moissousactivite: any; mois: any;
-  partenaires: any; partenaireactiviteassocie: any; partenaireactivitefinancier: any; partenaireactiviteresponsable: any;
   ptbas: any; composantes: any; activites: any; sousactivites: any; error: any;
-  moissousactivites: any; partenairesptbas: any;
+  moissousactivites: any; nombre = { id: 39 }; nombrea = { id: 130 }; nombrec = { id: 177 }; nombrep = { id: 135 }
+
+  sous_activite = {
+    activite_id: null,
+    libelle: null,
+    etat: "non complet",
+    cout_estimatif: null,
+    cout_reel: null,
+    debut_reel: null,
+    fin_reel: null,
+    debut_planifie: null,
+    fin_planifie: null
+  }
+
   constructor(private jarwisService: JarwisService, private notify: SnotifyService) { }
+
+
 
   ngOnInit(): void {
 
-    let p = { id: 186 }
-    this.jarwisService.test(p).subscribe(
+    this.jarwisService.getsousactivitesbudget(this.nombre).subscribe(
+      data => console.log(data),
+      error => console.log(error)
+    );
+    this.jarwisService.getactivitebudgettotal(this.nombrea).subscribe(
+      data => console.log(data),
+      error => console.log(error)
+    );
+    this.jarwisService.getcomposantebudgettotal(this.nombrec).subscribe(
+      data => console.log(data),
+      error => console.log(error)
+    );
+    this.jarwisService.getptbabudgettotal(this.nombrep).subscribe(
       data => console.log(data),
       error => console.log(error)
     );
@@ -31,61 +54,59 @@ export class GestionptbasComponent implements OnInit {
     this.getActivites();
     this.getSousActivites();
     this.getMoisSousActivites();
-    this.getpartenairesactivitesassocies();
-    this.getpartenairesactivitesfinanciers();
-    this.getpartenairesactivitesresponsable()
-    this.getPartenaires();
-    this.getMoisSA();
-    this.getMois();
-    this.getpartenairesptbas();
+
   }
 
-  getPartenaires() {
-    this.jarwisService.getPartenaires().subscribe(
-      (data: any) => { console.log(data); this.partenaires = data },
-      (error: any) => { console.log(error); }
-    );
+  changeStatut(e: any, p: any) {
+    //Statut confectionné
+    let statut = {
+      id: p.id,
+      etat: e.target.value
+    };
+
+    //notification et changement de statut.
+    this.notify.confirm('Voulez vous vraiment changer le statut du PTBA', 'Changer statut ?', {
+      timeout: 0,
+      position: SnotifyPosition.rightTop,
+      showProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+
+      buttons: [
+        {
+          text: 'Oui',
+          action: () => {
+
+            this.jarwisService.changeStatutPtba(statut).subscribe(
+              data => console.log(data),
+              error => console.log(error)
+            );
+            this.notify.success('Statut changé avec succès !');
+          }, bold: false
+        },
+        {
+          text: 'Non',
+          action: () => {
+            this.notify.info('Changement annulé !')
+            this.getPtbas();
+          }
+        },
+      ]
+    });
   }
-  getMoisSA() {
-    this.jarwisService.getMoisSousActivites().subscribe(
-      (data: any) => { console.log(data); this.moissousactivite = data },
-      (error: any) => { console.log(error); }
-    );
-  }
-  getMois() {
-    this.jarwisService.getMois().subscribe(
-      (data: any) => { console.log(data); this.mois = data },
-      (error: any) => { console.log(error); }
-    );
-  }
-  getpartenairesactivitesassocies() {
-    this.jarwisService.getactivitespartenaireassocies().subscribe(
-      (data: any) => { console.log(data); this.partenaireactiviteassocie = data },
-      (error: any) => { console.log(error); }
-    );
-  }
-  getpartenairesactivitesfinanciers() {
-    this.jarwisService.getactivitespartenairesfinanciers().subscribe(
-      (data: any) => { console.log(data); this.partenaireactivitefinancier = data },
-      (error: any) => { console.log(error); }
-    );
-  }
-  getpartenairesactivitesresponsable() {
-    this.jarwisService.getactivitespartenairesresponsables().subscribe(
-      (data: any) => { console.log(data); this.partenaireactiviteresponsable = data },
-      (error: any) => { console.log(error); }
-    );
+
+  update_sa(s: any) {
+    this.jarwisService.updateSousactivite(s).subscribe(
+      (data: any) => { console.log(data); this.notify.success(data.message) },
+      (error: any) => { console.log(error); this.notify.error('Une erreur est survenue.') }
+    )
+    console.log(s)
+      ;
   }
 
   getPtbas() {
     this.jarwisService.getPtbas().subscribe(
       (data: any) => { this.ptbas = data; },
-      (error: any) => { console.log(error); }
-    );
-  }
-  getpartenairesptbas() {
-    this.jarwisService.getpartenairesptbas().subscribe(
-      (data: any) => { console.log(data); this.partenairesptbas = data; },
       (error: any) => { console.log(error); }
     );
   }
@@ -147,4 +168,5 @@ export class GestionptbasComponent implements OnInit {
       (error: any) => { console.log(error); }
     );
   }
+
 }

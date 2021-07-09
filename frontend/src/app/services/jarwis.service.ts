@@ -5,6 +5,12 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class JarwisService {
+  getPartenairesAssocies() {
+    throw new Error('Method not implemented.');
+  }
+  getsactivitesbudget(nombre: { id: number; }) {
+    throw new Error('Method not implemented.');
+  }
   baseUrl = 'http://localhost:8000/api';
 
   constructor(private http: HttpClient) { }
@@ -179,9 +185,18 @@ export class JarwisService {
     return this.http.post(`${this.baseUrl}/updatepartenaireapport`, data)
   }
   //-------PTBA--------//
+
+  //Ajouter une nouvelle recommandation
+  changeStatutPtba(data: object) {
+    return this.http.post(`${this.baseUrl}/changestatutreptba`, data)
+  }
   getPtbas() {
     return this.http.get(`${this.baseUrl}/getptbas`);
   }
+  getpartenairesptbas() {
+    return this.http.get(`${this.baseUrl}/getpartenairesptbas`);
+  }
+
   //Ajouter un nouveau ptba
   addPtba(data: object) {
     return this.http.post(`${this.baseUrl}/addptba`, data);
@@ -217,6 +232,15 @@ export class JarwisService {
   getActivites() {
     return this.http.get(`${this.baseUrl}/getactivites`);
   }
+  getactivitespartenaireassocies() {
+    return this.http.get(`${this.baseUrl}/getactivitespartenaireassocies`);
+  }
+  getactivitespartenairesfinanciers() {
+    return this.http.get(`${this.baseUrl}/getactivitespartenairesfinanciers`);
+  }
+  getactivitespartenairesresponsables() {
+    return this.http.get(`${this.baseUrl}/getactivitespartenairesresponsables`);
+  }
   //Ajouter un nouveau activite
   addActivite(data: object) {
     return this.http.post(`${this.baseUrl}/addactivite`, data);
@@ -242,10 +266,28 @@ export class JarwisService {
   deleteActivite(data: any) {
     return this.http.delete(`${this.baseUrl}/deleteActivite/` + data);
   }
+  deletepartenaireassocie(data: any) {
+    return this.http.delete(`${this.baseUrl}/deletepartenaireassocie/` + data);
+  }
+  deletepartenairefinancier(data: any) {
+    return this.http.delete(`${this.baseUrl}/deletepartenairefinancier/` + data);
+  }
+  deletepartenaireresponsable(data: any) {
+    return this.http.delete(`${this.baseUrl}/deletepartenaireresponsable/` + data);
+  }
 
-  //-------Sousactivite--------//
+  //-------Sousactivite--------//getmoisactivites
+  getpartenaires_sa() {
+    return this.http.get(`${this.baseUrl}/getpartenaires_sa`);
+  }
   getSousactivites() {
     return this.http.get(`${this.baseUrl}/getsousactivites`);
+  }
+  getMois() {
+    return this.http.get(`${this.baseUrl}/getmois`);
+  }
+  getMoisSousActivites() {
+    return this.http.get(`${this.baseUrl}/getmoissousactivites`);
   }
   //Ajouter un nouveau sousactivite
   addSousactivite(data: object) {
@@ -261,11 +303,36 @@ export class JarwisService {
     return this.http.delete(`${this.baseUrl}/deleteSousactivite/` + data);
   }
 
-  //Ajouter un nouveau partenaire financier pour une sous activité
-  addActivitePartenaireFinanciersSousactivites(data: object) {
-    return this.http.post(`${this.baseUrl}/addactivitepartenairefinancierssousactivites`, data);
+  deletePartenaireSA(data: any) {
+    return this.http.delete(`${this.baseUrl}/deletePartenaire/` + data);
   }
 
+  //Ajouter un nouveau partenaire financier pour une sous activité
+  addPartenaireFinanciersSousactivites(data: object) {
+    return this.http.post(`${this.baseUrl}/addpartenairefinancierssousactivites`, data);
+  }
 
+  //Ajouter un mois pour une sous activité
+  addMoisSousactivites(data: object) {
+    return this.http.post(`${this.baseUrl}/addmoissousactivites`, data);
+  }
+
+  /////------ Budget ------///////
+
+  getsousactivitesbudget(data: object) {
+    return this.http.post(`${this.baseUrl}/getsousactivitesbudget`, data);
+  }
+  getactivitebudgettotal(data: object) {
+    return this.http.post(`${this.baseUrl}/getactivitebudgettotal`, data);
+  }
+  getcomposantebudgettotal(data: object) {
+    return this.http.post(`${this.baseUrl}/getcomposantebudgettotal`, data);
+  }
+  getptbabudgettotal(data: object) {
+    return this.http.post(`${this.baseUrl}/getptbabudgettotal`, data);
+  }
+  test(data: object) {
+    return this.http.post(`${this.baseUrl}/test`, data);
+  }
 
 }

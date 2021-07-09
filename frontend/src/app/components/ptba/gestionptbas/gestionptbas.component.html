@@ -1,3 +1,22 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <i class="material-icons pr-1">event</i>
+        <li class="breadcrumb-item">
+            <p class=""> Gestion PTBA</p>
+        </li>
+        <li class="breadcrumb-item text-primary active" aria-current="page">PTBAs</li>
+    </ol>
+</nav>
+
+<div class="navbar-form" class="col-6 float-right">
+    <div class="input-group no-border">
+        <input type="text" name="search" [(ngModel)]="searchText" autocomplete="off" class="form-control" placeholder="Rechercher...">
+        <button type="submit" class="btn btn-white btn-round btn-just-icon">
+            <i class="material-icons">search</i>
+            <div class="ripple-container"></div>
+        </button>
+    </div>
+</div><br><br>
 <table class="table table-bordered table-primary table-striped">
 
     <thead>
@@ -11,20 +30,19 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let p of ptbas">
+        <tr *ngFor="let p of ptbas |slice: (page-1)*pageSize:page*pageSize| searchFilter:searchText">
             <th scope="row">{{p.id}}</th>
             <td>
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" attr.data-target="#exampleModal{{p.id}}">
                     Apperçu
-                   </button>
+                </button>
                 <!-- Modal -->
-                <div class="modal " id="exampleModal{{p.id}}" tabindex="-1" aria-labelledby="" aria-hidden="true">
+                <div class="modal" id="exampleModal{{p.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title font-weight-light primary text-primary text-center" id="exampleModalLabel ">
-
+                                <h5 class="modal-title font-weight-light primary text-primary text-center" id="exampleModalLabel">
                                     Tableau des recommandations pour l'évaluation: {{p.titre}}.
                                 </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -47,30 +65,138 @@
                                         </ng-container>
                                     </div>-->
                                     <table>
-                                        <tr *ngFor="let c of composantes">
-                                            <div *ngIf="c.ptba_id==p.id">
-                                                Composante : {{c.libelle}}
-                                                <tr *ngFor="let a of activites">
-                                                    <td *ngIf="c.id==a.composante_id">
-                                                        Active : {{a.libelle}}
-                                                        <tr *ngFor="let s of sousactivites">
-                                                            <td *ngIf="s.activite_id==a.id">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">{{p.libelle}}</th>
+                                                <th scope="col">
+                                                    <tr>
+                                                        <td>Budget Total PTBA</td>
 
-                                                                Sous-activite : {{s.libelle}}
-                                                            </td>
-                                                        </tr>
-                                                    </td>
-                                                </tr>
-                                            </div>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{p.budget}}</td>
+                                                    </tr>
+                                                </th>
+                                                <ng-container *ngFor="let pp of partenairesptbas">
+                                                    <ng-container>
 
-                                        </tr>
+                                                    </ng-container>
+
+                                                    <th scope="col" *ngIf="pp.ptba_id==p.id">
+                                                        {{pp.budget}}
+                                                    </th>
+                                                </ng-container>
+                                                <th scope="col">Handle</th>
+                                            </tr>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Activités Principales</th>
+                                                <th>Sous-activités</th>
+                                                <th>Extrants</th>
+                                                <th>Calendrier de réalisation {{p.annee}}</th>
+                                                <th>Budget</th>
+                                                <th>Financement</th>
+                                                <th>Partie responsable</th>
+                                                <th>Partie(s) associée(s)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <ng-container *ngFor="let c of composantes">
+                                                <ng-container *ngIf="c.ptba_id==p.id">
+                                                    <tr>{{c.libelle}}</tr>
+
+                                                    <ng-container *ngFor="let a of activites">
+                                                        <ng-container *ngIf="c.id==a.composante_id">
+                                                            <tr>
+                                                                <td>{{a.id}}</td>
+                                                                <td>{{a.libelle}}</td>
+                                                                <td>
+                                                                    <ng-container *ngFor="let s of sousactivites">
+                                                                        <tr *ngIf="s.activite_id==a.id">
+                                                                            {{s.libelle}}
+                                                                        </tr>
+                                                                    </ng-container>
+                                                                </td>
+                                                                <td>{{a.extrant}}</td>
+                                                                <td>
+
+                                                                    <ng-container *ngFor="let s of sousactivites">
+                                                                        <ng-container *ngIf="s.activite_id==a.id">
+                                                                            <ng-container *ngFor="let ms of moissousactivites">
+                                                                                <ng-container *ngIf="s.id==ms.sousactivite_id">
+                                                                                    <ng-container *ngFor="let m of mois">
+                                                                                        <ng-container *ngIf="m.id==ms.mois_id">
+                                                                                            <td>{{m.mois}}</td>
+                                                                                        </ng-container>
+                                                                                    </ng-container>
+                                                                                </ng-container>
+                                                                            </ng-container>
+                                                                        </ng-container>
+                                                                    </ng-container>
+                                                                </td>
+                                                                <td>{{a.budget}}</td>
+                                                                <td>
+                                                                    <ng-container *ngFor="let paf of partenaireactivitefinancier">
+                                                                        <ng-container *ngFor="let p of partenaires">
+                                                                            <ng-container *ngIf="paf.activite_id==a.id && paf.partenaire_id==p.id">
+                                                                                {{p.libelle}}
+                                                                            </ng-container>
+                                                                        </ng-container>
+                                                                    </ng-container>
+                                                                </td>
+                                                                <td>
+                                                                    <ng-container *ngFor="let paf of partenaireactiviteresponsable">
+
+                                                                        <ng-container *ngFor="let p of partenaires">
+
+                                                                            <ng-container *ngIf="paf.activite_id==a.id && paf.partenaire_id==p.id">
+                                                                                {{p.libelle}}
+                                                                            </ng-container>
+                                                                        </ng-container>
+                                                                    </ng-container>
+                                                                </td>
+                                                                <td>
+                                                                    <ng-container *ngFor="let paf of partenaireactiviteassocie">
+
+                                                                        <ng-container *ngFor="let p of partenaires">
+
+                                                                            <ng-container *ngIf="paf.activite_id==a.id && paf.partenaire_id==p.id">
+                                                                                {{p.libelle}}
+                                                                            </ng-container>
+                                                                        </ng-container>
+                                                                    </ng-container>
+                                                                </td>
+                                                            </tr>
+                                                        </ng-container>
+                                                    </ng-container>
+
+                                                </ng-container>
+                                            </ng-container>
+                                            <!--  <tr *ngFor="let c of composantes">
+                                                <td *ngIf="c.ptba_id==p.id">
+                                                    Composante : {{c.libelle}}
+                                                    <tr *ngFor="let a of activites">
+                                                        <ng-container *ngIf="c.id==a.composante_id">
+                                                            <td>{{a.id}} </td>
+                                                            <td>{{a.libelle}}</td>
+                                                            <tr *ngFor="let s of sousactivites">
+                                                                <td *ngIf="s.activite_id==a.id">
+                                                                    Sous-activite : {{s.libelle}}
+                                                                </td>
+                                                            </tr>
+                                                        </ng-container>
+                                                    </tr>
+                                                </td>
+                                            </tr>-->
+                                        </tbody>
                                     </table>
 
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
 
-                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                             </div>
                         </div>
                     </div>
@@ -79,7 +205,7 @@
             <td>{{p.libelle}}</td>
             <td>{{p.budget}}</td>
             <td>{{p.annee}}</td>
-            <td class="td-actions ">
+            <td class="td-actions">
                 <button type="button" rel="tooltip" title="Modifier recommandation" data-toggle="modal" attr.data-target="#m{{p.id}}" class="btn btn-primary btn-link btn-sm">
                    <i class="material-icons">edit</i>
                 </button>
@@ -144,7 +270,7 @@
                     </div>
                 </div>
                 <!-- Modal Modifier -->
-                <button type="button" rel="tooltip" title="Supprimer recommandation" class="btn btn-danger btn-link btn-sm">
+                <button type="button" (click)="deleteptba(p.id)" rel="tooltip" title="Supprimer recommandation" class="btn btn-danger btn-link btn-sm">
               <i class="material-icons">close</i>
              </button>
             </td>
@@ -153,3 +279,5 @@
     </tbody>
 
 </table>
+<ngb-pagination [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="ptbas.length" class="active">
+</ngb-pagination>

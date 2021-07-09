@@ -28,6 +28,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PartenairesComponent } from './components/partenaires/partenaires.component';
 import { GestionptbasComponent } from './components/ptba/gestionptbas/gestionptbas.component';
+import { SuiviComponent } from './components/ptba/suivi/suivi.component';
 
 
 
@@ -53,6 +54,7 @@ import { GestionptbasComponent } from './components/ptba/gestionptbas/gestionptb
     DashboardComponent,
     PartenairesComponent,
     GestionptbasComponent,
+    SuiviComponent,
 
   ],
   imports: [

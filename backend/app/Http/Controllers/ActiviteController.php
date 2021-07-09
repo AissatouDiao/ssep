@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Activite;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Activitepartenaireassocie;
 use App\Models\Activitepartenairefinancier;
 use App\Models\Activitepartenairesponsable;
@@ -65,8 +66,66 @@ class ActiviteController extends Controller
         
     }
 
+    public function deletepartenaireassocie($request){
+        $activite= Activitepartenaireassocie::find($request);
+        $activite->delete();
+        return response()->json(["message" => "suppression partenaire associe effective!"]); 
+        
+    }
+    
+    public function deletepartenairefinancier($request){
+        $activite= Activitepartenairefinancier::find($request);
+        $activite->delete();
+        return response()->json(["message" => "suppression partenaire financier effective!"]); 
+        
+    }
+    
+    public function deletepartenaireresponsable($request){
+        $activite= Activitepartenairesponsable::find($request);
+        $activite->delete();
+        return response()->json(["message" => "suppression partenaire responsable effective!"]); 
+        
+    }
+
     public function getAll(){
         $activites=Activite::all();
+        foreach($activites as $a){
+            $this->getactivitebudgettotal($a);
+            $this->getpartenairesactivites($a);
+        }
         return $activites;
+    }
+
+    public function getactivitebudgettotal( $objet){
+        $budget_a= DB::table('sousactivites')->where('activite_id',$objet->id)->get()->sum('cout_estimatif');
+        $a= Activite::find($objet->id);
+        $a->budget= $budget_a;$a->save();
+        return $budget_a;
+    }
+    public function getpartenairesactivites( $objet){
+        $budgettotalactivites=DB::table('sousactivites')->where('activite_id',$objet->id)->get()->sum('budget');
+        $budgettotalpartenaires=DB::table('activitepartenairefinanciers')->where('activite_id',$objet->id)->get()->sum('budget');
+        $sous_activite_by_id= DB::table('sousactivites')->where('activite_id',$objet->id)->get();
+        foreach ($sous_activite_by_id as $value){
+        $sous_activitepartenaire_by_id= DB::table('sousactivitepartenaires')->where('sousactivite_id',$value->id)->get();
+        foreach($sous_activitepartenaire_by_id as $v){
+          if(Activitepartenairefinancier::where(['activite_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->exists()!=true){
+             $activitepartenaire=[
+                "activite_id"=>$objet->id,
+                "partenaire_id"=>$v->partenaire_id,
+                "budget"=>$v->budget
+             ];
+             Activitepartenairefinancier::create($activitepartenaire);
+             //return response()->json(["message"=>"nouveau enregistré!"]);
+          }else if((Activitepartenairefinancier::where(['activite_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->exists()!=true)and($budgettotalactivites!=$budgettotalpartenaires)){
+             $partenaireactivite=Activitepartenairefinancier::where('activite_id',$objet->id)->first();
+             $partenaireactivite->budget=$partenaireactivite->budget + $v->budget;
+             $partenaireactivite->save();
+             //return response()->json(["message"=>"nouveau enregistré!"]);
+          }else{
+              return "ok activite";
+          }
+        }
+       } return response()->json(["message"=>"ok!"]);
     }
 }

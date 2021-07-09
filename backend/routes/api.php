@@ -10,11 +10,15 @@ use App\Http\Controllers\ComposanteController;
 use App\Http\Controllers\PartenaireController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SousactiviteController;
+use App\Http\Controllers\CalculBudgetsController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\RecommandationController;
 use App\Http\Controllers\PartagedocumentController;
 use App\Http\Controllers\DocumentsevaluationController;
+use App\Http\Controllers\ActivitepartenaireassocieController;
+use App\Http\Controllers\ActivitepartenairefinancierController;
+use App\Http\Controllers\ActivitepartenaireresponsableController;
 Use App\Http\Controllers\AuthController;
 
 /*
@@ -86,8 +90,10 @@ Route::group([
     //Ptba
     Route::post('addptba',[PtbaController::class,'add']);
     Route::get('getptbas', [PtbaController::class,'getAll']);
+    Route::get('getpartenairesptbas', [PtbaController::class,'getpartenairesbyptbas']);
     Route::delete('deletePtba/{id}',[PtbaController::class,'delete']);
     Route::post('updateptba',[PtbaController::class,'update']);
+    Route::post('changestatutreptba',[PtbaController::class,'changeStatut']);
     //Composante
     Route::post('addcomposante',[ComposanteController::class,'add']);
     Route::get('getcomposantes', [ComposanteController::class,'getAll']);
@@ -101,10 +107,29 @@ Route::group([
     Route::get('getactivites', [ActiviteController::class,'getAll']);
     Route::delete('deleteActivite/{id}',[ActiviteController::class,'delete']);
     Route::post('updateactivite',[ActiviteController::class,'update']);
-    //Sous-activite
+    Route::get('getactivitespartenaireassocies', [ActivitepartenaireassocieController::class,'getActivitePartenaireAssocie']);
+    Route::get('getactivitespartenairesfinanciers', [ActivitepartenairefinancierController::class,'getActivitePartenaireFinancier']);
+    Route::get('getactivitespartenairesresponsables', [ActivitepartenaireresponsableController::class,'getActivitePartenaireResponsable']);
+    Route::delete('deletepartenaireassocie/{id}',[ActiviteController::class,'deletepartenaireassocie']);
+    Route::delete('deletepartenairefinancier/{id}',[ActiviteController::class,'deletepartenairefinancier']);
+    Route::delete('deletepartenaireresponsable/{id}',[ActiviteController::class,'deletepartenaireresponsable']);
+    //Sous-activite getpartenaires
     Route::post('addsousactivite',[SousactiviteController::class,'add']);
     Route::get('getsousactivites', [SousactiviteController::class,'getAll']);
     Route::delete('deleteSousactivite/{id}',[SousactiviteController::class,'delete']);
     Route::post('updatesousactivite',[SousactiviteController::class,'update']);
-    Route::post('addactivitepartenairefinancierssousactivites',[SousactiviteController::class,'addPartenaireFinanciersSousactivite']);
+    Route::post('addpartenairefinancierssousactivites',[SousactiviteController::class,'addPartenaireFinanciersSousactivite']);
+    Route::post('addmoissousactivites',[SousactiviteController::class,'addMoisSousactivite']);
+    Route::get('getmois', [SousactiviteController::class,'getMois']);
+    Route::get('getmoissousactivites', [SousactiviteController::class,'getMoisSousActivites']);
+    Route::delete('deletePartenaire/{id}',[SousactiviteController::class,'deletePartenaire']);
+    Route::get('getpartenaires_sa', [SousactiviteController::class,'getpartenaires_sa']);
+    //Calcul des budgetsgetactivitebudgettotal
+    Route::post('getsousactivitesbudget',[CalculBudgetsController::class,'getsousactivitebudgettotal']);
+    Route::post('getactivitebudgettotal',[CalculBudgetsController::class,'getactivitebudgettotal']);
+    Route::post('getcomposantebudgettotal',[CalculBudgetsController::class,'getcomposantebudgettotal']);
+    Route::post('getptbabudgettotal',[CalculBudgetsController::class,'getptbabudgettotal']);
+    Route::post('getpartenairesactivites',[CalculBudgetsController::class,'getpartenairesactivites']);   
+    Route::post('test',[CalculBudgetsController::class,'getpartenairesacomposantes']);
+    
 });

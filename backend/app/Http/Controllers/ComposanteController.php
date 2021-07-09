@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Composante;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\Composantepartenaire;
 
 class ComposanteController extends Controller
 {
@@ -36,6 +38,43 @@ class ComposanteController extends Controller
 
     public function getAll(){
         $composantes=Composante::all();
+        foreach($composantes as $c){
+            $this->getcomposantebudgettotal($c);
+            $this->getpartenairesacomposantes($c);
+        }
         return $composantes;
     }
+    public function getcomposantebudgettotal( $objet){
+        $budget_c= DB::table('activites')->where('composante_id',$objet->id)->get()->sum('budget');
+        $c= Composante::find($objet->id);
+        $c->budget= $budget_c;$c->save();
+        return $budget_c;
+    }
+
+    public function getpartenairesacomposantes( $objet){
+        $budgettotalcomposantes = DB::table('activites')->where('composante_id',$objet->id)->get()->sum('budget');
+        $budgettotalpartenaires =DB::table('composantepartenaires')->where('composante_id',$objet->id)->get()->sum('budget');     
+        $activite_by_id= DB::table('activites')->where('composante_id',$objet->id)->get();
+        foreach ($activite_by_id as $value){
+        $activitepartenaire_by_id= DB::table('activitepartenairefinanciers')->where('activite_id',$value->id)->get();
+        foreach($activitepartenaire_by_id as $v){
+          if(Composantepartenaire::where(['composante_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->exists()!=true){
+             $composantepartenaire=[
+                "composante_id"=>$objet->id,
+                "partenaire_id"=>$v->partenaire_id,
+                "budget"=>$v->budget
+             ];
+             Composantepartenaire::create($composantepartenaire);
+             //return response()->json(["message"=>"nouveau enregistré!"]);
+          }else if((Composantepartenaire::where(['composante_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->exists()==false)and($budgettotalcomposantes!=$budgettotalpartenaires)){
+             $partenairecomposante=Composantepartenaire::where('composante_id',$objet->id)->first();
+             $partenairecomposante->budget=$partenairecomposante->budget + $v->budget;
+             $partenairecomposante->save();
+             //return response()->json(["message"=>"nouveau enregistré!"]);
+          }else{
+              return 'ok composante';
+          }
+        }
+       } return response()->json(["message"=>"ok!"]);
+     }
 }

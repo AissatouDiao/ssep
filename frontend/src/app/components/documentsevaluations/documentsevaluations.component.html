@@ -60,8 +60,8 @@
                                         Tableau des recommandations pour l'évaluation: {{e.titre}}.
                                     </h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
                                 <div class="modal-body">
                                     <div>
@@ -186,15 +186,15 @@
                     </div>
                 </td>
                 <td class="td-actions text-right float-right">
-                    <button type="button" rel="tooltip" title="Modifier document" data-toggle="modal" attr.data-target="#m{{e.id}}" class="btn btn-primary btn-link btn-sm">
+                    <button type="button" rel="tooltip" title="Modifier recommandation" data-toggle="modal" attr.data-target="#m{{e.id}}" class="btn btn-primary btn-link btn-sm">
                        <i class="material-icons">edit</i>
                     </button>
-                    <button type="button" rel="tooltip" title="Supprimer recommansation" (click)="delete(e.id)" class="btn btn-danger btn-link btn-sm">
+                    <button type="button" rel="tooltip" title="Supprimer recommandation" (click)="delete(e.id)" class="btn btn-danger btn-link btn-sm">
                       <i class="material-icons">close</i>
                    </button>
                 </td>
                 <!-- Modal Modifier Evaluation -->
-                <div class="modal " id="m{{e.id}}" tabindex="-1" role="dialog" attr.aria-labelledby="m{{e.id}}" aria-hidden="true">
+                <div class="modal" id="m{{e.id}}" tabindex="-1" role="dialog" attr.aria-labelledby="m{{e.id}}" aria-hidden="true">
                     <div class="modal-dialog  modal-lg modal-dialog-scrollable" role="document">
                         <div class="modal-content">
                             <div class="card-header card-header-primary text-center">

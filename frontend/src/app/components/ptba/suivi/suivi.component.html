@@ -1,0 +1,162 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <i class="material-icons pr-1">event</i>
+        <li class="breadcrumb-item">
+            <p class=""> Gestion PTBA</p>
+        </li>
+        <li class="breadcrumb-item text-primary active" aria-current="page">Suivi</li>
+    </ol>
+</nav>
+<div class="navbar-form" class="col-6 float-right">
+    <div class="input-group no-border">
+        <input type="text" name="search" [(ngModel)]="searchText" autocomplete="off" class="form-control" placeholder="Rechercher...">
+        <button type="submit" class="btn btn-white btn-round btn-just-icon">
+            <i class="material-icons">search</i>
+            <div class="ripple-container"></div>
+        </button>
+    </div>
+</div><br><br>
+
+<table class="table table-hover table-primary">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Libelle</th>
+            <th scope="col">Année</th>
+            <th scope="col">Etat</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let p of ptbas|slice: (page-1)*pageSize:page*pageSize| searchFilter:searchText">
+            <th scope="row">{{p.id}}</th>
+            <td style="cursor:pointer" data-toggle="modal" attr.data-target="#exampleModal{{p.id}}">{{p.libelle}}</td>
+            <!-- Modal -->
+            <div class="modal" role="dialog" id="exampleModal{{p.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title font-weight-light primary text-primary text-center" id="exampleModalLabel">
+                                {{p.libelle}}.
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div *ngFor="let c of composantes" class="text-center">
+                                <div *ngIf="c.ptba_id==p.id" class="text-primary">
+                                    {{c.libelle}}
+                                    <div *ngFor="let a of activites">
+                                        <div *ngIf="c.id==a.composante_id" class="text-warning">
+                                            {{a.libelle}}
+                                            <div *ngFor="let s of sousactivites">
+                                                <div class="text-primary" *ngIf="s.activite_id==a.id">
+                                                    <button class="btn btn-primary" data-toggle="modal" attr.data-target="#sa{{s.id}}"> {{s.libelle}}</button>
+                                                    <!-- Modal sous-activité -->
+                                                    <div class="modal" id="sa{{s.id}}" role="dialog" tabindex="-1" attr.aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog  modal-dialog-scrollable" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">{{s.libelle}}</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form #suiviForm=ngForm (ngSubmit)="update_sa(s)">
+
+                                                                        <div class="row mb-3">
+                                                                            <label for="inputName3" class="col-sm-2 col-form-label">Libelle</label>
+                                                                            <div class="col-sm-10">
+                                                                                {{s.libelle}}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row mb-3">
+                                                                            <label for="inputName3" class="col-sm-2 col-form-label">Etat</label>
+                                                                            <div class="col-sm-10">
+                                                                                <select name="etat" id="etat" [(ngModel)]="s.etat" class="form-control" required> Veuillez choisir
+                                                                                        <option value="non complet">non complet</option>
+                                                                                        <option value="complet" >complet</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row mb-3">
+                                                                            <label for="inputName3" class="col-sm-2 col-form-label">Coût estimatif</label>
+                                                                            <div class="col-sm-10">
+                                                                                <input type="number" name="cout_estimatif" [(ngModel)]="s.cout_estimatif" id="cout_estimatif" required>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row mb-3">
+                                                                            <label for="inputName3" class="col-sm-2 col-form-label">Coût réel</label>
+                                                                            <div class="col-sm-10">
+                                                                                <input type="number" name="cout_reel" id="cout_reel" [(ngModel)]="s.cout_reel" required>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row mb-3">
+                                                                            <label for="inputEmail3" class="col-sm-2 col-form-label">Début planifié</label>
+                                                                            <div class="col-sm-10">
+                                                                                <input type="date" name="debut_planifie" id="debut_planifie" value="{{s.debut_planifie}}" [(ngModel)]="s.debut_planifie" required>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row mb-3">
+                                                                            <label for="inputEmail3" class="col-sm-2 col-form-label">Fin planifié</label>
+                                                                            <div class="col-sm-10">
+                                                                                <input type="date" name="fin_planifie" id="fin_planifie" value="{{s.fin_planifie}}" [(ngModel)]="s.fin_planifie" required>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row mb-3">
+                                                                            <label for="inputEmail3" class="col-sm-2 col-form-label">Début réel</label>
+                                                                            <div class="col-sm-10">
+                                                                                <input type="date" name="debut_reel" id="debut_reel" [(ngModel)]="s.debut_reel" required>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row mb-3">
+                                                                            <label for="inputEmail3" class="col-sm-2 col-form-label">Fin réel</label>
+                                                                            <div class="col-sm-10">
+                                                                                <input type="date" name="fin_reel" id="fin_reel" [(ngModel)]="s.fin_reel" required>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="modal-footer">
+                                                                            <button type="submit" class="btn btn-primary" [disabled]="!suiviForm.valid">Enregistrer</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Fin Modal sous-activités -->
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Modal -->
+            <td>{{p.annee}}</td>
+            <td>
+                <form action="" #test="ngForm">
+                    <select name="statut" id="" class="bg-primary form-select" [(ngModel)]="p.etat" (change)="changeStatut($event,p)" required>
+                        <option value="non révisé" >Non révisé</option>
+                        <option  value="révisé" >Révisé</option>
+               
+                    </select>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<ngb-pagination [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="ptbas.length" class="active">
+</ngb-pagination>

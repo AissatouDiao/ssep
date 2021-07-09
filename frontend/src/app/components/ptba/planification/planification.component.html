@@ -20,7 +20,7 @@
 
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
             <div class="card-body">
-                <form #ptbaForm=ngForm (ngSubmit)="addPtba()">
+                <form #ptbaForm=ngForm (ngSubmit)="addPtba(ptbaForm)">
                     <input type="text" name="evaluation_id" class="form-control" hidden />
                     <label>Titre</label>
                     <input type="text" class="form-control" name="titre" [(ngModel)]="ptba.libelle" required />
@@ -54,7 +54,7 @@
                 <h6 *ngIf="last_ptba">{{last_ptba.libelle}}</h6>
                 <div *ngIf="last_ptba" class="row">
                     <div class="col-6">
-                        <form #composanteForm=ngForm (ngSubmit)="addComposante()">
+                        <form #composanteForm=ngForm (ngSubmit)="addComposante(composanteForm)">
                             <input type="text" name="ptba_id" id="ptba_id" value="{{last_ptba.id}}" class="form-control" hidden />
                             <label>Titre</label>
                             <input type="text" class="form-control" name="titre" [(ngModel)]="composante.libelle" required />
@@ -70,6 +70,7 @@
                             <div *ngIf="last_ptba.id==c.ptba_id" class="alert alert-primary" role="alert">
                                 <i class="material-icons" (click)="deleteComposante(c.id)" style="cursor:pointer">close</i> {{c.libelle}}
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -92,7 +93,7 @@
                     <div class="row">
                         <div class="col-6">
                             <div>
-                                <form #activiteForm=ngForm (ngSubmit)="addActivite()">
+                                <form #activiteForm=ngForm (ngSubmit)="addActivite(activiteForm)">
                                     <select name="composante_id" id="composante_id" class="form-select" [(ngModel)]="activite.composante_id" required>
                                         <ng-container *ngFor="let c of composantes">
                                             <option  *ngIf="last_ptba.id==c.ptba_id" value="{{c.id}}" >{{c.libelle}}</option>
@@ -106,7 +107,7 @@
 
                                     <label>Etat</label>
                                     <select name="etat" id="etat" class="form-select" [(ngModel)]="activite.etat" required disabled>
-                                        <option value="non démarrée" >Non démarrée</option>
+                                        <option value="non démarrée" selected >Non démarrée</option>
                                         <option  value="en cours" >En cours</option>
                                         <option  value="exécution complète" >Exécution complète</option>
                                     </select>
@@ -131,6 +132,40 @@
                                             <i class="material-icons" (click)="deleteActivite(a.id)" style="cursor:pointer">close</i> {{a.libelle}}
                                         </div>
                                     </div>
+                                    <p class="p-3 mb-2 bg-primary text-white text-center">Partenaire(s) ajoutée(s)</p>
+                                    <div *ngFor="let a of activites">
+                                        <div *ngIf="c.id==a.composante_id">
+                                            <ng-container *ngFor="let pa of partenairesassocies">
+                                                <ng-container *ngFor="let p of partenaires">
+                                                    <ng-container *ngIf="a.id==pa.activite_id && p.id==pa.partenaire_id">
+                                                        <div class="alert alert-primary bg-info" role="alert"><i class="material-icons" (click)="deletepartenaireassocie(pa.id)" style="cursor:pointer">close</i>{{p.libelle}}</div>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                    <div *ngFor="let a of activites">
+                                        <div *ngIf="c.id==a.composante_id">
+                                            <ng-container *ngFor="let pf of partenairesfinanciers">
+                                                <ng-container *ngFor="let p of partenaires">
+                                                    <ng-container *ngIf="a.id==pf.activite_id && p.id==pf.partenaire_id">
+                                                        <div class="alert alert-primary bg-warning" role="alert"><i class="material-icons" (click)="deletepartenairefinancier(pf.id)" style="cursor:pointer">close</i>{{p.libelle}}</div>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                    <div *ngFor="let a of activites">
+                                        <div *ngIf="c.id==a.composante_id">
+                                            <ng-container *ngFor="let pr of partenairesresponsables">
+                                                <ng-container *ngFor="let p of partenaires">
+                                                    <ng-container *ngIf="a.id==pr.activite_id && p.id==pr.partenaire_id">
+                                                        <div class="alert alert-primary bg-danger" role="alert"><i class="material-icons" (click)="deletepartenaireresponsable(pr.id)" style="cursor:pointer">close</i>{{p.libelle}}</div>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </ng-container>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -140,13 +175,13 @@
 
 
                         <div class="col">
-                            <label class="p-3 mb-2 bg-primary text-white">Choisir partenaires associés</label>
+                            <label class="p-3 mb-2 bg-info text-white">Choisir partenaires associés</label>
                             <div class="text-primary">Une fois cochée, appuyez sur OK pour confirmer le choix du partenaire associé.</div>
                             <div *ngFor="let p of partenaires; let i=index">
                                 <input type="text" name="activiteassocie_id" id="a1{{p.id}}" value="{{last_activite.id}}" class="form-control" hidden />
                                 <div *ngIf="p.type=='technique' || p.type=='financier/technique'">
                                     <div class="font-weight-bold text-uppercase"> {{p.libelle}} <input type="checkbox" id="p1{{p.id}}" name="partenaireassocie_id" value="{{p.id}}" (change)="hide1(p.id)" /></div>
-                                    <button class="btn btn-primary" (click)="addPartenairesAssocies(p.id)" name="bouton" id="b1{{p.id}}" [disabled]="true"> OK</button>
+                                    <button class="btn btn-info" (click)="addPartenairesAssocies(p.id)" name="bouton" id="b1{{p.id}}" [disabled]="true"> OK</button>
                                 </div>
                             </div>
 
@@ -198,7 +233,7 @@
                     <div class="row">
                         <div class="col-6">
                             <div>
-                                <form #activiteForm=ngForm (ngSubmit)="addSousactivite()">
+                                <form #sousactiviteForm=ngForm (ngSubmit)="addSousactivite(sousactiviteForm)">
                                     <select name="sousactivite_id" id="sousactivite_id" class="form-select" [(ngModel)]="sousactivite.activite_id" required>
                                         <ng-container *ngFor="let c of composantes">
                                             <ng-container *ngIf="last_ptba.id==c.ptba_id">
@@ -221,7 +256,14 @@
 
                                     <label>Budget (par défaut)</label>
                                     <input type="number" class="form-control" name="cout_estimatif" [(ngModel)]="sousactivite.cout_estimatif" value="0" required disabled/>
-                                    <button class="btn btn-primary" [disabled]="!activiteForm.valid">Ajouter activité</button>
+
+
+                                    <label>Date début planifié</label>
+                                    <input type="date" class="form-control" name="debut_planifie" [(ngModel)]="sousactivite.debut_planifie" required/>
+
+                                    <label>Date fin planifié</label>
+                                    <input type="date" class="form-control" name="fin_planifie" [(ngModel)]="sousactivite.fin_planifie" required/>
+                                    <button class="btn btn-primary" [disabled]="!sousactiviteForm.valid">Ajouter sous-activité</button>
                                 </form>
 
                             </div>
@@ -232,13 +274,28 @@
                                     <div *ngFor="let a of activites">
                                         <ng-container *ngIf="c.id==a.composante_id">
                                             <p class="p-3 mb-2 bg-primary text-white text-center">
-                                                {{a.libelle}} --Sous-activité(s) ajoutée(s)
+                                                {{a.libelle}} -- Sous-activité(s) ajoutée(s)
                                             </p>
                                             <ng-container *ngFor="let s of sousactivites">
                                                 <div *ngIf="a.id==s.activite_id" class="alert alert-primary" role="alert">
                                                     <i class="material-icons" (click)="deleteSousactivite(s.id)" style="cursor:pointer">close</i> {{s.libelle}}
                                                 </div>
                                             </ng-container>
+                                            <p class="p-3 mb-2 bg-primary text-white text-center">
+                                                Partenaires
+                                            </p>
+                                            <ng-container *ngFor="let s of sousactivites">
+                                                <div *ngIf="a.id==s.activite_id" class="alert alert-primary" role="alert">
+                                                    <ng-container *ngFor="let psa of partenaires_sa">
+                                                        <ng-container *ngFor="let p of partenaires">
+                                                            <ng-container *ngIf="psa.activite_id==s.id && psa.partenaire_id==p.id">
+                                                                <i class="material-icons" (click)="deletePartenaireSA(s.id)" style="cursor:pointer">close</i> {{p.libelle}}
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                </div>
+                                            </ng-container>
+
                                         </ng-container>
                                     </div>
                                 </div>
@@ -246,16 +303,49 @@
                         </div>
                     </div><br>
                     <div class="row">
-                        <!--Partenaires financiers-->
-                        <div *ngIf="last_sousactivite">
-                            <label class="p-3 mb-2 bg-dark text-white">Choisir partenaires financiers</label>
-                            <div class="text-success">Une fois cochée, appuyez sur OK pour remplir le coût estimatif pour la sous-activité.</div>
-                            <div *ngFor="let p of partenaires; let i=index">
-                                <input type="text" name="sousactivite_id" id="s{{p.id}}" value="{{last_sousactivite.id}}" class="form-control" hidden />
-                                <div *ngIf="p.type=='financier' || p.type=='financier/technique'">
-                                    <div class="font-weight-bold text-uppercase"> {{p.libelle}} <input type="checkbox" id="p3{{p.id}}" name="partenaire_sa_id" value="{{p.id}}" (change)="budgethide1(p.id)" /></div>
-                                    <input type="number" name="sa_budget" id="sa_budget{{p.id}}" placeholder="budget partenaire pour la sous-activité" [hidden]="budgethide" />
-                                    <button class="btn btn-success" (click)="addPartenairesFinanciersSousactivite(p.id)" id="b3{{p.id}}" name="bouton3" [disabled]="true"> OK</button>
+
+                        <div class="col">
+                            <!--Partenaires financiers-->
+                            <div *ngIf="last_sousactivite">
+                                <label class="p-3 mb-2 bg-dark text-white">Choisir partenaires financiers</label>
+                                <div class="text-success">Une fois cochée, appuyez sur OK pour remplir le coût estimatif pour la sous-activité.</div>
+                                <div *ngFor="let p of partenaires; let i=index">
+                                    <input type="text" name="sousactivite_id" id="s{{p.id}}" value="{{last_sousactivite.id}}" class="form-control" hidden />
+                                    <div *ngIf="p.type=='financier' || p.type=='financier/technique'">
+                                        <div class="font-weight-bold text-uppercase"> {{p.libelle}} <input type="checkbox" id="p3{{p.id}}" name="partenaire_sa_id" value="{{p.id}}" (change)="budgethide1(p.id)" /></div>
+                                        <input type="number" name="sa_budget" id="sa_budget{{p.id}}" placeholder="budget partenaire pour la sous-activité" [hidden]="budgethide" />
+                                        <button class="btn btn-success" (click)="addPartenairesFinanciersSousactivite(p.id)" id="b3{{p.id}}" name="bouton3" [disabled]="true"> OK</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <!--Mois sous-activité -->
+                            <div *ngIf="last_sousactivite">
+                                <label class="p-3 mb-2 bg-dark text-white">Choisir les mois pour la sous-activité</label>
+                                <div class="text-danger">Une fois cochée, appuyez sur OK pour confirmer le mois pour la sous-activité.</div>
+                                <div>
+
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div *ngFor="let m of mois; let i=index">
+                                                <div *ngIf="i<6">
+                                                    <input type="text" name="sousactivite_id1" id="s1{{m.id}}" value="{{last_sousactivite.id}}" class="form-control" hidden />
+                                                    <div class="font-weight-bold text-uppercase"> {{m.mois}} <input type="checkbox" id="ms{{m.id}}" name="mois_id" value="{{m.id}}" (change)="hide4(m.id)" /></div>
+                                                    <button class="btn btn-danger" (click)="addMoisSousactivite(m.id)" id="b4{{m.id}}" name="bouton4" [disabled]="true"> OK</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div *ngFor="let m of mois; let i=index">
+                                                <div *ngIf="i>5 && i<12">
+                                                    <input type="text" name="sousactivite_id1" id="s1{{m.id}}" value="{{last_sousactivite.id}}" class="form-control" hidden />
+                                                    <div class="font-weight-bold text-uppercase"> {{m.mois}} <input type="checkbox" id="ms{{m.id}}" name="mois_id" value="{{m.id}}" (change)="hide4(m.id)" /></div>
+                                                    <button class="btn btn-danger" (click)="addMoisSousactivite(m.id)" id="b4{{m.id}}" name="bouton4" [disabled]="true"> OK</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -263,6 +353,11 @@
                     </div>
 
                 </div>
+                <div>
+                    <button class="btn btn-primary btn-fill float-right" (click)="ptbacreated()" onclick='swal({ title:"Nouveau PTBA !", text: "Le PTBA complet a été créé !", type: "success", buttonsStyling: false, confirmButtonClass: "btn btn-success"})'>Terminer !</button>
+                </div>
+
+
             </div>
         </div>
     </div>
