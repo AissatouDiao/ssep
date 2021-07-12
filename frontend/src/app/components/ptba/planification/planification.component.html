@@ -307,7 +307,7 @@
                                     <input type="text" name="sousactivite_id" id="s{{p.id}}" value="{{last_sousactivite.id}}" class="form-control" hidden />
                                     <div *ngIf="p.type=='financier' || p.type=='financier/technique'">
                                         <div class="font-weight-bold text-uppercase"> {{p.libelle}} <input type="checkbox" id="p3{{p.id}}" name="partenaire_sa_id" value="{{p.id}}" (change)="budgethide1(p.id)" /></div>
-                                        <input type="number" name="sa_budget" id="sa_budget{{p.id}}" placeholder="budget partenaire pour la sous-activité" [hidden]="budgethide" />
+                                        <input type="number" min="0" name="sa_budget" id="sa_budget{{p.id}}" placeholder="budget partenaire pour la sous-activité" [hidden]="budgethide" />
                                         <button class="btn btn-success" (click)="addPartenairesFinanciersSousactivite(p.id)" id="b3{{p.id}}" name="bouton3" [disabled]="true"> OK</button>
                                     </div>
                                 </div>
