@@ -55,31 +55,34 @@ class PtbaController extends Controller
     }
 
     public function getpartenairesptbas( $objet){
+        $this->getptbabudgettotal($objet);
         $budgettotalcomposantes = DB::table('composantes')->where('ptba_id',$objet->id)->get()->sum('budget');
         $budgettotalpartenaires =DB::table('ptbapartenaires')->where('ptba_id',$objet->id)->get()->sum('budget');
         $composante_by_id= DB::table('composantes')->where('ptba_id',$objet->id)->get();
         foreach ($composante_by_id as $value){
         $composantepartenaire_by_id= DB::table('composantepartenaires')->where('composante_id',$value->id)->get();
         foreach($composantepartenaire_by_id as $v){
-          if(Ptbapartenaire::where(['ptba_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->exists()!=true){
+          if(!(Ptbapartenaire::where(['ptba_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->exists())){
              $ptbapartenaire=[
                 "ptba_id"=>$objet->id,
                 "partenaire_id"=>$v->partenaire_id,
                 "budget"=>$v->budget
              ];
              Ptbapartenaire::create($ptbapartenaire);
-             //return response()->json(["message"=>"nouveau enregistré!"]);
-          }else if ( (Ptbapartenaire::where(['ptba_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->exists()==false)and($budgettotalcomposantes!= $budgettotalpartenaires)){
-             $partenaireptba=Ptbapartenaire::where('ptba_id',$objet->id)->first();
+             $this->getptbabudgettotal($objet);
+            // return response()->json(["message"=>"nouveau ptba enregistré!"]);
+          }else if((Ptbapartenaire::where(['ptba_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->exists())and(Ptbapartenaire::where(['ptba_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->first()->isDirty())){
+             $partenaireptba=Ptbapartenaire::where(['ptba_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->first();
              $partenaireptba->budget=$partenaireptba->budget + $v->budget;
              $partenaireptba->save();
-             //return response()->json(["message"=>"nouveau enregistré!"]);
+             $this->getptbabudgettotal($objet);
+            // return response()->json(["message"=>"ancien ptba mise à jour!"]);
           }else{
-              return 'ok ptba';
+             // return 'ok ptba';
           }
         }
-       } return response()->json(["message"=>"ok!"]);
-     }
+       }return response()->json(["message"=>$composante_by_id]);
+    }
 
     public function changeStatut( Request $request){
         $recommandation=Ptba::find($request->id);

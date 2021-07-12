@@ -52,29 +52,32 @@ class ComposanteController extends Controller
     }
 
     public function getpartenairesacomposantes( $objet){
-        $budgettotalcomposantes = DB::table('activites')->where('composante_id',$objet->id)->get()->sum('budget');
-        $budgettotalpartenaires =DB::table('composantepartenaires')->where('composante_id',$objet->id)->get()->sum('budget');     
+        $this->getcomposantebudgettotal($objet);
+        $budgettotalcomposantes=DB::table('activites')->where('composante_id',$objet->id)->get()->sum('budget');
+        $budgettotalpartenaires=DB::table('composantepartenaires')->where('composante_id',$objet->id)->get()->sum('budget');     
         $activite_by_id= DB::table('activites')->where('composante_id',$objet->id)->get();
         foreach ($activite_by_id as $value){
         $activitepartenaire_by_id= DB::table('activitepartenairefinanciers')->where('activite_id',$value->id)->get();
         foreach($activitepartenaire_by_id as $v){
-          if(Composantepartenaire::where(['composante_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->exists()!=true){
+          if(!(Composantepartenaire::where(['composante_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->exists())){
              $composantepartenaire=[
                 "composante_id"=>$objet->id,
                 "partenaire_id"=>$v->partenaire_id,
                 "budget"=>$v->budget
              ];
              Composantepartenaire::create($composantepartenaire);
-             //return response()->json(["message"=>"nouveau enregistré!"]);
-          }else if((Composantepartenaire::where(['composante_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->exists()==false)and($budgettotalcomposantes!=$budgettotalpartenaires)){
-             $partenairecomposante=Composantepartenaire::where('composante_id',$objet->id)->first();
+             $this->getcomposantebudgettotal($objet);
+            // return response()->json(["message"=>"nouveau composante enregistré!"]);
+          }else if((Composantepartenaire::where(['composante_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->exists())and(Composantepartenaire::where(['composante_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->first()->isDirty())){
+             $partenairecomposante=Composantepartenaire::where(['composante_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->first();
              $partenairecomposante->budget=$partenairecomposante->budget + $v->budget;
              $partenairecomposante->save();
-             //return response()->json(["message"=>"nouveau enregistré!"]);
+             $this->getpartenairesacomposantes($objet);
+            // return response()->json(["message"=>"composante mis à jour!"]);
           }else{
-              return 'ok composante';
+             // return 'ok composante';
           }
         }
-       } return response()->json(["message"=>"ok!"]);
+       } return response()->json(["message"=>$activite_by_id]);
      }
 }

@@ -133,21 +133,21 @@
                                             <ng-container *ngFor="let pa of partenairesassocies">
                                                 <ng-container *ngFor="let p of partenaires">
                                                     <ng-container *ngIf="a.id==pa.activite_id && p.id==pa.partenaire_id">
-                                                        <div class="alert alert-primary bg-info" role="alert"><i class="material-icons" (click)="deletepartenaireassocie(pa.id)" style="cursor:pointer">close</i>{{p.libelle}}</div>
+                                                        <div class="alert alert-primary bg-info" role="alert">{{p.libelle}} <i class="material-icons" (click)="deletepartenaireassocie(pa.id)" style="cursor:pointer">close</i></div>
                                                     </ng-container>
                                                 </ng-container>
                                             </ng-container>
                                             <ng-container *ngFor="let pf of partenairesfinanciers">
                                                 <ng-container *ngFor="let p of partenaires">
                                                     <ng-container *ngIf="a.id==pf.activite_id && p.id==pf.partenaire_id">
-                                                        <div class="alert alert-primary bg-warning" role="alert"><i class="material-icons" (click)="deletepartenairefinancier(pf.id)" style="cursor:pointer">close</i>{{p.libelle}}</div>
+                                                        <div class="alert alert-primary bg-warning" role="alert">{{p.libelle}} <i class="material-icons" (click)="deletepartenairefinancier(pf.id)" style="cursor:pointer">close</i></div>
                                                     </ng-container>
                                                 </ng-container>
                                             </ng-container>
                                             <ng-container *ngFor="let pr of partenairesresponsables">
                                                 <ng-container *ngFor="let p of partenaires">
                                                     <ng-container *ngIf="a.id==pr.activite_id && p.id==pr.partenaire_id">
-                                                        <div class="alert alert-primary bg-danger" role="alert"><i class="material-icons" (click)="deletepartenaireresponsable(pr.id)" style="cursor:pointer">close</i>{{p.libelle}}</div>
+                                                        <div class="alert alert-primary bg-danger" role="alert">{{p.libelle}} <i class="material-icons" (click)="deletepartenaireresponsable(pr.id)" style="cursor:pointer">close</i></div>
                                                     </ng-container>
                                                 </ng-container>
                                             </ng-container>
@@ -271,7 +271,7 @@
                                                         <ng-container *ngIf="s.id==psa.sousactivite_id">
                                                             <ng-container *ngFor="let p of partenaires">
                                                                 <div *ngIf="p.id==psa.partenaire_id" class="alert alert-success" role="alert">
-                                                                    <i class="material-icons" (click)="deletePartenaireSA(psa.id)" style="cursor:pointer">close</i> {{p.libelle}}
+                                                                    {{p.libelle}} <i class="material-icons" (click)="deletePartenaireSA(psa.id)" style="cursor:pointer">close</i>
                                                                 </div>
                                                             </ng-container>
                                                         </ng-container>
@@ -280,7 +280,7 @@
                                                         <ng-container *ngIf="s.id==msa.sousactivite_id">
                                                             <ng-container *ngFor="let m of mois">
                                                                 <div *ngIf="m.id==msa.mois_id" class="alert alert-danger" role="alert">
-                                                                    <i class="material-icons" (click)="deleteMoisSA(msa.id)" style="cursor:pointer">close</i> {{m.mois}}
+                                                                    {{m.mois}} <i class="material-icons" (click)="deleteMoisSA(msa.id)" style="cursor:pointer">close</i>
                                                                 </div>
                                                             </ng-container>
                                                         </ng-container>

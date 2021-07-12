@@ -17,23 +17,32 @@ export class GestionptbasComponent implements OnInit {
   partenaires: any; partenaireactiviteassocie: any; partenaireactivitefinancier: any; partenaireactiviteresponsable: any;
   ptbas: any; composantes: any; activites: any; sousactivites: any; error: any;
   moissousactivites: any; partenairesptbas: any;
-  constructor(private jarwisService: JarwisService, private notify: SnotifyService) { }
+  constructor(private jarwisService: JarwisService, private notify: SnotifyService) {
+    this.getSousActivites();
+    this.getActivites();
+    this.getComposantes();
+    this.getPtbas();
+  }
 
   ngOnInit(): void {
 
     let p = { id: 186 }
-    this.jarwisService.test(p).subscribe(
-      data => console.log(data),
-      error => console.log(error)
-    );
-    this.getPtbas();
-    this.getComposantes();
-    this.getActivites();
+    // this.jarwisService.test(p).subscribe(
+    //   data => console.log(data),
+    //  error => console.log(error)
+    // );
+
+
+
     this.getSousActivites();
+    this.getActivites();
+    this.getComposantes();
+    this.getPtbas();
     this.getMoisSousActivites();
+
     this.getpartenairesactivitesassocies();
     this.getpartenairesactivitesfinanciers();
-    this.getpartenairesactivitesresponsable()
+    this.getpartenairesactivitesresponsable();
     this.getPartenaires();
     this.getMoisSA();
     this.getMois();
@@ -79,7 +88,7 @@ export class GestionptbasComponent implements OnInit {
 
   getPtbas() {
     this.jarwisService.getPtbas().subscribe(
-      (data: any) => { this.ptbas = data; },
+      (data: any) => { console.log(data); this.ptbas = data; },
       (error: any) => { console.log(error); }
     );
   }
@@ -92,14 +101,14 @@ export class GestionptbasComponent implements OnInit {
 
   getComposantes() {
     this.jarwisService.getComposantes().subscribe(
-      (data: any) => { this.composantes = data; },
+      (data: any) => { console.log(data); this.composantes = data; },
       (error: any) => { console.log(error); }
     );
   }
 
   getActivites() {
     this.jarwisService.getActivites().subscribe(
-      (data: any) => { this.activites = data; },
+      (data: any) => { console.log(data); this.activites = data; },
       (error: any) => { console.log(error); }
     );
   }
