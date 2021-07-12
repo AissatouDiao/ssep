@@ -437,6 +437,7 @@ export class PlanificationComponent implements OnInit {
         (<HTMLInputElement>document.getElementById('b3' + i)).disabled = true;
         (<HTMLInputElement>document.getElementById('p3' + i)).checked = false;
         (<HTMLInputElement>document.getElementById('sa_budget' + i)).value = '';
+        (<HTMLInputElement>document.getElementById('sa_budget' + i)).hidden = true;
         this.notify.success('Partenaire financier pour la sous-activité ajouté !');
         this.getpartenaires_sa();
       },
