@@ -16,7 +16,7 @@ export class PlanificationComponent implements OnInit {
   boutonstate = false; last_sousactivite: any;
   sousactivites: any; budgethide = true; mois: any;
   partenairesassocies: any; partenairesfinanciers: any; partenairesresponsables: any;
-  partenaires_sa: any;
+  partenaires_sa: any; mois_sa: any;
   ptba = {
     libelle: '',
     annee: <any>null,
@@ -80,6 +80,7 @@ export class PlanificationComponent implements OnInit {
     this.getPartenairesfinanciers();
     this.getPartenairesResponsables();
     this.getpartenaires_sa();
+    this.getmois_sa();
   }
   ptbacreated() {
     window.location.reload();
@@ -98,7 +99,7 @@ export class PlanificationComponent implements OnInit {
     } else {
       this.erreur = null;
       this.jarwisService.addPtba(this.ptba).subscribe(
-        (data: any) => { console.log(data); this.last_ptba = data.last; this.notify.success('le ptba a été ajouté'); },
+        (data: any) => { console.log(data); this.last_ptba = data.last; this.notify.success('le ptba a été ajouté'); form.reset(); },
         (error: any) => { console.log(error) },
       );
     }
@@ -121,9 +122,6 @@ export class PlanificationComponent implements OnInit {
 
   //Supprimer composantes.
   deleteComposante(id: any) {
-
-
-
     //notification et changement de statut.
     this.notify.confirm('Voulez vous vraiment supprimer cette composante ?', 'Attention !Suppression de Composante ?', {
       timeout: 0,
@@ -385,8 +383,12 @@ export class PlanificationComponent implements OnInit {
   }
 
   addSousactivite(form: any) {
-    this.sousactivite.activite_id = (<HTMLInputElement>document.getElementById('sousactivite_id')).value;
 
+    this.sousactivite.activite_id = (<HTMLInputElement>document.getElementById('sousactivite_id')).value;
+    this.sousactivite.etat = 'non complet';
+    this.sousactivite.cout_estimatif = 0;
+    this.sousactivite.pourcentage = 0;
+    this.sousactivite.cout_reel = 0;
 
     this.jarwisService.addSousactivite(this.sousactivite).subscribe(
       (data: any) => {
@@ -433,7 +435,10 @@ export class PlanificationComponent implements OnInit {
       (data: any) => {
         console.log(data);
         (<HTMLInputElement>document.getElementById('b3' + i)).disabled = true;
+        (<HTMLInputElement>document.getElementById('p3' + i)).checked = false;
+        (<HTMLInputElement>document.getElementById('sa_budget' + i)).value = '';
         this.notify.success('Partenaire financier pour la sous-activité ajouté !');
+        this.getpartenaires_sa();
       },
       (error: any) => console.log(error)
     );
@@ -447,7 +452,9 @@ export class PlanificationComponent implements OnInit {
       (data: any) => {
         console.log(data);
         (<HTMLInputElement>document.getElementById('b4' + i)).disabled = true;
+        (<HTMLInputElement>document.getElementById('ms' + i)).checked = false;
         this.notify.success('Mois ajouté à la sous-activité !');
+        this.getmois_sa();
       },
       (error: any) => console.log(error)
     );
@@ -493,7 +500,7 @@ export class PlanificationComponent implements OnInit {
   deletePartenaireSA(id: any) {
 
     //notification et changement de statut.
-    this.notify.confirm('Voulez vous vraiment supprimer cette sous-activite ?', 'Attention !Suppression de la sous-activité ?', {
+    this.notify.confirm('Voulez vous vraiment supprimer ce partenaire pour la sous-activité ?', 'Attention !Suppression de partenaire ?', {
       timeout: 0,
       position: SnotifyPosition.rightTop,
       showProgressBar: true,
@@ -506,7 +513,37 @@ export class PlanificationComponent implements OnInit {
           action: () => {
 
             this.jarwisService.deletePartenaireSA(id).subscribe(
-              (data: any) => { console.log(data); this.getsousActivites();; this.notify.success(data.message); },
+              (data: any) => { console.log(data); this.getpartenaires_sa();; this.notify.success(data.message); },
+              error => { console.log(error); this.notify.error("une erreur est survenue"); }
+            );
+
+          }, bold: false
+        },
+        {
+          text: 'Non',
+          action: () =>
+            this.notify.info('Suppression annulée !')
+        },
+      ]
+    });
+  }
+  deleteMoisSA(id: any) {
+
+    //notification et changement de statut.
+    this.notify.confirm('Voulez vous vraiment supprimer ce mois pour la sous-activité ?', 'Attention !Suppression de mois ?', {
+      timeout: 0,
+      position: SnotifyPosition.rightTop,
+      showProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+
+      buttons: [
+        {
+          text: 'Oui',
+          action: () => {
+
+            this.jarwisService.deleteMoisSA(id).subscribe(
+              (data: any) => { console.log(data); this.getmois_sa(); this.notify.success(data.message); },
               error => { console.log(error); this.notify.error("une erreur est survenue"); }
             );
 
@@ -524,6 +561,13 @@ export class PlanificationComponent implements OnInit {
   getpartenaires_sa() {
     this.jarwisService.getpartenaires_sa().subscribe(
       (data: any) => { console.log(data); this.partenaires_sa = data; },
+      (error: any) => { console.log(error) }
+    );
+  }
+
+  getmois_sa() {
+    this.jarwisService.getMoisSousActivites().subscribe(
+      (data: any) => { console.log(data); this.mois_sa = data; },
       (error: any) => { console.log(error) }
     );
   }

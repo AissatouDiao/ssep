@@ -123,6 +123,7 @@ Route::group([
     Route::get('getmois', [SousactiviteController::class,'getMois']);
     Route::get('getmoissousactivites', [SousactiviteController::class,'getMoisSousActivites']);
     Route::delete('deletePartenaire/{id}',[SousactiviteController::class,'deletePartenaire']);
+    Route::delete('deletemoisousactivite/{id}',[SousactiviteController::class,'deletemoisousactivite']);
     Route::get('getpartenaires_sa', [SousactiviteController::class,'getpartenaires_sa']);
     //Calcul des budgetsgetactivitebudgettotal
     Route::post('getsousactivitesbudget',[CalculBudgetsController::class,'getsousactivitebudgettotal']);

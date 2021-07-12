@@ -65,7 +65,14 @@ class SousactiviteController extends Controller
     public function deletePartenaire($request){
         $sousactivite= Sousactivitepartenaire::find($request);
         $sousactivite->delete();
-        return response()->json(["message" => "suppression sous-activité effective !"]); 
+        return response()->json(["message" => "suppression partenaire sous-activité effective !"]); 
+        
+    }
+
+    public function deletemoisousactivite($request){
+        $sousactivite= Moissousactivite::find($request);
+        $sousactivite->delete();
+        return response()->json(["message" => "suppression sous-activité mois effective !"]); 
         
     }
     public function getpartenaires_sa(){

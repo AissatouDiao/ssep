@@ -130,11 +130,6 @@
                                     <div *ngFor="let a of activites">
                                         <div *ngIf="c.id==a.composante_id" class="alert alert-primary" role="alert">
                                             <i class="material-icons" (click)="deleteActivite(a.id)" style="cursor:pointer">close</i> {{a.libelle}}
-                                        </div>
-                                    </div>
-                                    <p class="p-3 mb-2 bg-primary text-white text-center">Partenaire(s) ajoutée(s)</p>
-                                    <div *ngFor="let a of activites">
-                                        <div *ngIf="c.id==a.composante_id">
                                             <ng-container *ngFor="let pa of partenairesassocies">
                                                 <ng-container *ngFor="let p of partenaires">
                                                     <ng-container *ngIf="a.id==pa.activite_id && p.id==pa.partenaire_id">
@@ -142,10 +137,6 @@
                                                     </ng-container>
                                                 </ng-container>
                                             </ng-container>
-                                        </div>
-                                    </div>
-                                    <div *ngFor="let a of activites">
-                                        <div *ngIf="c.id==a.composante_id">
                                             <ng-container *ngFor="let pf of partenairesfinanciers">
                                                 <ng-container *ngFor="let p of partenaires">
                                                     <ng-container *ngIf="a.id==pf.activite_id && p.id==pf.partenaire_id">
@@ -153,10 +144,6 @@
                                                     </ng-container>
                                                 </ng-container>
                                             </ng-container>
-                                        </div>
-                                    </div>
-                                    <div *ngFor="let a of activites">
-                                        <div *ngIf="c.id==a.composante_id">
                                             <ng-container *ngFor="let pr of partenairesresponsables">
                                                 <ng-container *ngFor="let p of partenaires">
                                                     <ng-container *ngIf="a.id==pr.activite_id && p.id==pr.partenaire_id">
@@ -166,6 +153,7 @@
                                             </ng-container>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -279,22 +267,28 @@
                                             <ng-container *ngFor="let s of sousactivites">
                                                 <div *ngIf="a.id==s.activite_id" class="alert alert-primary" role="alert">
                                                     <i class="material-icons" (click)="deleteSousactivite(s.id)" style="cursor:pointer">close</i> {{s.libelle}}
-                                                </div>
-                                            </ng-container>
-                                            <p class="p-3 mb-2 bg-primary text-white text-center">
-                                                Partenaires
-                                            </p>
-                                            <ng-container *ngFor="let s of sousactivites">
-                                                <div *ngIf="a.id==s.activite_id" class="alert alert-primary" role="alert">
                                                     <ng-container *ngFor="let psa of partenaires_sa">
-                                                        <ng-container *ngFor="let p of partenaires">
-                                                            <ng-container *ngIf="psa.activite_id==s.id && psa.partenaire_id==p.id">
-                                                                <i class="material-icons" (click)="deletePartenaireSA(s.id)" style="cursor:pointer">close</i> {{p.libelle}}
+                                                        <ng-container *ngIf="s.id==psa.sousactivite_id">
+                                                            <ng-container *ngFor="let p of partenaires">
+                                                                <div *ngIf="p.id==psa.partenaire_id" class="alert alert-success" role="alert">
+                                                                    <i class="material-icons" (click)="deletePartenaireSA(psa.id)" style="cursor:pointer">close</i> {{p.libelle}}
+                                                                </div>
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                    <ng-container *ngFor="let msa of mois_sa">
+                                                        <ng-container *ngIf="s.id==msa.sousactivite_id">
+                                                            <ng-container *ngFor="let m of mois">
+                                                                <div *ngIf="m.id==msa.mois_id" class="alert alert-danger" role="alert">
+                                                                    <i class="material-icons" (click)="deleteMoisSA(msa.id)" style="cursor:pointer">close</i> {{m.mois}}
+                                                                </div>
                                                             </ng-container>
                                                         </ng-container>
                                                     </ng-container>
                                                 </div>
+
                                             </ng-container>
+
 
                                         </ng-container>
                                     </div>

@@ -306,6 +306,9 @@ export class JarwisService {
   deletePartenaireSA(data: any) {
     return this.http.delete(`${this.baseUrl}/deletePartenaire/` + data);
   }
+  deleteMoisSA(data: any) {
+    return this.http.delete(`${this.baseUrl}/deletemoisousactivite/` + data);
+  }
 
   //Ajouter un nouveau partenaire financier pour une sous activité
   addPartenaireFinanciersSousactivites(data: object) {
