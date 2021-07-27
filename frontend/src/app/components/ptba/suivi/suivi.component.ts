@@ -32,23 +32,6 @@ export class SuiviComponent implements OnInit {
 
 
   ngOnInit(): void {
-
-    this.jarwisService.getsousactivitesbudget(this.nombre).subscribe(
-      data => console.log(data),
-      error => console.log(error)
-    );
-    this.jarwisService.getactivitebudgettotal(this.nombrea).subscribe(
-      data => console.log(data),
-      error => console.log(error)
-    );
-    this.jarwisService.getcomposantebudgettotal(this.nombrec).subscribe(
-      data => console.log(data),
-      error => console.log(error)
-    );
-    this.jarwisService.getptbabudgettotal(this.nombrep).subscribe(
-      data => console.log(data),
-      error => console.log(error)
-    );
     this.getPtbas();
     this.getComposantes();
     this.getActivites();

@@ -1,0 +1,195 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <i class="material-icons pr-1 text-primary">receipt_long</i>
+        <li class="breadcrumb-item">
+            <p class="text-primary"> Gestion des passations de marchés</p>
+        </li>
+    </ol>
+</nav><br>
+<div class="navbar-form" class="col-6 float-right">
+    <div class="input-group no-border">
+        <input type="text" name="search" [(ngModel)]="searchText" autocomplete="off" class="form-control" placeholder="Rechercher...">
+        <button type="submit" class="btn btn-white btn-round btn-just-icon">
+            <i class="material-icons">search</i>
+            <div class="ripple-container"></div>
+        </button>
+    </div>
+</div><br><br>
+<table class="table table-striped table-bordered table-hover table-primary">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Libelle</th>
+            <th scope="col">Passation marché</th>
+            <th scope="col">Statut</th>
+            <th scope="col">Auteur</th>
+            <th scope="col">Options</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let p of passations">
+            <th scope="row">{{p.id}}</th>
+            <td>{{p.libelle}}</td>
+            <td>{{p.passationmarche}}
+                <div>
+                    <a href="http://localhost:8000/.{{p.passationmarche}}" target="blank">Consulter le PDF</a>
+                </div>
+            </td>
+            <td>
+                <form action="" #test="ngForm">
+                    <select name="statut" id="" class="bg-primary form-select" [(ngModel)]="p.statut" (change)="changeStatut($event,p)">
+                    <option value="émis">émis</option>
+                    <option value="en traitement"> en traitement</option>
+                    <option value="entreprise sélectionnée">entreprise sélectionnée</option>
+                </select>
+                </form>
+            </td>
+            <td>{{p.auteur}}</td>
+            <td class="td-actions ">
+                <button type="button" rel="tooltip" title="Modifier recommandation" data-toggle="modal" attr.data-target="#m{{p.id}}" class="btn btn-primary btn-link btn-sm">
+                   <i class="material-icons">edit</i>
+                </button>
+                <!-- Modal modifier -->
+                <div class="w-100">
+                    <div class="card">
+                        <div class="modal " id="m{{p.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog   modal-dialog-scrollable" role="document">
+                                <div class="modal-content ">
+
+                                    <div class="card-header card-header-primary text-center">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-center" id="exampleModalLongTitle">Modiffier {{p.libelle}}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <form #documentForm=ngForm name="documentForm" (ngSubmit)="update(p)" enctype="multipart/form-data">
+                                                <div class="alert alert-danger" [hidden]="!error">
+                                                    {{error}}
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="inputEmail3">Titre</label><br>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" name="libelle" id="inputEmail3" value="{{p.libelle}}" [(ngModel)]="p.libelle" required>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label for="inputPassword3">Document</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="file" class="form-control" name="passationmarche" (change)="uploadDocument1($event)" id="file1" [(ngModel)]="p.passationmarche">
+                                                        <div class="text-left"> (.pdf ou .docx seulement)</div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <a href="http://localhost:8000/.{{p.passationmarche}}" target="blank">Consulter le PDF avant modification</a>
+                                                </div>
+
+                                                <div class="row mb-3">
+                                                    <label for="inputEmail3">Statut</label><br>
+                                                    <div class="col-sm-10">
+                                                        <select name="statut" id="statut" class="form-select" [(ngModel)]="p.statut" required>
+                                                                <option value="émis">émis</option>
+                                                                <option value="en traitement"> en traitement</option>
+                                                                <option value="entreprise sélectionnée" >entreprise sélectionnée</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary text-center" [disabled]="!documentForm.valid">Enregistrer</button>
+                                            </form>
+
+
+                                        </div>
+
+
+                                    </div>
+                                    <div class="modal-footer ">
+                                        <button type="button" class="btn btn-secondary " data-dismiss="modal">OK</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin Modal modifier-->
+                <button type="button" rel="tooltip" title="Supprimer recommandation" (click)="delete(p.id)" class="btn btn-danger btn-link btn-sm">
+                  <i class="material-icons">close</i>
+               </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<button class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Nouvelle Passation de marché</button>
+
+<!-- Modal ajout -->
+<div class="w-100">
+    <div class="card">
+        <div class="modal " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog   modal-dialog-scrollable" role="document">
+                <div class="modal-content ">
+
+                    <div class="card-header card-header-primary text-center">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-center" id="exampleModalLongTitle">Ajouter une nouvelle passation de marché</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <form #documentForm=ngForm name="documentForm" (ngSubmit)="ajouter()" enctype="multipart/form-data">
+                                <div class="alert alert-danger" [hidden]="!error">
+                                    {{error}}
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputEmail3">Titre</label><br>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="libzllz" id="inputEmail3" [(ngModel)]="passation.libelle" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputPassword3">Document</label>
+                                    <div class="col-sm-10">
+                                        <input type="file" (change)="uploadDocument($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="passation.passationmarche" required>
+                                        <div class="text-left"> (.pdf ou .docx seulement)</div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputEmail3">Statut</label><br>
+                                    <div class="col-sm-10">
+                                        <select name="etat" id="etat" class="form-select" [(ngModel)]="passation.statut" required disabled>
+                                            <option value="émis">émis</option>
+                                            <option value="en traitement"> en traitement</option>
+                                            <option value="entreprise sélectionnée" >entreprise sélectionnée</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="user_id" id="user_id" [(ngModel)]="user.id" hidden required>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary text-center" [disabled]="!documentForm.valid">Enregistrer</button>
+                            </form>
+
+
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer ">
+                        <button type="button" class="btn btn-secondary " data-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal ajout-->

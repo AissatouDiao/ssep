@@ -29,7 +29,11 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PartenairesComponent } from './components/partenaires/partenaires.component';
 import { GestionptbasComponent } from './components/ptba/gestionptbas/gestionptbas.component';
 import { SuiviComponent } from './components/ptba/suivi/suivi.component';
-
+import { ExcelService } from './services/excel.service';
+import { PistesbavardesComponent } from './components/pistesbavardes/pistesbavardes.component';
+import { ChainesdevaleursComponent } from './components/chainesdevaleurs/chainesdevaleurs.component';
+import { PassationsdemarchesComponent } from './components/passationsdemarches/passationsdemarches.component';
+import { IndicateursComponent } from './components/indicateurs/indicateurs.component';
 
 
 @NgModule({
@@ -55,6 +59,10 @@ import { SuiviComponent } from './components/ptba/suivi/suivi.component';
     PartenairesComponent,
     GestionptbasComponent,
     SuiviComponent,
+    PistesbavardesComponent,
+    ChainesdevaleursComponent,
+    PassationsdemarchesComponent,
+    IndicateursComponent,
 
   ],
   imports: [
@@ -67,7 +75,7 @@ import { SuiviComponent } from './components/ptba/suivi/suivi.component';
     NgbModule
   ],
   providers: [{ provide: 'SnotifyToastConfig', useValue: ToastDefaults },
-    SnotifyService],
+    SnotifyService, ExcelService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

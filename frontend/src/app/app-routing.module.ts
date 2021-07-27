@@ -22,6 +22,10 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PartenairesComponent } from './components/partenaires/partenaires.component';
 import { GestionptbasComponent } from './components/ptba/gestionptbas/gestionptbas.component';
 import { SuiviComponent } from './components/ptba/suivi/suivi.component';
+import { PistesbavardesComponent } from './components/pistesbavardes/pistesbavardes.component';
+import { ChainesdevaleursComponent } from './components/chainesdevaleurs/chainesdevaleurs.component';
+import { PassationsdemarchesComponent } from './components/passationsdemarches/passationsdemarches.component';
+import { IndicateursComponent } from './components/indicateurs/indicateurs.component';
 
 const routes: Routes = [
 
@@ -106,6 +110,22 @@ const routes: Routes = [
   },
   {
     path: 'gestion-partenaires', component: PartenairesComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-pistes-bavardes', component: PistesbavardesComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-chaines-de-valeurs', component: ChainesdevaleursComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-indicateurs', component: IndicateursComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-passations-marches', component: PassationsdemarchesComponent,
     canActivate: [AfterloginService]
   }
 ];

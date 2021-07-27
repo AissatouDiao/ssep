@@ -44,6 +44,10 @@ class ComposanteController extends Controller
         }
         return $composantes;
     }
+    public function getComposantePartenaires(){
+        $composantespartenaires=Composantepartenaire::all();
+        return $composantespartenaires;
+    }
     public function getcomposantebudgettotal( $objet){
         $budget_c= DB::table('activites')->where('composante_id',$objet->id)->get()->sum('budget');
         $c= Composante::find($objet->id);

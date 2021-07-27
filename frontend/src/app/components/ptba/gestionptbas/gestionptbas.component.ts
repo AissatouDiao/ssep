@@ -1,6 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { SnotifyPosition, SnotifyService } from 'ng-snotify';
+import { ExcelService } from 'src/app/services/excel.service';
 import { JarwisService } from 'src/app/services/jarwis.service';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable'
 
 @Component({
   selector: 'app-gestionptbas',
@@ -12,16 +15,20 @@ export class GestionptbasComponent implements OnInit {
   @Input() pageSize: any = 5;
   searchText: any; searchFilter: any = '';
 
+  @ViewChildren('userTable')
+  userTable!: QueryList<ElementRef>;
+
   //variables 
   moissousactivite: any; mois: any;
   partenaires: any; partenaireactiviteassocie: any; partenaireactivitefinancier: any; partenaireactiviteresponsable: any;
   ptbas: any; composantes: any; activites: any; sousactivites: any; error: any;
-  moissousactivites: any; partenairesptbas: any;
-  constructor(private jarwisService: JarwisService, private notify: SnotifyService) {
+  moissousactivites: any; partenairesptbas: any; composantespartenaires: any;
+  constructor(private jarwisService: JarwisService, private notify: SnotifyService, private excelService: ExcelService) {
     this.getSousActivites();
     this.getActivites();
     this.getComposantes();
     this.getPtbas();
+    this.getpartenairesptbas();
   }
 
   ngOnInit(): void {
@@ -47,6 +54,24 @@ export class GestionptbasComponent implements OnInit {
     this.getMoisSA();
     this.getMois();
     this.getpartenairesptbas();
+    this.getComposantesPartenaires();
+  }
+
+  exportpdf(i: any) {
+    let table = this.userTable.toArray();
+    console.log(((<HTMLInputElement>document.getElementById('id' + i)).id));
+
+    let doc = new jsPDF('l', 'mm', 'a4');
+    autoTable(doc, { html: ((<HTMLTableElement>document.getElementById('id' + i))) });
+    doc.save('table.pdf');
+  }
+
+  exportAsXLSX(): void {
+    // this.excelService.exportAsExcelFile(this.dataOfFootballers, 'footballer_data');
+  }
+  exportElmToExcel(titre: any, i: any) {
+    let table = this.userTable.toArray();
+    this.excelService.exportTableElmToExcel(table[i], titre);
   }
 
   getPartenaires() {
@@ -102,6 +127,12 @@ export class GestionptbasComponent implements OnInit {
   getComposantes() {
     this.jarwisService.getComposantes().subscribe(
       (data: any) => { console.log(data); this.composantes = data; },
+      (error: any) => { console.log(error); }
+    );
+  }
+  getComposantesPartenaires() {
+    this.jarwisService.getComposantePartenaires().subscribe(
+      (data: any) => { console.log(data); this.composantespartenaires = data; },
       (error: any) => { console.log(error); }
     );
   }

@@ -214,6 +214,9 @@ export class JarwisService {
   getComposantes() {
     return this.http.get(`${this.baseUrl}/getcomposantes`);
   }
+  getComposantePartenaires() {
+    return this.http.get(`${this.baseUrl}/getComposantePartenaires`);
+  }
   //Ajouter un nouveau composante
   addComposante(data: object) {
     return this.http.post(`${this.baseUrl}/addcomposante`, data);
@@ -336,6 +339,31 @@ export class JarwisService {
   }
   test(data: object) {
     return this.http.post(`${this.baseUrl}/test`, data);
+  }
+
+  //------Passation marché------//
+
+  //Recuperer tous les evaluations partagés dans la base de données
+  getPassations() {
+    return this.http.get(`${this.baseUrl}/getpassationmarches`);
+  }
+  //Ajouter un nouveau partenaire
+  addPassation(data: object) {
+    return this.http.post(`${this.baseUrl}/addpassationmarche`, data);
+  }
+  //update partenaire
+  updatePassation(data: object) {
+    return this.http.post(`${this.baseUrl}/updatepassationmarche`, data)
+  }
+
+  //supprimer partenaire 
+  deletePassation(data: any) {
+    return this.http.delete(`${this.baseUrl}/deletepassation/` + data);
+  }
+
+  //change statut passation
+  changestatutpassation(data: object) {
+    return this.http.post(`${this.baseUrl}/changestatutpassation`, data)
   }
 
 }

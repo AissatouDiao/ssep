@@ -15,6 +15,7 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\RecommandationController;
 use App\Http\Controllers\PartagedocumentController;
+use App\Http\Controllers\PassationmarcheController;
 use App\Http\Controllers\DocumentsevaluationController;
 use App\Http\Controllers\ActivitepartenaireassocieController;
 use App\Http\Controllers\ActivitepartenairefinancierController;
@@ -94,11 +95,12 @@ Route::group([
     Route::delete('deletePtba/{id}',[PtbaController::class,'delete']);
     Route::post('updateptba',[PtbaController::class,'update']);
     Route::post('changestatutreptba',[PtbaController::class,'changeStatut']);
-    //Composante
+    //Composante getComposantePartenaires
     Route::post('addcomposante',[ComposanteController::class,'add']);
     Route::get('getcomposantes', [ComposanteController::class,'getAll']);
     Route::delete('deleteComposante/{id}',[ComposanteController::class,'delete']);
     Route::post('updatecomposante',[ComposanteController::class,'update']);
+    Route::get('getComposantePartenaires', [ComposanteController::class,'getComposantePartenaires']);
     //Activite 
     Route::post('addactivite',[ActiviteController::class,'add']);
     Route::post('addactivitepartenairesassocies',[ActiviteController::class,'addPartenairesAssocies']);
@@ -132,5 +134,11 @@ Route::group([
     Route::post('getptbabudgettotal',[CalculBudgetsController::class,'getptbabudgettotal']);
     Route::post('getpartenairesactivites',[CalculBudgetsController::class,'getpartenairesactivites']);   
     Route::post('test',[CalculBudgetsController::class,'getpartenairesacomposantes']);
+    //Passation de marchés 
+    Route::post('addpassationmarche',[PassationmarcheController::class,'add']);
+    Route::get('getpassationmarches', [PassationmarcheController::class,'getPassationmarches']);
+    Route::delete('deletepassation/{id}',[PassationmarcheController::class,'delete']);
+    Route::post('updatepassationmarche',[PassationmarcheController::class,'update']); 
+    Route::post('changestatutpassation',[PassationmarcheController::class,'changeStatut']);
     
 });

@@ -1,14 +1,13 @@
 <div *ngIf="loggedIn">
-
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-4.jpg">
         <!--
-    Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-
-    Tip 2: you can also add an image using data-image tag0
- -->
+        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+    
+        Tip 2: you can also add an image using data-image tag0
+     -->
         <div class="logo text-primary"><a href="#" class="simple-text logo-normal">
-     SPPB / PNDL
-    </a></div>
+         SPPB / PNDL
+        </a></div>
         <div class="sidebar-wrapper">
             <ul class="nav">
 
@@ -41,6 +40,8 @@
                         <p>Gestion PTBA</p>
                     </a>
                 </li>
+
+
                 <li class="nav-item " routerLinkActive="active">
                     <a class="nav-link" routerLink="gestion-partenaires">
                         <i class="material-icons">work</i>
@@ -49,10 +50,10 @@
                 </li>
 
                 <!-- <li class="nav-item " routerLinkActive="active">
-                    <a class="nav-link" routerLink="recommandations">
-                        <i class="material-icons">hourglass_empty</i> Gestion des recommandations
-                    </a>
-                </li>-->
+                        <a class="nav-link" routerLink="recommandations">
+                            <i class="material-icons">hourglass_empty</i> Gestion des recommandations
+                        </a>
+                    </li>-->
                 <li class="nav-item " routerLinkActive="active">
                     <a class="nav-link" routerLink="documents-evaluations">
                         <i class="material-icons">fact_check</i>
@@ -64,31 +65,28 @@
                         <i class="material-icons">note_add</i> Gestion des documents (aléatoires) partagés
                     </a>
                 </li>
-
-
-
-                <li class="nav-item ">
-                    <a class="nav-link" href="./tables.html">
-                        <i class="material-icons">content_paste</i>
-                        <p>Gestion Chaines de valeurs</p>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="./tables.html">
-                        <i class="material-icons">content_paste</i>
+                <li class="nav-item " routerLinkActive="active">
+                    <a class="nav-link" routerLink="gestion-pistes-bavardes">
+                        <i class="material-icons">map</i>
                         <p>Gestion pistes bavardes</p>
                     </a>
                 </li>
 
-                <li class="nav-item ">
-                    <a class="nav-link" href="./icons.html">
-                        <i class="material-icons">content_paste</i>
+                <li class="nav-item " routerLinkActive="active">
+                    <a class="nav-link" routerLink="gestion-passations-marches">
+                        <i class="material-icons">receipt_long</i>
                         <p>Gestion passations marchés</p>
                     </a>
                 </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="./map.html">
-                        <i class="material-icons">content_paste</i>
+                <li class="nav-item " routerLinkActive="active">
+                    <a class="nav-link" routerLink="gestion-chaines-de-valeurs">
+                        <i class="material-icons">storage</i>
+                        <p>Gestion Chaines de valeurs</p>
+                    </a>
+                </li>
+                <li class="nav-item " routerLinkActive="active">
+                    <a class="nav-link" routerLink="gestion-indicateurs">
+                        <i class="material-icons">assessment</i>
                         <p>Gestion indicateurs</p>
                     </a>
                 </li>
@@ -98,9 +96,6 @@
             </ul>
         </div>
     </div>
-
-
-
 </div>
 
 <div *ngIf="!loggedIn">
