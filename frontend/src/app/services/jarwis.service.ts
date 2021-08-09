@@ -361,9 +361,145 @@ export class JarwisService {
     return this.http.delete(`${this.baseUrl}/deletepassation/` + data);
   }
 
-  //change statut passation
+  //change statut passation 
   changestatutpassation(data: object) {
     return this.http.post(`${this.baseUrl}/changestatutpassation`, data)
+  }
+
+  //Ajouter un nouveau partenaire getpassationpropositions
+  addProposition(data: object) {
+    return this.http.post(`${this.baseUrl}/addpassationproposition`, data);
+  }
+
+  getPassationsPropositions() {
+    return this.http.get(`${this.baseUrl}/getpassationpropositions`);
+  }
+
+  //--------Zone-------//
+  //Recuperer tous les evaluations partagés dans la base de données
+  getZones() {
+    return this.http.get(`${this.baseUrl}/getzones`);
+  }
+  //Ajouter un nouvelle zone
+  addZone(data: object) {
+    return this.http.post(`${this.baseUrl}/addzone`, data);
+  }
+  //update zone
+  updateZone(data: object) {
+    return this.http.post(`${this.baseUrl}/updatezone`, data)
+  }
+
+  //supprimer zone
+  deleteZone(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteZone/` + data);
+  }
+
+  //zone par id
+  getZoneById(data: any) {
+    return this.http.get(`${this.baseUrl}/getZoneById/` + data);
+  }
+
+  //-------- Decomptes Zones ----------//
+
+  //Recuperer tous les decomptes zones dans la base de données
+  getDecompteZones() {
+    return this.http.get(`${this.baseUrl}/getdecomptezones`);
+  }
+  //Ajouter un nouvelle decompte zone
+  addDecompteZone(data: object) {
+    return this.http.post(`${this.baseUrl}/adddecomptezone`, data);
+  }
+  //update decompte zone
+  updateDecompteZone(data: object) {
+    return this.http.post(`${this.baseUrl}/updatedecomptezone`, data)
+  }
+
+  //supprimer decompte zone
+  deleteDecompteZone(data: any) {
+    return this.http.delete(`${this.baseUrl}/deletedecompteZone/` + data);
+  }
+
+  //decompte par id
+  getDecompteById(data: any) {
+    return this.http.get(`${this.baseUrl}/getDecompteById/` + data);
+  }
+
+  //---------- Prealable Zone -----------//
+
+
+  //Recuperer tous les evaluations partagés dans la base de données
+  getPrealableZones() {
+    return this.http.get(`${this.baseUrl}/getprealablezones`);
+  }
+  //Ajouter un nouvel prealable zone
+  addPrealableZone(data: object) {
+    return this.http.post(`${this.baseUrl}/addprealablezone`, data);
+  }
+  //update prealable zone
+  updatePrealableZone(data: object) {
+    return this.http.post(`${this.baseUrl}/updateprealablezone`, data)
+  }
+
+  //supprimer prealable zone
+  deletePrealableZone(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteprealableZone/` + data);
+  }
+
+  //Prealable par id
+  getPrealableById(data: any) {
+    return this.http.get(`${this.baseUrl}/getPrealableById/` + data);
+  }
+
+
+  //-------------- Proces verbal -----------------//
+
+  //Recuperer tous les evaluations partagés dans la base de données
+  getProcesVerbalZones() {
+    return this.http.get(`${this.baseUrl}/getprocesverbalzones`);
+  }
+  //Ajouter un nouvel prealable zone
+  addProcesVerbalZone(data: object) {
+    return this.http.post(`${this.baseUrl}/addprocesverbalzone`, data);
+  }
+  //update prealable zone
+  updateProcesVerbalZone(data: object) {
+    return this.http.post(`${this.baseUrl}/updateprocesverbalzone`, data)
+  }
+
+  //supprimer prealable zone
+  deleteProcesVerbalZone(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteprocesverbalZone/` + data);
+  }
+
+  //Proces Verbal par id
+  getProcesVerbalById(data: any) {
+    return this.http.get(`${this.baseUrl}/getProcesVerbalById/` + data);
+  }
+
+
+  //-------------- Rapport d'activite -----------------//
+
+  //Recuperer tous les evaluations partagés dans la base de données
+  getRapportDActiviteZone() {
+    return this.http.get(`${this.baseUrl}/getrapportdactivitezones`);
+  }
+  //Ajouter un nouvel prealable zone
+  addRapportDActiviteRapportZone(data: object) {
+    return this.http.post(`${this.baseUrl}/addrapportdactivitezone`, data);
+  }
+  //update prealable zone
+  updateRapportDActiviteZone(data: object) {
+    return this.http.post(`${this.baseUrl}/updaterapportdactivitezone`, data)
+  }
+
+  //supprimer prealable zone
+  deleteRapportDActiviteZone(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleterapportdactiviteZone/` + data);
+  }
+
+  //Rapport d'activité par id
+  getRapportActiviteById(data: any) {
+    return this.http.get(`${this.baseUrl}/getRapportActiviteById/` + data);
   }
 
 }

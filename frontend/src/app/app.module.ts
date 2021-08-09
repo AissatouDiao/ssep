@@ -34,6 +34,9 @@ import { PistesbavardesComponent } from './components/pistesbavardes/pistesbavar
 import { ChainesdevaleursComponent } from './components/chainesdevaleurs/chainesdevaleurs.component';
 import { PassationsdemarchesComponent } from './components/passationsdemarches/passationsdemarches.component';
 import { IndicateursComponent } from './components/indicateurs/indicateurs.component';
+import { TravauxComponent } from './components/pistesbavardes/travaux/travaux.component';
+import { ControleComponent } from './components/pistesbavardes/controle/controle.component';
+import { ZoneComponent } from './components/controle/zone/zone.component';
 
 
 @NgModule({
@@ -63,6 +66,9 @@ import { IndicateursComponent } from './components/indicateurs/indicateurs.compo
     ChainesdevaleursComponent,
     PassationsdemarchesComponent,
     IndicateursComponent,
+    TravauxComponent,
+    ControleComponent,
+    ZoneComponent,
 
   ],
   imports: [

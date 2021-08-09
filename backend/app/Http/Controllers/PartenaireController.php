@@ -12,13 +12,13 @@ class PartenaireController extends Controller
     public function getPartenaires(Request $request){
 
         $partnaires= Partenaire::all();
-        return $partnaires= Partenaire::all();
+        return $partnaires;
     }
 
     public function deletePartenaire( $request){
         $partenaire= Partenaire::find($request);
         $partenaire->delete();
-        return response()->json(["data" => "suppression efective!"]); 
+        return response()->json(["data" => "suppression effective!"]); 
       
     }
 
@@ -49,6 +49,4 @@ class PartenaireController extends Controller
         $Partenaire->save();
       
     }
-
-
 }

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SnotifyPosition, SnotifyService } from 'ng-snotify';
 import { JarwisService } from 'src/app/services/jarwis.service';
 
+
 @Component({
   selector: 'app-passationsdemarches',
   templateUrl: './passationsdemarches.component.html',
@@ -22,7 +23,14 @@ export class PassationsdemarchesComponent implements OnInit {
     statut: 'émis'
   }
 
-  passations: any; user: any; error: any;
+  proposition = {
+    passation_id: <any>null,
+    libelle: '',
+    passationproposition: null,
+
+  }
+
+  passations: any; user: any; error: any; passationspropositions: any;
   lastpassationid: any;
   constructor(private jarwisService: JarwisService, private notify: SnotifyService) { }
 
@@ -30,12 +38,20 @@ export class PassationsdemarchesComponent implements OnInit {
     this.getPassations();
     let data_user: any = localStorage.getItem('data');
     this.user = JSON.parse(data_user);
+
+    this.getPassationsPropositions();
   }
 
   //Recupérer toutes les passations de marchés.
   getPassations() {
     this.jarwisService.getPassations().subscribe(
       data => { console.log(data); this.passations = data },
+      error => console.log(error)
+    );
+  }
+  getPassationsPropositions() {
+    this.jarwisService.getPassationsPropositions().subscribe(
+      data => { console.log(data); this.passationspropositions = data },
       error => console.log(error)
     );
   }
@@ -108,7 +124,7 @@ export class PassationsdemarchesComponent implements OnInit {
     }
   }
 
-  //Supprimer recommandation.
+  //Supprimer passation.
   delete(id: any) {
 
     //notification et changement de statut.
@@ -140,13 +156,12 @@ export class PassationsdemarchesComponent implements OnInit {
     });
   }
 
-  changeStatut(e: any, r: any) {
+  changeStatut(e: any, p: any) {
     //Statut confectionné
     let statut = {
-      id: r.id,
+      id: p.id,
       statut: e.target.value
     };
-
     //notification et changement de statut.
     this.notify.confirm('Voulez vous vraiment changer le statut de cettte passation?', 'Changer statut ?', {
       timeout: 0,
@@ -154,17 +169,33 @@ export class PassationsdemarchesComponent implements OnInit {
       showProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
-
       buttons: [
         {
           text: 'Oui',
           action: () => {
+            if (p.statut == "émis" || p.statut == "en traitement") {
+              this.jarwisService.changestatutpassation(statut).subscribe(
+                data => { console.log(data); this.getPassations(); this.getPassationsPropositions(); this.notify.success('Statut changé avec succès !'); },
+                error => console.log(error)
+              )
+            }
+            else {
+              if (p.statut == "entreprise sélectionnée") {
+                (<any>document.getElementById("pes" + p.id)).click();
+                if ((<any>document.getElementById("enregistrerproposition")).clicked == true) {
+                  this.jarwisService.changestatutpassation(statut).subscribe(
+                    data => { console.log(data); this.getPassations(); this.getPassationsPropositions(); this.notify.success('Statut changé avec succès !'); },
+                    error => console.log(error)
+                  );
+                }
+                else {
+                  if (((<any>document.getElementById("closeproposition" + p.id)).clicked == true || ((<any>document.getElementById("closeproposition1" + p.id)).clicked == true))) {
+                    this.notify.error('Ce changement annulé');
+                  }
+                }
+              }
 
-            this.jarwisService.changestatutpassation(statut).subscribe(
-              data => console.log(data),
-              error => console.log(error)
-            );
-            this.notify.success('Statut changé avec succès !');
+            }
           }, bold: false
         },
         {
@@ -178,7 +209,34 @@ export class PassationsdemarchesComponent implements OnInit {
     });
   }
 
+  //Ajouter une nouveau document.
+  files2: any
+  uploadDocument2(event: any) {
+    this.files = event.target.files[0];
+    console.log(this.files)
+  }
 
+
+  ajouterproposition(id: any) {
+    this.proposition.passation_id = id;
+    const formdata1 = new FormData();
+    formdata1.append('libelle', this.proposition.libelle);
+    formdata1.append('passation_id', this.proposition.passation_id);
+    formdata1.append('passationproposition', this.files);
+
+
+    let datas = formdata1;
+
+    this.jarwisService.addProposition(datas).subscribe(
+      (data: any) => {
+        console.log(data); this.lastpassationid = data.latest.id;
+        this.getPassations();
+        this.getPassationsPropositions();
+        (<any>document.getElementById("closeproposition" + id)).click();
+
+      },
+      error => { console.log(error); });
+  }
 
 
 }

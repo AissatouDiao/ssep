@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Passationmarche;
+use App\Models\Passationproposition;
 
 class PassationmarcheController extends Controller
 {
@@ -106,4 +107,36 @@ class PassationmarcheController extends Controller
         ]); 
     }
 
+     //passationproposition
+     public function addproposition(Request $request){
+      
+        $document = $request->file('passationproposition');
+        $path;
+            
+        if($document){
+            $repertoire='./documents/passationspropositions';
+            $extension =$document->getClientOriginalExtension();
+            do {
+				$nom = time() . '.' . $extension;
+            } while(file_exists( $repertoire . '/' . $nom));
+            $document->move( $repertoire, $nom);
+            $path=$repertoire.'/'.$nom;
+            $passationmarche = Passationproposition::create([
+                "libelle"=>$request->libelle,
+                "passationproposition"=>$path,
+                "passation_id"=>$request->passation_id,       
+            ]);
+            $latest=Passationproposition::latest()->first();
+           return response()->json([
+            "message" => "enregistrement du document effectué !",
+            "latest"=>$latest]);
+   
+        }
+
+    }
+
+    public function getPassationproposition(){
+        $passationpropositions=Passationproposition::all();
+        return $passationpropositions;
+    }
 }

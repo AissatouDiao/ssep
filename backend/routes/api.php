@@ -5,18 +5,23 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PtbaController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\ActiviteController;
 use App\Http\Controllers\ComposanteController;
 use App\Http\Controllers\PartenaireController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SousactiviteController;
 use App\Http\Controllers\CalculBudgetsController;
+use App\Http\Controllers\DecompteszoneController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\PrealableszoneController;
 use App\Http\Controllers\RecommandationController;
 use App\Http\Controllers\PartagedocumentController;
 use App\Http\Controllers\PassationmarcheController;
+use App\Http\Controllers\ProcesverbalszoneController;
 use App\Http\Controllers\DocumentsevaluationController;
+use App\Http\Controllers\RapportdactiviteszoneController;
 use App\Http\Controllers\ActivitepartenaireassocieController;
 use App\Http\Controllers\ActivitepartenairefinancierController;
 use App\Http\Controllers\ActivitepartenaireresponsableController;
@@ -134,11 +139,44 @@ Route::group([
     Route::post('getptbabudgettotal',[CalculBudgetsController::class,'getptbabudgettotal']);
     Route::post('getpartenairesactivites',[CalculBudgetsController::class,'getpartenairesactivites']);   
     Route::post('test',[CalculBudgetsController::class,'getpartenairesacomposantes']);
-    //Passation de marchés 
+    //Passation de marchés addproposition
     Route::post('addpassationmarche',[PassationmarcheController::class,'add']);
     Route::get('getpassationmarches', [PassationmarcheController::class,'getPassationmarches']);
     Route::delete('deletepassation/{id}',[PassationmarcheController::class,'delete']);
     Route::post('updatepassationmarche',[PassationmarcheController::class,'update']); 
     Route::post('changestatutpassation',[PassationmarcheController::class,'changeStatut']);
-    
+    Route::post('addpassationproposition',[PassationmarcheController::class,'addproposition']);
+    Route::get('getpassationpropositions', [PassationmarcheController::class,'getPassationproposition']);
+    //Zones
+    Route::post('addzone',[ZoneController::class,'add']);
+    Route::get('getzones', [ZoneController::class,'getZones']);
+    Route::delete('deleteZone/{id}',[ZoneController::class,'delete']);
+    Route::get('getZoneById/{id}',[ZoneController::class,'getZoneById']);
+    Route::post('updatezone',[ZoneController::class,'update']); 
+    //Decompte zones 
+    Route::post('adddecomptezone',[DecompteszoneController::class,'add']);
+    Route::get('getdecomptezones', [DecompteszoneController::class,'getDecompteszones']);
+    Route::delete('deletedecompteZone/{id}',[DecompteszoneController::class,'delete']);
+    Route::get('getDecompteById/{id}',[DecompteszoneController::class,'getDecompteById']);
+    Route::post('updatedecomptezone',[DecompteszoneController::class,'update']); 
+    //Prealable Zones
+    Route::post('addprealablezone',[PrealableszoneController::class,'add']);
+    Route::get('getprealablezones', [PrealableszoneController::class,'getPrealableszones']);
+    Route::delete('deleteprealableZone/{id}',[PrealableszoneController::class,'delete']);
+    Route::get('getPrealableById/{id}',[PrealableszoneController::class,'getPrealableById']);
+    Route::post('updateprealablezone',[PrealableszoneController::class,'update']); 
+    //Proces verbal Zones
+    Route::post('addprocesverbalzone',[ProcesverbalszoneController::class,'add']);
+    Route::get('getprocesverbalzones', [ProcesverbalszoneController::class,'getProcesverbalszones']);
+    Route::delete('deleteprocesverbalZone/{id}',[ProcesverbalszoneController::class,'delete']);
+    Route::get('getProcesVerbalById/{id}',[ProcesverbalszoneController::class,'getProcesVerbalById']);
+    Route::post('updateprocesverbalzone',[ProcesverbalszoneController::class,'update']); 
+    //Rapport d'activite Zones
+    Route::post('addrapportdactivitezone',[RapportdactiviteszoneController::class,'add']);
+    Route::get('getrapportdactivitezones', [RapportdactiviteszoneController::class,'RapportdactiviteszoneController']);
+    Route::delete('deleterapportdactiviteZone/{id}',[RapportdactiviteszoneController::class,'delete']);
+    Route::get('getRapportActiviteById/{id}',[RapportdactiviteszoneController::class,'getRapportActiviteById']);
+    Route::post('updaterapportdactivitezone',[RapportdactiviteszoneController::class,'update']); 
+
+
 });
