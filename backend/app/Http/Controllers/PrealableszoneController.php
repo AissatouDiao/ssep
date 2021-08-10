@@ -36,6 +36,10 @@ class PrealableszoneController extends Controller
         $prealable= Prealableszone::find($request);
         return $prealable; 
     }
+    public function getZonePrealableById( $request){
+        $zone= Prealableszone::find($request);
+        return $zone; 
+    }
 
     public function getPrealableszones(Request $request){
         $zones= Prealableszone::all();

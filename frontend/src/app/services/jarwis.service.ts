@@ -419,9 +419,14 @@ export class JarwisService {
     return this.http.delete(`${this.baseUrl}/deletedecompteZone/` + data);
   }
 
-  //decompte par id
+  //decompte par id 
   getDecompteById(data: any) {
     return this.http.get(`${this.baseUrl}/getDecompteById/` + data);
+  }
+
+  //Decompte zone by zone id
+  getZoneDecompteById(data: any) {
+    return this.http.get(`${this.baseUrl}/getZoneDecompteById/` + data);
   }
 
   //---------- Prealable Zone -----------//
@@ -445,9 +450,13 @@ export class JarwisService {
     return this.http.delete(`${this.baseUrl}/deleteprealableZone/` + data);
   }
 
-  //Prealable par id
+  //Prealable par id 
   getPrealableById(data: any) {
     return this.http.get(`${this.baseUrl}/getPrealableById/` + data);
+  }
+
+  getZonePrealableById(data: any) {
+    return this.http.get(`${this.baseUrl}/getZonePrealableById/` + data);
   }
 
 
@@ -471,9 +480,13 @@ export class JarwisService {
     return this.http.delete(`${this.baseUrl}/deleteprocesverbalZone/` + data);
   }
 
-  //Proces Verbal par id
+  //Proces Verbal par id 
   getProcesVerbalById(data: any) {
     return this.http.get(`${this.baseUrl}/getProcesVerbalById/` + data);
+  }
+
+  getZoneProcesVerbalById(data: any) {
+    return this.http.get(`${this.baseUrl}/getZoneProcesVerbalById/` + data);
   }
 
 
@@ -497,8 +510,12 @@ export class JarwisService {
     return this.http.delete(`${this.baseUrl}/deleterapportdactiviteZone/` + data);
   }
 
-  //Rapport d'activité par id
+  //Rapport d'activité par id  
   getRapportActiviteById(data: any) {
+    return this.http.get(`${this.baseUrl}/getRapportActiviteById/` + data);
+  }
+
+  getZoneRapportActiviteById(data: any) {
     return this.http.get(`${this.baseUrl}/getRapportActiviteById/` + data);
   }
 

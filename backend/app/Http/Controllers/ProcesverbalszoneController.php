@@ -32,6 +32,11 @@ class ProcesverbalszoneController extends Controller
       
     }
     public function getProcesVerbalById( $request){
+        $pv= Procesverbalszone::find($request);
+        return $pv; 
+    }
+
+    public function getZoneProcesVerbalById( $request){
         $zone= Procesverbalszone::find($request);
         return $zone; 
     }

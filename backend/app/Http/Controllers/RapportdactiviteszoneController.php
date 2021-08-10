@@ -33,6 +33,11 @@ class RapportdactiviteszoneController extends Controller
       
     }
     public function getRapportActiviteById( $request){
+        $ra= rapportdactivitezone::find($request);
+        return $ra; 
+    }
+
+    public function getZoneRapportActiviteById( $request){
         $zone= rapportdactivitezone::find($request);
         return $zone; 
     }

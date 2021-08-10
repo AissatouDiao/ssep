@@ -8,12 +8,30 @@ use App\Models\Decompteszone;
 class DecompteszoneController extends Controller
 {
     public function add(Request $request){
-        Decompteszone::create($request->all());
-        $lastRecordDate = Decompteszone::latest()->first();
-        return response()->json([
-            "message"=>"Un nouvelle zone a été ajouté !",
-             "last"=>$lastRecordDate,
-        ]);
+
+        
+        $document = $request->file('decompte');
+        $path;
+            
+        if($document){
+            $repertoire='./documents/zones/decomptes';
+            $extension =$document->getClientOriginalExtension();
+            do {
+				$nom = time() . '.' . $extension;
+            } while(file_exists( $repertoire . '/' . $nom));
+            $document->move( $repertoire, $nom);
+            $path=$repertoire.'/'.$nom;
+            $evaluation = Decompteszone::create([
+                "libelle"=>$request->titre,
+                "decompte"=>$path,
+                "zone_id"=>$request->zone_id,        
+            ]);
+            $latest=Decompteszone::latest()->first();
+           return response()->json([
+            "message" => "enregistrement du document effectué !",
+            "latest"=>$latest]);
+   
+        }
     }
     
     public function update(Request $request){
@@ -33,6 +51,11 @@ class DecompteszoneController extends Controller
       
     }
     public function getDecompteById( $request){
+        $decompte= Decompteszone::find($request);
+        return $decompte; 
+    }
+
+    public function getZoneDecompteById( $request){
         $zone= Decompteszone::find($request);
         return $zone; 
     }

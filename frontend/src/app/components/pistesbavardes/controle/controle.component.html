@@ -24,7 +24,7 @@
     <div *ngFor="let z of zones | searchFilter:searchText" class="col-sm-3">
         <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">{{z.libelle}} <i class="material-icons float-right" (click)="delete(z.id)" style="cursor:pointer">close</i></h5>
+                <h5 class="card-title text-capitalize" (click)="gotozone(z.id)" style="cursor:pointer">{{z.libelle}}</h5><i class="material-icons float-right" (click)="delete(z.id)" style="cursor:pointer">close</i>
             </div>
         </div>
     </div>

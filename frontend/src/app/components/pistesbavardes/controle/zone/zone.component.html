@@ -1,1 +1,302 @@
-<p>zone works!</p>
+<div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title text-capitalize">{{zone.libelle}}</h5>
+    </div>
+</div><br><br>
+<div class="row">
+    <div class="col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-header card-header-success">
+                <h4 class="card-title">Préalables</h4>
+                <p class="card-category">Gestion des préalables de la zone : {{zone.libelle}} </p>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover">
+                    <thead class="text-primary">
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Salary</th>
+                        <th>Country</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Dakota Rice</td>
+                            <td>$36,738</td>
+                            <td>Niger</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Minerva Hooper</td>
+                            <td>$23,789</td>
+                            <td>Curaçao</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Sage Rodriguez</td>
+                            <td>$56,142</td>
+                            <td>Netherlands</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Philip Chaney</td>
+                            <td>$38,735</td>
+                            <td>Korea, South</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-success" data-toggle="modal" data-target="#exampleModalp">Ajouter préalable</button>
+
+                <!-- Modal prealable ajout -->
+
+                <div class="modal fade " id="exampleModalp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content card">
+                            <div class="modal-header">
+
+                                <div class="card-header card-header-success">
+                                    <h5 class="modal-title card-title" id="exampleModalLabel">Modal title</h5>
+                                </div>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <form #decompteForm=ngForm name="decompteForm" (ngSubmit)="AddDecompteZone()" enctype="multipart/form-data">
+                                <div class="modal-body">
+                                    <div class="row mb-3">
+                                        <label for="inputEmail3">Titre</label><br>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="decompte.libelle" required>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label for="inputPassword3">Document</label>
+                                        <div class="col-sm-10">
+                                            <input type="file" (change)="uploadDocument($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="decompte.decompte" required>
+                                            <div class="text-left"> (.pdf ou .docx seulement)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                    <button type="submit" class="btn btn-success" [disabled]="!decompteForm.valid">Enregistrer</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--Fin modal pralable ajout -->
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">Rapports</h4>
+                <p class="card-category">Gestion des rapports de la zone : {{zone.libelle}}</p>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover">
+                    <thead class="text-primary">
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Salary</th>
+                        <th>Country</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Dakota Rice</td>
+                            <td>$36,738</td>
+                            <td>Niger</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Minerva Hooper</td>
+                            <td>$23,789</td>
+                            <td>Curaçao</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Sage Rodriguez</td>
+                            <td>$56,142</td>
+                            <td>Netherlands</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Philip Chaney</td>
+                            <td>$38,735</td>
+                            <td>Korea, South</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-warning" data-toggle="modal" data-target="#exampleModalr">Ajouter rapport</button>
+                <!-- Modal rapport ajout -->
+
+                <div class="modal fade " id="exampleModalr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content card">
+                            <div class="modal-header">
+
+                                <div class="card-header card-header-warning">
+                                    <h5 class="modal-title card-title" id="exampleModalLabel">Modal title</h5>
+                                </div>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-warning">Enregistrer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Fin modal rapport ajout -->
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-header card-header-info">
+                <h4 class="card-title">Procès Verbal</h4>
+                <p class="card-category">Gestion des procès verbal de la zone : {{zone.libelle}}</p>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover">
+                    <thead class="text-primary">
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Salary</th>
+                        <th>Country</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Dakota Rice</td>
+                            <td>$36,738</td>
+                            <td>Niger</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Minerva Hooper</td>
+                            <td>$23,789</td>
+                            <td>Curaçao</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Sage Rodriguez</td>
+                            <td>$56,142</td>
+                            <td>Netherlands</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Philip Chaney</td>
+                            <td>$38,735</td>
+                            <td>Korea, South</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-info" data-toggle="modal" data-target="#exampleModalpv">Ajouter proces verbal</button>
+                <!-- Modal procès verbal ajout -->
+
+                <div class="modal fade " id="exampleModalpv" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content card">
+                            <div class="modal-header">
+
+                                <div class="card-header card-header-info">
+                                    <h5 class="modal-title card-title" id="exampleModalLabel">Modal title</h5>
+                                </div>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-info">Enregistrer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Fin procès verbal ajout -->
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-header card-header-danger">
+                <h4 class="card-title">Décomptes</h4>
+                <p class="card-category">Gestion des comptes {{zone.libelle}}</p>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover">
+                    <thead class="text-primary">
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Salary</th>
+                        <th>Country</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Dakota Rice</td>
+                            <td>$36,738</td>
+                            <td>Niger</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Minerva Hooper</td>
+                            <td>$23,789</td>
+                            <td>Curaçao</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Sage Rodriguez</td>
+                            <td>$56,142</td>
+                            <td>Netherlands</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Philip Chaney</td>
+                            <td>$38,735</td>
+                            <td>Korea, South</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModald">Ajouter décompte</button>
+                <!-- Modal décompte ajout -->
+
+                <div class="modal fade " id="exampleModald" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content card">
+                            <div class="modal-header">
+
+                                <div class="card-header card-header-danger">
+                                    <h5 class="modal-title card-title" id="exampleModalLabel">Modal title</h5>
+                                </div>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger">Enregistrer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Fin décompte ajout -->
+            </div>
+        </div>
+    </div>
+</div>

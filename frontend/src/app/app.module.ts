@@ -36,7 +36,8 @@ import { PassationsdemarchesComponent } from './components/passationsdemarches/p
 import { IndicateursComponent } from './components/indicateurs/indicateurs.component';
 import { TravauxComponent } from './components/pistesbavardes/travaux/travaux.component';
 import { ControleComponent } from './components/pistesbavardes/controle/controle.component';
-import { ZoneComponent } from './components/controle/zone/zone.component';
+import { ZoneComponent } from './components/pistesbavardes/controle/zone/zone.component';
+
 
 
 @NgModule({
@@ -68,8 +69,7 @@ import { ZoneComponent } from './components/controle/zone/zone.component';
     IndicateursComponent,
     TravauxComponent,
     ControleComponent,
-    ZoneComponent,
-
+    ZoneComponent
   ],
   imports: [
     BrowserModule,

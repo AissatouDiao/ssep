@@ -158,24 +158,28 @@ Route::group([
     Route::get('getdecomptezones', [DecompteszoneController::class,'getDecompteszones']);
     Route::delete('deletedecompteZone/{id}',[DecompteszoneController::class,'delete']);
     Route::get('getDecompteById/{id}',[DecompteszoneController::class,'getDecompteById']);
+    Route::get('getZoneDecompteById/{id}',[DecompteszoneController::class,'getZoneDecompteById']);
     Route::post('updatedecomptezone',[DecompteszoneController::class,'update']); 
-    //Prealable Zones
+    //Prealable Zones 
     Route::post('addprealablezone',[PrealableszoneController::class,'add']);
     Route::get('getprealablezones', [PrealableszoneController::class,'getPrealableszones']);
     Route::delete('deleteprealableZone/{id}',[PrealableszoneController::class,'delete']);
     Route::get('getPrealableById/{id}',[PrealableszoneController::class,'getPrealableById']);
+    Route::get('getZonePrealableById/{id}',[PrealableszoneController::class,'getZonePrealableById']);
     Route::post('updateprealablezone',[PrealableszoneController::class,'update']); 
-    //Proces verbal Zones
+    //Proces verbal Zones 
     Route::post('addprocesverbalzone',[ProcesverbalszoneController::class,'add']);
     Route::get('getprocesverbalzones', [ProcesverbalszoneController::class,'getProcesverbalszones']);
     Route::delete('deleteprocesverbalZone/{id}',[ProcesverbalszoneController::class,'delete']);
     Route::get('getProcesVerbalById/{id}',[ProcesverbalszoneController::class,'getProcesVerbalById']);
+    Route::get('getZoneProcesVerbalById/{id}',[ProcesverbalszoneController::class,'getZoneProcesVerbalById']);
     Route::post('updateprocesverbalzone',[ProcesverbalszoneController::class,'update']); 
-    //Rapport d'activite Zones
+    //Rapport d'activite Zones 
     Route::post('addrapportdactivitezone',[RapportdactiviteszoneController::class,'add']);
     Route::get('getrapportdactivitezones', [RapportdactiviteszoneController::class,'RapportdactiviteszoneController']);
     Route::delete('deleterapportdactiviteZone/{id}',[RapportdactiviteszoneController::class,'delete']);
     Route::get('getRapportActiviteById/{id}',[RapportdactiviteszoneController::class,'getRapportActiviteById']);
+    Route::get('getZoneRapportActiviteById/{id}',[RapportdactiviteszoneController::class,'getZoneRapportActiviteById']);
     Route::post('updaterapportdactivitezone',[RapportdactiviteszoneController::class,'update']); 
 
 

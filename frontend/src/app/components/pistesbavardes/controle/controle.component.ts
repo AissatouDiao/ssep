@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { SnotifyPosition, SnotifyService } from 'ng-snotify';
 import { JarwisService } from 'src/app/services/jarwis.service';
 
@@ -20,7 +21,10 @@ export class ControleComponent implements OnInit {
   zone = {
     libelle: null
   };
-  constructor(private jarwisService: JarwisService, private notify: SnotifyService) { }
+  constructor(private jarwisService: JarwisService,
+    private notify: SnotifyService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.getZones();
@@ -32,6 +36,10 @@ export class ControleComponent implements OnInit {
       data => { console.log(data); this.zones = data },
       error => console.log(error)
     );
+  }
+
+  gotozone(id: any) {
+    this.router.navigate(['/gestion-pistes-bavardes/controle/zone', id]);
   }
 
   //Ajouter une zone

@@ -28,6 +28,7 @@ import { PassationsdemarchesComponent } from './components/passationsdemarches/p
 import { IndicateursComponent } from './components/indicateurs/indicateurs.component';
 import { TravauxComponent } from './components/pistesbavardes/travaux/travaux.component';
 import { ControleComponent } from './components/pistesbavardes/controle/controle.component';
+import { ZoneComponent } from './components/pistesbavardes/controle/zone/zone.component';
 
 
 const routes: Routes = [
@@ -137,6 +138,10 @@ const routes: Routes = [
   },
   {
     path: 'gestion-pistes-bavardes/controle', component: ControleComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-pistes-bavardes/controle/zone/:id', component: ZoneComponent,
     canActivate: [AfterloginService]
   }
 ];
