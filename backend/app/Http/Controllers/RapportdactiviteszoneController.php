@@ -3,26 +3,83 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use App\Models\Rapportdactiviteszone;
 
 class RapportdactiviteszoneController extends Controller
 {
     public function add(Request $request){
-        Rapportdactiviteszone::create($request->all());
-        $lastRecordDate = Rapportdactiviteszone::latest()->first();
-        return response()->json([
-            "message"=>"Un nouvelle zone a été ajouté !",
-             "last"=>$lastRecordDate,
-        ]);
+
+
+        $document = $request->file('rapportdactivite');
+ 
+        $path;
+            
+        if($document){
+            $repertoire='./documents/zones/rapports';
+            $extension =$document->getClientOriginalExtension();
+            do {
+				$nom = time() . '.' . $extension;
+            } while(file_exists( $repertoire . '/' . $nom));
+            $document->move( $repertoire, $nom);
+            $path=$repertoire.'/'.$nom;
+            $evaluation = Rapportdactiviteszone::create([
+                "libelle"=>$request->libelle,
+                "rapportdactivite"=>$path,
+                "zone_id"=>$request->zone_id,        
+            ]);
+            $latest=Rapportdactiviteszone::latest()->first();
+           return response()->json([
+            "message" => "enregistrement du document effectué !",
+            "latest"=>$latest]);
+   
+        }
     }
     
     public function update(Request $request){
-        $Rapportdactiviteszone=Rapportdactiviteszone::find($request->id);
-        $Rapportdactiviteszone->libelle=$request->libelle;
-        $Rapportdactiviteszone->save();
+    
+
+       $document = $request->file('rapportdactivite');
+       
+       $rapportdactivite=Rapportdactiviteszone::find($request->id);
+       
+       if($rapportdactivite->rapportdactivite!=$request->rapportdactivite)
+       { 
+           File::delete($rapportdactivite->rapportdactivite);
+           $path;
+            if($document){
+            $repertoire='./documents/zones/rapports';
+            $extension=$document->getClientOriginalExtension();
+            do {
+                $nom = time() . '.' . $extension;
+            } while(file_exists( $repertoire . '/' . $nom));
+            $document->move( $repertoire, $nom);
+            $path=$repertoire.'/'.$nom;
+           
+    
+            $rapportdactivite->libelle=$request->libelle;
+            $rapportdactivite->zone_id=$request->zone_id;
+            $rapportdactivite->rapportdactivite=$path;
+
+           $rapportdactivite->save();
+
+            return response()->json([
+                "message"=>"Le rapport d'activité a été mis à jour avec succès  !",
+                 "error"=>"Le rapport d'activité n'a pu être mise à jour, veuillez revoir les données remplies."
+            ]); }
+       }
+
+      
+       $rapportdactivite->libelle=$request->libelle;
+       $rapportdactivite->zone_id=$request->zone_id;
+       $rapportdactivite->rapportdactivite=$request->rapportdactivite;
+       
+    
+
+       $rapportdactivite->save();
        return response()->json([
-           "message"=>"Rapportdactiviteszone mis à jour avec succès !",
-            "Rapportdactiviteszone"=>$Rapportdactiviteszone
+           "message"=>"Le rapport d'activité mis à jour avec succès !",
+            "error"=>"Le rapport d'activité n'a pu être mise à jour, veuillez revoir les données remplies."
        ]);
     }
 

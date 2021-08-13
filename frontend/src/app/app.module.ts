@@ -37,6 +37,7 @@ import { IndicateursComponent } from './components/indicateurs/indicateurs.compo
 import { TravauxComponent } from './components/pistesbavardes/travaux/travaux.component';
 import { ControleComponent } from './components/pistesbavardes/controle/controle.component';
 import { ZoneComponent } from './components/pistesbavardes/controle/zone/zone.component';
+import { RegionsComponent } from './components/pistesbavardes/travaux/regions/regions.component';
 
 
 
@@ -69,7 +70,8 @@ import { ZoneComponent } from './components/pistesbavardes/controle/zone/zone.co
     IndicateursComponent,
     TravauxComponent,
     ControleComponent,
-    ZoneComponent
+    ZoneComponent,
+    RegionsComponent
   ],
   imports: [
     BrowserModule,

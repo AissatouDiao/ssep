@@ -176,7 +176,7 @@ Route::group([
     Route::post('updateprocesverbalzone',[ProcesverbalszoneController::class,'update']); 
     //Rapport d'activite Zones 
     Route::post('addrapportdactivitezone',[RapportdactiviteszoneController::class,'add']);
-    Route::get('getrapportdactivitezones', [RapportdactiviteszoneController::class,'RapportdactiviteszoneController']);
+    Route::get('getrapportdactivitezones', [RapportdactiviteszoneController::class,'getRapportdactiviteszones']);
     Route::delete('deleterapportdactiviteZone/{id}',[RapportdactiviteszoneController::class,'delete']);
     Route::get('getRapportActiviteById/{id}',[RapportdactiviteszoneController::class,'getRapportActiviteById']);
     Route::get('getZoneRapportActiviteById/{id}',[RapportdactiviteszoneController::class,'getZoneRapportActiviteById']);

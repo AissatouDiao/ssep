@@ -24,6 +24,6 @@ class Procesverbalszone extends Model
   protected $fillable = [
    'libelle',
    'zone_id',
-   'procesvebal',
+   'procesverbal',
   ];
 }

@@ -247,7 +247,7 @@ export class DocumentsevaluationsComponent implements OnInit {
     });
   }
 
-  //Mettre à jour une recommendation.
+  //Mettre à jour une evaluation.
 
   files1: any
   uploadDocument1(event: any) {

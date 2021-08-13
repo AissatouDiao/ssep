@@ -1,3 +1,15 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <i class="material-icons pr-1">map</i>
+        <li class="breadcrumb-item">
+            <p class=""> Gestion des pistes bavardes</p>
+        </li>
+        <li class="breadcrumb-item">
+            Contrôle
+        </li>
+        <li class="breadcrumb-item text-primary active" aria-current="page">Zones</li>
+    </ol>
+</nav>
 <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
     <div class="card-body">
         <h5 class="card-title text-capitalize">{{zone.libelle}}</h5>
@@ -6,46 +18,85 @@
 <div class="row">
     <div class="col-lg-6 col-md-12">
         <div class="card">
-            <div class="card-header card-header-success">
-                <h4 class="card-title">Préalables</h4>
-                <p class="card-category">Gestion des préalables de la zone : {{zone.libelle}} </p>
+            <div class="card-header card-header-danger">
+                <h4 class="card-title">Décomptes</h4>
+                <p class="card-category">Gestion des décomptes de la zone : {{zone.libelle}} </p>
             </div>
             <div class="card-body table-responsive">
                 <table class="table table-hover">
                     <thead class="text-primary">
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Salary</th>
-                        <th>Country</th>
+                        <th>Titre</th>
+                        <th>Document</th>
+                        <th>Options</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Dakota Rice</td>
-                            <td>$36,738</td>
-                            <td>Niger</td>
+                        <tr *ngFor="let d of decomptes">
+                            <ng-container *ngIf="d.zone_id==idzone">
+
+                                <td>{{d.id}}</td>
+                                <td>{{d.libelle}}</td>
+                                <td>
+                                    <div>
+                                        <a href="http://localhost:8000/.{{d.decompte}}" target="blank">Consulter le PDF</a>
+                                    </div>
+                                </td>
+                                <td class="td-actions">
+                                    <button type="button" rel="tooltip" title="Modifier recommandation" data-toggle="modal" attr.data-target="#m{{d.id}}" class="btn btn-primary btn-link btn-sm">
+                                   <i class="material-icons">edit</i>
+                                </button>
+                                    <button type="button" rel="tooltip" title="Supprimer recommandation" (click)="deleteDecompte(d.id)" class="btn btn-danger btn-link btn-sm">
+                                  <i class="material-icons">close</i>
+                               </button>
+                                </td>
+                                <!-- Modal prealable modifier -->
+                                <div class="modal fade " id="m{{d.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content card">
+                                            <div class="modal-header">
+
+                                                <div class="card-header card-header-danger">
+                                                    <h5 class="modal-title card-title" id="exampleModalLabel">Modification du décompte : {{d.libelle}}</h5>
+                                                </div>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            </div>
+                                            <form #decomptemodifForm=ngForm name="decomptemodifForm" (ngSubmit)="updateDecompte(d)" enctype="multipart/form-data">
+                                                <div class="modal-body">
+                                                    <div class="row mb-3">
+                                                        <label for="inputEmail3">Titre</label><br>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="d.libelle" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <label for="inputPassword3">Document</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="file" (change)="uploadDocumentdecompte($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="d.decompte">
+                                                            <div class="text-left text-danger"> (.pdf ou .docx seulement)</div>
+                                                            <div>
+                                                                <a href="http://localhost:8000/.{{d.decompte}}" target="blank">Consulter le PDF enregistré pour la décompte.</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                    <button type="submit" class="btn btn-danger" [disabled]="!decomptemodifForm.valid">Enregistrer</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Fin modal pralable modifier -->
+                            </ng-container>
+
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Minerva Hooper</td>
-                            <td>$23,789</td>
-                            <td>Curaçao</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Sage Rodriguez</td>
-                            <td>$56,142</td>
-                            <td>Netherlands</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Philip Chaney</td>
-                            <td>$38,735</td>
-                            <td>Korea, South</td>
-                        </tr>
+
                     </tbody>
                 </table>
-                <button class="btn btn-success" data-toggle="modal" data-target="#exampleModalp">Ajouter préalable</button>
+                <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalp">Ajouter décompte</button>
 
                 <!-- Modal prealable ajout -->
 
@@ -54,8 +105,8 @@
                         <div class="modal-content card">
                             <div class="modal-header">
 
-                                <div class="card-header card-header-success">
-                                    <h5 class="modal-title card-title" id="exampleModalLabel">Modal title</h5>
+                                <div class="card-header card-header-danger">
+                                    <h5 class="modal-title card-title" id="exampleModalLabel">Nouvelle décompte</h5>
                                 </div>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -79,7 +130,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                                    <button type="submit" class="btn btn-success" [disabled]="!decompteForm.valid">Enregistrer</button>
+                                    <button type="submit" class="btn btn-danger" [disabled]="!decompteForm.valid">Enregistrer</button>
                                 </div>
                             </form>
                         </div>
@@ -99,35 +150,73 @@
                 <table class="table table-hover">
                     <thead class="text-primary">
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Salary</th>
-                        <th>Country</th>
+                        <th>Titre</th>
+                        <th>Document</th>
+                        <th>Options</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Dakota Rice</td>
-                            <td>$36,738</td>
-                            <td>Niger</td>
+                        <tr *ngFor="let r of rapports">
+                            <ng-container *ngIf="r.zone_id==idzone">
+
+                                <td>{{r.id}}</td>
+                                <td>{{r.libelle}}</td>
+                                <td>{{r.rapport}}
+                                    <div>
+                                        <a href="http://localhost:8000/.{{r.rapportdactivite}}" target="blank">Consulter le PDF</a>
+                                    </div>
+                                </td>
+                                <td class="td-actions">
+                                    <button type="button" rel="tooltip" title="Modifier recommandation" data-toggle="modal" attr.data-target="#mp{{r.id}}" class="btn btn-primary btn-link btn-sm">
+                                   <i class="material-icons">edit</i>
+                                </button>
+                                    <button type="button" rel="tooltip" title="Supprimer recommandation" (click)="deleteRapport(r.id)" class="btn btn-danger btn-link btn-sm">
+                                  <i class="material-icons">close</i>
+                               </button>
+                                </td>
+                                <!-- Modal rapport modifier -->
+                                <div class="modal fade " id="mp{{r.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content card">
+                                            <div class="modal-header">
+
+                                                <div class="card-header card-header-warning">
+                                                    <h5 class="modal-title card-title" id="exampleModalLabel">Modification du rapport : {{r.libelle}}</h5>
+                                                </div>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            </div>
+                                            <form #pvmodifForm=ngForm name="pvmodifForm" (ngSubmit)="updateRapport(r)" enctype="multipart/form-data">
+                                                <div class="modal-body">
+                                                    <div class="row mb-3">
+                                                        <label for="inputEmail3">Titre</label><br>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="r.libelle" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <label for="inputPassword3">Document</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="file" (change)="uploadDocumentrapport($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="r.rapportdactivite">
+                                                            <div class="text-left text-warning"> (.pdf ou .docx seulement)</div>
+                                                            <div>
+                                                                <a href="http://localhost:8000/.{{r.rapportdactivite}}" target="blank">Consulter le PDF enregistré pour le rapport.</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                    <button type="submit" class="btn btn-warning" [disabled]="!pvmodifForm.valid">Enregistrer</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Fin modal rapport modifier -->
+                            </ng-container>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Minerva Hooper</td>
-                            <td>$23,789</td>
-                            <td>Curaçao</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Sage Rodriguez</td>
-                            <td>$56,142</td>
-                            <td>Netherlands</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Philip Chaney</td>
-                            <td>$38,735</td>
-                            <td>Korea, South</td>
-                        </tr>
+
                     </tbody>
                 </table>
                 <button class="btn btn-warning" data-toggle="modal" data-target="#exampleModalr">Ajouter rapport</button>
@@ -139,19 +228,38 @@
                             <div class="modal-header">
 
                                 <div class="card-header card-header-warning">
-                                    <h5 class="modal-title card-title" id="exampleModalLabel">Modal title</h5>
+                                    <h5 class="modal-title card-title" id="exampleModalLabel">Nouveau Rapport</h5>
                                 </div>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
+                            <form #rapportdactiviteForm=ngForm name="rapportdactiviteForm" (ngSubmit)="AddRapportZone()" enctype="multipart/form-data">
+                                <div class="modal-body">
 
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-warning">Enregistrer</button>
-                            </div>
+                                    <div class="modal-body">
+                                        <div class="row mb-3">
+                                            <label for="inputEmail3">Titre</label><br>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="rapportdactivite.libelle" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="inputPassword3">Document</label>
+                                            <div class="col-sm-10">
+                                                <input type="file" (change)="uploadDocument_AR($event)" class="form-control" name="rapportdactivite" id="file" [(ngModel)]="rapportdactivite.rapportdactivite" required>
+                                                <div class="text-left"> (.pdf ou .docx seulement)</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                        <button type="submit" class="btn btn-warning" [disabled]="!rapportdactiviteForm.valid">Enregistrer</button>
+                                    </div>
+
+                                </div>
+
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -169,35 +277,72 @@
                 <table class="table table-hover">
                     <thead class="text-primary">
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Salary</th>
-                        <th>Country</th>
+                        <th>Titre</th>
+                        <th>Document</th>
+                        <th>Options</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Dakota Rice</td>
-                            <td>$36,738</td>
-                            <td>Niger</td>
+                        <tr *ngFor="let pv of procesverbals">
+                            <ng-container *ngIf="pv.zone_id==idzone">
+                                <td>{{pv.id}}</td>
+                                <td>{{pv.libelle}}</td>
+                                <td>{{pv.rapport}}
+                                    <div>
+                                        <a href="http://localhost:8000/.{{pv.procesverbal}}" target="blank">Consulter le PDF</a>
+                                    </div>
+                                </td>
+                                <td class="td-actions">
+                                    <button type="button" rel="tooltip" title="Modifier recommandation" data-toggle="modal" attr.data-target="#mpv{{pv.id}}" class="btn btn-primary btn-link btn-sm">
+                                   <i class="material-icons">edit</i>
+                                </button>
+                                    <button type="button" rel="tooltip" title="Supprimer recommandation" (click)="deleteProcesVerbal(pv.id)" class="btn btn-danger btn-link btn-sm">
+                                  <i class="material-icons">close</i>
+                               </button>
+                                </td>
+                                <!-- Modal rapport modifier -->
+                                <div class="modal fade " id="mpv{{pv.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content card">
+                                            <div class="modal-header">
+
+                                                <div class="card-header card-header-info">
+                                                    <h5 class="modal-title card-title" id="exampleModalLabel">Modification du rapport : {{pv.libelle}}</h5>
+                                                </div>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            </div>
+                                            <form #pvmodifForm=ngForm name="pvmodifForm" (ngSubmit)="updateProcesVerbal(pv)" enctype="multipart/form-data">
+                                                <div class="modal-body">
+                                                    <div class="row mb-3">
+                                                        <label for="inputEmail3">Titre</label><br>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="pv.libelle" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <label for="inputPassword3">Document</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="file" (change)="uploadDocumentpv($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="pv.procesverbal">
+                                                            <div class="text-left text-info"> (.pdf ou .docx seulement)</div>
+                                                            <div>
+                                                                <a href="http://localhost:8000/.{{pv.procesverbal}}" target="blank">Consulter le PDF enregistré pour le rapport.</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                    <button type="submit" class="btn btn-info" [disabled]="!pvmodifForm.valid">Enregistrer</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Fin modal rapport modifier -->
+                            </ng-container>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Minerva Hooper</td>
-                            <td>$23,789</td>
-                            <td>Curaçao</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Sage Rodriguez</td>
-                            <td>$56,142</td>
-                            <td>Netherlands</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Philip Chaney</td>
-                            <td>$38,735</td>
-                            <td>Korea, South</td>
-                        </tr>
+
                     </tbody>
                 </table>
                 <button class="btn btn-info" data-toggle="modal" data-target="#exampleModalpv">Ajouter proces verbal</button>
@@ -209,19 +354,39 @@
                             <div class="modal-header">
 
                                 <div class="card-header card-header-info">
-                                    <h5 class="modal-title card-title" id="exampleModalLabel">Modal title</h5>
+                                    <h5 class="modal-title card-title" id="exampleModalLabel">Nouveau Procès-verbal
+                                    </h5>
                                 </div>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                            <div class="modal-body">
-                                ...
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-info">Enregistrer</button>
-                            </div>
+                            <form #procesverbalForm=ngForm name="procesverbalForm" (ngSubmit)="AddPVZone()" enctype="multipart/form-data">
+                                <div class="modal-body">
+
+                                    <div class="modal-body">
+                                        <div class="row mb-3">
+                                            <label for="inputEmail3">Titre</label><br>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="procesverbal.libelle" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="inputPassword3">Document</label>
+                                            <div class="col-sm-10">
+                                                <input type="file" (change)="uploadDocument_APV($event)" class="form-control" name="procesverbal" id="file" [(ngModel)]="procesverbal.procesverbal" required>
+                                                <div class="text-left"> (.pdf ou .docx seulement)</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                        <button type="submit" class="btn btn-info" [disabled]="!procesverbalForm.valid">Enregistrer</button>
+                                    </div>
+
+                                </div>
+
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -231,71 +396,126 @@
     </div>
     <div class="col-lg-6 col-md-12">
         <div class="card">
-            <div class="card-header card-header-danger">
-                <h4 class="card-title">Décomptes</h4>
-                <p class="card-category">Gestion des comptes {{zone.libelle}}</p>
+            <div class="card-header card-header-success">
+                <h4 class="card-title">Préalables</h4>
+                <p class="card-category">Gestion des préalables de la zone : {{zone.libelle}}</p>
             </div>
             <div class="card-body table-responsive">
                 <table class="table table-hover">
                     <thead class="text-primary">
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Salary</th>
-                        <th>Country</th>
+                        <th>Titre</th>
+                        <th>Document</th>
+                        <th>Options</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Dakota Rice</td>
-                            <td>$36,738</td>
-                            <td>Niger</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Minerva Hooper</td>
-                            <td>$23,789</td>
-                            <td>Curaçao</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Sage Rodriguez</td>
-                            <td>$56,142</td>
-                            <td>Netherlands</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Philip Chaney</td>
-                            <td>$38,735</td>
-                            <td>Korea, South</td>
+                        <tr *ngFor="let p of prealables">
+                            <ng-container *ngIf="p.zone_id==idzone">
+                                <td>{{p.id}}</td>
+                                <td>{{p.libelle}}</td>
+                                <td>
+                                    <div>
+                                        <a href="http://localhost:8000/.{{p.prealable}}" target="blank">Consulter le PDF</a>
+                                    </div>
+                                </td>
+                                <td class="td-actions">
+                                    <button type="button" rel="tooltip" title="Modifier recommandation" data-toggle="modal" attr.data-target="#mpr{{p.id}}" class="btn btn-primary btn-link btn-sm">
+                                   <i class="material-icons">edit</i>
+                                </button>
+                                    <button type="button" rel="tooltip" title="Supprimer recommandation" (click)="deletePrealable(p.id)" class="btn btn-danger btn-link btn-sm">
+                                  <i class="material-icons">close</i>
+                               </button>
+                                </td>
+                                <!-- Modal prealable modifier -->
+                                <div class="modal fade " id="mpr{{p.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content card">
+                                            <div class="modal-header">
+
+                                                <div class="card-header card-header-success">
+                                                    <h5 class="modal-title card-title" id="exampleModalLabel">Modification du prealable : {{p.libelle}}</h5>
+                                                </div>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            </div>
+                                            <form #pmodifForm=ngForm name="pmodifForm" (ngSubmit)="updatePrealable(p)" enctype="multipart/form-data">
+                                                <div class="modal-body">
+                                                    <div class="row mb-3">
+                                                        <label for="inputEmail3">Titre</label><br>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="p.libelle" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <label for="inputPassword3">Document</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="file" (change)="uploadDocumentp($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="p.prealable">
+                                                            <div class="text-left text-succes"> (.pdf ou .docx seulement)</div>
+                                                            <div>
+                                                                <a href="http://localhost:8000/.{{p.prealable}}" target="blank">Consulter le PDF enregistré pour le préalable.</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                    <button type="submit" class="btn btn-success" [disabled]="!pmodifForm.valid">Enregistrer</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Fin modal rapport modifier -->
+                            </ng-container>
                         </tr>
                     </tbody>
                 </table>
-                <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModald">Ajouter décompte</button>
-                <!-- Modal décompte ajout -->
+                <button class="btn btn-success" data-toggle="modal" data-target="#exampleModald">Ajouter préalable</button>
+                <!-- Modal prélable ajout -->
 
                 <div class="modal fade " id="exampleModald" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content card">
                             <div class="modal-header">
 
-                                <div class="card-header card-header-danger">
-                                    <h5 class="modal-title card-title" id="exampleModalLabel">Modal title</h5>
+                                <div class="card-header card-header-success">
+                                    <h5 class="modal-title card-title" id="exampleModalLabel">Nouveau préalable</h5>
                                 </div>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                ...
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-danger">Enregistrer</button>
-                            </div>
+                            <form #prealableForm=ngForm name="prealableForm" (ngSubmit)="AddPZone()" enctype="multipart/form-data">
+                                <div class="modal-body">
+
+                                    <div class="modal-body">
+                                        <div class="row mb-3">
+                                            <label for="inputEmail3">Titre</label><br>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="prealable.libelle" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="inputPassword3">Document</label>
+                                            <div class="col-sm-10">
+                                                <input type="file" (change)="uploadDocument_AP($event)" class="form-control" name="prealable" id="file" [(ngModel)]="prealable.prealable" required>
+                                                <div class="text-left"> (.pdf ou .docx seulement)</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                        <button type="submit" class="btn btn-success" [disabled]="!prealableForm.valid">Enregistrer</button>
+                                    </div>
+
+                                </div>
+
+                            </form>
                         </div>
                     </div>
                 </div>
-                <!--Fin décompte ajout -->
+                <!--Fin prélable ajout -->
             </div>
         </div>
     </div>
