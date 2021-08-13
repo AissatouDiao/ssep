@@ -518,5 +518,28 @@ export class JarwisService {
   getZoneRapportActiviteById(data: any) {
     return this.http.get(`${this.baseUrl}/getRapportActiviteById/` + data);
   }
+  //-------------------------Regions-----------------------------//
 
+  //Recuperer tous les evaluations partagés dans la base de données
+  getRegions() {
+    return this.http.get(`${this.baseUrl}/getregions`);
+  }
+  //Ajouter un nouvelle region
+  addRegion(data: object) {
+    return this.http.post(`${this.baseUrl}/addregion`, data);
+  }
+  //update region
+  updateRegion(data: object) {
+    return this.http.post(`${this.baseUrl}/updateregion`, data)
+  }
+
+  //supprimer region
+  deleteRegion(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteRegion/` + data);
+  }
+
+  //region par id
+  getRegionById(data: any) {
+    return this.http.get(`${this.baseUrl}/getRegionById/` + data);
+  }
 }

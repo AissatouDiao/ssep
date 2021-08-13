@@ -181,6 +181,11 @@ Route::group([
     Route::get('getRapportActiviteById/{id}',[RapportdactiviteszoneController::class,'getRapportActiviteById']);
     Route::get('getZoneRapportActiviteById/{id}',[RapportdactiviteszoneController::class,'getZoneRapportActiviteById']);
     Route::post('updaterapportdactivitezone',[RapportdactiviteszoneController::class,'update']); 
-
+    //Region
+    Route::post('addregion',[RegionController::class,'add']);
+    Route::get('getregions', [RegionController::class,'getRegions']);
+    Route::delete('deleteRegion/{id}',[RegionController::class,'delete']);
+    Route::get('getRegionById/{id}',[RegionController::class,'getRegionById']);
+    Route::post('updateregion',[RegionController::class,'update']); 
 
 });

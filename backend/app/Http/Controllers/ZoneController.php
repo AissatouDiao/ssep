@@ -21,7 +21,7 @@ class ZoneController extends Controller
         $Zone->libelle=$request->libelle;
         $Zone->save();
        return response()->json([
-           "message"=>"Zone mis à jour avec succès !",
+           "message"=>"Zone mise à jour avec succès !",
             "Zone"=>$Zone
        ]);
     }
