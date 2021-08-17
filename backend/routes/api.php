@@ -6,6 +6,8 @@ use App\Http\Controllers\PtbaController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZoneController;
+use App\Http\Controllers\RegionController;
+use App\Http\Controllers\CommuneController;
 use App\Http\Controllers\ActiviteController;
 use App\Http\Controllers\ComposanteController;
 use App\Http\Controllers\PartenaireController;
@@ -187,5 +189,10 @@ Route::group([
     Route::delete('deleteRegion/{id}',[RegionController::class,'delete']);
     Route::get('getRegionById/{id}',[RegionController::class,'getRegionById']);
     Route::post('updateregion',[RegionController::class,'update']); 
-
+    //Commune
+    Route::post('addcommune',[CommuneController::class,'add']);
+    Route::get('getcommunes', [CommuneController::class,'getCommunes']);
+    Route::delete('deleteCommune/{id}',[CommuneController::class,'delete']);
+    Route::get('getCommuneById/{id}',[CommuneController::class,'getCommuneById']);
+    Route::post('updatecommune',[CommuneController::class,'update']);
 });

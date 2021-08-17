@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Region extends Model
+class Commune extends Model
 {
     use HasFactory;
 
@@ -23,5 +23,6 @@ class Region extends Model
    */
   protected $fillable = [
    'libelle',
+   'region_id'
   ];
 }

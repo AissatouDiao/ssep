@@ -26,9 +26,10 @@ import { PistesbavardesComponent } from './components/pistesbavardes/pistesbavar
 import { ChainesdevaleursComponent } from './components/chainesdevaleurs/chainesdevaleurs.component';
 import { PassationsdemarchesComponent } from './components/passationsdemarches/passationsdemarches.component';
 import { IndicateursComponent } from './components/indicateurs/indicateurs.component';
-import { TravauxComponent } from './components/pistesbavardes/travaux/travaux.component';
+import TravauxComponent from './components/pistesbavardes/travaux/travaux.component';
 import { ControleComponent } from './components/pistesbavardes/controle/controle.component';
 import { ZoneComponent } from './components/pistesbavardes/controle/zone/zone.component';
+import { RegionsComponent } from './components/pistesbavardes/travaux/regions/regions.component';
 
 
 const routes: Routes = [
@@ -136,6 +137,15 @@ const routes: Routes = [
     path: 'gestion-pistes-bavardes/travaux', component: TravauxComponent,
     canActivate: [AfterloginService]
   },
+  {
+    path: 'gestion-pistes-bavardes/travaux/region/:id', component: RegionsComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-pistes-bavardes/travaux/regions/commune/:id', component: RegionsComponent,
+    canActivate: [AfterloginService]
+  }
+  ,
   {
     path: 'gestion-pistes-bavardes/controle', component: ControleComponent,
     canActivate: [AfterloginService]

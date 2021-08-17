@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { SnotifyPosition, SnotifyService, } from 'ng-snotify';
+import { JarwisService, } from 'src/app/services/jarwis.service';
 
 @Component({
   selector: 'app-regions',
@@ -7,9 +10,89 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegionsComponent implements OnInit {
 
-  constructor() { }
+  @Input() page: any = 1;
+  @Input() pageSize: any = 5;
+  searchText: any; searchFilter: any = '';
+
+  @ViewChild('communeForm')
+  communeForm!: any;
+
+  communes: any;
+  commune = {
+    libelle: null
+  };
+
+  constructor(
+    private jarwisService: JarwisService,
+    private notify: SnotifyService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+    this.getCommunes();
   }
+
+  //Recupérer toutes les communes.  
+  getCommunes() {
+    this.jarwisService.getCommunes().subscribe(
+      data => { console.log(data); this.communes = data },
+      error => console.log(error)
+    );
+  }
+
+  gotocommune(id: any) {
+    this.router.navigate(['/gestion-pistes-bavardes/travaux/regions/commune/:id', id]);
+  }
+
+  //Ajouter une commune
+  add() {
+    this.jarwisService.addCommune(this.commune).subscribe(
+      (data: any) => {
+        console.log(data); this.notify.success(data.message); this.getCommunes();
+        this.communeForm.reset();
+      },
+      error => { console.log(error); this.notify.error('Veuillez revoir les données renseignées.') }
+    );
+  }
+
+  //Supprimer de commune.
+  delete(id: any) {
+
+    //notification et changement de statut.
+    this.notify.confirm('Voulez vous vraiment supprimer cette commune ?', 'Attention !Suppression de commune ?', {
+      timeout: 0,
+      position: SnotifyPosition.rightTop,
+      showProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+
+      buttons: [
+        {
+          text: 'Oui',
+          action: () => {
+
+            this.jarwisService.deleteCommune(id).subscribe(
+              (data: any) => { console.log(data); this.getCommunes(); this.notify.success("La region a été supprimé !"); },
+              error => console.log(error)
+            );
+
+          }, bold: false
+        },
+        {
+          text: 'Non',
+          action: () =>
+            this.notify.info('Suppression annulée !')
+        },
+      ]
+    });
+  }
+
+  update(z: any) {
+    this.jarwisService.updateCommune(z).subscribe(
+      (data: any) => { console.log(data); this.notify.success(data.message); },
+      error => { console.log(error); this.notify.error('Veuillez revoir les données renseignées.') }
+    );
+  }
+
 
 }

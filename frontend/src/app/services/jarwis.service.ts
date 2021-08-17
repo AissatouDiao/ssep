@@ -542,4 +542,30 @@ export class JarwisService {
   getRegionById(data: any) {
     return this.http.get(`${this.baseUrl}/getRegionById/` + data);
   }
+
+  //------------------ Communes ------------------//
+
+  //Recuperer tous les evaluations partagés dans la base de données
+  getCommunes() {
+    return this.http.get(`${this.baseUrl}/getcommunes`);
+  }
+  //Ajouter un nouvelle commune
+  addCommune(data: object) {
+    return this.http.post(`${this.baseUrl}/addcommune`, data);
+  }
+  //update commune
+  updateCommune(data: object) {
+    return this.http.post(`${this.baseUrl}/updatecommune`, data)
+  }
+
+  //supprimer commune
+  deleteCommune(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteCommune/` + data);
+  }
+
+  //commune par id
+  getCommuneById(data: any) {
+    return this.http.get(`${this.baseUrl}/getCommuneById/` + data);
+  }
+
 }

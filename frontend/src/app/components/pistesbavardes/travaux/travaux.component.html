@@ -1,1 +1,114 @@
-<p>travaux works!</p>
+<div class="row">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <i class="material-icons pr-1 ">map</i>
+            <li class="breadcrumb-item">
+                <p class=""> Gestion des pistes bavardes</p>
+            </li>
+            <li class="breadcrumb-item">Travaux</li>
+            <li class="breadcrumb-item text-primary active" aria-current="page">Régions</li>
+        </ol>
+    </nav><br>
+    <div class="row">
+        <div class="navbar-form" class="col-6 float-right">
+            <div class="input-group no-border">
+                <input type="text" name="search" [(ngModel)]="searchText" autocomplete="off" class="form-control" placeholder="Rechercher...">
+                <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                    <i class="material-icons">search</i>
+                    <div class="ripple-container"></div>
+                </button>
+            </div>
+        </div><br><br>
+    </div>
+</div>
+
+
+<div class="row">
+    <div *ngFor="let r of regions | searchFilter:searchText" class="col-sm-3">
+        <div class="card text-primary bg-light mb-3" style="max-width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title text-capitalize text-primary fw-bolder lh-lg" (click)="gotoregion(r.id)" style="cursor:pointer">{{r.libelle}}</h5>
+                <!-- Modal modifier -->
+                <div class="w-100">
+                    <div class="card">
+                        <div class="modal " id="m{{r.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                <div class="modal-content ">
+
+                                    <div class="card-header card-header-primary text-center">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-center" id="exampleModalLongTitle"> Modifier le nom de cette région.</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+
+                                                <form #regionForm=ngForm name="documentForm" (ngSubmit)="update(r)">
+                                                    <label>Titre</label>
+                                                    <input type="text" class="form-control" name="libelle" [(ngModel)]="r.libelle" required />
+                                                    <button class="btn btn-primary" [disabled]="!regionForm.valid">Modifier region</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin Modal modifier-->
+                <i class="material-icons float-right" (click)="delete(r.id)" style="cursor:pointer">close</i>
+                <button type="button" rel="tooltip" title="Modifier région" data-toggle="modal" attr.data-target="#m{{r.id}}" class="btn btn-primary btn-link btn-sm ">
+                    <i class="material-icons">edit</i>  
+               </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<button class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Nouvelle région</button>
+
+<!-- Modal ajout -->
+<div class="w-100">
+    <div class="card">
+        <div class="modal " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content ">
+
+                    <div class="card-header card-header-primary text-center">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-center" id="exampleModalLongTitle">Ajouter une nouvelle region</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+
+                                <form #regionForm=ngForm name="documentForm" (ngSubmit)="add()">
+                                    <label>Titre</label>
+                                    <input type="text" class="form-control" name="libelle" [(ngModel)]="region.libelle" required />
+                                    <button class="btn btn-primary" [disabled]="!regionForm.valid">Ajouter region</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal ajout-->
