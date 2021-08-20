@@ -30,6 +30,9 @@ import TravauxComponent from './components/pistesbavardes/travaux/travaux.compon
 import { ControleComponent } from './components/pistesbavardes/controle/controle.component';
 import { ZoneComponent } from './components/pistesbavardes/controle/zone/zone.component';
 import { RegionsComponent } from './components/pistesbavardes/travaux/regions/regions.component';
+import { CommunesComponent } from './components/pistesbavardes/travaux/regions/communes/communes.component';
+import { ExecutionmarcheComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/executionmarche.component';
+import { Documents1Component } from './components/pistesbavardes/travaux/regions/communes/documents/documents.component';
 
 
 const routes: Routes = [
@@ -140,12 +143,21 @@ const routes: Routes = [
   {
     path: 'gestion-pistes-bavardes/travaux/region/:id', component: RegionsComponent,
     canActivate: [AfterloginService]
+
   },
   {
-    path: 'gestion-pistes-bavardes/travaux/regions/commune/:id', component: RegionsComponent,
+    path: 'gestion-pistes-bavardes/travaux/region/commune/:id', component: CommunesComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-pistes-bavardes/travaux/regions/commune/documents', component: Documents1Component,
     canActivate: [AfterloginService]
   }
   ,
+  {
+    path: 'gestion-pistes-bavardes/travaux/regions/commune/executiondemarche', component: ExecutionmarcheComponent,
+    canActivate: [AfterloginService]
+  },
   {
     path: 'gestion-pistes-bavardes/controle', component: ControleComponent,
     canActivate: [AfterloginService]

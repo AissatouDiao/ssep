@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SnotifyPosition, SnotifyService, } from 'ng-snotify';
 import { JarwisService, } from 'src/app/services/jarwis.service';
 
@@ -19,16 +19,22 @@ export class RegionsComponent implements OnInit {
 
   communes: any;
   commune = {
-    libelle: null
+    libelle: null,
+    region_id: null
   };
+  region: any; idregion: any;
+
+
 
   constructor(
     private jarwisService: JarwisService,
     private notify: SnotifyService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.getID();
     this.getCommunes();
   }
 
@@ -41,11 +47,12 @@ export class RegionsComponent implements OnInit {
   }
 
   gotocommune(id: any) {
-    this.router.navigate(['/gestion-pistes-bavardes/travaux/regions/commune/:id', id]);
+    this.router.navigate(['/gestion-pistes-bavardes/travaux/region/commune/', id]);
   }
 
   //Ajouter une commune
   add() {
+    this.commune.region_id = this.region.id;
     this.jarwisService.addCommune(this.commune).subscribe(
       (data: any) => {
         console.log(data); this.notify.success(data.message); this.getCommunes();
@@ -92,6 +99,20 @@ export class RegionsComponent implements OnInit {
       (data: any) => { console.log(data); this.notify.success(data.message); },
       error => { console.log(error); this.notify.error('Veuillez revoir les données renseignées.') }
     );
+  }
+
+  getRegionById(id: any) {
+    this.jarwisService.getRegionById(id).subscribe(
+      (data: any) => { console.log(data); this.region = data },
+      error => { console.log(error) }
+    );
+
+  }
+
+  getID() {
+    this.idregion = this.route.snapshot.paramMap.get('id');
+    this.getRegionById(this.idregion);
+
   }
 
 

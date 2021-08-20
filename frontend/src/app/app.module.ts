@@ -39,6 +39,7 @@ import { ControleComponent } from './components/pistesbavardes/controle/controle
 import { ZoneComponent } from './components/pistesbavardes/controle/zone/zone.component';
 import { RegionsComponent } from './components/pistesbavardes/travaux/regions/regions.component';
 import { CommunesComponent } from './components/pistesbavardes/travaux/regions/communes/communes.component';
+import { ExecutionmarcheComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/executionmarche.component';
 
 
 
@@ -75,6 +76,7 @@ import { CommunesComponent } from './components/pistesbavardes/travaux/regions/c
     ZoneComponent,
     RegionsComponent,
     CommunesComponent,
+    ExecutionmarcheComponent,
   ],
   imports: [
     BrowserModule,

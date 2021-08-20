@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SnotifyPosition, SnotifyService } from 'ng-snotify';
 import { JarwisService } from 'src/app/services/jarwis.service';
 
@@ -9,7 +9,7 @@ import { JarwisService } from 'src/app/services/jarwis.service';
   styleUrls: ['./travaux.component.scss']
 })
 export default class TravauxComponent implements OnInit {
-  regions: any;
+  regions: any; idregion: any;
 
   @Input() page: any = 1;
   @Input() pageSize: any = 5;
@@ -21,12 +21,14 @@ export default class TravauxComponent implements OnInit {
 
   @ViewChild('regionForm')
   regionForm!: any;
+  la_region: any;
 
 
   constructor(
     private jarwisService: JarwisService,
     private notify: SnotifyService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.getRegions();
   }
@@ -92,5 +94,21 @@ export default class TravauxComponent implements OnInit {
       error => { console.log(error); this.notify.error('Veuillez revoir les données renseignées.') }
     );
   }
+
+  getRegionById(id: any) {
+    this.jarwisService.getRegionById(id).subscribe(
+      (data: any) => { console.log(data); this.la_region = data },
+      error => { console.log(error) }
+    );
+
+  }
+
+  getID() {
+    this.idregion = this.route.snapshot.paramMap.get('id');
+    this.getRegionById(this.idregion);
+
+  }
+
+
 
 }
