@@ -568,4 +568,76 @@ export class JarwisService {
     return this.http.get(`${this.baseUrl}/getCommuneById/` + data);
   }
 
+  //---------------------- Prealables communes -----------------------------//
+  //Recuperer tous les evaluations partagés dans la base de données
+  getPrealableCommunes() {
+    return this.http.get(`${this.baseUrl}/getprealablecommunes`);
+  }
+  //Ajouter un nouvel prealable zone
+  addPrealableCommune(data: object) {
+    return this.http.post(`${this.baseUrl}/addprealablecommune`, data);
+  }
+  //update prealable zone
+  updatePrealableCommune(data: object) {
+    return this.http.post(`${this.baseUrl}/updateprealablecommune`, data)
+  }
+
+  //supprimer prealable zone
+  deletePrealableCommune(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteprealableCommune/` + data);
+  }
+
+  getCommunePrealableById(data: any) {
+    return this.http.get(`${this.baseUrl}/getCommunePrealableById/` + data);
+  }
+
+  //------------------- Evaluations commune -------------------------//
+
+  //Recuperer tous les evaluations partagés dans la base de données
+  getEvaluationCommunes() {
+    return this.http.get(`${this.baseUrl}/getevaluationcommunes`);
+  }
+  //Ajouter un nouvel evaluation zone
+  addEvaluationCommune(data: object) {
+    return this.http.post(`${this.baseUrl}/addevaluationcommune`, data);
+  }
+  //update evaluation zone
+  updateEvaluationCommune(data: object) {
+    return this.http.post(`${this.baseUrl}/updateevaluationcommune`, data)
+  }
+
+  //supprimer evaluation zone
+  deleteEvaluationCommune(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteevaluationCommune/` + data);
+  }
+
+  getCommuneEvaluationById(data: any) {
+    return this.http.get(`${this.baseUrl}/getCommuneEvaluationById/` + data);
+  }
+
+  //---------------------------- Lancements Procedure Commune ---------------------------//
+
+  //Recuperer tous les evaluations partagés dans la base de données
+  getLancementProcedureCommunes() {
+    return this.http.get(`${this.baseUrl}/getlancementpocedurecommunes`);
+  }
+  //Ajouter un nouvel evaluation zone
+  addLancementProcedureCommune(data: object) {
+    return this.http.post(`${this.baseUrl}/addlancementpocedurecommune`, data);
+  }
+  //update evaluation zone
+  updateLancementProcedureCommune(data: object) {
+    return this.http.post(`${this.baseUrl}/updatelancementpocedurecommune`, data)
+  }
+
+  //supprimer evaluation zone
+  deleteLancementProcedureCommune(data: any) {
+    return this.http.delete(`${this.baseUrl}/deletelancementpocedureCommune/` + data);
+  }
+
+  getCommuneLancementProcedureById(data: any) {
+    return this.http.get(`${this.baseUrl}/getCommuneLancementProcedureById/` + data);
+  }
+
+
 }

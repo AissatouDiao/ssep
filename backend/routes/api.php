@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PtbaController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -21,13 +22,16 @@ use App\Http\Controllers\PrealableszoneController;
 use App\Http\Controllers\RecommandationController;
 use App\Http\Controllers\PartagedocumentController;
 use App\Http\Controllers\PassationmarcheController;
+use App\Http\Controllers\PrealablescommuneController;
 use App\Http\Controllers\ProcesverbalszoneController;
 use App\Http\Controllers\DocumentsevaluationController;
 use App\Http\Controllers\RapportdactiviteszoneController;
 use App\Http\Controllers\ActivitepartenaireassocieController;
+use App\Http\Controllers\LancementsprocedurecommuneController;
 use App\Http\Controllers\ActivitepartenairefinancierController;
+use App\Http\Controllers\EvaluationsprocedurescommuneController;
 use App\Http\Controllers\ActivitepartenaireresponsableController;
-Use App\Http\Controllers\AuthController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -195,4 +199,22 @@ Route::group([
     Route::delete('deleteCommune/{id}',[CommuneController::class,'delete']);
     Route::get('getCommuneById/{id}',[CommuneController::class,'getCommuneById']);
     Route::post('updatecommune',[CommuneController::class,'update']);
+    //Prealables Commune
+    Route::post('addprealablecommune',[PrealablescommuneController::class,'add']);
+    Route::get('getprealablecommunes', [PrealablescommuneController::class,'getPrealablescommunes']);
+    Route::delete('deleteprealableCommune/{id}',[PrealablescommuneController::class,'delete']);
+    Route::get('getCommunePrealableById/{id}',[PrealablescommuneController::class,'getPrealableCommuneById']);
+    Route::post('updateprealablecommune',[PrealablescommuneController::class,'update']); 
+    //Evaluations procedure Commune
+    Route::post('addevaluationcommune',[EvaluationsprocedurescommuneController::class,'add']);
+    Route::get('getevaluationcommunes', [EvaluationsprocedurescommuneController::class,'getEvaluationscommunes']);
+    Route::delete('deleteevaluationCommune/{id}',[EvaluationsprocedurescommuneController::class,'delete']);
+    Route::get('getCommuneEvaluationById/{id}',[EvaluationsprocedurescommuneController::class,'getEvaluationCommuneById']);
+    Route::post('updateevaluationcommune',[EvaluationsprocedurescommuneController::class,'update']);
+    //lancement procedure Commune
+    Route::post('addlancementpocedurecommune',[LancementsprocedurecommuneController::class,'add']);
+    Route::get('getlancementpocedurecommunes', [LancementsprocedurecommuneController::class,'getLancementProcedurescommunes']);
+    Route::delete('deletelancementpocedureCommune/{id}',[LancementsprocedurecommuneController::class,'delete']);
+    Route::get('getCommuneLancementProcedureById/{id}',[LancementsprocedurecommuneController::class,'getLancementProcedureCommuneById']);
+    Route::post('updatelancementpocedurecommune',[LancementsprocedurecommuneController::class,'update']);
 });

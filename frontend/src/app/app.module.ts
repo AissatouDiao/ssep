@@ -40,6 +40,7 @@ import { ZoneComponent } from './components/pistesbavardes/controle/zone/zone.co
 import { RegionsComponent } from './components/pistesbavardes/travaux/regions/regions.component';
 import { CommunesComponent } from './components/pistesbavardes/travaux/regions/communes/communes.component';
 import { ExecutionmarcheComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/executionmarche.component';
+import { Documents1Component } from './components/pistesbavardes/travaux/regions/communes/documents/documents.component';
 
 
 
@@ -77,6 +78,7 @@ import { ExecutionmarcheComponent } from './components/pistesbavardes/travaux/re
     RegionsComponent,
     CommunesComponent,
     ExecutionmarcheComponent,
+    Documents1Component
   ],
   imports: [
     BrowserModule,

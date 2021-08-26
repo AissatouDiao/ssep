@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Prealableszone extends Model
+class Lancementsprocedurecommune extends Model
 {
     use HasFactory;
 
@@ -24,6 +24,6 @@ class Prealableszone extends Model
   protected $fillable = [
    'libelle',
    'commune_id',
-   'prealable',
+   'lancement',
   ];
 }

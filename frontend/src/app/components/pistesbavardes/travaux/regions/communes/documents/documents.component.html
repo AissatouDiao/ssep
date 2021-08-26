@@ -1,1 +1,382 @@
-<p>documents works!</p>
+<div class="row">
+    <div class="col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-header card-header-info">
+                <h4 class="card-title">Préalables</h4>
+                <p class="card-category">Gestion des préalables de la commune : </p>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover">
+                    <thead class="text-primary">
+                        <th>ID</th>
+                        <th>Titre</th>
+                        <th>Document</th>
+                        <th>Options</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let p of prealables">
+                            <ng-container *ngIf="p.commune_id==idcommune">
+
+                                <td>{{p.id}}</td>
+                                <td>{{p.libelle}}</td>
+                                <td>
+                                    <div>
+                                        <a href="http://localhost:8000/.{{p.prealable}}" target="blank">Consulter le PDF</a>
+                                    </div>
+                                </td>
+                                <td class="td-actions">
+                                    <button type="button" rel="tooltip" title="Modifier préalable" data-toggle="modal" attr.data-target="#m{{p.id}}" class="btn btn-primary btn-link btn-sm">
+                                   <i class="material-icons">edit</i>
+                                </button>
+                                    <button type="button" rel="tooltip" title="Supprimer préalable" (click)="deletePrealableCommune(p.id)" class="btn btn-danger btn-link btn-sm">
+                                  <i class="material-icons">close</i>
+                               </button>
+                                </td>
+                                <!-- Modal prealable modifier -->
+                                <div class="modal fade " id="m{{p.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content card">
+                                            <div class="modal-header">
+
+                                                <div class="card-header card-header-danger">
+                                                    <h5 class="modal-title card-title" id="exampleModalLabel">Modification du lancement de procédure : {{p.libelle}}</h5>
+                                                </div>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            </div>
+                                            <form #prealableForm=ngForm name="prealableForm" (ngSubmit)="updatePrealableCommune(p)" enctype="multipart/form-data">
+                                                <div class="modal-body">
+                                                    <div class="row mb-3">
+                                                        <label for="inputEmail3">Titre</label><br>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="p.libelle" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <label for="inputPassword3">Document</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="file" (change)="uploadDocumentlancement($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="p.prealable">
+                                                            <div class="text-left text-danger"> (.pdf ou .docx seulement)</div>
+                                                            <div>
+                                                                <a href="http://localhost:8000/.{{p.prealable}}" target="blank">Consulter le PDF enregistré pour la décompte.</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                    <button type="submit" class="btn btn-danger" [disabled]="!prealableForm.valid">Enregistrer</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Fin modal pralable modifier -->
+                            </ng-container>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+                <button class="btn btn-info" data-toggle="modal" data-target="#exampleModalp">Ajouter Préalable</button>
+                <!-- Modal prealable ajout -->
+
+                <div class="modal fade " id="exampleModalp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content card">
+                            <div class="modal-header">
+
+                                <div class="card-header card-header-info">
+                                    <h5 class="modal-title card-title" id="exampleModalLabel">Nouvelle Préalable</h5>
+                                </div>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <form #prealablecommuneForm=ngForm name="prealablecommuneForm" (ngSubmit)="AddPrealableCommune()" enctype="multipart/form-data">
+                                <div class="modal-body">
+                                    <div class="row mb-3">
+                                        <label for="inputEmail3">Titre</label><br>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="prealable.libelle" required>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label for="inputPassword3">Document</label>
+                                        <div class="col-sm-10">
+                                            <input type="file" (change)="uploadDocument($event)" class="form-control" name="prealable" id="file" [(ngModel)]="prealable.prealable" required>
+                                            <div class="text-left"> (.pdf ou .docx seulement)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                    <button type="submit" class="btn btn-info" [disabled]="!prealablecommuneForm.valid">Enregistrer</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--Fin modal pralable ajout -->
+
+
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">Lancements de procédure</h4>
+                <p class="card-category">Gestion des lancements de procédure de la commune : </p>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover">
+                    <thead class="text-primary">
+                        <th>ID</th>
+                        <th>Titre</th>
+                        <th>Document</th>
+                        <th>Options</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let l of lancements">
+                            <ng-container *ngIf="l.commune_id==idcommune">
+
+                                <td>{{l.id}}</td>
+                                <td>{{l.libelle}}</td>
+                                <td>{{l.rapport}}
+                                    <div>
+                                        <a href="http://localhost:8000/.{{l.lancement}}" target="blank">Consulter le PDF</a>
+                                    </div>
+                                </td>
+                                <td class="td-actions">
+                                    <button type="button" rel="tooltip" title="Modifier recommandation" data-toggle="modal" attr.data-target="#mp{{l.id}}" class="btn btn-primary btn-link btn-sm">
+                                   <i class="material-icons">edit</i>
+                                </button>
+                                    <button type="button" rel="tooltip" title="Supprimer recommandation" (click)="deleteLancementProcedure(l.id)" class="btn btn-danger btn-link btn-sm">
+                                  <i class="material-icons">close</i>
+                               </button>
+                                </td>
+                                <!-- Modal rapport modifier -->
+                                <div class="modal fade " id="mp{{l.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content card">
+                                            <div class="modal-header">
+
+                                                <div class="card-header card-header-warning">
+                                                    <h5 class="modal-title card-title" id="exampleModalLabel">Modification du lancement de procedure : {{l.libelle}}</h5>
+                                                </div>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            </div>
+                                            <form #lpmodifForm=ngForm name="lpmodifForm" (ngSubmit)="updateLancementProcedure(l)" enctype="multipart/form-data">
+                                                <div class="modal-body">
+                                                    <div class="row mb-3">
+                                                        <label for="inputEmail3">Titre</label><br>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="l.libelle" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <label for="inputPassword3">Document</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="file" (change)="uploadDocumentlancement($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="l.lancement">
+                                                            <div class="text-left text-warning"> (.pdf ou .docx seulement)</div>
+                                                            <div>
+                                                                <a href="http://localhost:8000/.{{l.lancement}}" target="blank">Consulter le PDF enregistré pour le rapport.</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                    <button type="submit" class="btn btn-warning" [disabled]="!lpmodifForm.valid">Enregistrer</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Fin modal rapport modifier -->
+                            </ng-container>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-warning" data-toggle="modal" data-target="#exampleModalr">Ajouter lancement de procédure</button>
+                <!-- Modal rapport ajout -->
+
+                <div class="modal fade " id="exampleModalr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content card">
+                            <div class="modal-header">
+
+                                <div class="card-header card-header-warning">
+                                    <h5 class="modal-title card-title" id="exampleModalLabel">Nouveau lancement de procédure</h5>
+                                </div>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                            </div>
+                            <form #lancementForm=ngForm name="lancementForm" (ngSubmit)="AddLancementProcedure()" enctype="multipart/form-data">
+                                <div class="modal-body">
+
+                                    <div class="modal-body">
+                                        <div class="row mb-3">
+                                            <label for="inputEmail3">Titre</label><br>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="lancement.libelle" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="inputPassword3">Document</label>
+                                            <div class="col-sm-10">
+                                                <input type="file" (change)="uploadDocument_LP($event)" class="form-control" name="lancement" id="file" [(ngModel)]="lancement.lancement" required>
+                                                <div class="text-left"> (.pdf ou .docx seulement)</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                        <button type="submit" class="btn btn-warning" [disabled]="!lancementForm.valid">Enregistrer</button>
+                                    </div>
+
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--Fin modal rapport ajout -->
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-header card-header-danger">
+                <h4 class="card-title">Evaluations des procédures</h4>
+                <p class="card-category">Gestion des évaluations des procédures de la commune : </p>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover">
+                    <thead class="text-primary">
+                        <th>ID</th>
+                        <th>Titre</th>
+                        <th>Document</th>
+                        <th>Options</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let e of evaluations">
+                            <ng-container *ngIf="e.commune_id==idcommune">
+                                <td>{{e.id}}</td>
+                                <td>{{e.libelle}}</td>
+                                <td>{{e.rapport}}
+                                    <div>
+                                        <a href="http://localhost:8000/.{{e.evaluation}}" target="blank">Consulter le PDF</a>
+                                    </div>
+                                </td>
+                                <td class="td-actions">
+                                    <button type="button" rel="tooltip" title="Modifier recommandation" data-toggle="modal" attr.data-target="#mpv{{e.id}}" class="btn btn-primary btn-link btn-sm">
+                                   <i class="material-icons">edit</i>
+                                </button>
+                                    <button type="button" rel="tooltip" title="Supprimer recommandation" (click)="deleteEvaluation(e.id)" class="btn btn-danger btn-link btn-sm">
+                                  <i class="material-icons">close</i>
+                               </button>
+                                </td>
+                                <!-- Modal rapport modifier -->
+                                <div class="modal fade " id="mpv{{e.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content card">
+                                            <div class="modal-header">
+
+                                                <div class="card-header card-header-danger">
+                                                    <h5 class="modal-title card-title" id="exampleModalLabel">Modification du rapport : {{e.libelle}}</h5>
+                                                </div>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            </div>
+                                            <form #pvmodifForm=ngForm name="pvmodifForm" (ngSubmit)="updateEvaluation(e)" enctype="multipart/form-data">
+                                                <div class="modal-body">
+                                                    <div class="row mb-3">
+                                                        <label for="inputEmail3">Titre</label><br>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="e.libelle" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <label for="inputPassword3">Document</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="file" (change)="uploadDocumentep($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="e.evaluation">
+                                                            <div class="text-left text-danger"> (.pdf ou .docx seulement)</div>
+                                                            <div>
+                                                                <a href="http://localhost:8000/.{{e.evaluation}}" target="blank">Consulter le PDF enregistré pour le rapport.</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                    <button type="submit" class="btn btn-danger" [disabled]="!pvmodifForm.valid">Enregistrer</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Fin modal rapport modifier -->
+                            </ng-container>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalpv">Ajouter évalution de procédure</button>
+                <!-- Modal evaluation de procedure ajout -->
+
+                <div class="modal fade " id="exampleModalpv" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content card">
+                            <div class="modal-header">
+
+                                <div class="card-header card-header-danger">
+                                    <h5 class="modal-title card-title" id="exampleModalLabel">Nouvelle évaluation de procédure
+                                    </h5>
+                                </div>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form #evaluationForm=ngForm name="evaluationForm" (ngSubmit)="AddEPCommune()" enctype="multipart/form-data">
+                                <div class="modal-body">
+
+                                    <div class="modal-body">
+                                        <div class="row mb-3">
+                                            <label for="inputEmail3">Titre</label><br>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="evaluation.libelle" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="inputPassword3">Document</label>
+                                            <div class="col-sm-10">
+                                                <input type="file" (change)="uploadDocument_EP($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="evaluation.evaluation" required>
+                                                <div class="text-left"> (.pdf ou .docx seulement)</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                        <button type="submit" class="btn btn-danger" [disabled]="!evaluationForm.valid">Enregistrer</button>
+                                    </div>
+
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--Fin evaluation ajout -->
+
+            </div>
+        </div>
+    </div>
+
+</div>

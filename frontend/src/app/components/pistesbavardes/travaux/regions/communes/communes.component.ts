@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-communes',
@@ -7,16 +7,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./communes.component.scss']
 })
 export class CommunesComponent implements OnInit {
-
+  idcommune: any;
   constructor(
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
   }
 
   gotodocuments() {
-    this.router.navigate(['/gestion-pistes-bavardes/travaux/regions/commune/documents']);
+    this.idcommune = this.route.snapshot.paramMap.get('id');
+    this.router.navigate(['/gestion-pistes-bavardes/travaux/regions/commune/documents-commune', this.idcommune]);
   }
   gotoexecutionmarche() {
     this.router.navigate(['/gestion-pistes-bavardes/travaux/regions/commune/executiondemarche']);

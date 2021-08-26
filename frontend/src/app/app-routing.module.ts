@@ -150,7 +150,7 @@ const routes: Routes = [
     canActivate: [AfterloginService]
   },
   {
-    path: 'gestion-pistes-bavardes/travaux/regions/commune/documents', component: Documents1Component,
+    path: 'gestion-pistes-bavardes/travaux/regions/commune/documents-commune/:id', component: Documents1Component,
     canActivate: [AfterloginService]
   }
   ,
