@@ -14,14 +14,16 @@ export class CommunesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.idcommune = this.route.snapshot.paramMap.get('id');
   }
 
+
   gotodocuments() {
-    this.idcommune = this.route.snapshot.paramMap.get('id');
-    this.router.navigate(['/gestion-pistes-bavardes/travaux/regions/commune/documents-commune', this.idcommune]);
+
+    this.router.navigate(['/gestion-pistes-bavardes/travaux/regions/commune/documents', this.idcommune]);
   }
   gotoexecutionmarche() {
-    this.router.navigate(['/gestion-pistes-bavardes/travaux/regions/commune/executiondemarche']);
+    this.router.navigate(['/gestion-pistes-bavardes/travaux/regions/commune/execution-de-marche', this.idcommune]);
   }
 
 }

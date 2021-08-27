@@ -127,7 +127,7 @@ export class Documents1Component implements OnInit {
       formdata2.append('id', d.id);
       formdata2.append('libelle', d.libelle);
       formdata2.append('commune_id', d.commune_id);
-      formdata2.append('decompte', this.files1);
+      formdata2.append('prealable', this.files1);
 
       this.jarwisService.updatePrealableCommune(formdata2).subscribe(
         data => {

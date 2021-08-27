@@ -639,5 +639,26 @@ export class JarwisService {
     return this.http.get(`${this.baseUrl}/getCommuneLancementProcedureById/` + data);
   }
 
+  //-------------------------- Prealable execution marche ---------------------------//
+  getPrealableCommunes_em() {
+    return this.http.get(`${this.baseUrl}/getprealablecommunes_em`);
+  }
+  //Ajouter un nouvel prealable zone
+  addPrealableCommune_em(data: object) {
+    return this.http.post(`${this.baseUrl}/addprealablecommune_em`, data);
+  }
+  //update prealable zone
+  updatePrealableCommune_em(data: object) {
+    return this.http.post(`${this.baseUrl}/updateprealablecommune_em`, data)
+  }
+
+  //supprimer prealable zone
+  deletePrealableCommune_em(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteprealableCommune_em/` + data);
+  }
+
+  getCommunePrealableById_em(data: any) {
+    return this.http.get(`${this.baseUrl}/getCommunePrealableById_em/` + data);
+  }
 
 }

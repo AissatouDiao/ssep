@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PcemController;
 use App\Http\Controllers\PtbaController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -26,10 +27,13 @@ use App\Http\Controllers\PrealablescommuneController;
 use App\Http\Controllers\ProcesverbalszoneController;
 use App\Http\Controllers\DocumentsevaluationController;
 use App\Http\Controllers\RapportdactiviteszoneController;
+use App\Http\Controllers\ContratsexecutionmarcheController;
+use App\Http\Controllers\DecomptesexecutionmarcheController;
 use App\Http\Controllers\ActivitepartenaireassocieController;
 use App\Http\Controllers\LancementsprocedurecommuneController;
 use App\Http\Controllers\ActivitepartenairefinancierController;
 use App\Http\Controllers\EvaluationsprocedurescommuneController;
+use App\Http\Controllers\ProcesverbauxexecutionmarcheController;
 use App\Http\Controllers\ActivitepartenaireresponsableController;
 
 
@@ -217,4 +221,35 @@ Route::group([
     Route::delete('deletelancementpocedureCommune/{id}',[LancementsprocedurecommuneController::class,'delete']);
     Route::get('getCommuneLancementProcedureById/{id}',[LancementsprocedurecommuneController::class,'getLancementProcedureCommuneById']);
     Route::post('updatelancementpocedurecommune',[LancementsprocedurecommuneController::class,'update']);
+    //Prealables execution de marche
+    Route::post('addprealablecommune_em',[PcemController::class,'add']);
+    Route::get('getprealablecommunes_em', [PcemController::class,'getPrealablescommunes']);
+    Route::delete('deleteprealableCommune_em/{id}',[PcemController::class,'delete']);
+    Route::get('getCommunePrealableById_em/{id}',[PcemController::class,'getPrealableCommuneById']);
+    Route::post('updateprealablecommune_em',[PcemController::class,'update']); 
+    //Contrats execution de marche
+    Route::post('addcontratcommune_em',[ContratsexecutionmarcheController::class,'add']);
+    Route::get('getcontratcommunes_em', [ContratsexecutionmarcheController::class,'getContratcommuneexecutionmarches']);
+    Route::delete('deletecontratCommune_em/{id}',[ContratsexecutionmarcheController::class,'delete']);
+    Route::get('getCommuneContratById_em/{id}',[ContratsexecutionmarcheController::class,'getContratEMCommuneById']);
+    Route::post('updatecontratcommune_em',[ContratsexecutionmarcheController::class,'update']); 
+    //Decompte execution de marche
+    Route::post('adddecomptecommune_em',[DecomptesexecutionmarcheController::class,'add']);
+    Route::get('getdecomptecommunes_em', [DecomptesexecutionmarcheController::class,'getDecomptesexecutionmarches']);
+    Route::delete('deletedecompteCommune_em/{id}',[DecomptesexecutionmarcheController::class,'delete']);
+    Route::get('getCommuneDecompteById_em/{id}',[DecomptesexecutionmarcheController::class,'getDecompteEMCommuneById']);
+    Route::post('updatedecomptecommune_em',[DecomptesexecutionmarcheController::class,'update']); 
+    //Garanties execution de marche
+    Route::post('addgarantiecommune_em',[GarantiesexecutionmarcheController::class,'add']);
+    Route::get('getgarantiecommunes_em', [GarantiesexecutionmarcheController::class,'getGarantiesexecutionmarches']);
+    Route::delete('deletegarantieCommune_em/{id}',[GarantiesexecutionmarcheController::class,'delete']);
+    Route::get('getCommuneGarantieById_em/{id}',[GarantiesexecutionmarcheController::class,'getGarantiesEMCommuneById']);
+    Route::post('updategarantiecommune_em',[GarantiesexecutionmarcheController::class,'update']); 
+    //Proces verbaux execution de marche
+    Route::post('addprocesverbalcommune_em',[ProcesverbauxexecutionmarcheController::class,'add']);
+    Route::get('getprocesverbalcommunes_em', [ProcesverbauxexecutionmarcheController::class,'getProcesverbauxexecutionmarches']);
+    Route::delete('deleteprocesverbalCommune_em/{id}',[ProcesverbauxexecutionmarcheController::class,'delete']);
+    Route::get('getCommuneProcesverbalById_em/{id}',[ProcesverbauxexecutionmarcheController::class,'getProcesverbalEMCommuneById']);
+    Route::post('updateprocesverbalcommune_em',[ProcesverbauxexecutionmarcheController::class,'update']);
+
 });

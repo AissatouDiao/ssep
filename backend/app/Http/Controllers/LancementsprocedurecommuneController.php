@@ -12,7 +12,7 @@ class LancementsprocedurecommuneController extends Controller
         $document = $request->file('lancement');
         $path;
         if($document){
-            $repertoire='./documents/communes/lancementprocedureprocedure';
+            $repertoire='./documents/communes/lancementprocedure';
             $extension =$document->getClientOriginalExtension();
             do {
 				$nom = time() . '.' . $extension;
@@ -41,7 +41,7 @@ class LancementsprocedurecommuneController extends Controller
             File::delete($lancementprocedure->lancementprocedure);
             $path;
                 if($document){
-                $repertoire='./documents/communes/lancementprocedureprocedure';
+                $repertoire='./documents/communes/lancementprocedure';
                 $extension=$document->getClientOriginalExtension();
                 do {
                     $nom = time() . '.' . $extension;

@@ -41,6 +41,12 @@ import { RegionsComponent } from './components/pistesbavardes/travaux/regions/re
 import { CommunesComponent } from './components/pistesbavardes/travaux/regions/communes/communes.component';
 import { ExecutionmarcheComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/executionmarche.component';
 import { Documents1Component } from './components/pistesbavardes/travaux/regions/communes/documents/documents.component';
+import { PrealablesemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/prealablesem/prealablesem.component';
+import { PistesemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/pistesem/pistesem.component';
+import { ProcesvebalemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/procesvebalem/procesvebalem.component';
+import { DescomptesemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/descomptesem/descomptesem.component';
+import { GarantiesemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/garantiesem/garantiesem.component';
+import { ContratsemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/contratsem/contratsem.component';
 
 
 
@@ -78,7 +84,13 @@ import { Documents1Component } from './components/pistesbavardes/travaux/regions
     RegionsComponent,
     CommunesComponent,
     ExecutionmarcheComponent,
-    Documents1Component
+    Documents1Component,
+    PrealablesemComponent,
+    PistesemComponent,
+    ProcesvebalemComponent,
+    DescomptesemComponent,
+    GarantiesemComponent,
+    ContratsemComponent
   ],
   imports: [
     BrowserModule,

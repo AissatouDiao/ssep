@@ -33,6 +33,7 @@ import { RegionsComponent } from './components/pistesbavardes/travaux/regions/re
 import { CommunesComponent } from './components/pistesbavardes/travaux/regions/communes/communes.component';
 import { ExecutionmarcheComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/executionmarche.component';
 import { Documents1Component } from './components/pistesbavardes/travaux/regions/communes/documents/documents.component';
+import { PrealablesemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/prealablesem/prealablesem.component';
 
 
 const routes: Routes = [
@@ -150,12 +151,16 @@ const routes: Routes = [
     canActivate: [AfterloginService]
   },
   {
-    path: 'gestion-pistes-bavardes/travaux/regions/commune/documents-commune/:id', component: Documents1Component,
+    path: 'gestion-pistes-bavardes/travaux/regions/commune/documents/:id', component: Documents1Component,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-pistes-bavardes/travaux/regions/commune/execution-de-marche/prealable/:id', component: PrealablesemComponent,
     canActivate: [AfterloginService]
   }
   ,
   {
-    path: 'gestion-pistes-bavardes/travaux/regions/commune/executiondemarche', component: ExecutionmarcheComponent,
+    path: 'gestion-pistes-bavardes/travaux/regions/commune/execution-de-marche/:id', component: ExecutionmarcheComponent,
     canActivate: [AfterloginService]
   },
   {
