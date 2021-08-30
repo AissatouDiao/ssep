@@ -223,7 +223,7 @@ Route::group([
     Route::post('updatelancementpocedurecommune',[LancementsprocedurecommuneController::class,'update']);
     //Prealables execution de marche
     Route::post('addprealablecommune_em',[PcemController::class,'add']);
-    Route::get('getprealablecommunes_em', [PcemController::class,'getPrealablescommunes']);
+    Route::get('getprealablecommunes_em', [PcemController::class,'getPrealablescommuneexecutionmarches']);
     Route::delete('deleteprealableCommune_em/{id}',[PcemController::class,'delete']);
     Route::get('getCommunePrealableById_em/{id}',[PcemController::class,'getPrealableCommuneById']);
     Route::post('updateprealablecommune_em',[PcemController::class,'update']); 

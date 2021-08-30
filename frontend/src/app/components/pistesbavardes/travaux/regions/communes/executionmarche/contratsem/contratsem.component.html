@@ -1,1 +1,121 @@
-<p>contratsem works!</p>
+<div class="card">
+    <div class="card-header card-header-dark">
+        <h4 class="card-title">Contrats</h4>
+        <p class="card-category">Gestion des contrats de la commune : </p>
+    </div>
+    <div class="card-body table-responsive">
+        <table class="table table-hover">
+            <thead class="text-primary">
+                <th>ID</th>
+                <th>Titre</th>
+                <th>Document</th>
+                <th>Options</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let c of contrats">
+                    <ng-container *ngIf="c.commune_id==idcommune">
+
+                        <td>{{c.id}}</td>
+                        <td>{{c.libelle}}</td>
+                        <td>
+                            <div>
+                                <a href="http://localhost:8000/.{{c.contrat}}" target="blank">Consulter le PDF</a>
+                            </div>
+                        </td>
+                        <td class="td-actions">
+                            <button type="button" rel="tooltip" title="Modifier préalable" data-toggle="modal" attr.data-target="#m{{c.id}}" class="btn btn-primary btn-link btn-sm">
+                           <i class="material-icons">edit</i>
+                        </button>
+                            <button type="button" rel="tooltip" title="Supprimer préalable" (click)="deleteContratCommune(c.id)" class="btn btn-danger btn-link btn-sm">
+                          <i class="material-icons">close</i>
+                       </button>
+                        </td>
+                        <!-- Modal contrat modifier -->
+                        <div class="modal fade " id="m{{c.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content card">
+                                    <div class="modal-header">
+
+                                        <div class="card-header card-header-danger">
+                                            <h5 class="modal-title card-title" id="exampleModalLabel">Modification du lancement de procédure : {{c.libelle}}</h5>
+                                        </div>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <form #contratForm=ngForm name="contratForm" (ngSubmit)="updateContratCommune(c)" enctype="multipart/form-data">
+                                        <div class="modal-body">
+                                            <div class="row mb-3">
+                                                <label for="inputEmail3">Titre</label><br>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="c.libelle" required>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="inputPassword3">Document</label>
+                                                <div class="col-sm-10">
+                                                    <input type="file" (change)="uploadDocumentcontrat($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="c.contrat">
+                                                    <div class="text-left text-danger"> (.pdf ou .docx seulement)</div>
+                                                    <div>
+                                                        <a href="http://localhost:8000/.{{c.contrat}}" target="blank">Consulter le PDF enregistré pour la décompte.</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                            <button type="submit" class="btn btn-danger" [disabled]="!contratForm.valid">Enregistrer</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fin modal pralable modifier -->
+                    </ng-container>
+
+                </tr>
+
+            </tbody>
+        </table>
+        <button class="btn btn-outline-darl" data-toggle="modal" data-target="#exampleModalp">Ajouter Préalable</button>
+        <!-- Modal contrat ajout -->
+
+        <div class="modal fade " id="exampleModalp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content card">
+                    <div class="modal-header">
+
+                        <div class="card-header card-header-dark">
+                            <h5 class="modal-title card-title" id="exampleModalLabel">Nouvelle Préalable</h5>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <form #contratcommuneForm=ngForm name="contratcommuneForm" (ngSubmit)="AddContratCommune()" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <div class="row mb-3">
+                                <label for="inputEmail3">Titre</label><br>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="contrat.libelle" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="inputPassword3">Document</label>
+                                <div class="col-sm-10">
+                                    <input type="file" (change)="uploadDocument($event)" class="form-control" name="contrat" id="file" [(ngModel)]="contrat.contrat" required>
+                                    <div class="text-left"> (.pdf ou .docx seulement)</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                            <button type="submit" class="btn btn-dark" [disabled]="!contratcommuneForm.valid">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--Fin modal pralable ajout -->
+    </div>
+</div>

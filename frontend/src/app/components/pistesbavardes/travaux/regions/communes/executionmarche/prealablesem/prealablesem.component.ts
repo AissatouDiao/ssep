@@ -24,6 +24,7 @@ export class PrealablesemComponent implements OnInit {
 
   ngOnInit(): void {
     this.idcommune = this.route.snapshot.paramMap.get('id');
+    this.getPrealables();
   }
 
   getPrealables() {
@@ -72,7 +73,7 @@ export class PrealablesemComponent implements OnInit {
           text: 'Oui',
           action: () => {
 
-            this.jarwisService.deletePrealableCommune(id).subscribe(
+            this.jarwisService.deletePrealableCommune_em(id).subscribe(
               (data: any) => { console.log(data); this.getPrealables(); this.notify.success(data.message); },
               error => console.log(error)
             );
@@ -102,7 +103,7 @@ export class PrealablesemComponent implements OnInit {
     const formdata2 = new FormData();
 
     if (this.files1 == null) {
-      this.jarwisService.updatePrealableCommune(d).subscribe(
+      this.jarwisService.updatePrealableCommune_em(d).subscribe(
         data => {
           console.log(data); this.notify.success('Modification effectuée avec succés !'); this.getPrealables();
           window.location.reload();
@@ -115,7 +116,7 @@ export class PrealablesemComponent implements OnInit {
       formdata2.append('commune_id', d.commune_id);
       formdata2.append('prealable', this.files1);
 
-      this.jarwisService.updatePrealableCommune(formdata2).subscribe(
+      this.jarwisService.updatePrealableCommune_em(formdata2).subscribe(
         data => {
           console.log(data); this.notify.success('Modification effectuée avec succés !'); this.getPrealables();
           window.location.reload();

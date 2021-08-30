@@ -1,21 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SnotifyPosition, SnotifyService } from 'ng-snotify';
+import { SnotifyService, SnotifyPosition } from 'ng-snotify';
 import { JarwisService } from 'src/app/services/jarwis.service';
 
 @Component({
-  selector: 'app-garantiesem',
-  templateUrl: './garantiesem.component.html',
-  styleUrls: ['./garantiesem.component.scss']
+  selector: 'app-decomptesem',
+  templateUrl: './decomptesem.component.html',
+  styleUrls: ['./decomptesem.component.scss']
 })
-export class GarantiesemComponent implements OnInit {
+export class DecomptesemComponent implements OnInit {
 
-  garanties: any; idcommune: any;
 
-  garantie = {
+
+  decomptes: any; idcommune: any;
+
+  decompte = {
     libelle: <any>null,
     commune_id: <any>null,
-    garantie: null
+    decompte: null
   };
   constructor(
     private jarwisService: JarwisService,
@@ -27,9 +29,9 @@ export class GarantiesemComponent implements OnInit {
     this.idcommune = this.route.snapshot.paramMap.get('id');
   }
 
-  getGaranties() {
-    this.jarwisService.getGarantieCommunes_em().subscribe(
-      (data: any) => { console.log(data); this.garanties = data },
+  getDecomptes() {
+    this.jarwisService.getDecompteCommunes_em().subscribe(
+      (data: any) => { console.log(data); this.decomptes = data },
       (error: any) => { console.log(error) }
     );
   }
@@ -43,23 +45,23 @@ export class GarantiesemComponent implements OnInit {
 
   data: any; fileURL: any;
 
-  AddGarantieCommune() {
-    this.garantie.commune_id = this.idcommune;
+  AddDecompteCommune() {
+    this.decompte.commune_id = this.idcommune;
     const formdata1 = new FormData();
-    formdata1.append('libelle', this.garantie.libelle);
-    formdata1.append('commune_id', this.garantie.commune_id);
-    formdata1.append('garantie', this.files);
+    formdata1.append('libelle', this.decompte.libelle);
+    formdata1.append('commune_id', this.decompte.commune_id);
+    formdata1.append('decompte', this.files);
     let datas = formdata1;
 
-    this.jarwisService.addGarantieCommune_em(datas).subscribe(
+    this.jarwisService.addDecompteCommune_em(datas).subscribe(
       (data: any) => {
         console.log(data);
-        this.getGaranties();
+        this.getDecomptes();
       },
       (error: any) => { console.log(error); });
   }
 
-  deleteGarantieCommune(id: any) {
+  deleteDecompteCommune(id: any) {
     //notification et changement de statut.
     this.notify.confirm('Voulez vous vraiment supprimer ce document ?', 'Attention !Suppression de document ?', {
       timeout: 0,
@@ -73,8 +75,8 @@ export class GarantiesemComponent implements OnInit {
           text: 'Oui',
           action: () => {
 
-            this.jarwisService.deleteGarantieCommune_em(id).subscribe(
-              (data: any) => { console.log(data); this.getGaranties(); this.notify.success(data.message); },
+            this.jarwisService.deleteDecompteCommune_em(id).subscribe(
+              (data: any) => { console.log(data); this.getDecomptes(); this.notify.success(data.message); },
               (error: any) => console.log(error)
             );
 
@@ -90,22 +92,22 @@ export class GarantiesemComponent implements OnInit {
   }
 
   files1: any
-  uploadDocumentgarantie(event: any) {
+  uploadDocumentdecompte(event: any) {
     this.files1 = event.target.files[0];
     console.log(this.files1)
   }
   data1: any; fileURL1: any;
 
-  updateGarantieCommune(d: any) {
+  updateDecompteCommune(d: any) {
     // d.date_finale = (<HTMLInputElement>document.getElementById('date_finale')).value;
     //r.recommandation = (<HTMLInputElement>document.getElementById('file1')).value;
     console.log(d);
     const formdata2 = new FormData();
 
     if (this.files1 == null) {
-      this.jarwisService.updateGarantieCommune_em(d).subscribe(
+      this.jarwisService.updateDecompteCommune_em(d).subscribe(
         (data: any) => {
-          console.log(data); this.notify.success('Modification effectuée avec succés !'); this.getGaranties();
+          console.log(data); this.notify.success('Modification effectuée avec succés !'); this.getDecomptes();
           window.location.reload();
         },
         (error: any) => { console.log(error); this.notify.error('Modification non effective. Veuillez revoir les formats des données entrées. ') }
@@ -114,11 +116,11 @@ export class GarantiesemComponent implements OnInit {
       formdata2.append('id', d.id);
       formdata2.append('libelle', d.libelle);
       formdata2.append('commune_id', d.commune_id);
-      formdata2.append('garantie', this.files1);
+      formdata2.append('decompte', this.files1);
 
-      this.jarwisService.updateGarantieCommune_em(formdata2).subscribe(
+      this.jarwisService.updateDecompteCommune_em(formdata2).subscribe(
         (data: any) => {
-          console.log(data); this.notify.success('Modification effectuée avec succés !'); this.getGaranties();
+          console.log(data); this.notify.success('Modification effectuée avec succés !'); this.getDecomptes();
           window.location.reload();
         },
         (error: any) => { console.log(error); this.notify.error('Modification non effective. Veuillez revoir les formats des données entrées. ') }

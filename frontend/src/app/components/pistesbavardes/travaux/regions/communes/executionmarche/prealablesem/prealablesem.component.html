@@ -26,7 +26,7 @@
                             <button type="button" rel="tooltip" title="Modifier préalable" data-toggle="modal" attr.data-target="#m{{p.id}}" class="btn btn-primary btn-link btn-sm">
                            <i class="material-icons">edit</i>
                         </button>
-                            <button type="button" rel="tooltip" title="Supprimer préalable" (click)="deletePrealableCommune(p.id)" class="btn btn-danger btn-link btn-sm">
+                            <button type="button" rel="tooltip" title="Supprimer préalable" (click)="deletePrealableCommune(p.id)" class="btn btn-success btn-link btn-sm">
                           <i class="material-icons">close</i>
                        </button>
                         </td>
@@ -36,8 +36,8 @@
                                 <div class="modal-content card">
                                     <div class="modal-header">
 
-                                        <div class="card-header card-header-danger">
-                                            <h5 class="modal-title card-title" id="exampleModalLabel">Modification du lancement de procédure : {{p.libelle}}</h5>
+                                        <div class="card-header card-header-success">
+                                            <h5 class="modal-title card-title" id="exampleModalLabel">Modification des préalables : {{p.libelle}}</h5>
                                         </div>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -54,8 +54,8 @@
                                             <div class="row mb-3">
                                                 <label for="inputPassword3">Document</label>
                                                 <div class="col-sm-10">
-                                                    <input type="file" (change)="uploadDocumentprealable($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="p.prealable">
-                                                    <div class="text-left text-danger"> (.pdf ou .docx seulement)</div>
+                                                    <input type="file" (change)="uploadDocumentprealable($event)" class="form-control" name="prealable" id="file" [(ngModel)]="p.prealable">
+                                                    <div class="text-left text-success"> (.pdf ou .docx seulement)</div>
                                                     <div>
                                                         <a href="http://localhost:8000/.{{p.prealable}}" target="blank">Consulter le PDF enregistré pour la décompte.</a>
                                                     </div>
@@ -64,7 +64,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                                            <button type="submit" class="btn btn-danger" [disabled]="!prealableForm.valid">Enregistrer</button>
+                                            <button type="submit" class="btn btn-success" [disabled]="!prealableForm.valid">Enregistrer</button>
                                         </div>
                                     </form>
                                 </div>

@@ -1,7 +1,7 @@
 <div class="card">
-    <div class="card-header card-header-light">
-        <h4 class="card-title text-dark">Garanties</h4>
-        <p class="card-category text-dark">Gestion des garanties de la commune : </p>
+    <div class="card-header card-header-info">
+        <h4 class="card-title">Décomptes</h4>
+        <p class="card-category">Gestion des décomptes de la commune : </p>
     </div>
     <div class="card-body table-responsive">
         <table class="table table-hover">
@@ -12,59 +12,59 @@
                 <th>Options</th>
             </thead>
             <tbody>
-                <tr *ngFor="let g of garanties">
-                    <ng-container *ngIf="g.commune_id==idcommune">
+                <tr *ngFor="let d of decomptes">
+                    <ng-container *ngIf="d.commune_id==idcommune">
 
-                        <td>{{g.id}}</td>
-                        <td>{{g.libelle}}</td>
+                        <td>{{d.id}}</td>
+                        <td>{{d.libelle}}</td>
                         <td>
                             <div>
-                                <a href="http://localhost:8000/.{{g.garantie}}" target="blank">Consulter le PDF</a>
+                                <a href="http://localhost:8000/.{{d.decompte}}" target="blank">Consulter le PDF</a>
                             </div>
                         </td>
                         <td class="td-actions">
-                            <button type="button" rel="tooltip" title="Modifier garantie" data-toggle="modal" attr.data-target="#m{{g.id}}" class="btn btn-primary btn-link btn-sm">
+                            <button type="button" rel="tooltip" title="Modifier décompte" data-toggle="modal" attr.data-target="#m{{d.id}}" class="btn btn-primary btn-link btn-sm">
                            <i class="material-icons">edit</i>
                         </button>
-                            <button type="button" rel="tooltip" title="Supprimer garantie" (click)="deleteGarantieCommune(g.id)" class="btn btn-danger btn-link btn-sm">
+                            <button type="button" rel="tooltip" title="Supprimer décompte" (click)="deleteDecompteCommune(d.id)" class="btn btn-danger btn-link btn-sm">
                           <i class="material-icons">close</i>
                        </button>
                         </td>
-                        <!-- Modal garantie modifier -->
-                        <div class="modal fade " id="m{{g.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <!-- Modal decompte modifier -->
+                        <div class="modal fade " id="m{{d.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content card">
                                     <div class="modal-header">
 
                                         <div class="card-header card-header-danger">
-                                            <h5 class="modal-title card-title" id="exampleModalLabel">Modification du lancement de procédure : {{g.libelle}}</h5>
+                                            <h5 class="modal-title card-title" id="exampleModalLabel">Modification du lancement de procédure : {{d.libelle}}</h5>
                                         </div>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                     </div>
-                                    <form #garantieForm=ngForm name="garantieForm" (ngSubmit)="updateGarantieCommune(g)" enctype="multipart/form-data">
+                                    <form #decompteForm=ngForm name="decompteForm" (ngSubmit)="updateDecompteCommune(d)" enctype="multipart/form-data">
                                         <div class="modal-body">
                                             <div class="row mb-3">
                                                 <label for="inputEmail3">Titre</label><br>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="g.libelle" required>
+                                                    <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="d.libelle" required>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <label for="inputPassword3">Document</label>
                                                 <div class="col-sm-10">
-                                                    <input type="file" (change)="uploadDocumentgarantie($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="g.garantie">
+                                                    <input type="file" (change)="uploadDocumentdecompte($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="d.decompte">
                                                     <div class="text-left text-danger"> (.pdf ou .docx seulement)</div>
                                                     <div>
-                                                        <a href="http://localhost:8000/.{{g.garantie}}" target="blank">Consulter le PDF enregistré pour la décompte.</a>
+                                                        <a href="http://localhost:8000/.{{d.decompte}}" target="blank">Consulter le PDF enregistré pour la décompte.</a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                                            <button type="submit" class="btn btn-danger" [disabled]="!garantieForm.valid">Enregistrer</button>
+                                            <button type="submit" class="btn btn-danger" [disabled]="!decompteForm.valid">Enregistrer</button>
                                         </div>
                                     </form>
                                 </div>
@@ -77,40 +77,40 @@
 
             </tbody>
         </table>
-        <button class="btn btn-light btn btn-outline-light" data-toggle="modal" data-target="#exampleModalp">Ajouter Préalable</button>
-        <!-- Modal garantie ajout -->
+        <button class="btn btn-info" data-toggle="modal" data-target="#exampleModalp">Ajouter Préalable</button>
+        <!-- Modal decompte ajout -->
 
         <div class="modal fade " id="exampleModalp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content card">
                     <div class="modal-header">
 
-                        <div class="card-header card-header-light">
+                        <div class="card-header card-header-info">
                             <h5 class="modal-title card-title" id="exampleModalLabel">Nouvelle Préalable</h5>
                         </div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     </div>
-                    <form #garantiecommuneForm=ngForm name="garantiecommuneForm" (ngSubmit)="AddGarantieCommune()" enctype="multipart/form-data">
+                    <form #decomptecommuneForm=ngForm name="decomptecommuneForm" (ngSubmit)="AddDecompteCommune()" enctype="multipart/form-data">
                         <div class="modal-body">
                             <div class="row mb-3">
                                 <label for="inputEmail3">Titre</label><br>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="garantie.libelle" required>
+                                    <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="decompte.libelle" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="inputPassword3">Document</label>
                                 <div class="col-sm-10">
-                                    <input type="file" (change)="uploadDocument($event)" class="form-control" name="garantie" id="file" [(ngModel)]="garantie.garantie" required>
+                                    <input type="file" (change)="uploadDocument($event)" class="form-control" name="decompte" id="file" [(ngModel)]="decompte.decompte" required>
                                     <div class="text-left"> (.pdf ou .docx seulement)</div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                            <button type="submit" class="btn btn-light" [disabled]="!garantiecommuneForm.valid">Enregistrer</button>
+                            <button type="submit" class="btn btn-info" [disabled]="!decomptecommuneForm.valid">Enregistrer</button>
                         </div>
                     </form>
                 </div>

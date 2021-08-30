@@ -34,6 +34,10 @@ import { CommunesComponent } from './components/pistesbavardes/travaux/regions/c
 import { ExecutionmarcheComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/executionmarche.component';
 import { Documents1Component } from './components/pistesbavardes/travaux/regions/communes/documents/documents.component';
 import { PrealablesemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/prealablesem/prealablesem.component';
+import { GarantiesemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/garantiesem/garantiesem.component';
+import { DecomptesemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/decomptesem/decomptesem.component';
+import { ProcesverbauxemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/procesverbauxem/procesverbauxem.component';
+import { ContratsemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/contratsem/contratsem.component';
 
 
 const routes: Routes = [
@@ -159,6 +163,22 @@ const routes: Routes = [
     canActivate: [AfterloginService]
   }
   ,
+  {
+    path: 'gestion-pistes-bavardes/travaux/regions/commune/execution-de-marche/proces-verbaux/:id', component: ProcesverbauxemComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-pistes-bavardes/travaux/regions/commune/execution-de-marche/decomptes/:id', component: DecomptesemComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-pistes-bavardes/travaux/regions/commune/execution-de-marche/garanties/:id', component: GarantiesemComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-pistes-bavardes/travaux/regions/commune/execution-de-marche/contrats/:id', component: ContratsemComponent,
+    canActivate: [AfterloginService]
+  },
   {
     path: 'gestion-pistes-bavardes/travaux/regions/commune/execution-de-marche/:id', component: ExecutionmarcheComponent,
     canActivate: [AfterloginService]

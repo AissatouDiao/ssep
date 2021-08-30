@@ -661,4 +661,93 @@ export class JarwisService {
     return this.http.get(`${this.baseUrl}/getCommunePrealableById_em/` + data);
   }
 
+
+  //-------------------------- Contrat execution marche ---------------------------//
+  getContratCommunes_em() {
+    return this.http.get(`${this.baseUrl}/getcontratcommunes_em`);
+  }
+  //Ajouter un nouvel prealable zone
+  addContratCommune_em(data: object) {
+    return this.http.post(`${this.baseUrl}/addcontratcommune_em`, data);
+  }
+  //update prealable zone
+  updateContratCommune_em(data: object) {
+    return this.http.post(`${this.baseUrl}/updatecontratcommune_em`, data)
+  }
+
+  //supprimer prealable zone
+  deleteContratCommune_em(data: any) {
+    return this.http.delete(`${this.baseUrl}/deletecontratCommune_em/` + data);
+  }
+
+  getCommuneContratById_em(data: any) {
+    return this.http.get(`${this.baseUrl}/getCommuneContratById_em/` + data);
+  }
+
+  //-------------------------- Decompte execution marche ---------------------------//
+  getDecompteCommunes_em() {
+    return this.http.get(`${this.baseUrl}/getdecomptecommunes_em`);
+  }
+  //Ajouter un nouvel prealable zone
+  addDecompteCommune_em(data: object) {
+    return this.http.post(`${this.baseUrl}/adddecomptecommune_em`, data);
+  }
+  //update prealable zone
+  updateDecompteCommune_em(data: object) {
+    return this.http.post(`${this.baseUrl}/updatedecomptecommune_em`, data)
+  }
+
+  //supprimer prealable zone
+  deleteDecompteCommune_em(data: any) {
+    return this.http.delete(`${this.baseUrl}/deletedecompteCommune_em/` + data);
+  }
+
+  getCommuneDecompteById_em(data: any) {
+    return this.http.get(`${this.baseUrl}/getCommuneDecompteById_em/` + data);
+  }
+
+  //-------------------------- Garantie execution marche ---------------------------//
+  getGarantieCommunes_em() {
+    return this.http.get(`${this.baseUrl}/getgarantiecommunes_em`);
+  }
+  //Ajouter un nouvel prealable zone
+  addGarantieCommune_em(data: object) {
+    return this.http.post(`${this.baseUrl}/addgarantiecommune_em`, data);
+  }
+  //update prealable zone
+  updateGarantieCommune_em(data: object) {
+    return this.http.post(`${this.baseUrl}/updategarantiecommune_em`, data)
+  }
+
+  //supprimer prealable zone
+  deleteGarantieCommune_em(data: any) {
+    return this.http.delete(`${this.baseUrl}/deletegarantieCommune_em/` + data);
+  }
+
+  getCommuneGarantieById_em(data: any) {
+    return this.http.get(`${this.baseUrl}/getCommuneGarantieById_em/` + data);
+  }
+
+  //-------------------------- Proces verbal execution marche ---------------------------//
+  getProcesVerbauxCommunes_em() {
+    return this.http.get(`${this.baseUrl}/getprocesverbalcommunes_em`);
+  }
+  //Ajouter un nouvel prealable zone
+  addProcesVerbalCommune_em(data: object) {
+    return this.http.post(`${this.baseUrl}/addprocesverbalcommune_em`, data);
+  }
+  //update prealable zone
+  updateProcesVerbalCommune_em(data: object) {
+    return this.http.post(`${this.baseUrl}/updateprocesverbalcommune_em`, data)
+  }
+
+  //supprimer prealable zone
+  deleteProcesVerbalCommune_em(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteprocesverbalCommune_em/` + data);
+  }
+
+  getCommuneProcesVerbalById_em(data: any) {
+    return this.http.get(`${this.baseUrl}/getCommuneProcesverbalById_em/` + data);
+  }
+
 }

@@ -43,10 +43,10 @@ import { ExecutionmarcheComponent } from './components/pistesbavardes/travaux/re
 import { Documents1Component } from './components/pistesbavardes/travaux/regions/communes/documents/documents.component';
 import { PrealablesemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/prealablesem/prealablesem.component';
 import { PistesemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/pistesem/pistesem.component';
-import { ProcesvebalemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/procesvebalem/procesvebalem.component';
-import { DescomptesemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/descomptesem/descomptesem.component';
+import { DecomptesemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/decomptesem/decomptesem.component';
 import { GarantiesemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/garantiesem/garantiesem.component';
 import { ContratsemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/contratsem/contratsem.component';
+import { ProcesverbauxemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/procesverbauxem/procesverbauxem.component';
 
 
 
@@ -87,8 +87,8 @@ import { ContratsemComponent } from './components/pistesbavardes/travaux/regions
     Documents1Component,
     PrealablesemComponent,
     PistesemComponent,
-    ProcesvebalemComponent,
-    DescomptesemComponent,
+    ProcesverbauxemComponent,
+    DecomptesemComponent,
     GarantiesemComponent,
     ContratsemComponent
   ],

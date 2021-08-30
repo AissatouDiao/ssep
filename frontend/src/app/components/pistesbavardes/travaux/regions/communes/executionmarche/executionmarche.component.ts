@@ -19,8 +19,22 @@ export class ExecutionmarcheComponent implements OnInit {
   }
 
   gotoprealables() {
-
     this.router.navigate(['/gestion-pistes-bavardes/travaux/regions/commune/execution-de-marche/prealable', this.idcommune]);
+  }
+  gotoprocesverbaux() {
+    this.router.navigate(['/gestion-pistes-bavardes/travaux/regions/commune/execution-de-marche/proces-verbaux', this.idcommune]);
+  }
+
+  gotodecomptes() {
+    this.router.navigate(['/gestion-pistes-bavardes/travaux/regions/commune/execution-de-marche/decomptes', this.idcommune]);
+  }
+
+  gotogaranties() {
+    this.router.navigate(['/gestion-pistes-bavardes/travaux/regions/commune/execution-de-marche/garanties', this.idcommune]);
+  }
+
+  gotocontrats() {
+    this.router.navigate(['/gestion-pistes-bavardes/travaux/regions/commune/execution-de-marche/contrats', this.idcommune]);
   }
 
 }
