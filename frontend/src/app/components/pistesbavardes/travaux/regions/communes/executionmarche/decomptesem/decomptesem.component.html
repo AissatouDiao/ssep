@@ -26,7 +26,7 @@
                             <button type="button" rel="tooltip" title="Modifier décompte" data-toggle="modal" attr.data-target="#m{{d.id}}" class="btn btn-primary btn-link btn-sm">
                            <i class="material-icons">edit</i>
                         </button>
-                            <button type="button" rel="tooltip" title="Supprimer décompte" (click)="deleteDecompteCommune(d.id)" class="btn btn-danger btn-link btn-sm">
+                            <button type="button" rel="tooltip" title="Supprimer décompte" (click)="deleteDecompteCommune(d.id)" class="btn btn-info btn-link btn-sm">
                           <i class="material-icons">close</i>
                        </button>
                         </td>
@@ -36,8 +36,8 @@
                                 <div class="modal-content card">
                                     <div class="modal-header">
 
-                                        <div class="card-header card-header-danger">
-                                            <h5 class="modal-title card-title" id="exampleModalLabel">Modification du lancement de procédure : {{d.libelle}}</h5>
+                                        <div class="card-header card-header-info">
+                                            <h5 class="modal-title card-title" id="exampleModalLabel">Modification de la décompte : {{d.libelle}}</h5>
                                         </div>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -54,7 +54,7 @@
                                             <div class="row mb-3">
                                                 <label for="inputPassword3">Document</label>
                                                 <div class="col-sm-10">
-                                                    <input type="file" (change)="uploadDocumentdecompte($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="d.decompte">
+                                                    <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocumentdecompte($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="d.decompte">
                                                     <div class="text-left text-danger"> (.pdf ou .docx seulement)</div>
                                                     <div>
                                                         <a href="http://localhost:8000/.{{d.decompte}}" target="blank">Consulter le PDF enregistré pour la décompte.</a>
@@ -64,7 +64,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                                            <button type="submit" class="btn btn-danger" [disabled]="!decompteForm.valid">Enregistrer</button>
+                                            <button type="submit" class="btn btn-info" [disabled]="!decompteForm.valid">Enregistrer</button>
                                         </div>
                                     </form>
                                 </div>
@@ -77,7 +77,7 @@
 
             </tbody>
         </table>
-        <button class="btn btn-info" data-toggle="modal" data-target="#exampleModalp">Ajouter Préalable</button>
+        <button class="btn btn-info" data-toggle="modal" data-target="#exampleModalp">Ajouter Décompte</button>
         <!-- Modal decompte ajout -->
 
         <div class="modal fade " id="exampleModalp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -86,7 +86,7 @@
                     <div class="modal-header">
 
                         <div class="card-header card-header-info">
-                            <h5 class="modal-title card-title" id="exampleModalLabel">Nouvelle Préalable</h5>
+                            <h5 class="modal-title card-title" id="exampleModalLabel">Nouvelle Décompte</h5>
                         </div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -103,7 +103,7 @@
                             <div class="row mb-3">
                                 <label for="inputPassword3">Document</label>
                                 <div class="col-sm-10">
-                                    <input type="file" (change)="uploadDocument($event)" class="form-control" name="decompte" id="file" [(ngModel)]="decompte.decompte" required>
+                                    <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocument($event)" class="form-control" name="decompte" id="file" [(ngModel)]="decompte.decompte" required>
                                     <div class="text-left"> (.pdf ou .docx seulement)</div>
                                 </div>
                             </div>

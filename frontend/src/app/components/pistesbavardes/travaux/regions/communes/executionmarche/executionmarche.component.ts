@@ -25,6 +25,11 @@ export class ExecutionmarcheComponent implements OnInit {
     this.router.navigate(['/gestion-pistes-bavardes/travaux/regions/commune/execution-de-marche/proces-verbaux', this.idcommune]);
   }
 
+
+  gotopiste() {
+    this.router.navigate(['/gestion-pistes-bavardes/travaux/regions/commune/execution-de-marche/piste', this.idcommune]);
+  }
+
   gotodecomptes() {
     this.router.navigate(['/gestion-pistes-bavardes/travaux/regions/commune/execution-de-marche/decomptes', this.idcommune]);
   }

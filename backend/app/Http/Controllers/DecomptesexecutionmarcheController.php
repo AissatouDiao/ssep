@@ -10,10 +10,10 @@ class DecomptesexecutionmarcheController extends Controller
 {
     public function add(Request $request){
 
-        $document = $request->file('decomptes');
+        $document = $request->file('decompte');
         $path;
         if($document){
-            $repertoire='./documents/communes/executionmarche/decomptess';
+            $repertoire='./documents/communes/executionmarche/decomptes';
             $extension =$document->getClientOriginalExtension();
             do {
 				$nom = time() . '.' . $extension;

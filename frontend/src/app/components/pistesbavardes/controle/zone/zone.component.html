@@ -73,7 +73,7 @@
                                                     <div class="row mb-3">
                                                         <label for="inputPassword3">Document</label>
                                                         <div class="col-sm-10">
-                                                            <input type="file" (change)="uploadDocumentdecompte($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="d.decompte">
+                                                            <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocumentdecompte($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="d.decompte">
                                                             <div class="text-left text-danger"> (.pdf ou .docx seulement)</div>
                                                             <div>
                                                                 <a href="http://localhost:8000/.{{d.decompte}}" target="blank">Consulter le PDF enregistré pour la décompte.</a>
@@ -123,7 +123,7 @@
                                     <div class="row mb-3">
                                         <label for="inputPassword3">Document</label>
                                         <div class="col-sm-10">
-                                            <input type="file" (change)="uploadDocument($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="decompte.decompte" required>
+                                            <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocument($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="decompte.decompte" required>
                                             <div class="text-left"> (.pdf ou .docx seulement)</div>
                                         </div>
                                     </div>
@@ -197,7 +197,7 @@
                                                     <div class="row mb-3">
                                                         <label for="inputPassword3">Document</label>
                                                         <div class="col-sm-10">
-                                                            <input type="file" (change)="uploadDocumentrapport($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="r.rapportdactivite">
+                                                            <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocumentrapport($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="r.rapportdactivite">
                                                             <div class="text-left text-warning"> (.pdf ou .docx seulement)</div>
                                                             <div>
                                                                 <a href="http://localhost:8000/.{{r.rapportdactivite}}" target="blank">Consulter le PDF enregistré pour le rapport.</a>
@@ -247,7 +247,7 @@
                                         <div class="row mb-3">
                                             <label for="inputPassword3">Document</label>
                                             <div class="col-sm-10">
-                                                <input type="file" (change)="uploadDocument_AR($event)" class="form-control" name="rapportdactivite" id="file" [(ngModel)]="rapportdactivite.rapportdactivite" required>
+                                                <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocument_AR($event)" class="form-control" name="rapportdactivite" id="file" [(ngModel)]="rapportdactivite.rapportdactivite" required>
                                                 <div class="text-left"> (.pdf ou .docx seulement)</div>
                                             </div>
                                         </div>
@@ -323,7 +323,7 @@
                                                     <div class="row mb-3">
                                                         <label for="inputPassword3">Document</label>
                                                         <div class="col-sm-10">
-                                                            <input type="file" (change)="uploadDocumentpv($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="pv.procesverbal">
+                                                            <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocumentpv($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="pv.procesverbal">
                                                             <div class="text-left text-info"> (.pdf ou .docx seulement)</div>
                                                             <div>
                                                                 <a href="http://localhost:8000/.{{pv.procesverbal}}" target="blank">Consulter le PDF enregistré pour le rapport.</a>
@@ -374,7 +374,7 @@
                                         <div class="row mb-3">
                                             <label for="inputPassword3">Document</label>
                                             <div class="col-sm-10">
-                                                <input type="file" (change)="uploadDocument_APV($event)" class="form-control" name="procesverbal" id="file" [(ngModel)]="procesverbal.procesverbal" required>
+                                                <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocument_APV($event)" class="form-control" name="procesverbal" id="file" [(ngModel)]="procesverbal.procesverbal" required>
                                                 <div class="text-left"> (.pdf ou .docx seulement)</div>
                                             </div>
                                         </div>
@@ -450,7 +450,7 @@
                                                     <div class="row mb-3">
                                                         <label for="inputPassword3">Document</label>
                                                         <div class="col-sm-10">
-                                                            <input type="file" (change)="uploadDocumentp($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="p.prealable">
+                                                            <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocumentp($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="p.prealable">
                                                             <div class="text-left text-succes"> (.pdf ou .docx seulement)</div>
                                                             <div>
                                                                 <a href="http://localhost:8000/.{{p.prealable}}" target="blank">Consulter le PDF enregistré pour le préalable.</a>
@@ -499,7 +499,7 @@
                                         <div class="row mb-3">
                                             <label for="inputPassword3">Document</label>
                                             <div class="col-sm-10">
-                                                <input type="file" (change)="uploadDocument_AP($event)" class="form-control" name="prealable" id="file" [(ngModel)]="prealable.prealable" required>
+                                                <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocument_AP($event)" class="form-control" name="prealable" id="file" [(ngModel)]="prealable.prealable" required>
                                                 <div class="text-left"> (.pdf ou .docx seulement)</div>
                                             </div>
                                         </div>

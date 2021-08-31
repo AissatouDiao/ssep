@@ -73,7 +73,7 @@
                                                 <div class="row mb-3">
                                                     <label for="inputPassword3">Document</label>
                                                     <div class="col-sm-10">
-                                                        <input type="file" (change)="uploadDocument2($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="proposition.passationproposition" required>
+                                                        <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocument2($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="proposition.passationproposition" required>
                                                         <div class="text-left"> (.pdf ou .docx seulement)</div>
                                                     </div>
                                                 </div>
@@ -141,7 +141,7 @@
                                                 <div class="row mb-3">
                                                     <label for="inputPassword3">Document</label>
                                                     <div class="col-sm-10">
-                                                        <input type="file" class="form-control" name="passationmarche" (change)="uploadDocument1($event)" id="file1" [(ngModel)]="p.passationmarche">
+                                                        <input type="file" accept=".pdf, .doc, .docx" class="form-control" name="passationmarche" (change)="uploadDocument1($event)" id="file1" [(ngModel)]="p.passationmarche">
                                                         <div class="text-left"> (.pdf ou .docx seulement)</div>
                                                     </div>
                                                 </div>
@@ -216,7 +216,7 @@
                                 <div class="row mb-3">
                                     <label for="inputPassword3">Document</label>
                                     <div class="col-sm-10">
-                                        <input type="file" (change)="uploadDocument($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="passation.passationmarche" required>
+                                        <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocument($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="passation.passationmarche" required>
                                         <div class="text-left"> (.pdf ou .docx seulement)</div>
                                     </div>
                                 </div>

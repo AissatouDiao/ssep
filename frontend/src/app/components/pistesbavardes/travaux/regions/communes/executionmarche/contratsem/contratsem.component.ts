@@ -25,7 +25,7 @@ export class ContratsemComponent implements OnInit {
 
   ngOnInit(): void {
     this.idcommune = this.route.snapshot.paramMap.get('id');
-  }
+    this.getContrats();}
 
   getContrats() {
     this.jarwisService.getContratCommunes_em().subscribe(

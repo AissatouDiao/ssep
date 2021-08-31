@@ -54,7 +54,7 @@
                                             <div class="row mb-3">
                                                 <label for="inputPassword3">Document</label>
                                                 <div class="col-sm-10">
-                                                    <input type="file" (change)="uploadDocumentprealable($event)" class="form-control" name="prealable" id="file" [(ngModel)]="p.prealable">
+                                                    <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocumentprealable($event)" class="form-control" name="prealable" id="file" [(ngModel)]="p.prealable">
                                                     <div class="text-left text-success"> (.pdf ou .docx seulement)</div>
                                                     <div>
                                                         <a href="http://localhost:8000/.{{p.prealable}}" target="blank">Consulter le PDF enregistré pour la décompte.</a>
@@ -103,7 +103,7 @@
                             <div class="row mb-3">
                                 <label for="inputPassword3">Document</label>
                                 <div class="col-sm-10">
-                                    <input type="file" (change)="uploadDocument($event)" class="form-control" name="prealable" id="file" [(ngModel)]="prealable.prealable" required>
+                                    <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocument($event)" class="form-control" name="prealable" id="file" [(ngModel)]="prealable.prealable" required>
                                     <div class="text-left"> (.pdf ou .docx seulement)</div>
                                 </div>
                             </div>

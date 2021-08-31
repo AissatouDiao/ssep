@@ -27,6 +27,7 @@ export class DecomptesemComponent implements OnInit {
 
   ngOnInit(): void {
     this.idcommune = this.route.snapshot.paramMap.get('id');
+    this.getDecomptes();
   }
 
   getDecomptes() {

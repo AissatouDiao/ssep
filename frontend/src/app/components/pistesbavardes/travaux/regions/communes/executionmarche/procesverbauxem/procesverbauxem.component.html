@@ -54,7 +54,7 @@
                                             <div class="row mb-3">
                                                 <label for="inputPassword3">Document</label>
                                                 <div class="col-sm-10">
-                                                    <input type="file" (change)="uploadDocumentprocesverbal($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="p.procesverbal">
+                                                    <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocumentprocesverbal($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="p.procesverbal">
                                                     <div class="text-left text-warcard-header-warning"> (.pdf ou .docx seulement)</div>
                                                     <div>
                                                         <a href="http://localhost:8000/.{{p.procesverbal}}" target="blank">Consulter le PDF enregistré pour la décompte.</a>
@@ -103,7 +103,7 @@
                             <div class="row mb-3">
                                 <label for="inputPassword3">Document</label>
                                 <div class="col-sm-10">
-                                    <input type="file" (change)="uploadDocument($event)" class="form-control" name="procesverbal" id="file" [(ngModel)]="procesverbal.procesverbal" required>
+                                    <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocument($event)" class="form-control" name="procesverbal" id="file" [(ngModel)]="procesverbal.procesverbal" required>
                                     <div class="text-left"> (.pdf ou .docx seulement)</div>
                                 </div>
                             </div>

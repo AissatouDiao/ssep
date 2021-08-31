@@ -249,7 +249,7 @@
                                         <div class="row mb-3">
                                             <label for="inputPassword3" class="col-sm-2 col-form-label text-break">Recommandation</label>
                                             <div class="col-sm-10">
-                                                <input type="file" class="form-control" name="recommandation" (change)="getPtbas()" id="file1" [(ngModel)]="p.recommandation">
+                                                <input type="file" accept=".pdf, .doc, .docx" class="form-control" name="recommandation" (change)="getPtbas()" id="file1" [(ngModel)]="p.recommandation">
                                                 <div class="text-left"> (.pdf ou .docx seulement)</div>
                                             </div>
                                             <div class="text-center">

@@ -36,8 +36,8 @@
                                 <div class="modal-content card">
                                     <div class="modal-header">
 
-                                        <div class="card-header card-header-danger">
-                                            <h5 class="modal-title card-title" id="exampleModalLabel">Modification du lancement de procédure : {{c.libelle}}</h5>
+                                        <div class="card-header card-header-dark">
+                                            <h5 class="modal-title card-title" id="exampleModalLabel">Modification du contrat : {{c.libelle}}</h5>
                                         </div>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -54,7 +54,7 @@
                                             <div class="row mb-3">
                                                 <label for="inputPassword3">Document</label>
                                                 <div class="col-sm-10">
-                                                    <input type="file" (change)="uploadDocumentcontrat($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="c.contrat">
+                                                    <input type="file" (change)="uploadDocumentcontrat($event)" class="form-control" name="evaluation" accept=".pdf, .doc, .docx" id="file" [(ngModel)]="c.contrat">
                                                     <div class="text-left text-danger"> (.pdf ou .docx seulement)</div>
                                                     <div>
                                                         <a href="http://localhost:8000/.{{c.contrat}}" target="blank">Consulter le PDF enregistré pour la décompte.</a>
@@ -64,7 +64,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                                            <button type="submit" class="btn btn-danger" [disabled]="!contratForm.valid">Enregistrer</button>
+                                            <button type="submit" class="btn btn-dark" [disabled]="!contratForm.valid">Enregistrer</button>
                                         </div>
                                     </form>
                                 </div>
@@ -77,7 +77,7 @@
 
             </tbody>
         </table>
-        <button class="btn btn-outline-darl" data-toggle="modal" data-target="#exampleModalp">Ajouter Préalable</button>
+        <button class="btn btn-outline-darl" data-toggle="modal" data-target="#exampleModalp">Ajouter Contrat</button>
         <!-- Modal contrat ajout -->
 
         <div class="modal fade " id="exampleModalp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -86,7 +86,7 @@
                     <div class="modal-header">
 
                         <div class="card-header card-header-dark">
-                            <h5 class="modal-title card-title" id="exampleModalLabel">Nouvelle Préalable</h5>
+                            <h5 class="modal-title card-title" id="exampleModalLabel">Nouveau Contrat</h5>
                         </div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -103,7 +103,7 @@
                             <div class="row mb-3">
                                 <label for="inputPassword3">Document</label>
                                 <div class="col-sm-10">
-                                    <input type="file" (change)="uploadDocument($event)" class="form-control" name="contrat" id="file" [(ngModel)]="contrat.contrat" required>
+                                    <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocument($event)" class="form-control" name="contrat" id="file" [(ngModel)]="contrat.contrat" required>
                                     <div class="text-left"> (.pdf ou .docx seulement)</div>
                                 </div>
                             </div>

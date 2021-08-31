@@ -38,6 +38,7 @@ import { GarantiesemComponent } from './components/pistesbavardes/travaux/region
 import { DecomptesemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/decomptesem/decomptesem.component';
 import { ProcesverbauxemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/procesverbauxem/procesverbauxem.component';
 import { ContratsemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/contratsem/contratsem.component';
+import { PistesemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/pistesem/pistesem.component';
 
 
 const routes: Routes = [
@@ -160,6 +161,11 @@ const routes: Routes = [
   },
   {
     path: 'gestion-pistes-bavardes/travaux/regions/commune/execution-de-marche/prealable/:id', component: PrealablesemComponent,
+    canActivate: [AfterloginService]
+  }
+  ,
+  {
+    path: 'gestion-pistes-bavardes/travaux/regions/commune/execution-de-marche/piste/:id', component: PistesemComponent,
     canActivate: [AfterloginService]
   }
   ,

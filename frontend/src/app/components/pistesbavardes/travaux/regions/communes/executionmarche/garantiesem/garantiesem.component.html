@@ -36,8 +36,8 @@
                                 <div class="modal-content card">
                                     <div class="modal-header">
 
-                                        <div class="card-header card-header-danger">
-                                            <h5 class="modal-title card-title" id="exampleModalLabel">Modification du lancement de procédure : {{g.libelle}}</h5>
+                                        <div class="card-header card-header-light">
+                                            <h5 class="modal-title card-title text-dark" id="exampleModalLabel">Modification du lancement de procédure : {{g.libelle}}</h5>
                                         </div>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -54,7 +54,7 @@
                                             <div class="row mb-3">
                                                 <label for="inputPassword3">Document</label>
                                                 <div class="col-sm-10">
-                                                    <input type="file" (change)="uploadDocumentgarantie($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="g.garantie">
+                                                    <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocumentgarantie($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="g.garantie">
                                                     <div class="text-left text-danger"> (.pdf ou .docx seulement)</div>
                                                     <div>
                                                         <a href="http://localhost:8000/.{{g.garantie}}" target="blank">Consulter le PDF enregistré pour la décompte.</a>
@@ -64,7 +64,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                                            <button type="submit" class="btn btn-danger" [disabled]="!garantieForm.valid">Enregistrer</button>
+                                            <button type="submit" class="btn btn-outline-light" [disabled]="!garantieForm.valid">Enregistrer</button>
                                         </div>
                                     </form>
                                 </div>
@@ -77,7 +77,7 @@
 
             </tbody>
         </table>
-        <button class="btn btn-light btn btn-outline-light" data-toggle="modal" data-target="#exampleModalp">Ajouter Préalable</button>
+        <button class="btn btn-light btn btn-outline-light" data-toggle="modal" data-target="#exampleModalp">Ajouter Garantie</button>
         <!-- Modal garantie ajout -->
 
         <div class="modal fade " id="exampleModalp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -85,8 +85,8 @@
                 <div class="modal-content card">
                     <div class="modal-header">
 
-                        <div class="card-header card-header-light">
-                            <h5 class="modal-title card-title" id="exampleModalLabel">Nouvelle Préalable</h5>
+                        <div class="card-header card-header-light ">
+                            <h5 class="modal-title card-title text-dark" id="exampleModalLabel">Nouvelle Garantie</h5>
                         </div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -103,7 +103,7 @@
                             <div class="row mb-3">
                                 <label for="inputPassword3">Document</label>
                                 <div class="col-sm-10">
-                                    <input type="file" (change)="uploadDocument($event)" class="form-control" name="garantie" id="file" [(ngModel)]="garantie.garantie" required>
+                                    <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocument($event)" class="form-control" name="garantie" id="file" [(ngModel)]="garantie.garantie" required>
                                     <div class="text-left"> (.pdf ou .docx seulement)</div>
                                 </div>
                             </div>

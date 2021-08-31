@@ -80,7 +80,7 @@
                                     <div class="row mb-3">
                                         <label for="inputPassword3" class="col-sm-2 col-form-label text-break">Document</label>
                                         <div class="col-sm-10">
-                                            <input type="file" class="form-control" name="documentpartage" (change)="uploadDocument1($event)" id="file1" [(ngModel)]="d.documentpartage">
+                                            <input type="file" accept=".pdf, .doc, .docx" class="form-control" name="documentpartage" (change)="uploadDocument1($event)" id="file1" [(ngModel)]="d.documentpartage">
                                             <div class="text-left"> (.pdf ou .docx seulement)</div>
                                         </div>
                                         <div class="text-center">
@@ -144,7 +144,7 @@
                         <div class="row mb-3">
                             <label for="inputPassword3" class="col-sm-2 col-form-label text-break">Document</label>
                             <div class="col-sm-10">
-                                <input type="file" (change)="uploadDocument($event)" class="form-control" name="documentpartage" id="file" [(ngModel)]="document.documentpartage" required>
+                                <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocument($event)" class="form-control" name="documentpartage" id="file" [(ngModel)]="document.documentpartage" required>
                                 <div class="text-left"> (.pdf ou .docx seulement)</div>
                             </div>
                         </div>

@@ -29,6 +29,7 @@ use App\Http\Controllers\DocumentsevaluationController;
 use App\Http\Controllers\RapportdactiviteszoneController;
 use App\Http\Controllers\ContratsexecutionmarcheController;
 use App\Http\Controllers\DecomptesexecutionmarcheController;
+use App\Http\Controllers\GarantiesexecutionmarcheController;
 use App\Http\Controllers\ActivitepartenaireassocieController;
 use App\Http\Controllers\LancementsprocedurecommuneController;
 use App\Http\Controllers\ActivitepartenairefinancierController;

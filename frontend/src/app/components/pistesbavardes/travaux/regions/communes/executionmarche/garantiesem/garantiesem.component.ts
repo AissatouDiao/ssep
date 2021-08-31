@@ -25,6 +25,7 @@ export class GarantiesemComponent implements OnInit {
 
   ngOnInit(): void {
     this.idcommune = this.route.snapshot.paramMap.get('id');
+    this.getGaranties();
   }
 
   getGaranties() {

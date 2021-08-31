@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -7,6 +7,10 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./communes.component.scss']
 })
 export class CommunesComponent implements OnInit {
+  @Input() page: any = 1;
+  @Input() pageSize: any = 5;
+  searchText: any; searchFilter: any = '';
+
   idcommune: any;
   constructor(
     private router: Router,
