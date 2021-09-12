@@ -8,6 +8,7 @@ use App\Http\Controllers\PtbaController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZoneController;
+use App\Http\Controllers\PistesController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\CommuneController;
 use App\Http\Controllers\ActiviteController;
@@ -23,6 +24,7 @@ use App\Http\Controllers\PrealableszoneController;
 use App\Http\Controllers\RecommandationController;
 use App\Http\Controllers\PartagedocumentController;
 use App\Http\Controllers\PassationmarcheController;
+use App\Http\Controllers\AvancementtravauxController;
 use App\Http\Controllers\PrealablescommuneController;
 use App\Http\Controllers\ProcesverbalszoneController;
 use App\Http\Controllers\DocumentsevaluationController;
@@ -252,5 +254,17 @@ Route::group([
     Route::delete('deleteprocesverbalCommune_em/{id}',[ProcesverbauxexecutionmarcheController::class,'delete']);
     Route::get('getCommuneProcesverbalById_em/{id}',[ProcesverbauxexecutionmarcheController::class,'getProcesverbalEMCommuneById']);
     Route::post('updateprocesverbalcommune_em',[ProcesverbauxexecutionmarcheController::class,'update']);
-
+    
+    //Gestion des pistes bavardes
+    Route::post('addpiste',[PistesController::class,'ajouterPiste']);
+    Route::get('getpistes', [PistesController::class,'getPistes']);
+    Route::delete('deletepiste/{id}',[PistesController::class,'deletePiste']);
+    Route::get('getPisteByCommuneId/{id}',[PistesController::class,'getPisteByCommuneId']);
+    Route::post('updatepiste',[PistesController::class,'updatePiste']); 
+    //Gestion des avancements de travaux pistes bavardes
+    Route::post('ajouterAvancementTravaux',[AvancementtravauxController ::class,'ajouterAvancementTravaux']);
+    Route::get('getAvancementTravaux', [AvancementtravauxController ::class,'getAvancementTravaux']);
+    Route::delete('deleteAvancementTravaux/{id}',[AvancementtravauxController ::class,'deleteAvancementTravaux']);
+    Route::get('getAvancementTavauxPisteId/{id}',[AvancementtravauxController ::class,'getAvancementTavauxPisteId']);
+    Route::post('updateAvancementTravaux',[AvancementtravauxController ::class,'updateAvancementTravaux']); 
 });

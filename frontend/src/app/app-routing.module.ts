@@ -39,6 +39,7 @@ import { DecomptesemComponent } from './components/pistesbavardes/travaux/region
 import { ProcesverbauxemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/procesverbauxem/procesverbauxem.component';
 import { ContratsemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/contratsem/contratsem.component';
 import { PistesemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/pistesem/pistesem.component';
+import { GestionpistesComponent } from './components/pistesbavardes/gestionpistes/gestionpistes.component';
 
 
 const routes: Routes = [
@@ -144,6 +145,10 @@ const routes: Routes = [
   },
   {
     path: 'gestion-pistes-bavardes/travaux', component: TravauxComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-pistes-bavardes/pistes', component: GestionpistesComponent,
     canActivate: [AfterloginService]
   },
   {

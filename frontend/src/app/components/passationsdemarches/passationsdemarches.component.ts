@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { SnotifyPosition, SnotifyService } from 'ng-snotify';
 import { JarwisService } from 'src/app/services/jarwis.service';
 
@@ -13,6 +13,9 @@ export class PassationsdemarchesComponent implements OnInit {
   @Input() page: any = 1;
   @Input() pageSize: any = 10;
   searchText: any; searchFilter: any = '';
+
+  @ViewChild('documentpropositionForm')
+  documentpropositionForm!: any;
 
 
   passation = {
@@ -31,7 +34,7 @@ export class PassationsdemarchesComponent implements OnInit {
   }
 
   passations: any; user: any; error: any; passationspropositions: any;
-  lastpassationid: any;
+  lastpassationid: any; laststatut: any;
   constructor(private jarwisService: JarwisService, private notify: SnotifyService) { }
 
   ngOnInit(): void {
@@ -162,6 +165,7 @@ export class PassationsdemarchesComponent implements OnInit {
       id: p.id,
       statut: e.target.value
     };
+    console.log(this.laststatut);
     //notification et changement de statut.
     this.notify.confirm('Voulez vous vraiment changer le statut de cettte passation?', 'Changer statut ?', {
       timeout: 0,
@@ -173,29 +177,36 @@ export class PassationsdemarchesComponent implements OnInit {
         {
           text: 'Oui',
           action: () => {
-            if (p.statut == "émis" || p.statut == "en traitement") {
+            if (p.statut == "émis") {
               this.jarwisService.changestatutpassation(statut).subscribe(
                 data => { console.log(data); this.getPassations(); this.getPassationsPropositions(); this.notify.success('Statut changé avec succès !'); },
                 error => console.log(error)
-              )
-            }
-            else {
-              if (p.statut == "entreprise sélectionnée") {
-                (<any>document.getElementById("pes" + p.id)).click();
-                if ((<any>document.getElementById("enregistrerproposition")).clicked == true) {
-                  this.jarwisService.changestatutpassation(statut).subscribe(
-                    data => { console.log(data); this.getPassations(); this.getPassationsPropositions(); this.notify.success('Statut changé avec succès !'); },
-                    error => console.log(error)
-                  );
-                }
-                else {
-                  if (((<any>document.getElementById("closeproposition" + p.id)).clicked == true || ((<any>document.getElementById("closeproposition1" + p.id)).clicked == true))) {
-                    this.notify.error('Ce changement annulé');
-                  }
-                }
-              }
+              );
+            } else if (p.statut == "en traitement") {
+              this.jarwisService.changestatutpassation(statut).subscribe(
+                data => { console.log(data); this.getPassations(); this.getPassationsPropositions(); this.notify.success('Statut changé avec succès !'); },
+                error => console.log(error)
+              );
+            } else {
+              (<any>document.getElementById("pes" + p.id)).click();
+              document.getElementById("enregistrerproposition")?.addEventListener("click", () => {
+                this.jarwisService.changestatutpassation(statut).subscribe(
+                  data => { console.log(data); this.getPassations(); this.getPassationsPropositions(); this.notify.success('Statut changé avec succès !'); },
+                  error => console.log(error)
+                );
+              });
 
             }
+            document.getElementById("closeproposition" + p.id)?.addEventListener("click", () => {
+              this.notify.error('ajout proposition fermée');
+              // window.location.reload();
+            });
+            document.getElementById("closeproposition1" + p.id)?.addEventListener("click", () => {
+              this.notify.error('ajout proposition fermée');
+              window.location.reload();
+            });
+
+
           }, bold: false
         },
         {
@@ -207,6 +218,11 @@ export class PassationsdemarchesComponent implements OnInit {
         },
       ]
     });
+  }
+
+  getstatut(p: any) {
+    this.laststatut = p.statut;
+    console.log(this.laststatut);
   }
 
   //Ajouter une nouveau document.

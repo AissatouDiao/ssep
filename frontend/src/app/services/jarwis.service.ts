@@ -750,4 +750,49 @@ export class JarwisService {
     return this.http.get(`${this.baseUrl}/getCommuneProcesverbalById_em/` + data);
   }
 
+  //-------------------------- Gestion des pistes ---------------------------//
+  getPistes() {
+    return this.http.get(`${this.baseUrl}/getpistes`);
+  }
+  //Ajouter un nouvel prealable zone
+  addPiste(data: object) {
+    return this.http.post(`${this.baseUrl}/addpiste`, data);
+  }
+  //update prealable zone
+  updatePiste(data: object) {
+    return this.http.post(`${this.baseUrl}/updatepiste`, data)
+  }
+
+  //supprimer prealable zone 
+  deletePiste(data: any) {
+    return this.http.delete(`${this.baseUrl}/deletepiste/` + data);
+  }
+
+  getPisteByCommuneId(data: any) {
+    return this.http.get(`${this.baseUrl}/getPisteByCommuneId/` + data);
+  }
+
+  //-------------------------- Gestion des avancements travaux pistes ---------------------------//
+  getAvancementTravauxs() {
+    return this.http.get(`${this.baseUrl}/getAvancementTravaux`);
+  }
+  //Ajouter un nouvel prealable zone
+  addAvancementTravaux(data: object) {
+    return this.http.post(`${this.baseUrl}/ajouterAvancementTravaux`, data);
+  }
+  //update prealable zone
+  updateAvancementTravaux(data: object) {
+    return this.http.post(`${this.baseUrl}/updatepiste`, data)
+  }
+
+  //supprimer prealable zone 
+  deleteAvancementTravaux(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteAvancementTravaux/` + data);
+  }
+
+  getAvancementTravauxByPisteId(data: any) {
+    return this.http.get(`${this.baseUrl}/getAvancementTavauxPisteId/` + data);
+  }
+
+
 }

@@ -38,8 +38,8 @@
             </td>
             <td>
                 <form action="" #test="ngForm">
-                    <select name="statut" id="statut" class="bg-primary form-select" [(ngModel)]="p.statut" (change)="changeStatut($event,p)">
-                    <option value="émis" [disabled]="p.statut=='entreprise sélectionnée'">émis</option>
+                    <select name="statut" id="statut" class="bg-primary form-select" [(ngModel)]="p.statut" (click)="getstatut(p)" (change)="changeStatut($event,p)">
+                    <option value="émis" [disabled]="p.statut=='entreprise sélectionnée' || p.statut=='en traitement'">émis</option>
                     <option value="en traitement" [disabled]="p.statut=='entreprise sélectionnée'"> en traitement</option>
                     <option value="entreprise sélectionnée"><button id="pes{{p.id}}" data-toggle="modal" attr.data-target="#pp{{p.id}}">entreprise sélectionnée</button></option>
                 </select>
@@ -60,7 +60,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
-                                            <form #documentForm=ngForm name="documentForm" (ngSubmit)="ajouterproposition(p.id)" enctype="multipart/form-data">
+                                            <form #documentpropositionForm=ngForm name="documentpropositionForm" (ngSubmit)="ajouterproposition(p.id)" enctype="multipart/form-data">
                                                 <div class="alert alert-danger" [hidden]="!error">
                                                     {{error}}
                                                 </div>
@@ -77,7 +77,7 @@
                                                         <div class="text-left"> (.pdf ou .docx seulement)</div>
                                                     </div>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary text-center" id="enregistrerproposition" [disabled]="!documentForm.valid">Enregistrer</button>
+                                                <button type="submit" class="btn btn-primary text-center" id="enregistrerproposition" [disabled]="!documentpropositionForm.valid">Enregistrer</button>
                                             </form>
                                         </div>
                                     </div>
@@ -94,7 +94,7 @@
             <td>{{p.auteur}}</td>
             <td>
                 <ng-container *ngFor="let pp of passationspropositions">
-                    <ng-container *ngIf="pp.passation_id==p.id">
+                    <ng-container *ngIf="pp.passation_id==p.id && p.statut=='entreprise sélectionnée'">
                         <div>
                             <a href="http://localhost:8000/.{{pp.passationproposition}}" target="blank">Consulter le PDF</a>
                         </div>
