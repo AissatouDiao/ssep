@@ -48,6 +48,7 @@ import { GarantiesemComponent } from './components/pistesbavardes/travaux/region
 import { ContratsemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/contratsem/contratsem.component';
 import { ProcesverbauxemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/procesverbauxem/procesverbauxem.component';
 import { GestionpistesComponent } from './components/pistesbavardes/gestionpistes/gestionpistes.component';
+import { NewuserAddpasswordComponent } from './components/password/newuser-addpassword/newuser-addpassword.component';
 
 
 
@@ -92,7 +93,8 @@ import { GestionpistesComponent } from './components/pistesbavardes/gestionpiste
     DecomptesemComponent,
     GarantiesemComponent,
     ContratsemComponent,
-    GestionpistesComponent
+    GestionpistesComponent,
+    NewuserAddpasswordComponent
   ],
   imports: [
     BrowserModule,

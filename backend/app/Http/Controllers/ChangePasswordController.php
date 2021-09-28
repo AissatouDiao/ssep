@@ -17,12 +17,27 @@ class ChangePasswordController extends Controller
         $this->tokenNotFoundResponse();
     }
 
+    public function process1(ChangePasswordRequest $request)
+    { 
+        return $this->getPasswordResetTableRow1($request)->count()>0? $this->changePassword1($request):
+        $this->tokenNotFoundResponse();
+    }
+
 
     //recuperation des identifiants dans la table password reset
     private function getPasswordResetTableRow($request)
     {
 
         return DB::table('password_resets')->where([
+            'email' => $request->email,
+            'token' => $request->resetToken
+        ]);
+    }
+
+    private function getPasswordResetTableRow1($request)
+    {
+
+        return DB::table('add_passwords_tokens')->where([
             'email' => $request->email,
             'token' => $request->resetToken
         ]);
@@ -45,6 +60,21 @@ class ChangePasswordController extends Controller
         
         //suppresion de la ligne du token donné pour le reset password
         $this->getPasswordResetTableRow($request)->delete();
+
+        //reponse retourné sous format json
+        return response()->json([
+            'data'=>'Password was successfuly changed'
+        ],Response::HTTP_CREATED );
+    }
+    private function changePassword1($request){
+        //recuperation de l'utilisatreur par mail
+        $user=User::whereEmail($request->email)->first();
+
+        //mis à jour du mot de passe de l'utilisateur
+        $user->update(['password'=>$request->password]);
+        
+        //suppresion de la ligne du token donné pour le reset password
+        $this->getPasswordResetTableRow1($request)->delete();
 
         //reponse retourné sous format json
         return response()->json([

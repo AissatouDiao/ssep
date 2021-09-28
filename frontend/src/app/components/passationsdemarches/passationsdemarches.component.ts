@@ -16,7 +16,8 @@ export class PassationsdemarchesComponent implements OnInit {
 
   @ViewChild('documentpropositionForm')
   documentpropositionForm!: any;
-
+  @ViewChild('documentFormajoutpassation')
+  documentFormajoutpassation!: any;
 
   passation = {
     user_id: <any>null,
@@ -81,7 +82,7 @@ export class PassationsdemarchesComponent implements OnInit {
     this.jarwisService.addPassation(datas).subscribe(
       (data: any) => {
         console.log(data); this.lastpassationid = data.latest.id;
-        this.getPassations();;
+        this.getPassations(); this.documentFormajoutpassation.reset();
 
       },
       error => { console.log(error); });
@@ -182,29 +183,31 @@ export class PassationsdemarchesComponent implements OnInit {
                 data => { console.log(data); this.getPassations(); this.getPassationsPropositions(); this.notify.success('Statut changé avec succès !'); },
                 error => console.log(error)
               );
-            } else if (p.statut == "en traitement") {
+            }
+            else if (p.statut == "en traitement") {
               this.jarwisService.changestatutpassation(statut).subscribe(
                 data => { console.log(data); this.getPassations(); this.getPassationsPropositions(); this.notify.success('Statut changé avec succès !'); },
                 error => console.log(error)
               );
-            } else {
-              (<any>document.getElementById("pes" + p.id)).click();
-              document.getElementById("enregistrerproposition")?.addEventListener("click", () => {
-                this.jarwisService.changestatutpassation(statut).subscribe(
-                  data => { console.log(data); this.getPassations(); this.getPassationsPropositions(); this.notify.success('Statut changé avec succès !'); },
-                  error => console.log(error)
-                );
-              });
-
             }
-            document.getElementById("closeproposition" + p.id)?.addEventListener("click", () => {
-              this.notify.error('ajout proposition fermée');
-              // window.location.reload();
-            });
-            document.getElementById("closeproposition1" + p.id)?.addEventListener("click", () => {
-              this.notify.error('ajout proposition fermée');
-              window.location.reload();
-            });
+            else if (p.statut == "entreprise sélectionnée") {
+              (<any>document.getElementById("pes" + p.id)).click();
+              /* document.getElementById("enregistrerproposition")?.addEventListener("click", () => {
+                 // this.ajouterproposition(p.id);
+                 this.jarwisService.changestatutpassation(statut).subscribe(
+                   data => { console.log(data); console.log(statut); this.getPassations(); this.getPassationsPropositions(); this.notify.success('Statut changé avec succès !'); },
+                   error => console.log(error)
+                 );
+               });*/
+            }/*
+             document.getElementById("closeproposition" + p.id)?.addEventListener("click", () => {
+               this.notify.error('ajout proposition fermée');
+               // window.location.reload();
+             });
+             document.getElementById("closeproposition1" + p.id)?.addEventListener("click", () => {
+               this.notify.error('ajout proposition fermée');
+               // window.location.reload();
+             });*/
 
 
           }, bold: false
@@ -234,7 +237,12 @@ export class PassationsdemarchesComponent implements OnInit {
 
 
   ajouterproposition(id: any) {
+    let statut = {
+      id: id,
+      statut: 'entreprise sélectionnée'
+    };
     this.proposition.passation_id = id;
+
     const formdata1 = new FormData();
     formdata1.append('libelle', this.proposition.libelle);
     formdata1.append('passation_id', this.proposition.passation_id);
@@ -246,12 +254,20 @@ export class PassationsdemarchesComponent implements OnInit {
     this.jarwisService.addProposition(datas).subscribe(
       (data: any) => {
         console.log(data); this.lastpassationid = data.latest.id;
+        (<any>document.getElementById("closeproposition" + id)).click();
         this.getPassations();
         this.getPassationsPropositions();
-        (<any>document.getElementById("closeproposition" + id)).click();
+        this.documentpropositionForm.reset();
+
 
       },
       error => { console.log(error); });
+
+    this.jarwisService.changestatutpassation(statut).subscribe(
+      data => { console.log(data); console.log(statut); this.getPassations(); this.getPassationsPropositions(); this.notify.success('Statut changé avec succès !'); },
+      error => console.log(error)
+    );
+    (<any>document.getElementById("closeproposition" + id)).click();
   }
 
 

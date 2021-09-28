@@ -55,7 +55,7 @@ class PtbaController extends Controller
     }
 
     public function getpartenairesptbas( $objet){
-        $this->getptbabudgettotal($objet);
+       // $this->getptbabudgettotal($objet);
         $budgettotalcomposantes = DB::table('composantes')->where('ptba_id',$objet->id)->get()->sum('budget');
         $budgettotalpartenaires =DB::table('ptbapartenaires')->where('ptba_id',$objet->id)->get()->sum('budget');
         $composante_by_id= DB::table('composantes')->where('ptba_id',$objet->id)->get();
@@ -69,19 +69,20 @@ class PtbaController extends Controller
                 "budget"=>$v->budget
              ];
              Ptbapartenaire::create($ptbapartenaire);
-             $this->getptbabudgettotal($objet);
+            // $this->getptbabudgettotal($objet);
             // return response()->json(["message"=>"nouveau ptba enregistré!"]);
-          }else if((Ptbapartenaire::where(['ptba_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->exists())and(Ptbapartenaire::where(['ptba_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->first()->isDirty())){
-             $partenaireptba=Ptbapartenaire::where(['ptba_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->first();
-             $partenaireptba->budget=$partenaireptba->budget + $v->budget;
-             $partenaireptba->save();
-             $this->getptbabudgettotal($objet);
+          }else if($budgettotalcomposantes!=$budgettotalpartenaires){
+              {
+                $partenaireptba=Ptbapartenaire::where(['ptba_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->first();
+                $partenaireptba->budget=$partenaireptba->budget + $v->budget;
+                $partenaireptba->save();
+              }
+            
+             // $this->getptbabudgettotal($objet);
             // return response()->json(["message"=>"ancien ptba mise à jour!"]);
-          }else{
-             // return 'ok ptba';
           }
         }
-       }return response()->json(["message"=>$composante_by_id]);
+       }//return response()->json(["message"=>$composante_by_id]);  if((Ptbapartenaire::where(['ptba_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->exists())and(Ptbapartenaire::where(['ptba_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->first()->isDirty()))
     }
 
     public function changeStatut( Request $request){

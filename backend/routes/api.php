@@ -72,6 +72,7 @@ Route::group([
     Route::get('me', [AuthController::class,'me']);
     Route::post('sendPasswordResetLink',[ResetPasswordController::class,'sendEmail']);
     Route::post('resetPassword',[ChangePasswordController::class,'process']);
+    Route::post('addPassword',[ChangePasswordController::class,'process1']);
     Route::post('addRole',[RoleController::class,'addRole']);
     Route::get('getRoles',[RoleController::class,'getroles']);
     Route::delete('deleteRole/{id}',[RoleController::class,'delete']);
@@ -124,7 +125,8 @@ Route::group([
     Route::post('addactivitepartenairesassocies',[ActiviteController::class,'addPartenairesAssocies']);
     Route::post('addactivitepartenairefinanciers',[ActiviteController::class,'addPartenaireFinanciers']);
     Route::post('addactivitepartenaireresponsables',[ActiviteController::class,'addPartenairesponsables']);
-    Route::get('getactivites', [ActiviteController::class,'getAll']);
+    Route::get('getactivites', [ActiviteController::class,'getAll']); 
+    Route::get('getactivitespartenaires', [ActiviteController::class,'getpartenairesactivites']);
     Route::delete('deleteActivite/{id}',[ActiviteController::class,'delete']);
     Route::post('updateactivite',[ActiviteController::class,'update']);
     Route::get('getactivitespartenaireassocies', [ActivitepartenaireassocieController::class,'getActivitePartenaireAssocie']);

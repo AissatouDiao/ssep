@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { JarwisService } from 'src/app/services/jarwis.service';
 
 @Component({
   selector: 'app-executionmarche',
@@ -7,15 +8,17 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./executionmarche.component.scss']
 })
 export class ExecutionmarcheComponent implements OnInit {
-  idcommune: any
+  idcommune: any; ispiste: any;
   constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private jarwisService: JarwisService
   ) { }
 
   ngOnInit(): void {
     this.idcommune = this.route.snapshot.paramMap.get('id');
     console.log(this.idcommune);
+    this.getpistes();
   }
 
   gotoprealables() {
@@ -40,6 +43,17 @@ export class ExecutionmarcheComponent implements OnInit {
 
   gotocontrats() {
     this.router.navigate(['/gestion-pistes-bavardes/travaux/regions/commune/execution-de-marche/contrats', this.idcommune]);
+  }
+
+  getpistes() {
+
+    this.jarwisService.getPisteByCommuneId(this.idcommune).subscribe(
+      (data: any) => {
+        console.log(data); if (data == null || data == []) { this.ispiste = false } else { this.ispiste = true }
+      },
+      (error: any) => { console.log(error) }
+    );
+
   }
 
 }

@@ -23,7 +23,7 @@
     </div>
 </div><br><br>
 
-<table class="table table-danger table-bordered sm">
+<table class="table table-danger table-bordered lg">
     <thead class="text-white bg-danger">
         <th scope="row">Type avancement</th>
         <ng-container *ngFor="let m of mois">
@@ -42,10 +42,7 @@
             <ng-container *ngFor="let m of mois">
                 <ng-container *ngFor="let a of avancements">
                     <td *ngIf="(a.mois_id==m.id)">{{a.p_physique}}
-
                     </td>
-
-
                 </ng-container>
             </ng-container>
         </tr>
@@ -76,20 +73,21 @@
                         </button>
                         </div>
                         <div class="modal-body">
-                            <form action="" #avancementForm=ngForm (ngSubmit)="addAvancement()">
+                            <form action="" #avancementmodifForm=ngForm (ngSubmit)="updateAvancement(a)">
                                 <label class="form-label" for="mois">Choisissez le mois</label>
                                 <select name="mois" id="mois" class="form-select" [(ngModel)]="a.mois_id" required disabled>
                                 <ng-container *ngFor="let m of mois">
-                                    <option value={{m.id}}>{{m.mois}}</option>
+                                            <option value={{m.id}} >{{m.mois}}</option>
                                 </ng-container>
                             </select><br>
+
                                 <label class="form-label" for="p_physique">Ajouter pourcentage physique</label>
                                 <input type="number" class="form-control" min="0" max="100" name="p_physique" [(ngModel)]="a.p_physique" required><br>
                                 <label class="form-label" for="p_financier">Ajouter pourcentage financier</label>
                                 <input type="number" class="form-control" min="0" max="100" name="p_financier" [(ngModel)]="a.p_financier" required><br>
 
                                 <div class="modal-footer">
-                                    <button class="btn btn-danger" [disabled]="!avancementForm.valid">Enregistrer</button>
+                                    <button class="btn btn-danger" [disabled]="!avancementmodifForm.valid">Enregistrer</button>
                                 </div>
                             </form>
                         </div>
@@ -114,13 +112,12 @@
                     </button>
                     </div>
                     <div class="modal-body">
-                        <form action="" #avancementForm=ngForm (ngSubmit)="addAvancement()">
-                            <label class="form-label" for="mois">Choisissez le mois</label>
-                            <select name="mois" id="mois" class="form-select" [(ngModel)]="avancement.mois_id" required>
-                            <ng-container *ngFor="let m of mois">
-                                <option value={{m.id}} >{{m.mois}}</option>
-                            </ng-container>
-                        </select><br>
+                        <form #avancementForm=ngForm (ngSubmit)="addAvancement()">
+
+                            <input type="text" [(ngModel)]="avancement.mois_id" id="avancementmoisid" value={{m.id}} hidden>
+                            <div class="alert alert-primary text-center" role="alert">
+                                {{m.mois}}
+                            </div>
                             <label class="form-label" for="p_physique">Ajouter pourcentage physique</label>
                             <input type="number" class="form-control" min="0" max="100" name="p_physique" [(ngModel)]="avancement.p_physique" required><br>
                             <label class="form-label" for="p_financier">Ajouter pourcentage financier</label>
@@ -141,10 +138,10 @@
 
 
 
-<button class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModalp">Ajouter Avancement</button>
-<!-- Modal Avancement ajout -->
+<!-- <button class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModalp">Ajouter Avancement</button>
+Modal Avancement ajout -->
 
-<div class="modal fade " id="exampleModalp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade " id="exampleModalp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content card">
             <div class="modal-header">
@@ -180,4 +177,4 @@
         </div>
     </div>
 </div>
-<!-- Modal Avancement ajout-->
+Modal Avancement ajout-->

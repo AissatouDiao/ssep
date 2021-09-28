@@ -92,7 +92,7 @@ class SousactiviteController extends Controller
         $sa= Sousactivite::find($objet->id);
         $sa->cout_estimatif= $budget_sa;$sa->save();
         return $budget_sa;
-       }
+    }
 
     public function getMois(){
         $mois=Moi::all();

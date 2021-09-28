@@ -40,6 +40,7 @@ import { ProcesverbauxemComponent } from './components/pistesbavardes/travaux/re
 import { ContratsemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/contratsem/contratsem.component';
 import { PistesemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/pistesem/pistesem.component';
 import { GestionpistesComponent } from './components/pistesbavardes/gestionpistes/gestionpistes.component';
+import { NewuserAddpasswordComponent } from './components/password/newuser-addpassword/newuser-addpassword.component';
 
 
 const routes: Routes = [
@@ -61,16 +62,21 @@ const routes: Routes = [
   },
   {
     path: '', redirectTo: 'tableau-de-bord', pathMatch: 'full'
-  }
-
-  ,
-
+  },
+  {
+    path: '', component: LoginComponent,
+    canActivate: [BeforeloginService]
+  },
   {
     path: 'profile', component: ProfileComponent,
     canActivate: [AfterloginService]
   },
   {
     path: 'request-password-reset', component: RequestResetComponent,
+    canActivate: [BeforeloginService]
+  },
+  {
+    path: 'user-add-password', component: NewuserAddpasswordComponent,
     canActivate: [BeforeloginService]
   },
   {

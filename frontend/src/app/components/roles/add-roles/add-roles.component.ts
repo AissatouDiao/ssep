@@ -1,5 +1,5 @@
-import { NullVisitor } from '@angular/compiler/src/render3/r3_ast';
-import { asNativeElements, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { SnotifyPosition, SnotifyService } from 'ng-snotify';
 import { JarwisService } from 'src/app/services/jarwis.service';
 
@@ -9,6 +9,8 @@ import { JarwisService } from 'src/app/services/jarwis.service';
   styleUrls: ['./add-roles.component.scss']
 })
 export class AddRolesComponent implements OnInit {
+  @ViewChild('addRoleForm') addRoleForm!: any;
+
 
   @Input() page: any = 1;
   @Input() pageSize: any = 5;
@@ -30,9 +32,6 @@ export class AddRolesComponent implements OnInit {
 
 
   }
-
-
-
 
   ngOnInit(): void {
 
@@ -60,7 +59,8 @@ export class AddRolesComponent implements OnInit {
         //window.location.reload();
         this.role = data
         this.table1 = false;
-
+        this.addRoleForm.reset();
+        this.notify.success("Un nouveau rôle a été ajouté.");
 
       },
       error => console.log(error)

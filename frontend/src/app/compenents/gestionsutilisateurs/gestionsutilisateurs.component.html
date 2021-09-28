@@ -68,6 +68,12 @@
                                             <span> <b>Email</b>  : {{user.email}}</span><br>
                                             <span> <b>Telephone</b>  : {{user.phonenumber}}</span><br>
                                             <span> <b>Adresse</b>: {{user.adress}}</span><br>
+                                            <span> <b>Role</b>: <ng-container *ngFor="let r of roles">
+                                                <ng-container *ngIf="r.id==user.role_id">
+                                                    {{r.libelle_role}}
+                                                </ng-container>
+                                            </ng-container>
+                                             </span><br>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
@@ -237,6 +243,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!--
                         <div class="row mb-3">
                             <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
                             <div class="col-sm-10">
@@ -254,7 +261,7 @@
                             <div class="alert alert-danger" [hidden]="!error.password">
                                 {{error.password}}
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="row mb-3">
                             <label for="inputConfirmedPassword3" class="col-sm-2 col-form-label">Role de l'utilisateur</label>

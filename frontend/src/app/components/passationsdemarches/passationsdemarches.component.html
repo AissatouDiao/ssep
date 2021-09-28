@@ -39,10 +39,10 @@
             <td>
                 <form action="" #test="ngForm">
                     <select name="statut" id="statut" class="bg-primary form-select" [(ngModel)]="p.statut" (click)="getstatut(p)" (change)="changeStatut($event,p)">
-                    <option value="émis" [disabled]="p.statut=='entreprise sélectionnée' || p.statut=='en traitement'">émis</option>
-                    <option value="en traitement" [disabled]="p.statut=='entreprise sélectionnée'"> en traitement</option>
-                    <option value="entreprise sélectionnée"><button id="pes{{p.id}}" data-toggle="modal" attr.data-target="#pp{{p.id}}">entreprise sélectionnée</button></option>
-                </select>
+                        <option value="émis" [disabled]="p.statut=='entreprise sélectionnée' || p.statut=='en traitement'">émis</option>
+                        <option value="en traitement" [disabled]="p.statut=='entreprise sélectionnée'"> en traitement</option>
+                        <option value="entreprise sélectionnée"><button id="pes{{p.id}}" data-toggle="modal" attr.data-target="#pp{{p.id}}">entreprise sélectionnée</button></option>
+                    </select>
                 </form>
                 <!-- Modal ajout proposition -->
                 <div class="w-100">
@@ -114,7 +114,7 @@
                 <!-- Modal modifier -->
                 <div class="w-100">
                     <div class="card">
-                        <div class="modal " id="m{{p.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal" id="m{{p.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog   modal-dialog-scrollable" role="document">
                                 <div class="modal-content ">
 
@@ -151,12 +151,8 @@
 
                                                 <div class="row mb-3">
                                                     <label for="inputEmail3">Statut</label><br>
-                                                    <div class="col-sm-10">
-                                                        <select name="statut" id="statut" class="form-select" [(ngModel)]="p.statut" required>
-                                                                <option value="émis">émis</option>
-                                                                <option value="en traitement"> en traitement</option>
-                                                                <option value="entreprise sélectionnée" >entreprise sélectionnée</option>
-                                                        </select>
+                                                    <div class="alert alert-primary col-6" role="alert">
+                                                        {{p.statut}}
                                                     </div>
                                                 </div>
                                                 <button type="submit" class="btn btn-primary text-center" [disabled]="!documentForm.valid">Enregistrer</button>
@@ -176,20 +172,21 @@
                     </div>
                 </div>
                 <!-- Fin Modal modifier-->
-                <button type="button" rel="tooltip" title="Supprimer recommandation" (click)="delete(p.id)" class="btn btn-danger btn-link btn-sm">
+                <button type="button" rel="tooltip" title="Supprimer passation" (click)="delete(p.id)" class="btn btn-danger btn-link btn-sm">
                   <i class="material-icons">close</i>
                </button>
             </td>
         </tr>
     </tbody>
 </table>
+<ngb-pagination [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="passations.length" class="active"></ngb-pagination>
 
 <button class="btn btn-primary float-right" id="openlmodalbouton" data-toggle="modal" data-target="#exampleModalCenter">Nouvelle Passation de marché</button>
 
 <!-- Modal ajout -->
 <div class="w-100">
     <div class="card">
-        <div class="modal " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog   modal-dialog-scrollable" role="document">
                 <div class="modal-content ">
 
@@ -203,7 +200,8 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <form #documentForm=ngForm name="documentForm" (ngSubmit)="ajouter()" enctype="multipart/form-data">
+                            f
+                            <form #documentFormajoutpassation=ngForm name="documentFormajoutpassation" (ngSubmit)="ajouter()" enctype="multipart/form-data">
                                 <div class="alert alert-danger" [hidden]="!error">
                                     {{error}}
                                 </div>
@@ -237,7 +235,7 @@
                                         <input type="text" class="form-control" name="user_id" id="user_id" [(ngModel)]="user.id" hidden required>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary text-center" [disabled]="!documentForm.valid">Enregistrer</button>
+                                <button type="submit" class="btn btn-primary text-center" [disabled]="!documentFormajoutpassation.valid">Enregistrer</button>
                             </form>
 
 

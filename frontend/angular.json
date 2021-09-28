@@ -39,8 +39,8 @@
                         ],
                         "scripts": [
                             "src/assets/js/core/jquery.min.js",
-                            "src/assets/js/core/popper.min.js"
-
+                            "src/assets/js/core/popper.min.js",
+                            "node_modules/jquery/dist/jquery.min.js"
                         ]
                     },
                     "configurations": {

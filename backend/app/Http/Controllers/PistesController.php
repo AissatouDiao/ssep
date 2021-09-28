@@ -21,7 +21,7 @@ class PistesController extends Controller
     }
 
     public function getPisteByCommuneId( $request){
-        $piste= Piste::find($request);
+        $piste= Piste::where('commune_id',$request)->first();
         return $piste;
       
     }

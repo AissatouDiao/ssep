@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SnotifyPosition, SnotifyService } from 'ng-snotify';
 import { JarwisService } from 'src/app/services/jarwis.service';
 import { TokenService } from 'src/app/services/token.service';
 
@@ -18,7 +19,9 @@ export class GestionsutilisateursComponent implements OnInit {
   constructor(private http: HttpClient,
     private jarwisService: JarwisService,//gere le http
     private tokenService: TokenService,
-    private router: Router
+    private router: Router,
+    private notify: SnotifyService
+
   ) { }
 
   getUsers() {
@@ -54,7 +57,7 @@ export class GestionsutilisateursComponent implements OnInit {
     id: 0
   }
 
-
+  //deleteUser
 
 
   onSubmit() {
@@ -76,14 +79,39 @@ export class GestionsutilisateursComponent implements OnInit {
     this.error = error.error.errors;
   }
 
+
+
   delete(id: any) {
 
     this.formdelete['id'] = id;
-    console.log(this.formdelete);
-    this.jarwisService.deleteUser(id).subscribe(
-      data => { console.log(data); this.getUsers(); },
-      error => console.log(id)
-    );
+    //notification et changement de statut.
+    this.notify.confirm('Voulez vous vraiment supprimer cet utilisateur ?', 'Attention !Suppression d\'utilisateur ?', {
+      timeout: 0,
+      position: SnotifyPosition.rightTop,
+      showProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+
+      buttons: [
+        {
+          text: 'Oui',
+          action: () => {
+            this.jarwisService.deleteUser(id).subscribe(
+              (data: any) => { this.getUsers(); this.notify.success('Utilisateur supprimé !'); },
+              error => console.log(error)
+            );
+
+
+
+          }, bold: false
+        },
+        {
+          text: 'Non',
+          action: () =>
+            this.notify.info('Suppression annulée !')
+        },
+      ]
+    });
   }
 
   onSubmit1(user: any) {

@@ -43,9 +43,17 @@ export class PistesemComponent implements OnInit {
   }
   addAvancement() {
     this.avancement.piste_id = this.piste.id
+    this.avancement.mois_id = (<any>document.getElementById('avancementmoisid')).value;
     console.log(this.avancement);
+
     this.jarwisService.addAvancementTravaux(this.avancement).subscribe(
       (data: any) => { console.log(data); this.getAvancementByPisteId(); this.avancementForm.reset(); },
+      (error: any) => { console.log(error); },
+    );
+  }
+  updateAvancement(a: any) {
+    this.jarwisService.updateAvancementTravaux(a).subscribe(
+      (data: any) => { console.log(data); this.getAvancementByPisteId(); window.location.reload() },
       (error: any) => { console.log(error); },
     );
   }

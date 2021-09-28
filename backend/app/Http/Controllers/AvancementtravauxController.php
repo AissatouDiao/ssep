@@ -35,12 +35,13 @@ class AvancementtravauxController extends Controller
 
     public function updateAvancementTravaux(Request $request){
         $avancementtravaux=Pistetravauxavancement::find($request->id);
-        $avancementtravaux->nom=$request->nom;
-        $avancementtravaux->commune_id=$request->commune_id;
-        $avancementtravaux->kilometrage=$request->kilometrage;
+        $avancementtravaux->piste_id=$request->piste_id;
+        $avancementtravaux->mois_id=$request->mois_id;
+        $avancementtravaux->p_physique=$request->p_physique;
+        $avancementtravaux->p_financier=$request->p_financier;
         $avancementtravaux->save();
        return response()->json([
-           "message"=>"Piste mis à jour avec succès !",
+           "message"=>"Avancement Travaux mis à jour avec succès !",
             "Piste"=>$avancementtravaux
        ]);
 

@@ -68,7 +68,7 @@ export class GestionpistesComponent implements OnInit {
     );
   }
 
-  gotoregion(id: any) {
+  gotopiste(id: any) {
     this.router.navigate(['/gestion-pistes-bavardes/travaux/region', id]);
   }
   //Ajouter une regione
@@ -99,7 +99,7 @@ export class GestionpistesComponent implements OnInit {
           action: () => {
 
             this.jarwisService.deletePiste(id).subscribe(
-              (data: any) => { console.log(data); this.getPistes(); this.notify.success("La region a été supprimé !"); },
+              (data: any) => { console.log(data); this.getPistes(); this.notify.success("La piste a été supprimé !"); },
               (error: any) => console.log(error)
             );
 

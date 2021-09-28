@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Models\User;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
+use App\Mail\AddPasswordMail;
+use Illuminate\Http\Response;
 Use App\Mail\ResetPasswordMail;
 Use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class ResetPasswordController extends Controller
 {
@@ -26,6 +27,21 @@ class ResetPasswordController extends Controller
         $this->send($request->email); 
         return $this->succesResponse();
     }
+
+    public function sendEmailAfterSignUpForPassword(){
+
+        
+        //si l'email existe dans la BD, une réponse est envoyée
+        if($this->validateEmail($request->email)==false){
+            return $this->failedResponse($request->email);
+  
+          }
+  
+          $this->sendAddPassswordMail($request->email); 
+          return $this->succesResponse();
+
+    }
+
 
 
 
@@ -65,6 +81,12 @@ class ResetPasswordController extends Controller
         
         $token = $this->createToken($email);
         Mail::to($email)->send(new ResetPasswordMail($token));
+    }
+
+    public function sendAddPassswordMail($email){
+        
+        $token = $this->createToken($email);
+        Mail::to($email)->send(new AddPasswordMail($token));
     }
 
 /**

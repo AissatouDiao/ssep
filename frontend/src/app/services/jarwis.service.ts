@@ -42,6 +42,10 @@ export class JarwisService {
     return this.http.post(`${this.baseUrl}/resetPassword`, data)
   }
 
+  addPassword(data: any) {
+    return this.http.post(`${this.baseUrl}/addPassword`, data)
+  }
+
 
   //Ajouter un nouveau role à l'utilisateur
   addRole(data: any) {
@@ -231,9 +235,12 @@ export class JarwisService {
     return this.http.delete(`${this.baseUrl}/deleteComposante/` + data);
   }
 
-  //-------Activite--------//
+  //-------Activite--------// 
   getActivites() {
     return this.http.get(`${this.baseUrl}/getactivites`);
+  }
+  getactivitespartenaires() {
+    return this.http.get(`${this.baseUrl}/getactivitespartenaires`);
   }
   getactivitespartenaireassocies() {
     return this.http.get(`${this.baseUrl}/getactivitespartenaireassocies`);
@@ -782,7 +789,7 @@ export class JarwisService {
   }
   //update prealable zone
   updateAvancementTravaux(data: object) {
-    return this.http.post(`${this.baseUrl}/updatepiste`, data)
+    return this.http.post(`${this.baseUrl}/updateAvancementTravaux`, data)
   }
 
   //supprimer prealable zone 

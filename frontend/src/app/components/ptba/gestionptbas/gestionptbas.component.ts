@@ -55,6 +55,7 @@ export class GestionptbasComponent implements OnInit {
     this.getMois();
     this.getpartenairesptbas();
     this.getComposantesPartenaires();
+    // this.getactivitespartenaires();
   }
 
   exportpdf(i: any) {
@@ -139,6 +140,13 @@ export class GestionptbasComponent implements OnInit {
 
   getActivites() {
     this.jarwisService.getActivites().subscribe(
+      (data: any) => { console.log(data); this.activites = data; },
+      (error: any) => { console.log(error); }
+    );
+  }
+
+  getactivitespartenaires() {
+    this.jarwisService.getactivitespartenaires().subscribe(
       (data: any) => { console.log(data); this.activites = data; },
       (error: any) => { console.log(error); }
     );

@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Mail\AddPasswordMail;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\SignUpRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\AuthController;
 
 
 class AuthController extends Controller
@@ -44,9 +51,35 @@ class AuthController extends Controller
     public function signup(SignUpRequest $request){
    
         $user = User::create($request->all());
+         $user2 = User::where("email",$request->email)->first();
+         $this->sendAddPassswordMail($request->email, $user2);
         return $this->login($request);
      
         
+    }
+
+    public function sendAddPassswordMail($email,$user){
+        
+        $token = $this->createToken($email);
+        Mail::to($email)->send(new AddPasswordMail($token,$user));
+    }
+    public function createToken($email){
+
+        $old_token= DB::table('add_passwords_tokens')->where('email',$email)->first();
+        if ($old_token){
+            return $old_token;
+        }
+        $token= Str::random(60);
+        $this ->saveToken($token,$email);
+        return $token;
+    }
+
+    public function saveToken($token, $email){
+        DB::table('add_passwords_tokens')->insert([
+            'email'=> $email,
+            'token'=>$token,
+            'created_at'=> Carbon::now()
+        ]);
     }
 
     /**
