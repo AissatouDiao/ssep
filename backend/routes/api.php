@@ -262,10 +262,12 @@ Route::group([
     Route::get('getpistes', [PistesController::class,'getPistes']);
     Route::delete('deletepiste/{id}',[PistesController::class,'deletePiste']);
     Route::get('getPisteByCommuneId/{id}',[PistesController::class,'getPisteByCommuneId']);
+    Route::get('getPisteById/{id}',[PistesController::class,'getPisteById']);
     Route::post('updatepiste',[PistesController::class,'updatePiste']); 
-    //Gestion des avancements de travaux pistes bavardes
+    //Gestion des avancements de travaux pistes bavardes 
     Route::post('ajouterAvancementTravaux',[AvancementtravauxController ::class,'ajouterAvancementTravaux']);
     Route::get('getAvancementTravaux', [AvancementtravauxController ::class,'getAvancementTravaux']);
+    Route::get('getpourcentages/{id}', [AvancementtravauxController ::class,'getpourcentages']);
     Route::delete('deleteAvancementTravaux/{id}',[AvancementtravauxController ::class,'deleteAvancementTravaux']);
     Route::get('getAvancementTavauxPisteId/{id}',[AvancementtravauxController ::class,'getAvancementTavauxPisteId']);
     Route::post('updateAvancementTravaux',[AvancementtravauxController ::class,'updateAvancementTravaux']); 

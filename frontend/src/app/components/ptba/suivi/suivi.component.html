@@ -74,7 +74,7 @@
                                                                         <div class="row mb-3">
                                                                             <label for="inputName3" class="col-sm-2 col-form-label">Etat</label>
                                                                             <div class="col-sm-10">
-                                                                                <select name="etat" id="etat" [(ngModel)]="s.etat" class="form-control" required> Veuillez choisir
+                                                                                <select name="etat" id="etat" [(ngModel)]="s.etat" class="form-control" required disabled> Veuillez choisir
                                                                                         <option value="non complet">non complet</option>
                                                                                         <option value="complet" >complet</option>
                                                                                 </select>
@@ -83,7 +83,7 @@
                                                                         <div class="row mb-3">
                                                                             <label for="inputName3" class="col-sm-2 col-form-label">Coût estimatif</label>
                                                                             <div class="col-sm-10">
-                                                                                <input type="number" name="cout_estimatif" [(ngModel)]="s.cout_estimatif" id="cout_estimatif" required>
+                                                                                <input type="number" name="cout_estimatif" [(ngModel)]="s.cout_estimatif" id="cout_estimatif" required disabled>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row mb-3">
@@ -95,14 +95,17 @@
                                                                         <div class="row mb-3">
                                                                             <label for="inputEmail3" class="col-sm-2 col-form-label">Début planifié</label>
                                                                             <div class="col-sm-10">
-                                                                                <input type="date" name="debut_planifie" id="debut_planifie" value="{{s.debut_planifie}}" [(ngModel)]="s.debut_planifie" required>
+                                                                                <input type="date" name="debut_planifie" id="debut_planifie" value="{{s.debut_planifie}}" [(ngModel)]="s.debut_planifie" required disabled>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row mb-3">
                                                                             <label for="inputEmail3" class="col-sm-2 col-form-label">Fin planifié</label>
                                                                             <div class="col-sm-10">
-                                                                                <input type="date" name="fin_planifie" id="fin_planifie" value="{{s.fin_planifie}}" [(ngModel)]="s.fin_planifie" required>
+                                                                                <input type="date" name="fin_planifie" id="fin_planifie" value="{{s.fin_planifie}}" [(ngModel)]="s.fin_planifie" required disabled>
                                                                             </div>
+                                                                        </div>
+                                                                        <div class="alert alert-danger" [hidden]="!error_date">
+                                                                            {{error_date}}
                                                                         </div>
                                                                         <div class="row mb-3">
                                                                             <label for="inputEmail3" class="col-sm-2 col-form-label">Début réel</label>
@@ -116,6 +119,7 @@
                                                                                 <input type="date" name="fin_reel" id="fin_reel" [(ngModel)]="s.fin_reel" required>
                                                                             </div>
                                                                         </div>
+
 
                                                                         <div class="modal-footer">
                                                                             <button type="submit" class="btn btn-primary" [disabled]="!suiviForm.valid">Enregistrer</button>

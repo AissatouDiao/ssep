@@ -49,6 +49,7 @@ import { ContratsemComponent } from './components/pistesbavardes/travaux/regions
 import { ProcesverbauxemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/procesverbauxem/procesverbauxem.component';
 import { GestionpistesComponent } from './components/pistesbavardes/gestionpistes/gestionpistes.component';
 import { NewuserAddpasswordComponent } from './components/password/newuser-addpassword/newuser-addpassword.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 
 
@@ -94,7 +95,8 @@ import { NewuserAddpasswordComponent } from './components/password/newuser-addpa
     GarantiesemComponent,
     ContratsemComponent,
     GestionpistesComponent,
-    NewuserAddpasswordComponent
+    NewuserAddpasswordComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,

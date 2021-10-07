@@ -41,6 +41,7 @@ import { ContratsemComponent } from './components/pistesbavardes/travaux/regions
 import { PistesemComponent } from './components/pistesbavardes/travaux/regions/communes/executionmarche/pistesem/pistesem.component';
 import { GestionpistesComponent } from './components/pistesbavardes/gestionpistes/gestionpistes.component';
 import { NewuserAddpasswordComponent } from './components/password/newuser-addpassword/newuser-addpassword.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 
 const routes: Routes = [
@@ -207,7 +208,11 @@ const routes: Routes = [
   {
     path: 'gestion-pistes-bavardes/controle/zone/:id', component: ZoneComponent,
     canActivate: [AfterloginService]
-  }
+  },
+  {
+    path: 'notifications', component: NotificationsComponent,
+    canActivate: [AfterloginService]
+  },
 ];
 
 @NgModule({

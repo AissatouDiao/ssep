@@ -7,6 +7,14 @@
 
     </ol>
 </nav><br>
+<div class="card text-white bg-primary" style="max-width: 18rem;">
+    <div class="card-header">
+    </div>
+    <div class="card-body">
+        <h5 class="card-title text-capitalize">nombre de documents enregistrés :</h5>
+        <h2 class="text-center">{{documents.length}}</h2>
+    </div>
+</div>
 <div class="navbar-form" class="col-6 float-right">
     <div class="input-group no-border">
         <input type="text" name="search" [(ngModel)]="searchText" autocomplete="off" class="form-control" placeholder="Rechercher...">
@@ -16,6 +24,9 @@
         </button>
     </div>
 </div><br><br>
+
+
+
 <div class="card">
     <table class="table bg-white">
         <thead class="table-dark">

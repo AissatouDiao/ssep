@@ -25,6 +25,12 @@ class PistesController extends Controller
         return $piste;
       
     }
+
+    public function getPisteById( $request){
+        $piste= Piste::where('id',$request)->first();
+        return $piste;
+      
+    }
     public function ajouterPiste(Request $request){
         Piste::create($request->all());
      

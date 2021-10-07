@@ -8,7 +8,7 @@ import { JarwisService } from 'src/app/services/jarwis.service';
   styleUrls: ['./executionmarche.component.scss']
 })
 export class ExecutionmarcheComponent implements OnInit {
-  idcommune: any; ispiste: any;
+  idcommune: any; idpiste: any;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -30,7 +30,7 @@ export class ExecutionmarcheComponent implements OnInit {
 
 
   gotopiste() {
-    this.router.navigate(['/gestion-pistes-bavardes/travaux/regions/commune/execution-de-marche/piste', this.idcommune]);
+    this.router.navigate(['/gestion-pistes-bavardes/travaux/regions/commune/execution-de-marche/piste', this.idpiste.id]);
   }
 
   gotodecomptes() {
@@ -49,7 +49,7 @@ export class ExecutionmarcheComponent implements OnInit {
 
     this.jarwisService.getPisteByCommuneId(this.idcommune).subscribe(
       (data: any) => {
-        console.log(data); if (data == null || data == []) { this.ispiste = false } else { this.ispiste = true }
+        console.log(data); if (data == null || data == []) { this.idpiste = false } else { this.idpiste = data }
       },
       (error: any) => { console.log(error) }
     );

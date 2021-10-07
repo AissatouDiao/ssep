@@ -12,7 +12,7 @@ export class SuiviComponent implements OnInit {
   @Input() pageSize: any = 5;
   searchText: any; searchFilter: any = '';
   //variables 
-  ptbas: any; composantes: any; activites: any; sousactivites: any; error: any;
+  ptbas: any; composantes: any; activites: any; sousactivites: any; error: any; error_date: any;
   moissousactivites: any; nombre = { id: 39 }; nombrea = { id: 130 }; nombrec = { id: 177 }; nombrep = { id: 135 }
 
   sous_activite = {
@@ -79,12 +79,18 @@ export class SuiviComponent implements OnInit {
   }
 
   update_sa(s: any) {
-    this.jarwisService.updateSousactivite(s).subscribe(
-      (data: any) => { console.log(data); this.notify.success(data.message) },
-      (error: any) => { console.log(error); this.notify.error('Une erreur est survenue.') }
-    )
-    console.log(s)
-      ;
+    if (s.debut_reel > s.fin_reel) {
+      this.error_date = "La date de début réelle ne peut être aprés la date de fin réelle."
+    } else {
+      this.error_date = null;
+      s.etat = "complet";
+      this.jarwisService.updateSousactivite(s).subscribe(
+        (data: any) => { console.log(data); this.notify.success(data.message) },
+        (error: any) => { console.log(error); this.notify.error('Une erreur est survenue.') }
+      )
+      console.log(s)
+        ;
+    }
   }
 
   getPtbas() {

@@ -26,11 +26,34 @@ class AvancementtravauxController extends Controller
       
     }
     public function ajouterAvancementTravaux(Request $request){
-        Pistetravauxavancement::create($request->all());
+        $avancementspistes= $this->getAvancementTavauxPisteId($request->id);
+        $pourcentagetotal_p= Pistetravauxavancement::where('piste_id',$request->piste_id)->sum('p_physique');
+        $pourcentagetotal_f= Pistetravauxavancement::where('piste_id',$request->piste_id)->sum('p_financier');
+        $reste_p= 100 - $pourcentagetotal_p;
+        $reste_f= 100 - $pourcentagetotal_f;
+        if((($pourcentagetotal_p<100) and ($pourcentagetotal_f<100)) and (($reste_p >= $request->p_physique)and($reste_f>=$request->p_financier))){
+            Pistetravauxavancement::create($request->all());
+            
+            return response()->json([
+                "message"=>"Un nouvel avancement a été ajouté !",
+            ]);
+        }else{
      
+            return response()->json([
+                "message"=>"Pourcentages impossible à ajouter, veuillez revoir vos chiffres.",
+            ]);
+        }
+     
+    }
+
+    public function getpourcentages($request){
+        $pourcentagetotal_p= Pistetravauxavancement::where('piste_id',$request)->sum('p_physique');
+        $pourcentagetotal_f= Pistetravauxavancement::where('piste_id',$request)->sum('p_financier');
         return response()->json([
-            "message"=>"Un nouvel avancement a été ajouté !",
+            "pourcentagePhysique"=>$pourcentagetotal_p,
+            "pourcentageFinancier"=>$pourcentagetotal_f
         ]);
+
     }
 
     public function updateAvancementTravaux(Request $request){

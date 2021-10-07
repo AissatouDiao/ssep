@@ -779,6 +779,10 @@ export class JarwisService {
     return this.http.get(`${this.baseUrl}/getPisteByCommuneId/` + data);
   }
 
+  getPisteById(data: any) {
+    return this.http.get(`${this.baseUrl}/getPisteById/` + data);
+  }
+
   //-------------------------- Gestion des avancements travaux pistes ---------------------------//
   getAvancementTravauxs() {
     return this.http.get(`${this.baseUrl}/getAvancementTravaux`);
@@ -799,6 +803,10 @@ export class JarwisService {
 
   getAvancementTravauxByPisteId(data: any) {
     return this.http.get(`${this.baseUrl}/getAvancementTavauxPisteId/` + data);
+  }
+
+  getpourcentages(data: any) {
+    return this.http.get(`${this.baseUrl}/getpourcentages/` + data);
   }
 
 

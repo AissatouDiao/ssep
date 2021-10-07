@@ -1,4 +1,21 @@
 <div class="row">
+    <nav aria-label=" col-12">
+        <ol class="breadcrumb">
+            <i class="material-icons pr-1 ">map</i>
+            <li class="breadcrumb-item">
+                <p class=""> Gestion des pistes bavardes</p>
+            </li>
+            <li class="breadcrumb-item">Travaux</li>
+            <li class="breadcrumb-item">Regions</li>
+            <li class="breadcrumb-item">Communes</li>
+            <li class="breadcrumb-item">Execution de marché</li>
+            <li class="breadcrumb-item text-primary active" aria-current="page">{{piste.nom}}</li>
+        </ol>
+    </nav><br>
+</div>
+
+
+<div class="row">
     <div class="col-sm-6">
         <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
             <div class="card-header">
@@ -6,7 +23,7 @@
             </div>
             <div class="card-body">
                 <h5 class="card-title">Pourcentage Avancement Physique</h5>
-                <h1>0%</h1>
+                <h1>{{pourcentage_physique}}%</h1>
             </div>
         </div>
     </div>
@@ -17,7 +34,7 @@
             </div>
             <div class="card-body">
                 <h5 class="card-title">Pourcentage avancement financier</h5>
-                <h1>0%</h1>
+                <h1>{{pourcentage_financier}}%</h1>
             </div>
         </div>
     </div>
@@ -75,16 +92,16 @@
                         <div class="modal-body">
                             <form action="" #avancementmodifForm=ngForm (ngSubmit)="updateAvancement(a)">
                                 <label class="form-label" for="mois">Choisissez le mois</label>
-                                <select name="mois" id="mois" class="form-select" [(ngModel)]="a.mois_id" required disabled>
+                                <select name="mois1" id="mois" class="form-select" [(ngModel)]="a.mois_id" required disabled>
                                 <ng-container *ngFor="let m of mois">
                                             <option value={{m.id}} >{{m.mois}}</option>
                                 </ng-container>
                             </select><br>
 
                                 <label class="form-label" for="p_physique">Ajouter pourcentage physique</label>
-                                <input type="number" class="form-control" min="0" max="100" name="p_physique" [(ngModel)]="a.p_physique" required><br>
+                                <input type="number" class="form-control" min="0" max="100" name="p_physique1" [(ngModel)]="a.p_physique" required><br>
                                 <label class="form-label" for="p_financier">Ajouter pourcentage financier</label>
-                                <input type="number" class="form-control" min="0" max="100" name="p_financier" [(ngModel)]="a.p_financier" required><br>
+                                <input type="number" class="form-control" min="0" max="100" name="p_financier1" [(ngModel)]="a.p_financier" required><br>
 
                                 <div class="modal-footer">
                                     <button class="btn btn-danger" [disabled]="!avancementmodifForm.valid">Enregistrer</button>
@@ -114,7 +131,7 @@
                     <div class="modal-body">
                         <form #avancementForm=ngForm (ngSubmit)="addAvancement()">
 
-                            <input type="text" [(ngModel)]="avancement.mois_id" id="avancementmoisid" value={{m.id}} hidden>
+                            <input type="number" id="avancementmoisid" name="mois_id" value={{m.id}} hidden>
                             <div class="alert alert-primary text-center" role="alert">
                                 {{m.mois}}
                             </div>

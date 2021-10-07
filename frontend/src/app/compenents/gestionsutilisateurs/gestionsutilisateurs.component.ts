@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SnotifyPosition, SnotifyService } from 'ng-snotify';
 import { JarwisService } from 'src/app/services/jarwis.service';
@@ -13,6 +13,8 @@ import { TokenService } from 'src/app/services/token.service';
 export class GestionsutilisateursComponent implements OnInit {
   @Input() page: any = 1;
   @Input() pageSize: any = 10;
+
+  @ViewChild('signupForm') signupForm!: any;
 
   users: any; roles: any; form1: any; searchText: any; searchFilter: any = '';
   public error: any = [];
@@ -63,7 +65,7 @@ export class GestionsutilisateursComponent implements OnInit {
   onSubmit() {
     //accès à l'api à travers le service jarwis crée
     this.jarwisService.signup(this.form).subscribe(
-      data => this.handleResponse(data),
+      data => { this.handleResponse(data); this.signupForm.reset(); this.notify.success("Nouveau utilisateur ajouté ! Demandez lui de consulter ses mails pour ajouter son mot de passe.") },
       error => this.handleError(error)
     );
   }
@@ -122,7 +124,7 @@ export class GestionsutilisateursComponent implements OnInit {
     }
     //accès à l'api à travers le service jarwis crée
     this.jarwisService.updateRoleUser(user).subscribe(
-      data => console.log(data),
+      data => { console.log(data); this.notify.success('Mis à jour rôle effectif !'); },
       error => console.log(error)
     );
 
