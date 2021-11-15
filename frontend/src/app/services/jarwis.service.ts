@@ -62,6 +62,11 @@ export class JarwisService {
     return this.http.delete(`${this.baseUrl}/deleteRole/` + data);
   }
 
+  //modifier role
+  updaterole(data: any) {
+    return this.http.post(`${this.baseUrl}/updateRole/`, data);
+  }
+
 
   //recuperer toutes les noms de modules dans la base
   getModules() {
@@ -190,7 +195,7 @@ export class JarwisService {
   }
   //-------PTBA--------//
 
-  //Ajouter une nouvelle recommandation
+  //Ajouter une nouveau ptba
   changeStatutPtba(data: object) {
     return this.http.post(`${this.baseUrl}/changestatutreptba`, data)
   }
@@ -201,11 +206,15 @@ export class JarwisService {
     return this.http.get(`${this.baseUrl}/getpartenairesptbas`);
   }
 
-  //Ajouter un nouveau ptba
+  //Ajouter un nouveau ptba 
   addPtba(data: object) {
     return this.http.post(`${this.baseUrl}/addptba`, data);
   }
-  //update ptba
+
+  getpourcentagesptba(data: object) {
+    return this.http.post(`${this.baseUrl}/getpourcentages`, data);
+  }
+  //update ptba 
   updatePtba(data: object) {
     return this.http.post(`${this.baseUrl}/updateptba`, data)
   }

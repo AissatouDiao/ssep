@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SnotifyPosition, SnotifyService } from 'ng-snotify';
 import { JarwisService } from 'src/app/services/jarwis.service';
 
+
+
 @Component({
   selector: 'app-gestionpistes',
   templateUrl: './gestionpistes.component.html',
@@ -45,6 +47,9 @@ export class GestionpistesComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+
+
   //Recupérer toutes les regions.
   getPistes() {
     this.jarwisService.getPistes().subscribe(
@@ -86,7 +91,7 @@ export class GestionpistesComponent implements OnInit {
   delete(id: any) {
 
     //notification et changement de statut.
-    this.notify.confirm('Voulez vous vraiment supprimer cette region ?', 'Attention !Suppression de region ?', {
+    this.notify.confirm('Voulez vous vraiment supprimer cette piste ?', 'Attention !Suppression de piste ?', {
       timeout: 0,
       position: SnotifyPosition.rightTop,
       showProgressBar: true,

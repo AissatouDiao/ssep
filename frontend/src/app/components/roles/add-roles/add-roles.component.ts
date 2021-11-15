@@ -145,7 +145,12 @@ export class AddRolesComponent implements OnInit {
 
 
 
-
+  updaterole(r: any) {
+    this.jarwisService.updaterole(r).subscribe(
+      (data: any) => { console.log(data); this.notify.success(data.message); },
+      error => { console.log(error); this.notify.error('Veuillez revoir les données renseignées.') }
+    );
+  }
 
 
 

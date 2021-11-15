@@ -92,6 +92,7 @@ class ActiviteController extends Controller
         foreach($activites as $a){
             $this->getactivitebudgettotal($a);
             $this->getpartenairesactivites($a);
+            $this->pourcentages($a);
         }
         return $activites;
     }
@@ -120,7 +121,7 @@ class ActiviteController extends Controller
                     Activitepartenairefinancier::create($activitepartenaire);
                   //  $this->getactivitebudgettotal($objet);
                 // return response()->json(["message"=>"nouveau activite enregistré!"]);
-                }else if($budgettotalactivites!=$budgettotalpartenaires){
+                }else if($budgettotalactivites>$budgettotalpartenaires){
                         $partenaireactivite=Activitepartenairefinancier::where(['activite_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->first();
                         $partenaireactivite->budget=$partenaireactivite->budget + $v->budget;
                         $partenaireactivite->save();
@@ -140,5 +141,30 @@ class ActiviteController extends Controller
                 */
             }
        }// return response()->json(["message"=>$sous_activite_by_id]);
+    }
+
+    public function pourcentages($objet){
+        $nombre_pour_pourcentage= DB::table('sousactivites')->where('activite_id',$objet->id)->count();
+        $nombre_sa_complet= DB::table('sousactivites')->where(['activite_id'=>$objet->id,'etat'=>'complet'])->count();
+      
+       if($nombre_pour_pourcentage){
+        $pourcentage= ($nombre_sa_complet*100)/$nombre_pour_pourcentage;
+        
+       
+
+        $activite=Activite::where('id',$objet->id)->get()->first();
+        $activite->pourcentage=$pourcentage;
+        $activite->save();
+        if ($pourcentage==100){
+            $activite->etat='achevée';
+            $activite->save();
+        }
+        if($pourcentage > 0){
+            $activite->etat='démarrée';
+            $activite->save();
+        }
+       }
+       
+
     }
 }

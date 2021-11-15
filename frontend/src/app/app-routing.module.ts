@@ -42,6 +42,7 @@ import { PistesemComponent } from './components/pistesbavardes/travaux/regions/c
 import { GestionpistesComponent } from './components/pistesbavardes/gestionpistes/gestionpistes.component';
 import { NewuserAddpasswordComponent } from './components/password/newuser-addpassword/newuser-addpassword.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { RapportsComponent } from './components/ptba/rapports/rapports.component';
 
 
 const routes: Routes = [
@@ -128,6 +129,10 @@ const routes: Routes = [
   },
   {
     path: 'gestion-ptba/suivi-ptba', component: SuiviComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-ptba/rapports', component: RapportsComponent,
     canActivate: [AfterloginService]
   },
   {

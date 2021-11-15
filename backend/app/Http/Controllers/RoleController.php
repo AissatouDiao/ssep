@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Models\Module;
 use App\Models\Permission;
 use App\Http\Requests\AddRoleRequest;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use App\Http\Requests\AddPermissionsRequest;
 
 class RoleController extends Controller
@@ -46,6 +46,7 @@ class RoleController extends Controller
        return $roles;
     }
 
+
     public function getmodules(Request $request){
 
         $roles= Module::all();
@@ -71,6 +72,14 @@ class RoleController extends Controller
         $role= Role::find($request);
         $role->delete();
         return response()->json(["message" => "suppression rôle effective!"]); 
+        
+    }
+
+    public function updaterole(Request $request){
+        $role=Role::find($request->id);
+        $role->libelle_role=$request->libelle_role;
+        $role->save();
+        return response()->json(["message" => "modification rôle effective!"]); 
         
     }
 }

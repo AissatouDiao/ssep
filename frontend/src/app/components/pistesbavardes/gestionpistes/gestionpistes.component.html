@@ -9,17 +9,18 @@
             <li class="breadcrumb-item text-danger active" aria-current="page">Pistes</li>
         </ol>
     </nav><br>
-    <div class="row">
-        <div class="navbar-form" class="col-6 float-right">
+    <ng-container>
+        <div class="navbar-form" class="col-6">
             <div class="input-group no-border">
                 <input type="text" name="search" [(ngModel)]="searchText" autocomplete="off" class="form-control" placeholder="Rechercher...">
                 <button type="submit" class="btn btn-white btn-round btn-just-icon">
                     <i class="material-icons">search</i>
                     <div class="ripple-container"></div>
-                </button>
+               </button>
             </div>
         </div><br><br>
-    </div>
+    </ng-container>
+
 </div>
 
 
@@ -31,7 +32,7 @@
                     {{p.nom}}
                 </h5>
                 <p class="card-text">
-                    <i class="material-icons float-right" (click)="delete(p.id)" style="cursor:pointer">close</i>
+                    <i class="material-icons float-right" (click)="delete(p.id)" title="Supprimer piste" style="cursor:pointer">close</i>
                     <button type="button" rel="tooltip" title="Modifier piste" data-toggle="modal" attr.data-target="#m{{p.id}}" class="btn btn-white btn-link btn-sm ">
                        <i class="material-icons">edit</i>  
                     </button>
@@ -41,7 +42,7 @@
         <!-- Modal modifier -->
         <div class="w-100">
             <div class="card">
-                <div class="modal " id="m{{p.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal" id="m{{p.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable" role="document">
                         <div class="modal-content ">
 
@@ -88,7 +89,7 @@
         <!-- Modal affichage -->
         <div class="w-100">
             <div class="card">
-                <div class="modal " id="a{{p.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal" id="a{{p.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable" role="document">
                         <div class="modal-content ">
 
@@ -104,8 +105,7 @@
                                 <div class="row">
                                     <div>
 
-
-                                        <div>
+                                        <div class="col-6">
                                             <label for="">Titre</label>
                                             <div>{{p.nom}}</div>
                                             <label for="">Commune</label>
@@ -114,6 +114,9 @@
                                             </ng-container>
                                             <label for="">kilometrage</label>
                                             <div>{{p.kilometrage}}</div>
+                                            <button type="button" class="btn btn-danger"> Affichage carte</button>
+                                        </div>
+                                        <div class="col-6">
 
                                         </div>
                                     </div>
@@ -131,13 +134,14 @@
     </div>
 </div>
 
+<div id="viewDiv"></div>
 
 <button class="btn btn-white float-right text-danger" data-toggle="modal" data-target="#exampleModalCenter">Nouvelle piste</button>
 
 <!-- Modal ajout -->
 <div class="w-100">
     <div class="card">
-        <div class="modal " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable" role="document">
                 <div class="modal-content ">
 
@@ -183,3 +187,19 @@
     </div>
 </div>
 <!-- Fin Modal ajout-->
+
+
+
+<div id="viewDiv"> </div>
+<div #mapView></div>
+<script>
+    require(["esri/config", "esri/Map", "esri/views/MapView"], function(esriConfig, Map, MapView) {
+
+        esriConfig.apiKey = "YOUR-API-KEY";
+
+        const map = new Map({
+            basemap: "arcgis-topographic" // Basemap layer service
+        });
+
+    });
+</script>

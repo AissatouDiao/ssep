@@ -184,13 +184,48 @@
                                 <td>{{r.id}}</td>
                                 <td>{{r.libelle_role}}</td>
                                 <td class="td-actions ">
-                                    <button type="button" rel="tooltip" title="Modifier role" data-toggle="modal" data-target="#exampleModalCenter1" class="btn btn-primary btn-link btn-sm">
+                                    <button type="button" rel="tooltip" title="Modifier role" data-toggle="modal" data-toggle="modal" attr.data-target='#m{{r.id}}' class="btn btn-primary btn-link btn-sm">
                                         <i class="material-icons">edit</i>
                                     </button>
                                     <button type="button" rel="tooltip" title="Supprimer role" (click)="delete(r.id)" class="btn btn-danger btn-link btn-sm">
                                         <i class="material-icons">close</i>
                                     </button>
                                 </td>
+                                <!-- Modal modifier role -->
+                                <div class="modal fade" id="m{{r.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="card-header card-header-danger text-center">
+                                                <div class="modal-header">
+
+                                                    <h5 class="modal-title text-center" id="{{r.id}}">Informations de l'utilisateur</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form #roleupdateForm=ngForm name="roleupdateForm" id="roleupdateForm" (ngSubmit)="updaterole(r)">
+
+                                                    <div class="row mb-3">
+                                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Libelle</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" name="libelle" id="inputEmail3" [(ngModel)]="r.libelle_role" required>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <button type="submit" class="btn btn-danger" [disabled]="!roleupdateForm.valid">Enregistrer</button>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Fin Modal modifier role-->
                             </tr>
                         </tbody>
                     </table>

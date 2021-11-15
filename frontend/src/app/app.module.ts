@@ -9,7 +9,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RequestResetComponent } from './components/password/request-reset/request-reset.component';
 import { ResponseResetComponent } from './components/password/response-reset/response-reset.component';
-import { FormsModule } from "@angular/Forms";
+import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
@@ -50,8 +50,15 @@ import { ProcesverbauxemComponent } from './components/pistesbavardes/travaux/re
 import { GestionpistesComponent } from './components/pistesbavardes/gestionpistes/gestionpistes.component';
 import { NewuserAddpasswordComponent } from './components/password/newuser-addpassword/newuser-addpassword.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
-
-
+import { RapportsComponent } from './components/ptba/rapports/rapports.component';
+//import { Chart } from 'chart.js';
+// For MDB Angular Free
+//import { } from "angular-bootstrap-md";
+// For MDB Angular Free
+//import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { ChartsModule } from 'ng2-charts';
+import WebMap from '@arcgis/core/WebMap';
+import MapView from '@arcgis/core/views/MapView';
 
 
 @NgModule({
@@ -96,7 +103,8 @@ import { NotificationsComponent } from './components/notifications/notifications
     ContratsemComponent,
     GestionpistesComponent,
     NewuserAddpasswordComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    RapportsComponent
   ],
   imports: [
     BrowserModule,
@@ -105,7 +113,10 @@ import { NotificationsComponent } from './components/notifications/notifications
     HttpClientModule,
     SnotifyModule,
     NgxPaginationModule,
-    NgbModule
+    NgbModule,
+    ChartsModule,
+
+
   ],
   providers: [{ provide: 'SnotifyToastConfig', useValue: ToastDefaults },
     SnotifyService, ExcelService],

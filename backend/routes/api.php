@@ -76,6 +76,7 @@ Route::group([
     Route::post('addRole',[RoleController::class,'addRole']);
     Route::get('getRoles',[RoleController::class,'getroles']);
     Route::delete('deleteRole/{id}',[RoleController::class,'delete']);
+    Route::post('updateRole',[RoleController::class,'updaterole']);
     Route::get('getModules',[RoleController::class,'getmodules']);
     Route::post('addpermissions',[RoleController::class,'addpermissions']);
     Route::get('getPermissions',[PermissionController::class,'getPermissions']);
@@ -110,6 +111,7 @@ Route::group([
     //Ptba
     Route::post('addptba',[PtbaController::class,'add']);
     Route::get('getptbas', [PtbaController::class,'getAll']);
+    Route::post('getpourcentages', [PtbaController::class,'getPourcentages']);
     Route::get('getpartenairesptbas', [PtbaController::class,'getpartenairesbyptbas']);
     Route::delete('deletePtba/{id}',[PtbaController::class,'delete']);
     Route::post('updateptba',[PtbaController::class,'update']);

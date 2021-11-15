@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Partenaire;
 use Illuminate\Http\Request;
+use App\Models\Sousactivitepartenaire;
 use App\Http\Requests\PartenaireRequest;
 
 class PartenaireController extends Controller
@@ -11,8 +12,11 @@ class PartenaireController extends Controller
     
     public function getPartenaires(Request $request){
 
-        $partnaires= Partenaire::all();
-        return $partnaires;
+        $partenaires= Partenaire::all();
+        foreach($partenaires as $p){
+            $this->calculApportFinancierGlobal($p);
+        }
+        return $partenaires;
     }
 
     public function deletePartenaire( $request){
@@ -48,5 +52,13 @@ class PartenaireController extends Controller
         $Partenaire->apport_financier_total=$request->apport_financier_total;
         $Partenaire->save();
       
+    }
+
+    public function calculApportFinancierGlobal($objet){
+       $somme_total= Sousactivitepartenaire::where('partenaire_id',$objet->id)->sum('budget');
+       $Partenaire=Partenaire::find($objet->id);
+       $Partenaire->apport_financier_total= $somme_total;
+       $Partenaire->save();
+
     }
 }

@@ -1,0 +1,68 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <i class="material-icons pr-1">event</i>
+        <li class="breadcrumb-item">
+            <p class=""> Gestion PTBA</p>
+        </li>
+        <li class="breadcrumb-item text-primary active" aria-current="page">Rapports</li>
+    </ol>
+</nav>
+
+<div class="navbar-form" class="col-6 float-right">
+    <div class="input-group no-border">
+        <select class="form-select" [(ngModel)]="ptba_id">
+         <option *ngFor="let p of ptbas" [value]="p.id" name="ptba_id" (click)="getpourcentagesptba(p)" >{{p.libelle}}</option>
+     </select>
+    </div>
+</div><br><br><br>
+
+<div class="row border border-primary rounded border-5 p-4">
+    <ng-container *ngFor="let p of ptbas">
+        <ng-container *ngIf="p.id==ptba_id">
+            <div class="col-9">
+
+                <div class="chart-wrapper">
+                    <div class="chart-wrapper">
+                        <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
+                          </canvas>
+                    </div>
+                </div><br><br>
+                <div class="chart-wrapper">
+                    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+              </canvas>
+                </div>
+
+            </div>
+            <div class="card col-3">
+                <div class="card-header">Avancement des sous-activités</div>
+
+                <div class="card-body">
+                    <ng-container *ngFor="let c of composantes">
+
+                        <ng-container *ngIf="c.ptba_id==ptba_id">
+                            <div class="alert alert-primary" role="alert">
+                                {{c.libelle}}
+                            </div>
+                            <ng-container *ngFor="let a of activites">
+                                <ng-container *ngIf="a.composante_id==c.id">
+                                    <div class="alert alert-info" role="alert">
+                                        {{a.libelle}}
+                                    </div>
+                                    <ng-container *ngFor="let s of sousactivites">
+                                        <ng-container *ngIf="s.activite_id==a.id">
+                                            <div class="alert alert-warning" role="alert">
+                                                {{s.libelle}} <br> <br> ratio : debut reel-- fin reel <br><br> ratio : cout reel -- cout estimatif <br>
+                                            </div>
+
+                                        </ng-container>
+                                    </ng-container>
+                                </ng-container>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+        </ng-container>
+    </ng-container>
+</div>

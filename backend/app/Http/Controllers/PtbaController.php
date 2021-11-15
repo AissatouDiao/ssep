@@ -40,6 +40,7 @@ class PtbaController extends Controller
         foreach($ptbas as $p){
             $this->getptbabudgettotal($p);
             $this->getpartenairesptbas($p);
+          
         }
         return $ptbas;
     }
@@ -71,7 +72,7 @@ class PtbaController extends Controller
              Ptbapartenaire::create($ptbapartenaire);
             // $this->getptbabudgettotal($objet);
             // return response()->json(["message"=>"nouveau ptba enregistré!"]);
-          }else if($budgettotalcomposantes!=$budgettotalpartenaires){
+          }else if($budgettotalcomposantes>$budgettotalpartenaires){
               {
                 $partenaireptba=Ptbapartenaire::where(['ptba_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->first();
                 $partenaireptba->budget=$partenaireptba->budget + $v->budget;
@@ -93,8 +94,16 @@ class PtbaController extends Controller
             "message" => "Statut PTBA mis à jour",      
         ]); 
     }
-    
 
- 
+   public function getPourcentages(Request $request){
+
+             $thepourcentages = DB::table('ptbapartenaires')
+            ->where('ptba_id',$request->id)
+            ->join('partenaires', 'partenaires.id', '=', 'ptbapartenaires.partenaire_id')
+            ->select('partenaires.libelle', 'ptbapartenaires.budget')
+            ->get();
+            return $thepourcentages;
+   }
+  // public function get allpourcentages()
 
 }

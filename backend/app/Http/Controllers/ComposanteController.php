@@ -72,7 +72,7 @@ class ComposanteController extends Controller
                     Composantepartenaire::create($composantepartenaire);
                     // $this->getcomposantebudgettotal($objet);
                     // return response()->json(["message"=>"nouveau composante enregistré!"]);
-                }else  if($budgettotalpartenaires!=$budgettotalcomposantes) {
+                }else  if($budgettotalpartenaires<$budgettotalcomposantes ) {
                     
                         $partenairecomposante=Composantepartenaire::where(['composante_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->first();
                         $partenairecomposante->budget=$partenairecomposante->budget + $v->budget;

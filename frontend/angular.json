@@ -29,13 +29,14 @@
                         "assets": [
                             "src/favicon.ico",
                             "src/assets"
-
                         ],
                         "styles": [
                             "src/styles.scss",
+                            "node_modules/bootstrap/dist/css/bootstrap.min.css",
                             "src/assets/demo/demo.css",
                             "src/assets/css/material-dashboard.css",
                             "node_modules/font-awesome/css/font-awesome.css"
+
                         ],
                         "scripts": [
                             "src/assets/js/core/jquery.min.js",
