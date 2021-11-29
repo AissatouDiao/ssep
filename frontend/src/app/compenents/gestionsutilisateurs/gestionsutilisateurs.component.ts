@@ -5,12 +5,18 @@ import { SnotifyPosition, SnotifyService } from 'ng-snotify';
 import { JarwisService } from 'src/app/services/jarwis.service';
 import { TokenService } from 'src/app/services/token.service';
 
+
 @Component({
   selector: 'app-gestionsutilisateurs',
   templateUrl: './gestionsutilisateurs.component.html',
   styleUrls: ['./gestionsutilisateurs.component.scss']
 })
+
 export class GestionsutilisateursComponent implements OnInit {
+  displayedColumns: string[] = ['position', 'name', 'surname', 'symbol'];
+  dataSource: any;
+
+
   @Input() page: any = 1;
   @Input() pageSize: any = 10;
 
@@ -28,7 +34,7 @@ export class GestionsutilisateursComponent implements OnInit {
 
   getUsers() {
     this.jarwisService.getUsers().subscribe(
-      data => { console.log(data); this.users = data; },
+      data => { console.log(data); this.users = data; this.dataSource = this.users },
       error => console.log(error)
     );
   }

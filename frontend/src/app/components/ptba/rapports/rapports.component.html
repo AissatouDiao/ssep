@@ -27,10 +27,21 @@
                           </canvas>
                     </div>
                 </div><br><br>
+
                 <div class="chart-wrapper">
+                    <div class="chart-wrapper">
+                        <canvas baseChart [data]="doughnutChartData1" [labels]="doughnutChartLabels1" [chartType]="doughnutChartType1">
+                          </canvas>
+                    </div>
+                </div><br><br>
+
+                <!--
+                       <div class="chart-wrapper">
                     <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
               </canvas>
                 </div>
+                -->
+
 
             </div>
             <div class="card col-3">
@@ -51,7 +62,7 @@
                                     <ng-container *ngFor="let s of sousactivites">
                                         <ng-container *ngIf="s.activite_id==a.id">
                                             <div class="alert alert-warning" role="alert">
-                                                {{s.libelle}} <br> <br> ratio : debut reel-- fin reel <br><br> ratio : cout reel -- cout estimatif <br>
+                                                <div class="text-primary">{{s.libelle}}</div> <br> ratio durée: {{s.fin_reel }} - {{s.debut_reel }}<br><br> ratio cout : {{s.cout_reel-s.cout_estimatif}} <br>
                                             </div>
 
                                         </ng-container>

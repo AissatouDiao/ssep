@@ -214,6 +214,12 @@ export class JarwisService {
   getpourcentagesptba(data: object) {
     return this.http.post(`${this.baseUrl}/getpourcentages`, data);
   }
+  //
+  getPourcentagesParComposante(data: object) {
+    return this.http.post(`${this.baseUrl}/getPourcentagesParComposante`, data);
+  }
+
+
   //update ptba 
   updatePtba(data: object) {
     return this.http.post(`${this.baseUrl}/updateptba`, data)

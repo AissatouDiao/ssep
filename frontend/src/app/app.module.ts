@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -59,6 +59,10 @@ import { RapportsComponent } from './components/ptba/rapports/rapports.component
 import { ChartsModule } from 'ng2-charts';
 import WebMap from '@arcgis/core/WebMap';
 import MapView from '@arcgis/core/views/MapView';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material/table';
+import { CdkTableModule } from '@angular/cdk/table';
+
 
 
 @NgModule({
@@ -115,9 +119,12 @@ import MapView from '@arcgis/core/views/MapView';
     NgxPaginationModule,
     NgbModule,
     ChartsModule,
+    BrowserAnimationsModule,
+    MatTableModule, CdkTableModule
 
 
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [{ provide: 'SnotifyToastConfig', useValue: ToastDefaults },
     SnotifyService, ExcelService],
   bootstrap: [AppComponent]

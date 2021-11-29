@@ -43,7 +43,7 @@ class SousactiviteController extends Controller
         $sousactivite->libelle=$request->libelle;
         $sousactivite->etat=$request->etat;
         $sousactivite->cout_estimatif=$request->cout_estimatif;
-        $sousactivite->cout_estimatif=$request->cout_reel;
+        $sousactivite->cout_reel=$request->cout_reel;
         $sousactivite->debut_planifie=$request->debut_planifie;
         $sousactivite->fin_planifie=$request->fin_planifie;
         $sousactivite->debut_reel=$request->debut_reel;

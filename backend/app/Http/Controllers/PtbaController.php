@@ -104,6 +104,17 @@ class PtbaController extends Controller
             ->get();
             return $thepourcentages;
    }
-  // public function get allpourcentages()
+
+   public function getPourcentagesParComposante(Request $request){
+
+    $thepourcentages = DB::table('composantes')
+   ->where('ptba_id',$request->id)
+   ->select('composantes.libelle', 'composantes.budget')
+   ->get();
+   return $thepourcentages;
+}
+
+
+
 
 }

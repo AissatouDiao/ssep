@@ -108,10 +108,11 @@ Route::group([
     Route::delete('deletePartenaire/{id}',[PartenaireController::class,'deletePartenaire']);
     Route::post('updatepartenaire',[PartenaireController::class,'updatePartenaire']); 
     Route::post('updatepartenaireapport',[PartenaireController::class,'updatePartenaireApport']);
-    //Ptba
+    //Ptba 
     Route::post('addptba',[PtbaController::class,'add']);
     Route::get('getptbas', [PtbaController::class,'getAll']);
     Route::post('getpourcentages', [PtbaController::class,'getPourcentages']);
+    Route::post('getPourcentagesParComposante', [PtbaController::class,'getPourcentagesParComposante']);
     Route::get('getpartenairesptbas', [PtbaController::class,'getpartenairesbyptbas']);
     Route::delete('deletePtba/{id}',[PtbaController::class,'delete']);
     Route::post('updateptba',[PtbaController::class,'update']);
