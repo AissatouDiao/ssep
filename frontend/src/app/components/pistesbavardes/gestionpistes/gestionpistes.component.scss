@@ -1,10 +1,8 @@
-//@import url("https://js.arcgis.com/4.18/esri/themes/light/main.css");
-html,
-body,
+@import "https://js.arcgis.com/4.21/@arcgis/core/assets/esri/themes/light/main.css";
 #viewDiv {
     padding: 0;
     margin: 0;
-    height: 100%;
+    height: 500px;
     width: 100%;
 }
 

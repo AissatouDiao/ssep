@@ -83,14 +83,17 @@
                                                                         <div class="row mb-3">
                                                                             <label for="inputName3" class="col-sm-2 col-form-label">Coût estimatif</label>
                                                                             <div class="col-sm-10">
-                                                                                <input type="number" name="cout_estimatif" [(ngModel)]="s.cout_estimatif" id="cout_estimatif" required disabled>
+                                                                                <input type="number" name="cout_estimatif" [(ngModel)]="s.cout_estimatif" min="0" id="cout_estimatif" required disabled>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row mb-3">
                                                                             <label for="inputName3" class="col-sm-2 col-form-label">Coût réel</label>
                                                                             <div class="col-sm-10">
-                                                                                <input type="number" name="cout_reel" id="cout_reel" [(ngModel)]="s.cout_reel" required>
+                                                                                <input type="number" name="cout_reel" id="cout_reel" [(ngModel)]="s.cout_reel" min="0" required>
                                                                             </div>
+                                                                        </div>
+                                                                        <div class="alert alert-danger" [hidden]="!error_cout_reel">
+                                                                            {{error_cout_reel}}
                                                                         </div>
                                                                         <div class="row mb-3">
                                                                             <label for="inputEmail3" class="col-sm-2 col-form-label">Début planifié</label>
@@ -154,7 +157,7 @@
                 <form action="" #test="ngForm">
                     <select name="statut" id="" class="bg-primary form-select" [(ngModel)]="p.etat" (change)="changeStatut($event,p)" required>
                         <option value="non révisé" >Non révisé</option>
-                        <option  value="révisé" >Révisé</option>
+                        <option  value="révisé"  >Révisé</option>
                
                     </select>
                 </form>

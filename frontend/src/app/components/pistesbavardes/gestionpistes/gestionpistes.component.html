@@ -134,7 +134,7 @@
     </div>
 </div>
 
-<div id="viewDiv"></div>
+
 
 <button class="btn btn-white float-right text-danger" data-toggle="modal" data-target="#exampleModalCenter">Nouvelle piste</button>
 
@@ -189,17 +189,13 @@
 <!-- Fin Modal ajout-->
 
 
+<h1>Carte ci dessous</h1>
 
-<div id="viewDiv"> </div>
-<div #mapView></div>
-<script>
-    require(["esri/config", "esri/Map", "esri/views/MapView"], function(esriConfig, Map, MapView) {
+<div class="card">
+    <div class="card-header">
+        Carte des pistes
+    </div>
+    <div class="card-body" id="viewDiv" #viewDiv>
 
-        esriConfig.apiKey = "YOUR-API-KEY";
-
-        const map = new Map({
-            basemap: "arcgis-topographic" // Basemap layer service
-        });
-
-    });
-</script>
+    </div>
+</div>

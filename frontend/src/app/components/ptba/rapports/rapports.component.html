@@ -7,62 +7,69 @@
         <li class="breadcrumb-item text-primary active" aria-current="page">Rapports</li>
     </ol>
 </nav>
-
-<div class="navbar-form" class="col-6 float-right">
-    <div class="input-group no-border">
-        <select class="form-select" [(ngModel)]="ptba_id">
-         <option *ngFor="let p of ptbas" [value]="p.id" name="ptba_id" (click)="getpourcentagesptba(p)" >{{p.libelle}}</option>
-     </select>
+<div class="row">
+    <div class="float-left card bg-primary border border-primary col-6">
+        <h3><i class="material-icons">
+            arrow_right_alt
+        </i>Sélectionnez un PTBA </h3>
     </div>
-</div><br><br><br>
+    <div class="navbar-form col-6 float-right">
+        <div class="input-group no-border">
+            <select class="form-select" [(ngModel)]="ptba_id" (click)="getptbabyid(ptba_id)" required> 
+               <option *ngFor="let p of ptbas" [value]="p.id"  name="ptba_id" >{{p.libelle}}</option>
+            </select>
+        </div>
+    </div>
+</div>
 
-<div class="row border border-primary rounded border-5 p-4">
-    <ng-container *ngFor="let p of ptbas">
-        <ng-container *ngIf="p.id==ptba_id">
-            <div class="col-9">
+
+<div class="row border border-primary rounded border-5 p-4 ">
+    <ng-container *ngFor="let p of ptbas ">
+        <ng-container *ngIf="p.id==ptba_id ">
+            <div class="row">
 
                 <div class="chart-wrapper">
-                    <div class="chart-wrapper">
+                    <div class="chart-wrapper ">
                         <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
                           </canvas>
                     </div>
                 </div><br><br>
 
-                <div class="chart-wrapper">
-                    <div class="chart-wrapper">
+                <div class="chart-wrapper ">
+                    <div class="chart-wrapper ">
                         <canvas baseChart [data]="doughnutChartData1" [labels]="doughnutChartLabels1" [chartType]="doughnutChartType1">
                           </canvas>
                     </div>
                 </div><br><br>
 
-                <!--
-                       <div class="chart-wrapper">
-                    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
-              </canvas>
-                </div>
-                -->
+                <!-- <div class="chart-wrapper ">
+                    <canvas baseChart [datasets]="barChartData " [labels]="barChartLabels " [options]="barChartOptions " [plugins]="barChartPlugins " [legend]="barChartLegend " [chartType]="barChartType ">
+                     </canvas>
+                </div>-->
 
 
-            </div>
-            <div class="card col-3">
-                <div class="card-header">Avancement des sous-activités</div>
 
-                <div class="card-body">
-                    <ng-container *ngFor="let c of composantes">
+            </div> <br>
+            <div class="row ">
+                <div class="card-header ">Avancement des sous-activités</div>
 
-                        <ng-container *ngIf="c.ptba_id==ptba_id">
-                            <div class="alert alert-primary" role="alert">
+                <div class="card-body ">
+                    <ng-container *ngFor="let c of composantes ">
+
+                        <ng-container *ngIf="c.ptba_id==ptba_id ">
+                            <div class="alert alert-primary " role="alert ">
                                 {{c.libelle}}
                             </div>
-                            <ng-container *ngFor="let a of activites">
-                                <ng-container *ngIf="a.composante_id==c.id">
-                                    <div class="alert alert-info" role="alert">
+                            <ng-container *ngFor="let a of activites ">
+                                <ng-container *ngIf="a.composante_id==c.id ">
+                                    <div class="alert alert-info " role="alert ">
                                         {{a.libelle}}
                                     </div>
-                                    <ng-container *ngFor="let s of sousactivites">
-                                        <ng-container *ngIf="s.activite_id==a.id">
-                                            <div class="alert alert-warning" role="alert">
-                                                <div class="text-primary">{{s.libelle}}</div> <br> ratio durée: {{s.fin_reel }} - {{s.debut_reel }}<br><br> ratio cout : {{s.cout_reel-s.cout_estimatif}} <br>
+                                    <ng-container *ngFor="let s of sousactivites ">
+                                        <ng-container *ngIf="s.activite_id==a.id ">
+                                            <div class="alert alert-warning " role="alert ">
+                                                <div class="text-primary text-bold ">{{s.libelle}}</div> <br> ratio durée: {{s.fin_reel }} - {{s.debut_reel }}<br> {{differencedate(s.debut_reel,s.fin_reel)}}jours
+                                                <br> ratio cout : {{s.cout_reel-s.cout_estimatif}} <br>
                                             </div>
 
                                         </ng-container>
@@ -72,7 +79,7 @@
                         </ng-container>
                     </ng-container>
                 </div>
-                <div class="card-footer"></div>
+                <div class="card-footer "></div>
             </div>
         </ng-container>
     </ng-container>

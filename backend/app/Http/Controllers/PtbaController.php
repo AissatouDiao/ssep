@@ -44,6 +44,13 @@ class PtbaController extends Controller
         }
         return $ptbas;
     }
+
+    public function getptbabyid(Request $request){
+        
+        $ptba= Ptba::find($request->id);
+        return $ptba;
+       
+    }
     public function getpartenairesbyptbas(){
         $ptbaspartenaires=Ptbapartenaire::all();
         return $ptbaspartenaires;

@@ -51,17 +51,18 @@ import { GestionpistesComponent } from './components/pistesbavardes/gestionpiste
 import { NewuserAddpasswordComponent } from './components/password/newuser-addpassword/newuser-addpassword.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { RapportsComponent } from './components/ptba/rapports/rapports.component';
-//import { Chart } from 'chart.js';
 // For MDB Angular Free
 //import { } from "angular-bootstrap-md";
 // For MDB Angular Free
 //import { MDBBootstrapModule } from 'angular-bootstrap-md';
+
 import { ChartsModule } from 'ng2-charts';
-import WebMap from '@arcgis/core/WebMap';
+
 import MapView from '@arcgis/core/views/MapView';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { CdkTableModule } from '@angular/cdk/table';
+import WebMap from '@arcgis/core/WebMap';
 
 
 
@@ -120,13 +121,12 @@ import { CdkTableModule } from '@angular/cdk/table';
     NgbModule,
     ChartsModule,
     BrowserAnimationsModule,
-    MatTableModule, CdkTableModule
-
-
+    MatTableModule,
+    CdkTableModule,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA,],
   providers: [{ provide: 'SnotifyToastConfig', useValue: ToastDefaults },
-    SnotifyService, ExcelService],
+    SnotifyService, ExcelService, WebMap,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

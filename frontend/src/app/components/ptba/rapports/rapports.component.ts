@@ -1,6 +1,5 @@
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { ChartDataSets, ChartType, ChartOptions, RadialChartOptions } from 'chart.js';
+import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
 import { Color, Label, MultiDataSet } from 'ng2-charts';
 import { JarwisService } from 'src/app/services/jarwis.service';
 
@@ -17,10 +16,8 @@ export class RapportsComponent implements OnInit {
    * Déclarations de variables
    */
   ptbas: any; composantes: any; activites: any; sousactivites: any;
-  ptba_id: any; pourcentages: any;
+  ptba_id: any; pourcentages: any; ptba: any;
 
-  /// tableau_pourcentage: any[] = [];
-  // tableau_nompartenaires: any[] = [];
 
   /**
    * Données pour le diagramme en ligne
@@ -45,8 +42,8 @@ export class RapportsComponent implements OnInit {
   /**
    * Données pour le diagramme circulaire
    */
-  doughnutChartLabels: Label[] = [];
-  doughnutChartData: MultiDataSet = [];
+  doughnutChartLabels: Label[] = ['En chargement'];
+  doughnutChartData: MultiDataSet = [[100]];
   doughnutChartType: ChartType = 'doughnut';
 
   /**
@@ -54,18 +51,21 @@ export class RapportsComponent implements OnInit {
    * Données pour le diagramme circulaire par composante
    */
 
-  doughnutChartLabels1: Label[] = [];
-  doughnutChartData1: MultiDataSet = [];
+  doughnutChartLabels1: Label[] = ['En chargement'];
+  doughnutChartData1: MultiDataSet = [[100]];
   doughnutChartType1: ChartType = 'pie';
 
   //constructeur
   constructor(private jarwisService: JarwisService) { }
+
+
   //Fonction d'initialisation
   ngOnInit() {
     this.getPtbas();
     this.getComposantes();
     this.getActivites();
     this.getSousActivites();
+
   }
 
   //Fonction pour récupérer tous les ptbas
@@ -75,12 +75,23 @@ export class RapportsComponent implements OnInit {
       (error: any) => { console.log(error) }
     );
   }
+  getptbabyid(id: any) {
+    let ptba = {
+      id: Number(id)
+    }
+    this.jarwisService.getptbabyid(ptba).subscribe(
+      (data: any) => { console.log(data); this.ptba = data; this.getpourcentagesptba(); },
+      (error: any) => { console.log(error) }
+    );
+  }
 
   //Foncion pour calculer les pourcentages en fonction du ptba
-  getpourcentagesptba(p: any) {
+  getpourcentagesptba() {
 
+    let p = this.ptba
     let tableau_pourcentage: any[] = [];
     let tableau_nompartenaires: any[] = [];
+
 
     this.jarwisService.getpourcentagesptba(p).subscribe(
       (data: any) => {
@@ -98,7 +109,6 @@ export class RapportsComponent implements OnInit {
         this.doughnutChartLabels = tableau_nompartenaires;
         console.log(tableau_pourcentage);
         console.log(tableau_nompartenaires);
-
       },
       (error: any) => {
         console.log(error)
@@ -168,6 +178,19 @@ export class RapportsComponent implements OnInit {
   barChartData: ChartDataSets[] = [
     { data: [45, 37, 60, 70, 46, 33], label: 'activites' }
   ];
+
+
+  differencedate(date1: any, date2: any) {
+    let dateDebut = new Date(date1);
+    let dateFinal = new Date(date2);
+
+    let duration = Math.floor((Date.UTC(dateFinal.getFullYear(), dateFinal.getMonth(), dateFinal.getDate()) - Date.UTC(dateDebut.getFullYear(), dateDebut.getMonth(), dateDebut.getDate())) / (1000 * 60 * 60 * 24));
+    console.log(dateDebut, dateFinal, duration);
+    return duration
+
+  }
+
+
 
 
 }

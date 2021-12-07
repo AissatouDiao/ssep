@@ -210,6 +210,10 @@ export class JarwisService {
   addPtba(data: object) {
     return this.http.post(`${this.baseUrl}/addptba`, data);
   }
+  getptbabyid(data: object) {
+
+    return this.http.post(`${this.baseUrl}/getptbabyid`, data);
+  }
 
   getpourcentagesptba(data: object) {
     return this.http.post(`${this.baseUrl}/getpourcentages`, data);

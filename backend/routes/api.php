@@ -111,6 +111,7 @@ Route::group([
     //Ptba 
     Route::post('addptba',[PtbaController::class,'add']);
     Route::get('getptbas', [PtbaController::class,'getAll']);
+    Route::post('getptbabyid', [PtbaController::class,'getptbabyid']);
     Route::post('getpourcentages', [PtbaController::class,'getPourcentages']);
     Route::post('getPourcentagesParComposante', [PtbaController::class,'getPourcentagesParComposante']);
     Route::get('getpartenairesptbas', [PtbaController::class,'getpartenairesbyptbas']);
