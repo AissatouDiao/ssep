@@ -44,6 +44,13 @@ import { NewuserAddpasswordComponent } from './components/password/newuser-addpa
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { RapportsComponent } from './components/ptba/rapports/rapports.component';
 import { OrganisationsComponent } from './components/chainesdevaleurs/organisations/organisations.component';
+import { IdentificationComponent } from './components/chainesdevaleurs/identification/identification.component';
+import { OrganisationsaccompagneesComponent } from './components/chainesdevaleurs/organisationsaccompagnees/organisationsaccompagnees.component';
+import { FormationsComponent } from './components/chainesdevaleurs/formations/formations.component';
+import { SuiviproductionComponent } from './components/chainesdevaleurs/suiviproduction/suiviproduction.component';
+import { AgreagequaliteComponent } from './components/chainesdevaleurs/agreagequalite/agreagequalite.component';
+import { GeoreferencementComponent } from './components/chainesdevaleurs/georeferencement/georeferencement.component';
+import { TransformationComponent } from './components/chainesdevaleurs/transformation/transformation.component';
 
 
 const routes: Routes = [
@@ -150,6 +157,34 @@ const routes: Routes = [
   },
   {
     path: 'gestion-chaines-de-valeurs/organisations', component: OrganisationsComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-chaines-de-valeurs/organisations-accompagnees', component: OrganisationsaccompagneesComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-chaines-de-valeurs/identifications', component: IdentificationComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-chaines-de-valeurs/formations', component: FormationsComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-chaines-de-valeurs/suivi-production', component: SuiviproductionComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-chaines-de-valeurs/georeferencement', component: GeoreferencementComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-chaines-de-valeurs/agreage-qualite', component: AgreagequaliteComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-chaines-de-valeurs/transformation', component: TransformationComponent,
     canActivate: [AfterloginService]
   },
   {

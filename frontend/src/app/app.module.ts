@@ -64,6 +64,13 @@ import { MatTableModule } from '@angular/material/table';
 import { CdkTableModule } from '@angular/cdk/table';
 import WebMap from '@arcgis/core/WebMap';
 import { OrganisationsComponent } from './components/chainesdevaleurs/organisations/organisations.component';
+import { OrganisationsaccompagneesComponent } from './components/chainesdevaleurs/organisationsaccompagnees/organisationsaccompagnees.component';
+import { IdentificationComponent } from './components/chainesdevaleurs/identification/identification.component';
+import { GeoreferencementComponent } from './components/chainesdevaleurs/georeferencement/georeferencement.component';
+import { FormationsComponent } from './components/chainesdevaleurs/formations/formations.component';
+import { SuiviproductionComponent } from './components/chainesdevaleurs/suiviproduction/suiviproduction.component';
+import { AgreagequaliteComponent } from './components/chainesdevaleurs/agreagequalite/agreagequalite.component';
+import { TransformationComponent } from './components/chainesdevaleurs/transformation/transformation.component';
 
 
 
@@ -111,7 +118,14 @@ import { OrganisationsComponent } from './components/chainesdevaleurs/organisati
     NewuserAddpasswordComponent,
     NotificationsComponent,
     RapportsComponent,
-    OrganisationsComponent
+    OrganisationsComponent,
+    OrganisationsaccompagneesComponent,
+    IdentificationComponent,
+    GeoreferencementComponent,
+    FormationsComponent,
+    SuiviproductionComponent,
+    AgreagequaliteComponent,
+    TransformationComponent
   ],
   imports: [
     BrowserModule,
