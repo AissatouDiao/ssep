@@ -43,6 +43,7 @@ import { GestionpistesComponent } from './components/pistesbavardes/gestionpiste
 import { NewuserAddpasswordComponent } from './components/password/newuser-addpassword/newuser-addpassword.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { RapportsComponent } from './components/ptba/rapports/rapports.component';
+import { OrganisationsComponent } from './components/chainesdevaleurs/organisations/organisations.component';
 
 
 const routes: Routes = [
@@ -145,6 +146,10 @@ const routes: Routes = [
   },
   {
     path: 'gestion-chaines-de-valeurs', component: ChainesdevaleursComponent,
+    canActivate: [AfterloginService]
+  },
+  {
+    path: 'gestion-chaines-de-valeurs/organisations', component: OrganisationsComponent,
     canActivate: [AfterloginService]
   },
   {

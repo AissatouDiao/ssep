@@ -63,6 +63,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { CdkTableModule } from '@angular/cdk/table';
 import WebMap from '@arcgis/core/WebMap';
+import { OrganisationsComponent } from './components/chainesdevaleurs/organisations/organisations.component';
 
 
 
@@ -109,7 +110,8 @@ import WebMap from '@arcgis/core/WebMap';
     GestionpistesComponent,
     NewuserAddpasswordComponent,
     NotificationsComponent,
-    RapportsComponent
+    RapportsComponent,
+    OrganisationsComponent
   ],
   imports: [
     BrowserModule,

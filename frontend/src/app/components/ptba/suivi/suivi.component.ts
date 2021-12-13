@@ -82,7 +82,7 @@ export class SuiviComponent implements OnInit {
 
   update_sa(s: any) {
 
-    if (s.fin_reel && (s.cout_reel)) {
+    if (s.fin_reel && !(s.cout_reel)) {
       this.error_cout_reel = "Veuillez aussi renseigner le cout réel de la sous-activité.";
     } else {
       if (s.cout_reel <= 0) {
@@ -92,6 +92,8 @@ export class SuiviComponent implements OnInit {
           this.error_date = "La date de début réelle ne peut être aprés la date de fin réelle."
         } else {
           this.error_date = null;
+          this.error_cout_reel = null;
+
           s.etat = "complet";
           this.jarwisService.updateSousactivite(s).subscribe(
             (data: any) => { console.log(data); this.notify.success(data.message) },

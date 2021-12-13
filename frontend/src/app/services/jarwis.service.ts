@@ -828,5 +828,12 @@ export class JarwisService {
     return this.http.get(`${this.baseUrl}/getpourcentages/` + data);
   }
 
+  /** Chaine de valeurs */
+
+  //ORGANISATIONS
+  importOrganisationFileToDatabase(data: any) {
+    return this.http.post(`${this.baseUrl}/importOrganisationFileToDatabase`, data);
+  }
+
 
 }

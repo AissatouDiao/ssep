@@ -15,6 +15,7 @@ use App\Http\Controllers\ActiviteController;
 use App\Http\Controllers\ComposanteController;
 use App\Http\Controllers\PartenaireController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\SousactiviteController;
 use App\Http\Controllers\CalculBudgetsController;
 use App\Http\Controllers\DecompteszoneController;
@@ -275,4 +276,6 @@ Route::group([
     Route::delete('deleteAvancementTravaux/{id}',[AvancementtravauxController ::class,'deleteAvancementTravaux']);
     Route::get('getAvancementTavauxPisteId/{id}',[AvancementtravauxController ::class,'getAvancementTavauxPisteId']);
     Route::post('updateAvancementTravaux',[AvancementtravauxController ::class,'updateAvancementTravaux']); 
+    //Organisations
+    Route::post('importOrganisationFileToDatabase',[OrganisationController ::class,'importOrganisationFileToDatabase']);
 });
