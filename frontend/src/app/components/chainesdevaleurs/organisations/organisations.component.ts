@@ -18,18 +18,20 @@ export class OrganisationsComponent implements OnInit {
     this.organisationFile = event.target.files[0];
     console.log(this.organisationFile);
   }
+  messageerror: any;
   importOrganisationFileToDatabase() {
+    this.messageerror = null;
     const formdata1 = new FormData();
     // let a = (<HTMLInputElement>document.getElementById('organisation_file')).value;
     formdata1.append('fichier', this.organisationFile);
     console.log(formdata1);
 
-   this.jarwisService.importOrganisationFileToDatabase(formdata1).subscribe(
-       (data: any) => {
-         console.log(data); this.notify.success(data.message);
-       },
-       error => { console.log(error); this.notify.error('Veuillez revoir les données renseignées.') }
-     );
+    this.jarwisService.importOrganisationFileToDatabase(formdata1).subscribe(
+      (data: any) => {
+        console.log(data); this.notify.success(data.message);
+      },
+      error => { console.log(error); this.messageerror = error.error.errors; this.notify.error('Veuillez revoir les données renseignées.') }
+    );
   }
 
 }

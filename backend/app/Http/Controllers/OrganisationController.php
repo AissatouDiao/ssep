@@ -15,13 +15,20 @@ class OrganisationController extends Controller
 
         //Ajout d'une nouvelle importation
        // (new OrganisationsImport)->import($file);
-        Excel::import(new OrganisationsImport,$file);
+       $import=new OrganisationsImport;
+       $import->import($file);
+      if($import->errors()){
+        return response()->json(
+            ["message"=>$import->errors()."hi"]
+        );
 
+      }else{
         return response()->json(
             ["message"=>"Les données ont été enregistrés dans la base de données.",
-          
+            "error"=>$import->errors()
             ]
         );
+    }
     }
 }
  
