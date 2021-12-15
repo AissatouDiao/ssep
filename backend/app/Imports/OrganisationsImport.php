@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Organisation;
+use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsErrors;
@@ -50,10 +51,19 @@ class OrganisationsImport implements ToModel,SkipsOnError, WithHeadingRow, WithV
        
         ];*/
         return [
-           '*.*' => \Illuminate\Validation\Rule::unique('organisations',
-            'region', 'departement','nom_organisation','statut_organisation','prenom_et_nom_responsable',
-             'contact_responsable','nombre_membre_organisation','nombre_femmes','nombre_hommes','activités_principales',
-            'montant_credit_recu','source_financement'),
+            'Region'=>'required|string',
+            'Departement'=>'required|string',
+            'Commune'=>'required|string',
+            'Nom organisation'=>'required|string',
+            'Statut Organisation'=>'required|string',
+            'Prenom et nom responsable'=>'required|string',
+            'Contact responsable'=>'required|string',
+            'Nombre de membres de organisation'=>'required',
+            'Nombre de membres Femmes'=>'required|numeric',
+            'Nombre de membres Hommes'=>'required|numeric',
+            'Activités principales'=>'required|string',
+            'MONTANT DE CREDIT RECU'=>'required|numeric',
+            'SOURCE DE FINANCEMENT'=>'required|string',
         ];
     }
 
