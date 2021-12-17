@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SnotifyPosition, SnotifyService } from 'ng-snotify';
 import { JarwisService } from 'src/app/services/jarwis.service';
@@ -41,7 +41,7 @@ export class GestionpistesComponent implements OnInit {
   regionForm!: any;
   la_region: any;
 
-  @ViewChild('viewDiv', { static: true })
+  @ViewChildren('viewDiv')
   private readonly viewDivElement!: ElementRef;
 
   constructor(

@@ -90,7 +90,7 @@
         <div class="w-100">
             <div class="card">
                 <div class="modal" id="a{{p.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-scrollable" role="document">
                         <div class="modal-content ">
 
                             <div class="card-header card-header-danger text-center">
@@ -103,8 +103,7 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row">
-                                    <div>
-
+                                    <div class="row">
                                         <div class="col-6">
                                             <label for="">Titre</label>
                                             <div>{{p.nom}}</div>
@@ -117,7 +116,16 @@
                                             <button type="button" class="btn btn-danger"> Affichage carte</button>
                                         </div>
                                         <div class="col-6">
+                                            <h1>Carte ci dessous</h1>
 
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    Carte {{p.nom}}
+                                                </div>
+                                                <div class="card-body viewDiv" #viewDiv>
+
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -186,7 +194,7 @@
         </div>
     </div>
 </div>
-<!-- Fin Modal ajout-->
+<!-- Fin Modal ajout
 
 
 <h1>Carte ci dessous</h1>
@@ -198,4 +206,4 @@
     <div class="card-body" id="viewDiv" #viewDiv>
 
     </div>
-</div>
+</div>-->

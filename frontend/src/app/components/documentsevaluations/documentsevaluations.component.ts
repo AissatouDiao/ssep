@@ -13,9 +13,9 @@ export class DocumentsevaluationsComponent implements OnInit {
   @Input() pageSize: any = 10;
   searchText: any; searchFilter: any = '';
   lastevaluationid: any;
+  error: any = [];
 
-
-  evaluations: any; error: any; user: any; users: any; recommandationsEvaluationById: any;
+  evaluations: any; user: any; users: any; recommandationsEvaluationById: any;
   evaluation = {
     titre: '',
     user_id: '',
@@ -83,7 +83,12 @@ export class DocumentsevaluationsComponent implements OnInit {
         this.getEvaluations(); this.getRecommadationsByEvaluationId();
         this.getRecommandations();
       },
-      error => { console.log(error); this.handleError(error) });
+      error => { console.log(error); this.notify.error('Veuillez revoir les données renseignées.'); this.handleError(error) });
+  }
+  //recuperation de l'erreur eventuel de la reponse de l'api.
+  handleError(error: { error: { errors: any; }; }) {
+    this.error = [];
+    this.error = error.error.errors;
   }
 
 
@@ -157,9 +162,6 @@ export class DocumentsevaluationsComponent implements OnInit {
   }
   //Supprimer recommandation.
   deleteRecommandation(id: any) {
-
-
-
     //notification et changement de statut.
     this.notify.confirm('Voulez vous vraiment supprimer cette recommandation ?', 'Attention !Suppression de Recommandation ?', {
       timeout: 0,
@@ -209,15 +211,10 @@ export class DocumentsevaluationsComponent implements OnInit {
 
   }
 
-  //recuperation de l'erreur eventuel de la reponse de l'api.
-  handleError(error: { error: { error: any; }; }) {
 
-    this.error = error.error.error;
-  }
 
   //Supprimer recommandation.
   delete(id: any) {
-
     //notification et changement de statut.
     this.notify.confirm('Voulez vous vraiment supprimer ce document ?', 'Attention !Suppression de document ?', {
       timeout: 0,
@@ -285,6 +282,11 @@ export class DocumentsevaluationsComponent implements OnInit {
       );
 
     }
+  }
+
+  error1: any;
+  handleError1(error: { error: { errors: {}; }; }) {
+    this.error1 = error.error.errors;
   }
 
 

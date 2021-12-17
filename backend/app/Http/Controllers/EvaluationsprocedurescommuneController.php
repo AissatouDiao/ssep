@@ -57,8 +57,8 @@ class EvaluationsprocedurescommuneController extends Controller
             $evaluation->save();
     
                 return response()->json([
-                    "message"=>"Le evaluation a été mis à jour avec succès  !",
-                    "error"=>"Le evaluation n'a pu être mise à jour, veuillez revoir les données remplies."
+                    "message"=>"L'evaluation a été mis à jour avec succès  !",
+                    "error"=>"L'evaluation n'a pu être mise à jour, veuillez revoir les données remplies."
                 ]); }
         }
     
@@ -68,8 +68,8 @@ class EvaluationsprocedurescommuneController extends Controller
         
         $evaluation->save();
         return response()->json([
-            "message"=>"Le evaluation mis à jour avec succès !",
-                "error"=>"Le evaluation n'a pu être mise à jour, veuillez revoir les données remplies."
+            "message"=>"L'évaluation mis à jour avec succès !",
+                "error"=>"L'évaluation n'a pu être mise à jour, veuillez revoir les données remplies."
         ]);
     }
 
