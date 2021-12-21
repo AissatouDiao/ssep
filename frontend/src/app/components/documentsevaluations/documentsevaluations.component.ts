@@ -43,6 +43,7 @@ export class DocumentsevaluationsComponent implements OnInit {
     let data_user: any = localStorage.getItem('data');
     this.user = JSON.parse(data_user);
     this.getRecommandations();
+    this.getTaches();
   }
   //Recuperer les utilisateurs
   getUsers() {
@@ -55,7 +56,7 @@ export class DocumentsevaluationsComponent implements OnInit {
   //Recupérer toutes les documents.
   getEvaluations() {
     this.jarwisService.getEvaluations().subscribe(
-      data => { console.log(data); this.evaluations = data },
+      data => { console.log(data); this.evaluations = data; this.dataSource = data },
       error => console.log(error)
     );
   }
@@ -80,7 +81,7 @@ export class DocumentsevaluationsComponent implements OnInit {
     this.jarwisService.addEvaluation(datas).subscribe(
       (data: any) => {
         console.log(data); this.lastevaluationid = data.latest.id;
-        this.getEvaluations(); this.getRecommadationsByEvaluationId();
+        this.getEvaluations(); this.notify.success('Une nouvelle évaluation a été créé. Veuillez renseigner ses recommandations'); this.getRecommadationsByEvaluationId(this.lastevaluationid);
         this.getRecommandations();
       },
       error => { console.log(error); this.notify.error('Veuillez revoir les données renseignées.'); this.handleError(error) });
@@ -89,6 +90,9 @@ export class DocumentsevaluationsComponent implements OnInit {
   handleError(error: { error: { errors: any; }; }) {
     this.error = [];
     this.error = error.error.errors;
+  }
+  sayhi() {
+    alert('hi');
   }
 
 
@@ -100,18 +104,18 @@ export class DocumentsevaluationsComponent implements OnInit {
     // this.recommandation.statut = (<HTMLInputElement>document.getElementById('statut1')).value;
     console.log(this.recommandation);
     this.jarwisService.addRecommandation(this.recommandation).subscribe(
-      data => { console.log(data), this.getRecommadationsByEvaluationId(); },
+      data => { console.log(data), this.getRecommadationsByEvaluationId(this.lastevaluationid); },
       error => console.log(error)
     );
   }
-  addRecommandationmodif() {
-    this.recommandation.evaluation_id = (<HTMLInputElement>document.getElementById('evaluation_id1')).value;
+  addRecommandationmodif(id_evaluation: any) {
+    this.recommandation.evaluation_id = id_evaluation;
     this.recommandation.date_finale = (<HTMLInputElement>document.getElementById('date_finale')).value;
     this.recommandation.responsable = (<HTMLInputElement>document.getElementById('responsable')).value;
     // this.recommandation.statut = (<HTMLInputElement>document.getElementById('statut1')).value;
     console.log(this.recommandation);
     this.jarwisService.addRecommandation(this.recommandation).subscribe(
-      data => { console.log(data), this.getRecommadationsByEvaluationId(); window.location.reload(); },
+      data => { console.log(data), this.getRecommadationsByEvaluationId(id_evaluation); this.getRecommandations(); this.notify.success('La recommandation fut ajoutée !') },
       error => console.log(error)
     );
   }
@@ -193,8 +197,8 @@ export class DocumentsevaluationsComponent implements OnInit {
 
 
 
-  getRecommadationsByEvaluationId() {
-    let id = { id: this.lastevaluationid }
+  getRecommadationsByEvaluationId(id_evaluation: any) {
+    let id = { id: id_evaluation }
     this.jarwisService.getRecommandationsByEvaluationId(id).subscribe(
       data => { console.log(data), this.recommandationsEvaluationById = data },
       error => console.log(error)
@@ -288,6 +292,96 @@ export class DocumentsevaluationsComponent implements OnInit {
   handleError1(error: { error: { errors: {}; }; }) {
     this.error1 = error.error.errors;
   }
+
+  taches: any;
+  tache = {
+    recommandation_id: null,
+    tache: <any>null,
+    etat: <any>null
+  }
+  getTaches() {
+    this.jarwisService.getRecommandationsTaches().subscribe(
+      data => { console.log(data); this.taches = data },
+      error => console.log(error)
+    );
+  }
+
+  addTache(r: any) {
+    this.tache.recommandation_id = r;
+    this.tache.etat = 'pas fait';
+    this.jarwisService.addRecommandationTache(this.tache).subscribe(
+      (data: any) => { console.log(data); this.notify.success(data.message); this.getTaches(); },
+      (error: any) => { console.log(error); this.notify.error(error.error.errors) }
+    );
+
+  }
+
+  deleteTache(id: any) {
+    //notification et changement de statut.
+    this.notify.confirm('Voulez vous vraiment supprimer cette tâche ?', 'Attention !Suppression de tâche ?', {
+      timeout: 0,
+      position: SnotifyPosition.rightTop,
+      showProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+
+      buttons: [
+        {
+          text: 'Oui',
+          action: () => {
+
+            this.jarwisService.deleterecommandationtache(id).subscribe(
+              (data: any) => { console.log(data); this.getTaches(); this.notify.success(data.message); },
+              error => console.log(error)
+            );
+
+          }, bold: false
+        },
+        {
+          text: 'Non',
+          action: () =>
+            this.notify.info('Suppression annulée !')
+        },
+      ]
+    });
+  }
+  updateTache(t: any) {
+    this.notify.confirm('Voulez vous vraiment marquer cette tâche comme achevée ?', 'Tâche achevée ?', {
+      timeout: 0,
+      position: SnotifyPosition.rightTop,
+      showProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+
+      buttons: [
+        {
+          text: 'Oui',
+          action: () => {
+            t.etat = "fait";
+            this.jarwisService.updateRecommandationTache(t).subscribe(
+              (data: any) => { console.log(data); this.getTaches(); this.getRecommandations(); this.notify.success(data.message); },
+              error => console.log(error)
+            );
+
+          }, bold: false
+        },
+        {
+          text: 'Non',
+          action: () => {
+            (<HTMLInputElement>document.getElementById('t' + t.id)).checked = false,
+              this.getTaches(), this.getRecommandations(),
+              this.notify.info('Mise à jour annulée !')
+          }
+        },
+      ]
+    });
+  }
+
+  //mat table
+
+  displayedColumns: string[] = ['position', 'Nom', 'Evaluation', 'Date création',
+    'Mise en ligne par', 'Recommandations', 'Options'];
+  dataSource: any;
 
 
 }

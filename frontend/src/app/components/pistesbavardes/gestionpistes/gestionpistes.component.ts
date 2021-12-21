@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SnotifyPosition, SnotifyService } from 'ng-snotify';
 import { JarwisService } from 'src/app/services/jarwis.service';
@@ -12,6 +12,7 @@ import Graphic from '@arcgis/core/Graphic';
 import Point from '@arcgis/core/geometry/Point';
 import SimpleMarkerSymbol from '@arcgis/core/symbols/SimpleMarkerSymbol';
 import Polyline from '@arcgis/core/geometry/Polyline';
+import Sketch from "@arcgis/core/widgets/Sketch";
 
 @Component({
   selector: 'app-gestionpistes',
@@ -41,8 +42,7 @@ export class GestionpistesComponent implements OnInit {
   regionForm!: any;
   la_region: any;
 
-  @ViewChildren('viewDiv')
-  private readonly viewDivElement!: ElementRef;
+  @ViewChild('viewDiv') viewDivElement!: ElementRef;
 
   constructor(
     private jarwisService: JarwisService,
@@ -56,18 +56,26 @@ export class GestionpistesComponent implements OnInit {
 
 
   }
-
   ngOnInit(): void {
+
+  }
+  ngAfterViewInit() {
+    this.arcgismap();
+  }
+
+
+  arcgismap() {
+
     esriConfig.apiKey = "AAPK6a57f90dec384ae2ae2bf683265c5d68Jk_oTEsvriU92IrmYm3m7NBNO5o2GxB8JzmBWtLKH8Vu5YoVCLPYCkQikezzqNDh";
     const map = new Map({
-      basemap: "arcgis-streets" // Basemap layer service
+      basemap: "arcgis-topographic" // Basemap layer service
     });
 
     const view = new MapView({
       map: map,
       center: [-14.452362, 14.497401], // Longitude, latitude
       zoom: 7.5, // Zoom level
-      container: this.viewDivElement.nativeElement // Div element
+      container: this.viewDivElement.nativeElement// Div element
     });
 
     //couche graphique pour ajouter des points et figures géométrique
@@ -147,8 +155,24 @@ export class GestionpistesComponent implements OnInit {
       popupTemplate: popupTemplate
     });
     graphicsLayer.add(polylineGraphic);
-  }
 
+    view.when(() => {
+      const sketch = new Sketch({
+        layer: graphicsLayer,
+        view: view,
+        // graphic will be selected as soon as it is created
+        creationMode: "update"
+      });
+      sketch.on("create", function (event) {
+        if (event.state === "complete") {
+          console.log(event.graphic.geometry.toJSON());
+        }
+      });
+
+      view.ui.add(sketch, "top-right");
+    });
+
+  }
 
 
   //Recupérer toutes les regions.

@@ -25,7 +25,7 @@
 
 
 <div class="row">
-    <div class="col-4" *ngFor="let p of pistes | searchFilter:searchText">
+    <div class="col-4" *ngFor="let p of pistes| searchFilter:searchText;let i=index ">
         <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title text-capitalize text-white text-center fw-bolder lh-lg" data-toggle="modal" attr.data-target="#a{{p.id}}" style="cursor:pointer">
@@ -122,8 +122,7 @@
                                                 <div class="card-header">
                                                     Carte {{p.nom}}
                                                 </div>
-                                                <div class="card-body viewDiv" #viewDiv>
-
+                                                <div class="card-body viewDiv" id="viewDiv" name="viewDiv">
                                                 </div>
                                             </div>
                                         </div>
@@ -194,7 +193,7 @@
         </div>
     </div>
 </div>
-<!-- Fin Modal ajout
+<!-- Fin Modal ajout-->
 
 
 <h1>Carte ci dessous</h1>
@@ -206,4 +205,4 @@
     <div class="card-body" id="viewDiv" #viewDiv>
 
     </div>
-</div>-->
+</div>

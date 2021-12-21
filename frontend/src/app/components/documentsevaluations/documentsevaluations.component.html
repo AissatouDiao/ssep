@@ -27,7 +27,7 @@
 
 <div class="card">
     <table class="table bg-white sm">
-        <thead class="table-dark">
+        <thead class="table-light">
             <tr>
                 <td>#</td>
                 <td>Nom</td>
@@ -89,7 +89,7 @@
                                                     <td>Options</td>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody *ngIf="recommandations">
                                                 <tr *ngFor="let r of recommandations">
                                                     <td *ngIf="r.evaluation_id==e.id">{{r.id}} </td>
                                                     <td *ngIf="r.evaluation_id==e.id">{{e.titre}}</td>
@@ -152,11 +152,40 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="row mb-3">
-                                                                                <label for="date_finale" class="col-sm-2 col-form-label">Pourcentage</label>
+                                                                                <label for="date_finale" class="col-sm-2 col-form-label">Pourcentage--{{r.pourcentage}}</label>
                                                                                 <div class="col-sm-10">
-                                                                                    <input type="range" min="0" max="100" class="form-control-range" name="pourcentage" id="pourcentage" value="{{r.pourcentage}}" required>
+                                                                                    <input type="range" min="0" max="100" class="form-control-range" name="pourcentage" id="pourcentage" [(ngModel)]="r.pourcentage" value="{{r.pourcentage}}" disabled required>
                                                                                 </div>
                                                                             </div><br>
+
+                                                                            <div class="row mb-3 ">
+                                                                                <label class="col-sm-2 col-form-label">Tâches</label>
+                                                                                <div class="col-sm-10">
+                                                                                    <div class="float-left text-primary">
+                                                                                        <ul class="list-group" *ngFor="let t of taches">
+                                                                                            <li class="list-group-item list-group-item-action list-group-item-primary">
+                                                                                                <i class="material-icons" style="cursor:pointer" (click)="deleteTache(t.id)">close</i> {{t.tache}} <input *ngIf="t.etat=='pas fait'" type="checkbox" name=""
+                                                                                                    id="t{{t.id}}" (change)="updateTache(t)" />
+                                                                                                <i class="material-icons" *ngIf="t.etat=='fait'">done</i>
+                                                                                            </li><br>
+
+                                                                                        </ul>
+
+
+                                                                                    </div><br>
+                                                                                    <div>
+                                                                                        <form #tacheForm=ngForm (ngSubmit)="addTache(r.id)">
+                                                                                            <div><input type="text" name="nom_tache" id="nom_tache" [(ngModel)]="tache.tache" required></div>
+                                                                                            <div style="cursor:pointer" class="text-primary" type="button">
+                                                                                                <button type="submit" class="btn btn-primary" [disabled]="!tacheForm.valid"><i class="material-icons">add</i>Ajouter tâche</button>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+
+
+                                                                                </div>
+                                                                            </div><br>
+
                                                                             <div class="row mb-3">
                                                                                 <label for="inputPassword3" class="col-sm-2 col-form-label">Responsable </label>
                                                                                 <div class="col-sm-10">
@@ -250,7 +279,7 @@
 
                                         <div class="col-6">
                                             <h6 class="p-3 mb-2 bg-primary text-white">Ajouter nouvelle recommandation à l'évaluation.</h6>
-                                            <form #recommandationForm=ngForm name="documentForm" (ngSubmit)="addRecommandationmodif()">
+                                            <form #recommandationForm=ngForm name="documentForm" (ngSubmit)="addRecommandationmodif(e.id)">
                                                 <input type="text" name="evaluation_id" id="evaluation_id1" class="form-control" value="{{e.id}}" hidden />
                                                 <label>Titre</label>
                                                 <input type="text" class="form-control" name="titre" [(ngModel)]="recommandation.titre" required />
@@ -291,7 +320,12 @@
         </tbody>
     </table>
 </div>
-
+<div class="row">
+    <div class="col-9">
+        <ngb-pagination [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="evaluations.length" class="active"></ngb-pagination>
+    </div>
+    <div class="col-3">Pagination par : <input type="number" class="form-control" [(ngModel)]="pageSize" min=5/></div>
+</div>
 
 <button class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Nouvelle evaluation</button>
 

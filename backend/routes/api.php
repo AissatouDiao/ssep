@@ -29,6 +29,7 @@ use App\Http\Controllers\AvancementtravauxController;
 use App\Http\Controllers\PrealablescommuneController;
 use App\Http\Controllers\ProcesverbalszoneController;
 use App\Http\Controllers\DocumentsevaluationController;
+use App\Http\Controllers\RecommandationtacheController;
 use App\Http\Controllers\RapportdactiviteszoneController;
 use App\Http\Controllers\ContratsexecutionmarcheController;
 use App\Http\Controllers\DecomptesexecutionmarcheController;
@@ -93,6 +94,13 @@ Route::group([
     Route::delete('deleteRecommandation/{id}',[RecommandationController::class,'delete']);
     Route::post('updaterecommandation',[RecommandationController::class,'update']); 
     Route::post('changestatutrecommandation',[RecommandationController::class,'changeStatut']);
+    //Recommandations taches
+    Route::post('addrecommandationtache',[RecommandationtacheController::class,'add']);
+    Route::get('getRecommandationtaches', [RecommandationtacheController::class,'getRecommandationtaches']);
+    Route::post('getRecommandationtacheById', [RecommandationtacheController::class,'getRecommandationtacheById']);
+    Route::delete('deleteRecommandationTache/{id}',[RecommandationtacheController::class,'delete']);
+    Route::post('updaterecommandationtache',[RecommandationtacheController::class,'update']); 
+   // Route::post('changestatutrecommandationtache',[RecommandationtacheController::class,'changeStatut']);
    //Partagedocuments
     Route::post('adddocument',[PartagedocumentController::class,'add']);
     Route::get('getdocuments', [PartagedocumentController::class,'getDocumentpartages']);

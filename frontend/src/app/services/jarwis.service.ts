@@ -134,6 +134,30 @@ export class JarwisService {
   changeStatutRecommandation(data: object) {
     return this.http.post(`${this.baseUrl}/changestatutrecommandation`, data)
   }
+  //-----Recommandation tache debut---------//
+  //Recuperer tous les reommandations dans la base de données
+  getRecommandationsTaches() {
+    return this.http.get(`${this.baseUrl}/getRecommandationtaches`);
+  }
+  //Recuperer tous les reommandations dans la base de données
+  getTacheByRecommandationId(data: any) {
+    return this.http.post(`${this.baseUrl}/getRecommandationtacheById`, data);
+  }
+  //Ajouter une nouvelle recommandation
+  addRecommandationTache(data: object) {
+    return this.http.post(`${this.baseUrl}/addrecommandationtache`, data);
+  }
+  //update recommandation
+  updateRecommandationTache(data: object) {
+    return this.http.post(`${this.baseUrl}/updaterecommandationtache`, data)
+  }
+
+  //supprimer recommandation
+  deleterecommandationtache(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteRecommandationTache/` + data);
+  }
+
+  //-----Recommandation tache fin---------//
 
   //Recuperer tous les documents partagés dans la base de données
   getDocuments() {

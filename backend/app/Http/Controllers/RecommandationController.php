@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Recommandation;
 
+use App\Models\Recommandationtache;
 use App\Http\Requests\RecommandationRequest;
 
 class RecommandationController extends Controller
@@ -63,5 +64,7 @@ class RecommandationController extends Controller
             
         ]); 
     }
+
+  
 }
 
