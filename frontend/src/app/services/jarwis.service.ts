@@ -860,4 +860,48 @@ export class JarwisService {
   }
 
 
+  /** Indicateurs */
+
+  getIndicateurs() {
+    return this.http.get(`${this.baseUrl}/getindicateurs`);
+  }
+  //Ajouter un nouvel prealable zone
+  addIndicateur(data: object) {
+    return this.http.post(`${this.baseUrl}/addindicateur`, data);
+  }
+  //update prealable zone
+  updateIndicateur(data: object) {
+    return this.http.post(`${this.baseUrl}/updateindicateur`, data)
+  }
+
+  //supprimer prealable zone
+  deleteIndicateur(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteindicateur/` + data);
+  }
+
+  getIndicateurById_em(data: any) {
+    return this.http.get(`${this.baseUrl}/getIndicateurById/` + data);
+  }
+
+  /**Valeurs annuelles */
+  getvaleurannuelles() {
+    return this.http.get(`${this.baseUrl}/getvaleurannuelles`);
+  }
+  //Ajouter un nouvel prealable zone
+  addvaleurannuelle(data: object) {
+    return this.http.post(`${this.baseUrl}/addvaleurannuelle`, data);
+  }
+  //update prealable zone
+  updatevaleurannuelle(data: object) {
+    return this.http.post(`${this.baseUrl}/updatevaleurannuelle`, data)
+  }
+
+  //supprimer prealable zone
+  deletevaleurannuelle(data: any) {
+    return this.http.delete(`${this.baseUrl}/getvaleurannuelles/` + data);
+  }
+
+  getvaleurannuelleById_em(data: any) {
+    return this.http.get(`${this.baseUrl}/getValeurannuelleById/` + data);
+  }
 }

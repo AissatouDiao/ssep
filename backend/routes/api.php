@@ -13,6 +13,7 @@ use App\Http\Controllers\RegionController;
 use App\Http\Controllers\CommuneController;
 use App\Http\Controllers\ActiviteController;
 use App\Http\Controllers\ComposanteController;
+use App\Http\Controllers\IndicateurController;
 use App\Http\Controllers\PartenaireController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\OrganisationController;
@@ -23,6 +24,7 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\PrealableszoneController;
 use App\Http\Controllers\RecommandationController;
+use App\Http\Controllers\ValeurannuelleController;
 use App\Http\Controllers\PartagedocumentController;
 use App\Http\Controllers\PassationmarcheController;
 use App\Http\Controllers\AvancementtravauxController;
@@ -286,4 +288,18 @@ Route::group([
     Route::post('updateAvancementTravaux',[AvancementtravauxController ::class,'updateAvancementTravaux']); 
     //Organisations
     Route::post('importOrganisationFileToDatabase',[OrganisationController ::class,'importOrganisationFileToDatabase']);
+
+    //Indicateurs
+    Route::post('addindicateur',[IndicateurController::class,'add']);
+    Route::get('getindicateurs', [IndicateurController::class,'getindicateurs']);
+    Route::delete('deleteindicateur/{id}',[IndicateurController::class,'delete']);
+    Route::get('getIndicateurById/{id}',[IndicateurController::class,'getindicateurById']);
+    Route::post('updateindicateur',[IndicateurController::class,'update']);
+    //Valeur Annuelle
+    Route::post('addvaleurannuelle',[ValeurannuelleController::class,'add']);
+    Route::get('getvaleurannuelles', [ValeurannuelleController::class,'getvaleurannuelles']);
+    Route::delete('deletevaleurannuelle/{id}',[ValeurannuelleController::class,'delete']);
+    Route::get('getValeurannuelleById/{id}',[ValeurannuelleController::class,'getvaleurannuelleById']);
+    Route::post('updatevaleurannuelle',[ValeurannuelleController::class,'update']);
 });
+

@@ -12,7 +12,7 @@ class RecommandationtacheController extends Controller
         Recommandationtache::create($request->all());
         $lastRecordDate = Recommandationtache::latest()->first();
         return response()->json([
-            "message"=>"Un nouvelle tâche a été ajouté à la recommadation!",
+            "message"=>"Une nouvelle tâche a été ajouté à la recommadation!",
              "last"=>$lastRecordDate,
         ]);
     }
