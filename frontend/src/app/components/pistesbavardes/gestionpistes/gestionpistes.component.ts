@@ -21,8 +21,8 @@ import Sketch from "@arcgis/core/widgets/Sketch";
 })
 export class GestionpistesComponent implements OnInit {
 
-  regions: any; idregion: any; pistes: any;
-  communes: any;
+  regions: any; idregion: any; pistes: any = [];
+  communes: any; pistes1: any = JSON.parse(JSON.stringify(localStorage.getItem('pistes')));
 
   @Input() page: any = 1;
   @Input() pageSize: any = 5;
@@ -35,8 +35,11 @@ export class GestionpistesComponent implements OnInit {
   piste = {
     nom: null,
     commune_id: null,
-    kilometrage: null
+    kilometrage: null,
+    coordonnees: null,
+
   }
+
 
   @ViewChild('regionForm')
   regionForm!: any;
@@ -62,9 +65,40 @@ export class GestionpistesComponent implements OnInit {
   ngAfterViewInit() {
     this.arcgismap();
   }
+  /**Map data */
 
+  drawpiste(piste: any) {
+    const simpleLineSymbol = {
+      type: "simple-line",
+      color: [226, 119, 40], // Orange
+      width: 2
+    };
+    const popupTemplate = {
+      title: "{Name}",
+      content: "{Description}"
+    }
+    const attributes = {
+      Name: piste.nom,
+      Description: "kilométrage :" + piste
+    }
+
+    const polylineGraphic1 = new Graphic({
+      geometry: new Polyline({
+        // type: "polyline",
+        paths: piste.coordonnees,
+        "spatialReference": {
+          "wkid": 102100
+        }
+      }),
+      symbol: simpleLineSymbol,
+      attributes: attributes,
+      popupTemplate: popupTemplate
+    });
+    return polylineGraphic1;
+  }
 
   arcgismap() {
+
 
     esriConfig.apiKey = "AAPK6a57f90dec384ae2ae2bf683265c5d68Jk_oTEsvriU92IrmYm3m7NBNO5o2GxB8JzmBWtLKH8Vu5YoVCLPYCkQikezzqNDh";
     const map = new Map({
@@ -124,6 +158,21 @@ export class GestionpistesComponent implements OnInit {
 
     graphicsLayer.add(pointGraphic);
 
+
+    console.log(JSON.parse(JSON.stringify(this.pistes1)));
+    if (this.pistes1) {
+      /* this.pistes1.forEach((p: any) => {
+         graphicsLayer.add(this.drawpiste(p));
+       });*/
+
+      for (let p of this.pistes1) {
+        graphicsLayer.add(this.drawpiste(p));
+      }
+    }
+
+
+
+
     const polyline = {
 
       paths: [
@@ -154,8 +203,20 @@ export class GestionpistesComponent implements OnInit {
       attributes: attributes,
       popupTemplate: popupTemplate
     });
+    const polylineGraphic1 = new Graphic({
+      geometry: new Polyline({
+        // type: "polyline",
+        paths: [[[-1690647.7662119078, 1758433.9359555964], [-1598923.3322697207, 1722967.1548312842], [-1537773.7096415958, 1667932.4944659718], [-1537773.7096415958, 1667932.4944659718]]],
+        "spatialReference": {
+          "wkid": 102100
+        }
+      }),
+      symbol: simpleLineSymbol,
+      attributes: attributes,
+      popupTemplate: popupTemplate
+    });
     graphicsLayer.add(polylineGraphic);
-
+    graphicsLayer.add(polylineGraphic1);
     view.when(() => {
       const sketch = new Sketch({
         layer: graphicsLayer,
@@ -165,7 +226,9 @@ export class GestionpistesComponent implements OnInit {
       });
       sketch.on("create", function (event) {
         if (event.state === "complete") {
+          let paths = event.graphic.geometry.toJSON().paths;
           console.log(event.graphic.geometry.toJSON());
+          if (paths) { alert(JSON.stringify(paths)) }
         }
       });
 
@@ -176,17 +239,19 @@ export class GestionpistesComponent implements OnInit {
 
 
   //Recupérer toutes les regions.
-  getPistes(): void {
+  getPistes() {
+    let p: any
     this.jarwisService.getPistes().subscribe(
-      (data: any) => { console.log(data); this.pistes = data },
+      (data: any) => { console.log(data); this.pistes = data; localStorage.setItem('pistes', JSON.stringify(this.pistes)) },
       (error: any) => console.log(error)
     );
+    console.log(p);
   }
 
   //Recupérer toutes les regions.
   getRegions() {
     this.jarwisService.getRegions().subscribe(
-      (data: any) => { console.log(data); this.regions = data },
+      (data: any) => { console.log(data); this.regions = data; },
       (error: any) => console.log(error)
     );
   }

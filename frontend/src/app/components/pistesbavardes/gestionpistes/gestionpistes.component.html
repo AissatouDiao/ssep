@@ -25,7 +25,9 @@
 
 
 <div class="row">
-    <div class="col-4" *ngFor="let p of pistes| searchFilter:searchText;let i=index ">
+
+    <div class="col-4" *ngFor="let p of pistes| searchFilter:searchText;let i=index">
+
         <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title text-capitalize text-white text-center fw-bolder lh-lg" data-toggle="modal" attr.data-target="#a{{p.id}}" style="cursor:pointer">
@@ -70,7 +72,9 @@
                                                 </select><br>
                                             </div>
                                             <label for="">Choisissez kilometrage (km)</label>
-                                            <input type="number" class="form-control" name="kilometrage" min="0" [(ngModel)]="p.kilometrage" required />
+                                            <input type="number" class="form-control" name="kilometrage" min="0" [(ngModel)]="p.kilometrage" required /><br>
+                                            <label for="">Coordonnées piste </label>
+                                            <input type="text" class="form-control" name="coordonnees" placeholder="Veuillez copier et coller ici les données du tracé." [(ngModel)]="p.coordonnees" required /><br>
                                             <button class="btn btn-danger" [disabled]="!pistemodifForm.valid">Modifier piste</button>
                                         </form>
                                     </div>
@@ -104,7 +108,7 @@
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="row">
-                                        <div class="col-6">
+                                        <div class="col-12">
                                             <label for="">Titre</label>
                                             <div>{{p.nom}}</div>
                                             <label for="">Commune</label>
@@ -113,18 +117,9 @@
                                             </ng-container>
                                             <label for="">kilometrage</label>
                                             <div>{{p.kilometrage}}</div>
+                                            <label for="">coordonnees</label>
+                                            <div>{{p.coordonnees}}</div>
                                             <button type="button" class="btn btn-danger"> Affichage carte</button>
-                                        </div>
-                                        <div class="col-6">
-                                            <h1>Carte ci dessous</h1>
-
-                                            <div class="card">
-                                                <div class="card-header">
-                                                    Carte {{p.nom}}
-                                                </div>
-                                                <div class="card-body viewDiv" id="viewDiv" name="viewDiv">
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -175,10 +170,18 @@
                                             </ng-container>
                                         </select><br>
                                     </div>
-                                    <label>Nom</label>
-                                    <input type="text" class="form-control" name="libelle" [(ngModel)]="piste.nom" required />
-                                    <label for="">Choisissez kilometrage (km)</label>
-                                    <input type="number" class="form-control" name="kilometrage" min="0" [(ngModel)]="piste.kilometrage" required />
+                                    <div>
+                                        <label>Nom</label>
+                                        <input type="text" class="form-control" name="libelle" [(ngModel)]="piste.nom" required />
+                                    </div><br>
+                                    <div>
+                                        <label for="">Choisissez kilometrage (km)</label>
+                                        <input type="number" class="form-control" name="kilometrage" min="0" [(ngModel)]="piste.kilometrage" required />
+                                    </div><br>
+                                    <div>
+                                        <label for="">Coordonnées piste </label>
+                                        <input type="text" class="form-control" name="coordonnees" placeholder="Veuillez copier et coller ici les données du tracé." [(ngModel)]="piste.coordonnees" required />
+                                    </div><br>
                                     <button class="btn btn-danger" [disabled]="!pisteForm.valid">Ajouter piste</button>
                                 </form>
                             </div>

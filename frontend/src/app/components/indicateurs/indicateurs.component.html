@@ -7,7 +7,7 @@
     </ol>
 </nav>
 <div class="row">
-    <div class="col-8 ">
+    <div class="col-8">
         <div class="card">
             <table class="table table-hover">
                 <thead>
@@ -20,40 +20,176 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
+                    <tr *ngFor="let i of indicateurs;let index = index" style="cursor:pointer" (click)="affichage(i)">
+
+                        <th scope="row">{{index}}</th>
+                        <td>{{i.nom}}</td>
+                        <td>{{i.type}}</td>
+                        <td>{{i.valeur_cible}}</td>
+                        <td> <i class="material-icons text-primary" data-toggle="modal" attr.data-target="#e{{i.id}}">edit</i>
+                            <!-- Modal modifier -->
+                            <div class="modal" id="e{{i.id}}" tabindex="-1" role="dialog" attr.aria-labelledby="e{{i.id}}" aria-hidden="true">
+                                <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title" id="exampleModalLabel">Modification de l'indicateur : {{i.nom}}.</h3>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                 <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <form #modifindicateurForm=ngForm (ngSubmit)="updateIndicateur(i) ">
+                                                    <div class="modal-body text-primary">
+
+                                                        <div class="form-group">
+                                                            <label class="text-dark" for="formGroupExampleInput">Nom :</label>
+                                                            <input type="text" class="form-control" name="nom" [(ngModel)]="i.nom" id="formGroupExampleInput" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="text-dark" for="formGroupExampleInput2">Description :</label>
+                                                            <input type="text" class="form-control" name="description" [(ngModel)]="i.description" id="formGroupExampleInput2" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="text-dark" for="formGroupExampleInput3">Type :</label>
+                                                            <input type="text" class="form-control" name="type" [(ngModel)]="i.type" id="formGroupExampleInput3" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="text-dark" for="formGroupExampleInput4">Année Début de suivi :</label>
+                                                            <input type="text" class="form-control" name="annee_debut" [(ngModel)]="i.annee_debut" id="formGroupExampleInput4" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="text-dark" for="formGroupExampleInput5">Nombre années de suivi : </label>
+                                                            <input type="text" class="form-control" name="nombre_annees" [(ngModel)]="i.nombre_annees" id="formGroupExampleInput5" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="text-dark" for="formGroupExampleInput6">Valeur de référence :</label>
+                                                            <input type="text" class="form-control" name="valeur_reference" [(ngModel)]="i.valeur_reference" id="formGroupExampleInput6" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="text-dark" for="formGroupExampleInput7">Valeur Cible :</label>
+                                                            <input type="text" class="form-control" name="valeur_cible" [(ngModel)]="i.valeur_cible" id="formGroupExampleInput7" required>
+                                                        </div>
+
+
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-dark" [disabled]="!modifindicateurForm.valid">Enregistrer</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="col-4">
+                                                <h3>Valeurs annuelles</h3><br>
+
+                                                <ng-container *ngFor="let a of compte(i.nombre_annees);let b=index">
+                                                    <ng-container *ngFor="let va of valeur_annuelles">
+                                                        <ng-container *ngIf="va.indicateur_id==i.id" ;then autrement>
+                                                            <label for="">Année  {{i.annee_debut+ b}} </label> <input type="number" value="{{va.valeur}}" min="0" class="form-control" name="nom" id="valeur{{i.id}}">
+
+                                                        </ng-container>
+                                                        <ng-template #autrement>
+                                                            <label for="">Année  {{i.annee_debut+ b}}</label> <input type="number" min="0" class="form-control" name="nom" id="valeur{{i.id}}">
+                                                            <button class="button btn btn-primary" (click)="addValeurAnnuelle(i.id,i.annee_debut+b)">Ajouter</button><br><br>
+                                                        </ng-template>
+
+                                                    </ng-container>
+
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <i class="material-icons text-danger" (click)="deleteIndicateur(i.id)">close</i>
+                        </td>
+
+
                     </tr>
                 </tbody>
             </table>
         </div>
+        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">Nouveau indicateur</button>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="exampleModalLabel">Création d'un nouveau Indicateur.</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                    </div>
+                    <form #indicateurForm=ngForm (ngSubmit)="addIndicateur()">
+                        <div class="modal-body text-primary ">
+
+                            <div class="form-group">
+                                <label class="text-dark" for="formGroupExampleInput">Nom :</label>
+                                <input type="text" class="form-control" name="nom" [(ngModel)]="indicateur.nom" id="formGroupExampleInput" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="text-dark" for="formGroupExampleInput2">Description :</label>
+                                <input type="text" class="form-control" name="description" [(ngModel)]="indicateur.description" id="formGroupExampleInput2" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="text-dark" for="formGroupExampleInput3">Type :</label>
+                                <input type="text" class="form-control" name="type" [(ngModel)]="indicateur.type" id="formGroupExampleInput3" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="text-dark" for="formGroupExampleInput4">Année Début de suivi :</label>
+                                <input type="text" class="form-control" name="annee_debut" [(ngModel)]="indicateur.annee_debut" id="formGroupExampleInput4" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="text-dark" for="formGroupExampleInput5">Nombre années de suivi : </label>
+                                <input type="text" class="form-control" name="nombre_annees" [(ngModel)]="indicateur.nombre_annees" id="formGroupExampleInput5" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="text-dark" for="formGroupExampleInput6">Valeur de référence :</label>
+                                <input type="text" class="form-control" name="valeur_reference" [(ngModel)]="indicateur.valeur_reference" id="formGroupExampleInput6" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="text-dark" for="formGroupExampleInput7">Valeur Cible :</label>
+                                <input type="text" class="form-control" name="valeur_cible" [(ngModel)]="indicateur.valeur_cible" id="formGroupExampleInput7" required>
+                            </div>
+
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-dark" [disabled]="!indicateurForm.valid">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Diagramme suivi Indicateur</div>
+            <div class="card-body">
+                <div style="display: block;">
+                    <canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins">
+                    </canvas>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col-4">
         <div class="card border-success mb-3" style="max-width: 25rem;">
-            <div class="card-header bg-transparent border-success">Nom Indicateur</div>
+            <div class="card-header bg-transparent border-success">{{indicateur_affichage.nom}}</div>
             <div class="card-body text-success">
-                <h5 class="card-title">Type Indicateur</h5>
+                <h5 class="card-title">{{indicateur_affichage.type}}</h5>
                 <div class="card-text">
                     <div>
                         <ul class="list-group">
-                            <li class="list-group-item list-group-item-action list-group-item">Description : </li>
-                            <li class="list-group-item list-group-item-action list-group-item">Année Debut :</li>
-                            <li class="list-group-item list-group-item-action list-group-item">Nombre années :</li>
-                            <li class="list-group-item list-group-item-action list-group-item">Valeur de référence : </li>
-                            <li class="list-group-item list-group-item-action list-group-item">Valeur cible :</li>
+                            <li class="list-group-item list-group-item-action list-group-item">Description : {{indicateur_affichage.description}} </li>
+                            <li class="list-group-item list-group-item-action list-group-item">Année Debut : {{indicateur_affichage.annee_debut}}</li>
+                            <li class="list-group-item list-group-item-action list-group-item">Nombre années : {{indicateur_affichage.nombre_annees}}</li>
+                            <li class="list-group-item list-group-item-action list-group-item">Valeur de référence : {{indicateur_affichage.valeur_reference}} </li>
+                            <li class="list-group-item list-group-item-action list-group-item">Valeur cible : {{indicateur_affichage.valeur_cible}}</li>
 
                         </ul>
                     </div>

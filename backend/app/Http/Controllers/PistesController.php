@@ -44,6 +44,7 @@ class PistesController extends Controller
         $Piste->nom=$request->nom;
         $Piste->commune_id=$request->commune_id;
         $Piste->kilometrage=$request->kilometrage;
+        $Piste->coordonnees=$request->coordonnees;
         $Piste->save();
        return response()->json([
            "message"=>"Piste mis à jour avec succès !",
