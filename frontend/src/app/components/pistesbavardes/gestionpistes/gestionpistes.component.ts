@@ -97,6 +97,8 @@ export class GestionpistesComponent implements OnInit {
     return polylineGraphic1;
   }
 
+
+
   arcgismap() {
 
 

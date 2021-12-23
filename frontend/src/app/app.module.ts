@@ -71,7 +71,7 @@ import { FormationsComponent } from './components/chainesdevaleurs/formations/fo
 import { SuiviproductionComponent } from './components/chainesdevaleurs/suiviproduction/suiviproduction.component';
 import { AgreagequaliteComponent } from './components/chainesdevaleurs/agreagequalite/agreagequalite.component';
 import { TransformationComponent } from './components/chainesdevaleurs/transformation/transformation.component';
-
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 @NgModule({
@@ -139,6 +139,7 @@ import { TransformationComponent } from './components/chainesdevaleurs/transform
     BrowserAnimationsModule,
     MatTableModule,
     CdkTableModule,
+    MatTabsModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,],
   providers: [{ provide: 'SnotifyToastConfig', useValue: ToastDefaults },

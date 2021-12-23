@@ -37,6 +37,10 @@ class ValeurannuelleController extends Controller
         $Valeurannuelle= Valeurannuelle::find($request);
         return $Valeurannuelle; 
     }
+    public function getvaleurannuellesByIndicateurId( $request){
+        $Valeurannuelles= Valeurannuelle::where('indicateur_id',$request)->get();
+        return $Valeurannuelles; 
+    }
 
     public function getvaleurannuelles(Request $request){
         $Valeurannuelle= Valeurannuelle::all();

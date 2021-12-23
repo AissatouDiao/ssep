@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
+import { ChartDataSets, ChartPoint, ChartType } from 'chart.js';
 import { SnotifyPosition, SnotifyService } from 'ng-snotify';
 import { Color, Label } from 'ng2-charts';
 import { JarwisService } from 'src/app/services/jarwis.service';
@@ -38,6 +38,7 @@ export class IndicateursComponent implements OnInit {
 
 
   indicateur_affichage = {
+    id: <any>null,
     nom: <any>null,
     description: <any>null,
     type: <any>null,
@@ -54,7 +55,14 @@ export class IndicateursComponent implements OnInit {
     );
   }
 
+  lineChartData: ChartDataSets[] = [
+    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Selectionner une ligne du tableau ci-dessus pour voir les données correpondants' },
+  ];
+  lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
+
+
   affichage(i: any) {
+    this.indicateur_affichage.id = i.id;
     this.indicateur_affichage.nom = i.nom;
     this.indicateur_affichage.description = i.description;
     this.indicateur_affichage.type = i.type;
@@ -62,6 +70,32 @@ export class IndicateursComponent implements OnInit {
     this.indicateur_affichage.nombre_annees = i.nombre_annees;
     this.indicateur_affichage.valeur_reference = i.valeur_reference;
     this.indicateur_affichage.valeur_cible = i.valeur_cible;
+
+    // getvaleurannuelleByIndicateurId
+    let v_a: any; let array_va: any = [i.valeur_reference]; let array_va_labels: any = ['anne_ref']
+    this.jarwisService.getvaleurannuelleByIndicateurId(i.id).subscribe(
+      data => {
+        console.log(data); v_a = data
+        v_a.forEach((v: any) => {
+          array_va.push(v.valeur);
+          array_va_labels.push(v.annee)
+          console.log(array_va_labels);
+        });
+        this.lineChartData = [
+          { data: array_va, label: i.nom },
+        ];
+        this.lineChartLabels = array_va_labels;
+      },
+      error => console.log(error)
+    );
+
+
+
+
+
+    console.log(this.lineChartData);
+
+
   }
 
   deleteIndicateur(id: any) {
@@ -132,10 +166,11 @@ export class IndicateursComponent implements OnInit {
     );
   }
   //Diagramme ligne
-  public lineChartData: ChartDataSets[] = [
+  /*public lineChartData: ChartDataSets[] = [
     { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-  ];
-  public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  ];*/
+
+  /*public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];*/
   public lineChartOptions = {
     responsive: true,
   };

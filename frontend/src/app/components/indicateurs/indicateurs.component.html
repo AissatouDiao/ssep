@@ -38,10 +38,10 @@
                                             </button>
                                         </div>
 
-                                        <div class="row">
+                                        <div class="row modal-body ">
                                             <div class="col-8">
-                                                <form #modifindicateurForm=ngForm (ngSubmit)="updateIndicateur(i) ">
-                                                    <div class="modal-body text-primary">
+                                                <form #modifindicateurForm=ngForm (ngSubmit)="updateIndicateur(i)">
+                                                    <div class="text-primary">
 
                                                         <div class="form-group">
                                                             <label class="text-dark" for="formGroupExampleInput">Nom :</label>
@@ -76,27 +76,23 @@
 
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                                                         <button type="submit" class="btn btn-dark" [disabled]="!modifindicateurForm.valid">Enregistrer</button>
                                                     </div>
                                                 </form>
                                             </div>
                                             <div class="col-4">
                                                 <h3>Valeurs annuelles</h3><br>
-
                                                 <ng-container *ngFor="let a of compte(i.nombre_annees);let b=index">
-                                                    <ng-container *ngFor="let va of valeur_annuelles">
-                                                        <ng-container *ngIf="va.indicateur_id==i.id" ;then autrement>
-                                                            <label for="">Année  {{i.annee_debut+ b}} </label> <input type="number" value="{{va.valeur}}" min="0" class="form-control" name="nom" id="valeur{{i.id}}">
-
+                                                    <ng-container *ngFor="let va of valeur_annuelles;let c=index">
+                                                        <ng-container *ngIf="i.id==va.indicateur_id &&i.annee_debut+b==va.annee">
+                                                            <label for="">Année  {{i.annee_debut+ b}} </label> <input type="text" disabled value="{{va.valeur}}" min="0" class="form-control" name="nom">
                                                         </ng-container>
-                                                        <ng-template #autrement>
-                                                            <label for="">Année  {{i.annee_debut+ b}}</label> <input type="number" min="0" class="form-control" name="nom" id="valeur{{i.id}}">
-                                                            <button class="button btn btn-primary" (click)="addValeurAnnuelle(i.id,i.annee_debut+b)">Ajouter</button><br><br>
-                                                        </ng-template>
-
                                                     </ng-container>
-
+                                                    <ng-container *ngIf="b>valeur_annuelles.length">
+                                                        <label for="">Année  {{i.annee_debut+ b}}</label> <input type="number" min="0" class="form-control" name="nom" id="valeur{{i.id}}">
+                                                        <button class="button btn btn-primary" (click)="addValeurAnnuelle(i.id,i.annee_debut+b)">Ajouter</button><br><br>
+                                                    </ng-container>
                                                 </ng-container>
                                             </div>
                                         </div>
@@ -200,14 +196,11 @@
                     <div class="card-body">
                         <h5 class="card-title">Valeur annuelles</h5>
                         <div class="card-text text-white">
-                            <ul class="list-group text-white">
-                                <li class="list-group-item list-group-item-action list-group-item-light">Valeur 2002 : </li>
-                                <li class="list-group-item list-group-item-action list-group-item-light">Valeur 2002 :</li>
-                                <li class="list-group-item list-group-item-action list-group-item-light">Valeur 2002: </li>
-                                <li class="list-group-item list-group-item-action list-group-item-light">Valeur 2002 : </li>
-                                <li class="list-group-item list-group-item-action list-group-item-light">Valeur 2002 :</li>
 
+                            <ul class="list-group text-white" *ngFor="let va of valeur_annuelles">
+                                <li class="list-group-item list-group-item-action list-group-item-light" *ngIf="va.indicateur_id==indicateur_affichage.id">Valeur {{va.annee}}: {{va.valeur}} </li>
                             </ul>
+
                         </div>
                     </div>
                 </div>

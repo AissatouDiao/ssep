@@ -39,6 +39,7 @@
                         <div class="alert alert-success" *ngIf="role|keyvalue" role="alert">
                             Veuillez choisir, ci-dessous, les modules et permissions correspondants au rôle : <b>{{role[0]['libelle_role']}}</b>.
                         </div>
+
                     </div>
 
 
@@ -46,9 +47,77 @@
                     <h4 class="text-center"> Ajouter les modules et permissions</h4><br>
 
 
+                    <!---->
 
-                    <table class="table table-dark" [hidden]="table1">
-                        <thead>
+                    <mat-tab-group mat-align-tabs="start" [hidden]="table1">
+                        <!-- #enddocregion align-start -->
+                        <mat-tab *ngFor="let m of modules; let i =index" label="{{m.libelle_module}}">
+                            <div class="bg-dark">
+                                <form action="" class="text-center">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class=" form-control" type="hidden" attr.value="{{m.id}}" name="module_id" id="{{m.id}}" />
+                                            <span class="">
+                                            <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check" *ngIf="role!=null">
+                                        <label class="form-check-label">
+                                            <input class=" form-control" type="hidden" attr.value="{{role[0]['id']}}" name="role_id"id="{{role[0]['id']}}"  />
+                                            <span class="">
+                                            <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+
+                                        <label class="form-check-label">
+                                                Ajouter lecture
+                                            <input class="form-check-input form-control" type="checkbox" name="lecture" id="lecture"/>
+                                            <span class="form-check-sign">
+                                            <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+
+                                        <label class="form-check-label">
+                                                Activer l'ajout
+                                            <input class="form-check-input form-control" type="checkbox" name="ajout" id="ajout" />
+                                            <span class="form-check-sign">
+                                            <span class="check"></span>
+                                            </span>
+                                        </label>
+
+                                    </div>
+                                    <div class="form-check">
+
+                                        <label class="form-check-label">
+                                                Activer la modification
+                                            <input class="form-check-input form-control" type="checkbox" name="modification" id="modification" />
+                                            <span class="form-check-sign">
+                                            <span class="check"></span>
+                                            </span>
+                                       </label>
+                                    </div>
+                                    <div class="form-check ">
+
+                                        <label class="form-check-label">
+                                                Activer la suppression
+                                            <input class="form-check-input form-control" type="checkbox" name="suppression" id="suppression" />
+                                            <span class="form-check-sign">
+                                            <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary " name="buttontable" (click)="onIn(i)" [disabled]="button_table">valider pour {{m.libelle_module}}</button>
+                                </form>
+                            </div>
+                        </mat-tab>
+                    </mat-tab-group>
+                    <!-- 
+                            <table class="table table-dark" ><thead>
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Modules</th>
@@ -121,10 +190,12 @@
                                 </td>
                             </tr>
 
-                        </tbody>
+
+                            </table>
+                        </tbody>-->
 
 
-                    </table><br>
+                    <br>
 
                     <table class="table table-dark" [hidden]="!table1">
                         <thead>
@@ -236,4 +307,7 @@
             </div>
         </div>
     </div>
+
+
+
 </div>

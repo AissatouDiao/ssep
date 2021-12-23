@@ -300,6 +300,7 @@ Route::group([
     Route::get('getvaleurannuelles', [ValeurannuelleController::class,'getvaleurannuelles']);
     Route::delete('deletevaleurannuelle/{id}',[ValeurannuelleController::class,'delete']);
     Route::get('getValeurannuelleById/{id}',[ValeurannuelleController::class,'getvaleurannuelleById']);
+    Route::get('getvaleurannuellesByIndicateurId/{id}',[ValeurannuelleController::class,'getvaleurannuellesByIndicateurId']);
     Route::post('updatevaleurannuelle',[ValeurannuelleController::class,'update']);
 });
 

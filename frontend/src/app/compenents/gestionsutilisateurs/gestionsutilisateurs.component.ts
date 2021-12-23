@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { SnotifyPosition, SnotifyService } from 'ng-snotify';
 import { JarwisService } from 'src/app/services/jarwis.service';
 import { TokenService } from 'src/app/services/token.service';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 @Component({

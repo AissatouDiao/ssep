@@ -901,7 +901,11 @@ export class JarwisService {
     return this.http.delete(`${this.baseUrl}/getvaleurannuelles/` + data);
   }
 
-  getvaleurannuelleById_em(data: any) {
+  getvaleurannuelleById(data: any) {
     return this.http.get(`${this.baseUrl}/getValeurannuelleById/` + data);
+  }
+
+  getvaleurannuelleByIndicateurId(data: any) {
+    return this.http.get(`${this.baseUrl}/getvaleurannuellesByIndicateurId/` + data);
   }
 }
