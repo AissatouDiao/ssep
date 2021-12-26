@@ -20,7 +20,7 @@ class CreateValeurannuellesTable extends Migration
             ->onUpdate('cascade')
             ->onDelete('cascade');
             $table->integer('annee');
-            $table->integer('valeur');
+            $table->integer('valeur')->nullable();
             $table->timestamps();
         });
     }

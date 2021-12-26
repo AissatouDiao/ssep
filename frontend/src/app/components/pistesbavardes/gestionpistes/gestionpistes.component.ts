@@ -68,6 +68,7 @@ export class GestionpistesComponent implements OnInit {
   /**Map data */
 
   drawpiste(piste: any) {
+    console.log(piste);
     const simpleLineSymbol = {
       type: "simple-line",
       color: [226, 119, 40], // Orange
@@ -161,16 +162,13 @@ export class GestionpistesComponent implements OnInit {
     graphicsLayer.add(pointGraphic);
 
 
-    console.log(JSON.parse(JSON.stringify(this.pistes1)));
-    if (this.pistes1) {
-      /* this.pistes1.forEach((p: any) => {
+    const piste = JSON.parse(this.pistes1);
+    console.log(piste);
+    /* if (piste) {
+       for (let p of piste) {
          graphicsLayer.add(this.drawpiste(p));
-       });*/
-
-      for (let p of this.pistes1) {
-        graphicsLayer.add(this.drawpiste(p));
-      }
-    }
+       }
+     }*/
 
 
 
@@ -205,11 +203,11 @@ export class GestionpistesComponent implements OnInit {
       attributes: attributes,
       popupTemplate: popupTemplate
     });
-    const polylineGraphic1 = new Graphic({
+    const polylineGraphic3 = new Graphic({
       geometry: new Polyline({
         // type: "polyline",
         paths: [[[-1690647.7662119078, 1758433.9359555964], [-1598923.3322697207, 1722967.1548312842], [-1537773.7096415958, 1667932.4944659718], [-1537773.7096415958, 1667932.4944659718]]],
-        "spatialReference": {
+        spatialReference: {
           "wkid": 102100
         }
       }),
@@ -218,7 +216,9 @@ export class GestionpistesComponent implements OnInit {
       popupTemplate: popupTemplate
     });
     graphicsLayer.add(polylineGraphic);
-    graphicsLayer.add(polylineGraphic1);
+    graphicsLayer.add(polylineGraphic3);
+
+
     view.when(() => {
       const sketch = new Sketch({
         layer: graphicsLayer,

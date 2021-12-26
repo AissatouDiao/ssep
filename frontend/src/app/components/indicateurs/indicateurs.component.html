@@ -83,6 +83,7 @@
                                             </div>
                                             <div class="col-4">
                                                 <h3>Valeurs annuelles</h3><br>
+                                                <!--
                                                 <ng-container *ngFor="let a of compte(i.nombre_annees);let b=index">
                                                     <ng-container *ngFor="let va of valeur_annuelles;let c=index">
                                                         <ng-container *ngIf="i.id==va.indicateur_id &&i.annee_debut+b==va.annee">
@@ -94,6 +95,16 @@
                                                         <button class="button btn btn-primary" (click)="addValeurAnnuelle(i.id,i.annee_debut+b)">Ajouter</button><br><br>
                                                     </ng-container>
                                                 </ng-container>
+                                                -->
+                                                <ng-container *ngFor="let va of valeur_annuelles">
+                                                    <ng-container *ngIf="va.indicateur_id==i.id">
+
+                                                        <label for="">Année  {{va.annee}}</label> <input type="number" min="0" class="form-control" name="nom" [(ngModel)]="va.valeur" id="valeur{{va.valeur}}">
+                                                        <button class="button btn btn-primary" (click)="updateValeurAnnuelle(va)">Ajouter</button><br><br>
+                                                    </ng-container>
+
+                                                </ng-container>
+
                                             </div>
                                         </div>
                                     </div>
@@ -177,7 +188,7 @@
         <div class="card border-success mb-3" style="max-width: 25rem;">
             <div class="card-header bg-transparent border-success">{{indicateur_affichage.nom}}</div>
             <div class="card-body text-success">
-                <h5 class="card-title">{{indicateur_affichage.type}}</h5>
+                <h3 class=""><span class="badge badge-primary">type : {{indicateur_affichage.type}}</span></h3>
                 <div class="card-text">
                     <div>
                         <ul class="list-group">

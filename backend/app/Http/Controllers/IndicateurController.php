@@ -4,12 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Indicateur;
 use Illuminate\Http\Request;
+use App\Models\Valeurannuelle;
 
 class IndicateurController extends Controller
 {
     public function add(Request $request){
-        Indicateur::create($request->all());
+        Indicateur::create($request->all());  
         $lastRecordDate = Indicateur::latest()->first();
+        $valeur_annuelle=[
+            'indicateur_id'=>$lastRecordDate->id,
+            'annee'=>0,
+            'valeur'=>null,
+        ];
+        for($i=0; $i<$lastRecordDate->nombre_annees; $i++) {
+            $valeur_annuelle['annee']=$lastRecordDate->annee_debut+$i;
+            Valeurannuelle::create($valeur_annuelle);
+ 
+        }
         return response()->json([
             "message"=>"Un nouvel indicateur a été enregistré!",
              "last"=>$lastRecordDate,

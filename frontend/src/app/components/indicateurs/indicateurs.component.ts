@@ -50,15 +50,15 @@ export class IndicateursComponent implements OnInit {
 
   addIndicateur() {
     this.jarwisService.addIndicateur(this.indicateur).subscribe(
-      data => { console.log(data); this.getIndicateurs(); this.notify.success('un nouveau indicateur ajouté ') },
+      data => { console.log(data); this.getIndicateurs(); this.getvaleurannuelles(); this.notify.success('un nouveau indicateur ajouté ') },
       error => console.log(error)
     );
   }
 
   lineChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Selectionner une ligne du tableau ci-dessus pour voir les données correpondants' },
+    { data: [], label: 'Selectionner une ligne du tableau ci-dessus pour voir les données correpondants' },
   ];
-  lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
+  lineChartLabels: Label[] = []
 
 
   affichage(i: any) {
@@ -131,6 +131,15 @@ export class IndicateursComponent implements OnInit {
 
   updateIndicateur(i: any) {
     this.jarwisService.updateIndicateur(i).subscribe(
+      (data: any) => { console.log(data); this.notify.success(data.message); },
+      (error: any) => { console.log(error); this.notify.success(error.message); }
+    );
+
+  }
+
+
+  updateValeurAnnuelle(i: any) {
+    this.jarwisService.updatevaleurannuelle(i).subscribe(
       (data: any) => { console.log(data); this.notify.success(data.message); },
       (error: any) => { console.log(error); this.notify.success(error.message); }
     );
