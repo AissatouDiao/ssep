@@ -1,35 +1,33 @@
-<div class="row">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <i class="material-icons pr-1 ">map</i>
-            <li class="breadcrumb-item">
-                <p class=""> Gestion des pistes bavardes</p>
-            </li>
-            <li class="breadcrumb-item">Travaux</li>
-            <li class="breadcrumb-item text-primary active" aria-current="page">Régions</li>
-        </ol>
-    </nav><br>
-    <div class="row">
-        <div class="navbar-form" class="col-6 float-right">
-            <div class="input-group no-border">
-                <input type="text" name="search" [(ngModel)]="searchText" autocomplete="off" class="form-control" placeholder="Rechercher...">
-                <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                    <i class="material-icons">search</i>
-                    <div class="ripple-container"></div>
-                </button>
-            </div>
-        </div><br><br>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <i class="material-icons pr-1 ">map</i>
+        <li class="breadcrumb-item">
+            <p class=""> Gestion des pistes bavardes</p>
+        </li>
+        <li class="breadcrumb-item">Travaux</li>
+        <li class="breadcrumb-item text-primary active" aria-current="page">Régions</li>
+    </ol>
+</nav><br>
+<div class="navbar-form" class="col-6 float-right">
+    <div class="input-group no-border">
+        <input type="text" name="search" [(ngModel)]="searchText" autocomplete="off" class="form-control" placeholder="Rechercher...">
+        <button type="submit" class="btn btn-white btn-round btn-just-icon">
+            <i class="material-icons">search</i>
+            <div class="ripple-container"></div>
+        </button>
     </div>
-</div>
+</div><br><br><br>
+
+
 
 
 <div class="row">
     <div class="col-4" *ngFor="let r of regions | searchFilter:searchText">
         <div class="card text-primary bg-light mb-3" style="max-width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title text-capitalize text-primary text-center fw-bolder lh-lg" (click)="gotoregion(r.id)" style="cursor:pointer">
+                <h3 class="card-title text-capitalize text-primary text-center fw-bolder lh-lg" (click)="gotoregion(r.id)" style="cursor:pointer">
                     {{r.libelle}}
-                </h5>
+                </h3>
                 <p class="card-text">
                     <i class="material-icons float-right" (click)="delete(r.id)" style="cursor:pointer">close</i>
                     <button type="button" rel="tooltip" title="Modifier région" data-toggle="modal" attr.data-target="#m{{r.id}}" class="btn btn-primary btn-link btn-sm ">

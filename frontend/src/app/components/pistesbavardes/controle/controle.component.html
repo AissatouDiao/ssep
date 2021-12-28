@@ -1,31 +1,29 @@
-<div class="row">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <i class="material-icons pr-1 ">map</i>
-            <li class="breadcrumb-item">
-                <p class=""> Gestion des pistes bavardes</p>
-            </li>
-            <li class="breadcrumb-item text-primary active" aria-current="page">Contrôle</li>
-        </ol>
-    </nav><br>
-    <div class="row">
-        <div class="navbar-form" class="col-6 float-right">
-            <div class="input-group no-border">
-                <input type="text" name="search" [(ngModel)]="searchText" autocomplete="off" class="form-control" placeholder="Rechercher...">
-                <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                    <i class="material-icons">search</i>
-                    <div class="ripple-container"></div>
-                </button>
-            </div>
-        </div><br><br>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <i class="material-icons pr-1 ">map</i>
+        <li class="breadcrumb-item">
+            <p class=""> Gestion des pistes bavardes</p>
+        </li>
+        <li class="breadcrumb-item text-primary active" aria-current="page">Contrôle</li>
+    </ol>
+</nav><br>
+<div class="navbar-form" class="col-6 float-right">
+    <div class="input-group no-border">
+        <input type="text" name="search" [(ngModel)]="searchText" autocomplete="off" class="form-control" placeholder="Rechercher...">
+        <button type="submit" class="btn btn-white btn-round btn-just-icon">
+            <i class="material-icons">search</i>
+            <div class="ripple-container"></div>
+        </button>
     </div>
-</div>
+</div><br><br><br>
+
+
 
 <div class="row">
     <div *ngFor="let z of zones | searchFilter:searchText" class="col-sm-3">
         <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title text-capitalize" (click)="gotozone(z.id)" style="cursor:pointer">{{z.libelle}}</h5>
+                <h3 class="card-title text-capitalize" (click)="gotozone(z.id)" style="cursor:pointer">{{z.libelle}}</h3>
                 <i class="material-icons float-right" (click)="delete(z.id)" style="cursor:pointer">close</i>
 
                 <i class="material-icons" title="Modifier zone" data-toggle="modal" attr.data-target="#m{{z.id}}" style="cursor:pointer">edit</i>

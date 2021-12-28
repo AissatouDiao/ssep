@@ -13,6 +13,7 @@ import Point from '@arcgis/core/geometry/Point';
 import SimpleMarkerSymbol from '@arcgis/core/symbols/SimpleMarkerSymbol';
 import Polyline from '@arcgis/core/geometry/Polyline';
 import Sketch from "@arcgis/core/widgets/Sketch";
+import * as webMercatorUtils from "@arcgis/core/geometry/support/webMercatorUtils";
 
 @Component({
   selector: 'app-gestionpistes',
@@ -23,6 +24,7 @@ export class GestionpistesComponent implements OnInit {
 
   regions: any; idregion: any; pistes: any = [];
   communes: any; pistes1: any = JSON.parse(JSON.stringify(localStorage.getItem('pistes')));
+  pistes_lignes: any = [];
 
   @Input() page: any = 1;
   @Input() pageSize: any = 5;
@@ -69,40 +71,34 @@ export class GestionpistesComponent implements OnInit {
 
   drawpiste(piste: any) {
     console.log(piste);
-    const simpleLineSymbol = {
+    let simpleLineSymbol = {
       type: "simple-line",
       color: [226, 119, 40], // Orange
       width: 2
     };
-    const popupTemplate = {
+    let popupTemplate = {
       title: "{Name}",
       content: "{Description}"
     }
-    const attributes = {
+    let attributes = {
       Name: piste.nom,
       Description: "kilométrage :" + piste
     }
 
-    const polylineGraphic1 = new Graphic({
+    let polylineGraphic = new Graphic({
       geometry: new Polyline({
-        // type: "polyline",
         paths: piste.coordonnees,
-        "spatialReference": {
-          "wkid": 102100
-        }
       }),
       symbol: simpleLineSymbol,
       attributes: attributes,
       popupTemplate: popupTemplate
     });
-    return polylineGraphic1;
+    return polylineGraphic;
   }
 
 
 
   arcgismap() {
-
-
     esriConfig.apiKey = "AAPK6a57f90dec384ae2ae2bf683265c5d68Jk_oTEsvriU92IrmYm3m7NBNO5o2GxB8JzmBWtLKH8Vu5YoVCLPYCkQikezzqNDh";
     const map = new Map({
       basemap: "arcgis-topographic" // Basemap layer service
@@ -119,7 +115,6 @@ export class GestionpistesComponent implements OnInit {
     const graphicsLayer = new GraphicsLayer();
     map.add(graphicsLayer);
 
-
     const point = { //Create a point
       type: "point",
       longitude: -118.80657463861,
@@ -134,14 +129,6 @@ export class GestionpistesComponent implements OnInit {
       }
     };
 
-    /*const pointGraphic = new Graphic({
-      geometry: new Point({
-        type: "point",
-        longitude: -118.80657463861,
-        latitude: 34.0005930608889
-      }),
-      symbol: simpleMarkerSymbol
-    });*/
     const pointGraphic = new Graphic({
       geometry: new Point({
         //  type : 'point' ,   // autocasts as new Point()
@@ -162,19 +149,8 @@ export class GestionpistesComponent implements OnInit {
     graphicsLayer.add(pointGraphic);
 
 
-    const piste = JSON.parse(this.pistes1);
-    console.log(piste);
-    /* if (piste) {
-       for (let p of piste) {
-         graphicsLayer.add(this.drawpiste(p));
-       }
-     }*/
-
-
-
 
     const polyline = {
-
       paths: [
         [-118.821527826096, 34.0139576938577], //Longitude, latitude
         [-118.814893761649, 34.0080602407843], //Longitude, latitude
@@ -183,7 +159,7 @@ export class GestionpistesComponent implements OnInit {
     };
     const simpleLineSymbol = {
       type: "simple-line",
-      color: [226, 119, 40], // Orange
+      color: "#dc3545", // Orange
       width: 2
     };
     const popupTemplate = {
@@ -203,22 +179,70 @@ export class GestionpistesComponent implements OnInit {
       attributes: attributes,
       popupTemplate: popupTemplate
     });
-    const polylineGraphic3 = new Graphic({
+    let polylineGraphic3 = new Graphic({
       geometry: new Polyline({
         // type: "polyline",
-        paths: [[[-1690647.7662119078, 1758433.9359555964], [-1598923.3322697207, 1722967.1548312842], [-1537773.7096415958, 1667932.4944659718], [-1537773.7096415958, 1667932.4944659718]]],
-        spatialReference: {
-          "wkid": 102100
-        }
+        paths: [[[-15.763580328774177, 15.014875510318113], [-14.697906500649227, 15.0838374159464]]],
       }),
       symbol: simpleLineSymbol,
       attributes: attributes,
       popupTemplate: popupTemplate
     });
-    graphicsLayer.add(polylineGraphic);
-    graphicsLayer.add(polylineGraphic3);
+    let polylineGraphic4 = new Graphic({
+      geometry: new Polyline({
+        // type: "polyline",
+        paths: [[[-14.89016724283672, 14.724019426548974], [-14.335357672524246, 15.026636020072557]]],
+      }),
+      symbol: simpleLineSymbol,
+      attributes: attributes,
+      popupTemplate: popupTemplate
+    });
+    // graphicsLayer.add(polylineGraphic3);
+    // graphicsLayer.add(polylineGraphic4);
+    const piste = JSON.parse(this.pistes1);
 
+    console.log(piste);
+    if (piste) {
+      for (let p of piste) {
+        // pistes_lignes.push(this.drawpiste(p));
+        //  graphicsLayer.add(this.drawpiste(p));
 
+        let simpleLineSymbol = {
+          type: "simple-line",
+          color: "#dc3545", // Orange
+          width: 2
+        };
+        let popupTemplate = {
+          title: "{Name}",
+          content: "{Description}"
+        }
+        let attributes = {
+          Name: p.nom,
+          Description: "kilométrage :" + p.kilometrage
+        }
+
+        let polylineGraphic = new Graphic({
+          geometry: new Polyline({
+            paths: JSON.parse(p.coordonnees),
+          }),
+          symbol: simpleLineSymbol,
+          attributes: attributes,
+          popupTemplate: popupTemplate
+        });
+
+        //console.log(this.drawpiste(p));
+        //let p1 = this.drawpiste(p);
+        this.pistes_lignes.push(polylineGraphic);
+        console.log(attributes);
+        // graphicsLayer.addMany(this.pistes_lignes);
+      }
+    }
+    let mes_graphs = [polylineGraphic, polylineGraphic3, polylineGraphic4];
+    let mes_graphs1 = this.pistes_lignes;
+    mes_graphs1.push(polylineGraphic3);
+    // graphicsLayer.addMany(mes_graphs1);
+    console.log(mes_graphs1)
+    graphicsLayer.addMany(mes_graphs1);
     view.when(() => {
       const sketch = new Sketch({
         layer: graphicsLayer,
@@ -228,15 +252,16 @@ export class GestionpistesComponent implements OnInit {
       });
       sketch.on("create", function (event) {
         if (event.state === "complete") {
-          let paths = event.graphic.geometry.toJSON().paths;
-          console.log(event.graphic.geometry.toJSON());
+          let paths = webMercatorUtils.webMercatorToGeographic(event.graphic.geometry).toJSON().paths;
+          // console.log(event.graphic.geometry.toJSON());
+          console.log(webMercatorUtils.webMercatorToGeographic(event.graphic.geometry).toJSON());
+
           if (paths) { alert(JSON.stringify(paths)) }
+
         }
       });
-
       view.ui.add(sketch, "top-right");
     });
-
   }
 
 
@@ -247,7 +272,7 @@ export class GestionpistesComponent implements OnInit {
       (data: any) => { console.log(data); this.pistes = data; localStorage.setItem('pistes', JSON.stringify(this.pistes)) },
       (error: any) => console.log(error)
     );
-    console.log(p);
+
   }
 
   //Recupérer toutes les regions.
