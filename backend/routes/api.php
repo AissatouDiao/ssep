@@ -288,7 +288,10 @@ Route::group([
     Route::post('updateAvancementTravaux',[AvancementtravauxController ::class,'updateAvancementTravaux']); 
     //Organisations
     Route::post('importOrganisationFileToDatabase',[OrganisationController ::class,'importOrganisationFileToDatabase']);
-
+    Route::post('ajouterOrganisation',[OrganisationController::class,'ajouterOrganisation']);
+    Route::get('getOrganisations', [OrganisationController::class,'getOrganisations']);
+    Route::delete('deleteOrganisation/{id}',[OrganisationController::class,'deleteOrganisation']);
+    Route::post('updateOrganisation',[OrganisationController::class,'updateOrganisation']);
     //Indicateurs
     Route::post('addindicateur',[IndicateurController::class,'add']);
     Route::get('getindicateurs', [IndicateurController::class,'getindicateurs']);

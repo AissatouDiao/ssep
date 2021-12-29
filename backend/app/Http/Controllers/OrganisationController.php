@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Organisation;
 use Illuminate\Http\Request;
 use App\Imports\OrganisationsImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -30,5 +31,42 @@ class OrganisationController extends Controller
         );
     }
     }
+
+    public function getOrganisations(Request $request){
+
+        $organisations= Organisation::all();
+        return $organisations;
+    }
+
+    public function deleteOrganisation( $request){
+        $organisation= Organisation::find($request);
+        $organisation->delete();
+        return response()->json(["data" => "suppression effective!"]); 
+      
+    }
+
+    public function ajouterOrganisation(OrganisationRequest $request){
+        Organisation::create($request->all());
+     
+        return response()->json([
+            "message"=>"Un nouveau organisation a été ajouté !",
+        ]);
+    }
+
+    public function updateOrganisation(OrganisationRequest $request){
+        $Organisation=Organisation::find($request->id);
+        $Organisation->libelle=$request->libelle;
+        $Organisation->type=$request->type;
+        $Organisation->apport_financier_total=$request->apport_financier_total;
+        $Organisation->save();
+       return response()->json([
+           "message"=>"Organisation mis à jour avec succès !",
+            "Organisation"=>$Organisation
+       ]);
+
+    }
+
+
+    
 }
  

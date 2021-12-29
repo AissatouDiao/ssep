@@ -25,7 +25,7 @@ class CreateOrganisationsTable extends Migration
             $table->integer('nombre_membre_organisation');
             $table->integer('nombre_femmes');
             $table->integer('nombre_hommes');
-            $table->string('activités_principales');
+            $table->string('activites_principales');
             $table->double('montant_credit_recu');
             $table->double('source_financement');
             $table->timestamps();

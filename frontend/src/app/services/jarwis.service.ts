@@ -859,6 +859,20 @@ export class JarwisService {
     return this.http.post(`${this.baseUrl}/importOrganisationFileToDatabase`, data);
   }
 
+  getOrganisations() {
+    return this.http.get(`${this.baseUrl}/getOrganisations`);
+  }
+
+  ajouterOrganisation(data: object) {
+    return this.http.post(`${this.baseUrl}/ajouterOrganisation`, data);
+  }
+  updateOrganisation(data: object) {
+    return this.http.post(`${this.baseUrl}/updateOrganisation`, data)
+  }
+  deleteOrganisation(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteOrganisation/` + data);
+  }
+
 
   /** Indicateurs */
 

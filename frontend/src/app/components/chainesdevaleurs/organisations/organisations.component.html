@@ -54,22 +54,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
+                    <tr *ngFor="let o of organisations;let i = index">
+                        <th scope="row">{{i}}</th>
+                        <td>{{o.region}}</td>
+                        <td>{{o.departement}}</td>
+                        <td>{{o.commune}}</td>
+                        <td>{{o.nom_organisation}}</td>
+                        <td>{{o.statut_organisation}}</td>
+                        <td>{{o.prenom_et_nom_responsable}}</td>
+                        <td>{{o.contact_responsable}}</td>
+                        <td>{{o.nombre_membre_organisation}}</td>
+                        <td>{{o.nombre_femmes}}</td>
+                        <td>{{o.nombre_hommes}}</td>
+                        <td>{{o.activites_principales}}</td>
+                        <td>{{o.montant_credit_recu}}</td>
+                        <td>{{o.source_financement}}</td>
+                        <td> <i class="material-icons text-primary">edit</i>
+                            <!-- Modal modifier -->
+
+                            <i class="material-icons text-danger">close</i>
+                        </td>
                     </tr>
                 </tbody>
             </table>

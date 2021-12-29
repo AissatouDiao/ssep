@@ -12,6 +12,7 @@ export class OrganisationsComponent implements OnInit {
   constructor(private jarwisService: JarwisService, private notify: SnotifyService) { }
 
   ngOnInit(): void {
+    this.getorganisations();
   }
 
   uploadDocument(event: any) {
@@ -31,6 +32,14 @@ export class OrganisationsComponent implements OnInit {
         console.log(data); this.notify.success(data.message);
       },
       error => { console.log(error); this.messageerror = error.error.errors; this.notify.error('Veuillez revoir les données renseignées.') }
+    );
+  }
+
+  organisations: any;
+  getorganisations() {
+    this.jarwisService.getOrganisations().subscribe(
+      (data: any) => { console.log(data); this.organisations = data; },
+      (error: any) => { console.log(error); }
     );
   }
 

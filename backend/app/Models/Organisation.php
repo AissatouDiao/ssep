@@ -32,7 +32,7 @@ class Organisation extends Model
         'nombre_membre_organisation',
         'nombre_femmes',
         'nombre_hommes',
-        'activités_principales',
+        'activites_principales',
         'montant_credit_recu',
         'source_financement',
        ];

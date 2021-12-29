@@ -72,7 +72,7 @@ import { SuiviproductionComponent } from './components/chainesdevaleurs/suivipro
 import { AgreagequaliteComponent } from './components/chainesdevaleurs/agreagequalite/agreagequalite.component';
 import { TransformationComponent } from './components/chainesdevaleurs/transformation/transformation.component';
 import { MatTabsModule } from '@angular/material/tabs';
-
+import { WavesModule, TableModule, IconsModule } from 'angular-bootstrap-md';
 
 @NgModule({
   declarations: [
@@ -139,7 +139,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     BrowserAnimationsModule,
     MatTableModule,
     CdkTableModule,
-    MatTabsModule
+    MatTabsModule,
+    WavesModule, TableModule, IconsModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,],
   providers: [{ provide: 'SnotifyToastConfig', useValue: ToastDefaults },
