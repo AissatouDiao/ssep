@@ -27,34 +27,32 @@
 <div *ngIf="messageerror" class="alert alert-danger">
     {{messageerror}}
 </div>
+<div class="row">
+    <div class="col-md-12 mx-auto">
+        <div class="md-form">
+            <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput />
+            <label for="search">Search</label>
+        </div>
+    </div>
+</div>
 <div>
     <div class="card" style="width: 110%;">
         <div class="card-header card-header-primary">
             <h4 class="card-title">Base de données nationale.</h4>
         </div>
         <div class="card-body table-responsive">
-            <table class="table table-hover table-bordered border-primary">
+            <table class="table table-hover table-bordered border-primary z-depth-1" mdbTable>
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Région</th>
-                        <th scope="col">Département</th>
-                        <th scope="col">Commune</th>
-                        <th scope="col">Nom Organisation</th>
-                        <th scope="col">Statut Organisation</th>
-                        <th scope="col">Prénom et nom responsable</th>
-                        <th scope="col">Contact responsable</th>
-                        <th scope="col">Nombre de membres de l'organisation</th>
-                        <th scope="col">Nombre membres Hommes</th>
-                        <th scope="col">Nombre de membres Femmes</th>
-                        <th scope="col">Activités principales</th>
-                        <th scope="col">MONTANT DE CREDIT RECU</th>
-                        <th scope="col">SOURCE DE FINANCEMENT</th>
-                        <th scope="col" class="bg-primary text-white">Options</th>
+                        <th *ngFor="let head of headElements; let i = index" scope="col" aria-controls="tableSortExample" scope="col" [mdbTableSort]="elements" [sortBy]="headElements[i]">
+                            {{head|titlecase}}
+                            <mdb-icon fas icon="sort"></mdb-icon>
+                        </th>
+
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let o of organisations;let i = index">
+                    <tr *ngFor="let o of elements;let i = index">
                         <th scope="row">{{i}}</th>
                         <td>{{o.region}}</td>
                         <td>{{o.departement}}</td>

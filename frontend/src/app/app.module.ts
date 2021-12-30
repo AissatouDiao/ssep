@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -72,7 +72,7 @@ import { SuiviproductionComponent } from './components/chainesdevaleurs/suivipro
 import { AgreagequaliteComponent } from './components/chainesdevaleurs/agreagequalite/agreagequalite.component';
 import { TransformationComponent } from './components/chainesdevaleurs/transformation/transformation.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { WavesModule, TableModule, IconsModule } from 'angular-bootstrap-md';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 @NgModule({
   declarations: [
@@ -140,9 +140,9 @@ import { WavesModule, TableModule, IconsModule } from 'angular-bootstrap-md';
     MatTableModule,
     CdkTableModule,
     MatTabsModule,
-    WavesModule, TableModule, IconsModule
+    MDBBootstrapModule.forRoot()
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA,],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   providers: [{ provide: 'SnotifyToastConfig', useValue: ToastDefaults },
     SnotifyService, ExcelService, WebMap,],
   bootstrap: [AppComponent]
