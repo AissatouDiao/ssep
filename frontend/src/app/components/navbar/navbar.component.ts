@@ -29,8 +29,6 @@ export class NavbarComponent implements OnInit {
     this.tokenService.remove();
     this.route.navigateByUrl('/login');
 
-
-
   }
 
 }

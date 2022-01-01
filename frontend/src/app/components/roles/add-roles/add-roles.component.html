@@ -47,11 +47,11 @@
                     <h4 class="text-center"> Ajouter les modules et permissions</h4><br>
 
 
-                    <!---->
+                    <!--
 
                     <mat-tab-group mat-align-tabs="start" [hidden]="table1">
-                        <!-- #enddocregion align-start -->
-                        <mat-tab *ngFor="let m of modules; let i =index" label="{{m.libelle_module}}">
+                       
+                        <mat-tab *ngFor="let m of modules; let i = index" label="{{m.libelle_module}}">
                             <div class="bg-dark">
                                 <form action="" class="text-center">
                                     <div class="form-check">
@@ -71,7 +71,6 @@
                                         </label>
                                     </div>
                                     <div class="form-check">
-
                                         <label class="form-check-label">
                                                 Ajouter lecture
                                             <input class="form-check-input form-control" type="checkbox" name="lecture" id="lecture"/>
@@ -81,7 +80,6 @@
                                         </label>
                                     </div>
                                     <div class="form-check">
-
                                         <label class="form-check-label">
                                                 Activer l'ajout
                                             <input class="form-check-input form-control" type="checkbox" name="ajout" id="ajout" />
@@ -89,10 +87,8 @@
                                             <span class="check"></span>
                                             </span>
                                         </label>
-
                                     </div>
                                     <div class="form-check">
-
                                         <label class="form-check-label">
                                                 Activer la modification
                                             <input class="form-check-input form-control" type="checkbox" name="modification" id="modification" />
@@ -102,7 +98,6 @@
                                        </label>
                                     </div>
                                     <div class="form-check ">
-
                                         <label class="form-check-label">
                                                 Activer la suppression
                                             <input class="form-check-input form-control" type="checkbox" name="suppression" id="suppression" />
@@ -115,9 +110,11 @@
                                 </form>
                             </div>
                         </mat-tab>
-                    </mat-tab-group>
-                    <!-- 
-                            <table class="table table-dark" ><thead>
+                    </mat-tab-group>-->
+
+                    <table class="table table-dark" [hidden]="table1">
+
+                        <thead>
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Modules</th>
@@ -191,10 +188,10 @@
                             </tr>
 
 
-                            </table>
-                        </tbody>-->
 
+                        </tbody>
 
+                    </table>
                     <br>
 
                     <table class="table table-dark" [hidden]="!table1">

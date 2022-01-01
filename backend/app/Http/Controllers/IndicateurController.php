@@ -19,7 +19,6 @@ class IndicateurController extends Controller
         for($i=0; $i<$lastRecordDate->nombre_annees; $i++) {
             $valeur_annuelle['annee']=$lastRecordDate->annee_debut+$i;
             Valeurannuelle::create($valeur_annuelle);
- 
         }
         return response()->json([
             "message"=>"Un nouvel indicateur a été enregistré!",

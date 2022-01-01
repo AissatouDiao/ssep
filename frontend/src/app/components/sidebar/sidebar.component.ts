@@ -15,7 +15,6 @@ export class SidebarComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private jarwisService: JarwisService
-
   ) { }
 
   ngOnInit(): void {
@@ -25,41 +24,48 @@ export class SidebarComponent implements OnInit {
         this.date = new Date();
       }, 60000)
     this.authService.authStatus.subscribe(value => this.loggedIn = value);
-
-    this.getUser(); this.getPermissions(); this.getModules();
+    this.getUser();
+    this.getPermissionsByRoleId();
+    this.getPermissions();
+    this.getModules();
   }
 
+
+  //récupérer l'utilisateur
   getUser() {
     let data_user: any = localStorage.getItem('data');
     this.user = JSON.parse(data_user);
     console.log(this.user);
   }
 
-  getPermissions() {
+  permissions_to_role: any;
+  getPermissionsByRoleId() {
+    this.jarwisService.getPermissionsByRoleId(this.user.role_id).subscribe(
+      (data: any) => { console.log(data); this.permissions_to_role = data; },
+      error => { console.log(error) }
+    );
+  }
 
+  //récuperer les permissions
+  getPermissions() {
     this.jarwisService.getPermissions().subscribe(
       async (data: any) => {
-
         await data.forEach((d: any, index: any) => {
           d.permisions_to_module = JSON.parse(d.permisions_to_module);
-
-
         });
         console.log(data); this.permissions = data
       },
       error => console.log(error)
-
     );
   }
+
+  //récuperer les modules
+  modules: any;
   getModules() {
     this.jarwisService.getModules().subscribe(
-      data => console.log(data),
+      data => { console.log(data); this.modules = data; },
       error => console.log(error)
-
     );
   }
-
-
-
 
 }
