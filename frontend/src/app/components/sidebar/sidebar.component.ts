@@ -41,7 +41,15 @@ export class SidebarComponent implements OnInit {
   permissions_to_role: any;
   getPermissionsByRoleId() {
     this.jarwisService.getPermissionsByRoleId(this.user.role_id).subscribe(
-      (data: any) => { console.log(data); this.permissions_to_role = data; },
+      async (data: any) => {
+        console.log(data);
+        await data.forEach((d: any, index: any) => {
+          d.permisions_to_module = JSON.parse(d.permisions_to_module);
+        });
+        this.permissions_to_role = data;
+        console.log(this.permissions_to_role);
+
+      },
       error => { console.log(error) }
     );
   }
