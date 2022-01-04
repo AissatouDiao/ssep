@@ -18,6 +18,10 @@ class CreateTransformationsTable extends Migration
             $table->string('region');
             $table->string('departement');
             $table->string('commune');
+            $table->date('date');
+            $table->unsignedInteger('quantite_transformee');
+            $table->string('origine');
+            $table->string('observation');
             $table->timestamps();
         });
     }

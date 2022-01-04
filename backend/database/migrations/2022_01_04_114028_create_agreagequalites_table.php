@@ -18,6 +18,18 @@ class CreateAgreagequalitesTable extends Migration
             $table->string('region');
             $table->string('departement');
             $table->string('commune');
+            $table->string('village');
+            $table->unsignedInteger('annee');
+            $table->string('nom_organisation_ou_producteur');
+            $table->string('produit');
+            $table->date('date_controle');
+            $table->unsignedInteger('nombre_sacs_lot');
+            $table->unsignedInteger('poids_moyen_sac');
+            $table->unsignedDecimal('taux_humidite');
+            $table->unsignedDecimal('taux_impurete');
+            $table->unsignedDecimal('grains_immatures_taux');
+            $table->string('conforme_code_qualite');
+            $table->string('observations');
             $table->timestamps();
         });
     }

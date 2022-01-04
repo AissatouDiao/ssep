@@ -18,6 +18,15 @@ class CreateFormationsTable extends Migration
             $table->string('region');
             $table->string('departement');
             $table->string('commune');
+            $table->string('village');
+            $table->string('prenom_nom');
+            $table->string('genre');
+            $table->string('organisation_de_base');
+            $table->date('date_formation');
+            $table->string('theme_formation');
+            $table->unsignedInteger('telephone');
+            $table->string('lieu_formation');
+            $table->unsignedInteger('telephone_relais');
             $table->timestamps();
         });
     }

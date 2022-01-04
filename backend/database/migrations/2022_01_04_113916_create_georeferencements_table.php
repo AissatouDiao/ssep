@@ -22,16 +22,13 @@ class CreateGeoreferencementsTable extends Migration
             $table->string('prenom_nom');
             $table->string('genre');
             $table->string('organisation_base');
-            $table->double('superficie_globale');
-            $table->double('superficie_mesuree');
-            $table->integer('poulaillers');
-            $table->integer('bergeries');
+            $table->unsignedDecimal('superficie_globale');
+            $table->unsignedDecimal('superficie_mesuree');
+            $table->unsignedInteger('poulaillers');
+            $table->unsignedInteger('bergeries');
             $table->string('equipements');
-            $table->double('coordonnee_x');
-            $table->double('coordonnee_y');
-
-
-
+            $table->unsignedDecimal('coordonnee_x');
+            $table->unsignedDecimal('coordonnee_y');
             $table->timestamps();
         });
     }

@@ -22,11 +22,11 @@ class CreateOrganisationsaccompagneesTable extends Migration
             $table->string('statut_organisation');
             $table->string('prenom_et_nom_responsable');
             $table->string('contact_responsable');
-            $table->integer('nombre_membre_organisation');
-            $table->integer('nombre_femmes');
-            $table->integer('nombre_hommes');
+            $table->unsignedInteger('nombre_membre_organisation');
+            $table->unsignedInteger('nombre_femmes');
+            $table->unsignedInteger('nombre_hommes');
             $table->string('activites_principales');
-            $table->double('montant_credit_recu');
+            $table->unsignedDecimal('montant_credit_recu');
             $table->string('source_financement');
             $table->timestamps();
         });
