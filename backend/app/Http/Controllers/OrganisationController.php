@@ -20,7 +20,7 @@ class OrganisationController extends Controller
        $import->import($file);
       if($import->errors()){
         return response()->json(
-            ["message"=>$import->errors()."hi"]
+            ["message"=>"Les nouvelles données ont été enregistrées."]
         );
 
       }else{
@@ -49,7 +49,7 @@ class OrganisationController extends Controller
         Organisation::create($request->all());
      
         return response()->json([
-            "message"=>"Un nouveau organisation a été ajouté !",
+            "message"=>"Un nouvelle organisation a été ajoutée !",
         ]);
     }
 
@@ -60,7 +60,7 @@ class OrganisationController extends Controller
         $Organisation->apport_financier_total=$request->apport_financier_total;
         $Organisation->save();
        return response()->json([
-           "message"=>"Organisation mis à jour avec succès !",
+           "message"=>"Organisation mise à jour avec succès !",
             "Organisation"=>$Organisation
        ]);
 

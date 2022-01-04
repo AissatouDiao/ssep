@@ -11,8 +11,8 @@ import { JarwisService } from 'src/app/services/jarwis.service';
 export class OrganisationsComponent implements OnInit {
   @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective | any;
   elements: any = [];
-  headElements = ['#', 'Région', 'Département', 'Commune', 'Nom Organisation', 'Statut Organisation', 'Prénom et nom responsable', 'Prénom et nom responsable', 'Contact responsable',
-    'Nombre de membres de l\'organisation', 'Nombre membres Homme', 'Nombre de membres Femmes', 'Activités principales', 'MONTANT DE CREDIT RECU', 'SOURCE DE FINANCEMENT'];
+  headElements = ['#', 'Région', 'Département', 'Commune', 'Nom Organisation', 'Statut Organisation', 'Prénom et nom responsable', 'Contact responsable',
+    'Nombre de membres de l\'organisation', 'Nombre membres Homme', 'Nombre de membres Femmes', 'Activités principales', 'MONTANT DE CREDIT RECU', 'SOURCE DE FINANCEMENT', 'Options'];
   searchText: string = '';
   previous: string = '';
 
@@ -25,7 +25,8 @@ export class OrganisationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getorganisations();
-
+    this.getUser();
+    this.getPermissionsByRoleId();
 
   }
 
@@ -52,12 +53,12 @@ export class OrganisationsComponent implements OnInit {
     // let a = (<HTMLInputElement>document.getElementById('organisation_file')).value;
     formdata1.append('fichier', this.organisationFile);
     console.log(formdata1);
-
-    this.jarwisService.importOrganisationFileToDatabase(formdata1).subscribe(
+    let donnees = formdata1;
+    this.jarwisService.importOrganisationFileToDatabase(donnees).subscribe(
       (data: any) => {
-        console.log(data); this.notify.success(data.message);
+        console.log(data); this.notify.success(data.message); this.getorganisations();
       },
-      error => { console.log(error); this.messageerror = error.error.errors; this.notify.error('Veuillez revoir les données renseignées.') }
+      error => { console.log(error); this.messageerror = error.error.errors; this.notify.error('Veuillez revoir les données renseignées.'); }
     );
   }
 
@@ -78,6 +79,40 @@ export class OrganisationsComponent implements OnInit {
         this.previous = this.mdbTable.getDataSource();
       },
       (error: any) => { console.log(error); }
+    );
+  }
+
+  //récupérer l'utilisateur
+  user: any;
+  getUser() {
+    let data_user: any = localStorage.getItem('data');
+    this.user = JSON.parse(data_user);
+    console.log(this.user);
+  }
+
+  permissions_to_role: any;
+  permissions_module: any;
+  modifier: any;
+  supprimer: any;
+  ajouter: any
+  khalei = true;
+  getPermissionsByRoleId() {
+    this.jarwisService.getPermissionsByRoleId(this.user.role_id).subscribe(
+      async (data: any) => {
+        console.log(data);
+        await data.forEach((d: any, index: any) => {
+          d.permisions_to_module = JSON.parse(d.permisions_to_module);
+          if (d.module_id == 6) {
+            this.permissions_module = d.permisions_to_module;
+            this.modifier = d.permisions_to_module.modify;
+            this.supprimer = d.permisions_to_module.delete;
+          }
+        });
+        // this.permissions_to_role = data;
+        //console.log(this.permissions_to_role);
+        //alert(this.modifier);
+      },
+      (error: any) => { console.log(error) }
     );
   }
 

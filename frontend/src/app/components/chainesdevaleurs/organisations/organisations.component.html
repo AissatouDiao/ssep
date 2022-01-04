@@ -67,10 +67,10 @@
                         <td>{{o.activites_principales}}</td>
                         <td>{{o.montant_credit_recu}}</td>
                         <td>{{o.source_financement}}</td>
-                        <td> <i class="material-icons text-primary">edit</i>
+                        <td> <i class="material-icons text-primary" *ngIf="modifier==true">edit</i>
                             <!-- Modal modifier -->
 
-                            <i class="material-icons text-danger">close</i>
+                            <i class="material-icons text-danger" *ngIf="supprimer==true">close</i>
                         </td>
                     </tr>
                 </tbody>
