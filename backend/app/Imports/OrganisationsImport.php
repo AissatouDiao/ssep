@@ -99,7 +99,7 @@ class OrganisationsImport implements ToModel,SkipsOnError, WithHeadingRow, WithV
             'Nombre de membres Hommes'=>'required|numeric',
             'Activités principales'=>'required|string',
             'MONTANT DE CREDIT RECU'=>'required|numeric',
-            'SOURCE DE FINANCEMENT'=>'required',
+            'SOURCE DE FINANCEMENT'=>'required|string',
         ];
     }
 
