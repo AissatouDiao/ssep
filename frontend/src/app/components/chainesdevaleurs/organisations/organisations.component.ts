@@ -1,5 +1,5 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import { MdbTableDirective } from 'angular-bootstrap-md';
+import { ChangeDetectorRef, Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstrap-md';
 import { SnotifyService } from 'ng-snotify';
 import { JarwisService } from 'src/app/services/jarwis.service';
 
@@ -9,16 +9,26 @@ import { JarwisService } from 'src/app/services/jarwis.service';
   styleUrls: ['./organisations.component.scss']
 })
 export class OrganisationsComponent implements OnInit {
+  @Input() page: any = 1;
+  @Input() pageSize: any = 10;
+
+
+  //pour la paginsation
   @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective | any;
+  @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent | any;
+
+
   elements: any = [];
   headElements = ['#', 'Région', 'Département', 'Commune', 'Nom Organisation', 'Statut Organisation', 'Prénom et nom responsable', 'Contact responsable',
     'Nombre de membres de l\'organisation', 'Nombre membres Homme', 'Nombre de membres Femmes', 'Activités principales', 'MONTANT DE CREDIT RECU', 'SOURCE DE FINANCEMENT', 'Options'];
-  searchText: string = '';
+  searchText: string = '';//variable pour la recherche
   previous: string = '';
 
 
   organisationFile: any;
-  constructor(private jarwisService: JarwisService, private notify: SnotifyService) { }
+  constructor(private jarwisService: JarwisService, private notify: SnotifyService, private cdRef: ChangeDetectorRef) { }
+
+  //fonction pour la recherche
   @HostListener('input') oninput() {
     this.searchItems();
   }
@@ -30,14 +40,21 @@ export class OrganisationsComponent implements OnInit {
 
   }
 
+  ngAfterViewInit() {
+    this.mdbTablePagination.setMaxVisibleItemsNumberTo(5);
+    this.mdbTablePagination.calculateFirstItemIndex();
+    this.mdbTablePagination.calculateLastItemIndex();
+    this.cdRef.detectChanges();
+  }
+
   searchItems() {
     const prev = this.mdbTable.getDataSource();
     if (!this.searchText) {
       this.mdbTable.setDataSource(this.previous);
-      this.elements = this.mdbTable.getDataSource();
+      this.organisations = this.mdbTable.getDataSource();
     }
     if (this.searchText) {
-      this.elements = this.mdbTable.searchLocalDataBy(this.searchText);
+      this.organisations = this.mdbTable.searchLocalDataBy(this.searchText);
       this.mdbTable.setDataSource(prev);
     }
   }
@@ -46,6 +63,7 @@ export class OrganisationsComponent implements OnInit {
     this.organisationFile = event.target.files[0];
     console.log(this.organisationFile);
   }
+
   messageerror: any;
   importOrganisationFileToDatabase() {
     this.messageerror = null;
@@ -67,15 +85,7 @@ export class OrganisationsComponent implements OnInit {
     this.jarwisService.getOrganisations().subscribe(
       (data: any) => {
         console.log(data); this.organisations = data; this.elements = data;
-        /* for (let i = 1; i <= 15; i++) {
-           this.elements.push({ id: i, nom_organisation: 'Nom Organisation' + i, statut_organisation: 'Statut Organisation' + i, prenom_et_nom_responsable: 'Prénom et nom responsable' + i });
-         }*/
-        /*for (let i = 1; i <= 10; i++) {
-          this.elements.push({
-            id: i.toString(), nom_organisation: 'Nom Organisation' + i, statut_organisation: 'Statut Organisation' + i, prenom_et_nom_responsable: 'Prénom et nom responsable' + i
-          });
-        }*/
-        this.mdbTable.setDataSource(this.elements);
+        this.mdbTable.setDataSource(this.organisations);
         this.previous = this.mdbTable.getDataSource();
       },
       (error: any) => { console.log(error); }

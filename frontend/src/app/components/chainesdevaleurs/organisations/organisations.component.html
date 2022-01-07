@@ -41,39 +41,45 @@
             <h4 class="card-title">Base de données nationale.</h4>
         </div>
         <div class="card-body table-responsive">
-            <table class="table table-hover table-bordered border-primary z-depth-1" mdbTable>
+            <table #tableEl class="table table-hover table-bordered border-primary" mdbTable id="tableSortExample">
                 <thead>
                     <tr>
-                        <th *ngFor="let head of headElements; let i = index" scope="col" aria-controls="tableSortExample" scope="col" [mdbTableSort]="elements" [sortBy]="headElements[i]">
+                        <th *ngFor="let head of headElements; let i = index" scope="col" aria-controls="tableSortExample" scope="col" [mdbTableSort]="organisations" sortBy="headElements[i]">
                             {{head|titlecase}}
                             <mdb-icon fas icon="sort"></mdb-icon>
                         </th>
-
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let o of elements;let i = index">
-                        <th scope="row">{{i}}</th>
-                        <td>{{o.region}}</td>
-                        <td>{{o.departement}}</td>
-                        <td>{{o.commune}}</td>
-                        <td>{{o.nom_organisation}}</td>
-                        <td>{{o.statut_organisation}}</td>
-                        <td>{{o.prenom_et_nom_responsable}}</td>
-                        <td>{{o.contact_responsable}}</td>
-                        <td>{{o.nombre_membre_organisation}}</td>
-                        <td>{{o.nombre_femmes}}</td>
-                        <td>{{o.nombre_hommes}}</td>
-                        <td>{{o.activites_principales}}</td>
-                        <td>{{o.montant_credit_recu}}</td>
-                        <td>{{o.source_financement}}</td>
-                        <td> <i class="material-icons text-primary" *ngIf="modifier==true">edit</i>
+                    <tr *ngFor="let o of organisations;let i = index">
+                        <th scope="row" *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{i}}</th>
+                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.region}}</td>
+                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.departement}}</td>
+                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.commune}}</td>
+                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.nom_organisation}}</td>
+                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.statut_organisation}}</td>
+                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.prenom_et_nom_responsable}}</td>
+                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.contact_responsable}}</td>
+                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.nombre_membre_organisation}}</td>
+                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.nombre_femmes}}</td>
+                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.nombre_hommes}}</td>
+                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.activites_principales}}</td>
+                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.montant_credit_recu}}</td>
+                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.source_financement}}</td>
+                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"> <i class="material-icons text-primary" *ngIf="modifier==true">edit</i>
                             <!-- Modal modifier -->
 
                             <i class="material-icons text-danger" *ngIf="supprimer==true">close</i>
                         </td>
                     </tr>
                 </tbody>
+                <tfoot class="grey lighten-5 w-100">
+                    <tr>
+                        <td colspan="12">
+                            <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="elements"></mdb-table-pagination>
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>

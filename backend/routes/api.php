@@ -21,6 +21,7 @@ use App\Http\Controllers\SousactiviteController;
 use App\Http\Controllers\CalculBudgetsController;
 use App\Http\Controllers\DecompteszoneController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\AgreagequaliteController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\PrealableszoneController;
 use App\Http\Controllers\RecommandationController;
@@ -281,18 +282,25 @@ Route::group([
     Route::get('getPisteById/{id}',[PistesController::class,'getPisteById']);
     Route::post('updatepiste',[PistesController::class,'updatePiste']); 
     //Gestion des avancements de travaux pistes bavardes 
-    Route::post('ajouterAvancementTravaux',[AvancementtravauxController ::class,'ajouterAvancementTravaux']);
-    Route::get('getAvancementTravaux', [AvancementtravauxController ::class,'getAvancementTravaux']);
-    Route::get('getpourcentages/{id}', [AvancementtravauxController ::class,'getpourcentages']);
-    Route::delete('deleteAvancementTravaux/{id}',[AvancementtravauxController ::class,'deleteAvancementTravaux']);
-    Route::get('getAvancementTavauxPisteId/{id}',[AvancementtravauxController ::class,'getAvancementTavauxPisteId']);
-    Route::post('updateAvancementTravaux',[AvancementtravauxController ::class,'updateAvancementTravaux']); 
+    Route::post('ajouterAvancementTravaux',[AvancementtravauxController::class,'ajouterAvancementTravaux']);
+    Route::get('getAvancementTravaux', [AvancementtravauxController::class,'getAvancementTravaux']);
+    Route::get('getpourcentages/{id}', [AvancementtravauxController::class,'getpourcentages']);
+    Route::delete('deleteAvancementTravaux/{id}',[AvancementtravauxController::class,'deleteAvancementTravaux']);
+    Route::get('getAvancementTavauxPisteId/{id}',[AvancementtravauxController::class,'getAvancementTavauxPisteId']);
+    Route::post('updateAvancementTravaux',[AvancementtravauxController::class,'updateAvancementTravaux']); 
     //Organisations
-    Route::post('importOrganisationFileToDatabase',[OrganisationController ::class,'importOrganisationFileToDatabase']);
+    Route::post('importOrganisationFileToDatabase',[OrganisationController::class,'importOrganisationFileToDatabase']);
     Route::post('ajouterOrganisation',[OrganisationController::class,'ajouterOrganisation']);
     Route::get('getOrganisations', [OrganisationController::class,'getOrganisations']);
     Route::delete('deleteOrganisation/{id}',[OrganisationController::class,'deleteOrganisation']);
     Route::post('updateOrganisation',[OrganisationController::class,'updateOrganisation']);
+    //Agreagequalite 
+    Route::post('importAgreagequaliteFileToDatabase',[AgreagequaliteController::class,'importAgreagequaliteFileToDatabase']);
+    Route::post('ajouterAgreagequalite',[AgreagequaliteController::class,'ajouterAgreagequalite']);
+    Route::get('getAgreagequalites', [AgreagequaliteController::class,'getAgreagequalites']);
+    Route::delete('deleteAgreagequalite/{id}',[AgreagequaliteController::class,'deleteAgreagequalite']);
+    Route::post('updateAgreagequalite',[AgreagequaliteController::class,'updateAgreagequalite']);
+   
     //Indicateurs
     Route::post('addindicateur',[IndicateurController::class,'add']);
     Route::get('getindicateurs', [IndicateurController::class,'getindicateurs']);

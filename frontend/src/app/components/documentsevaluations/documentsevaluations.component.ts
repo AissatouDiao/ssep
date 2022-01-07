@@ -10,7 +10,7 @@ import { JarwisService } from 'src/app/services/jarwis.service';
 export class DocumentsevaluationsComponent implements OnInit {
 
   @Input() page: any = 1;
-  @Input() pageSize: any = 10;
+  @Input() pageSize: any = 5;
   searchText: any; searchFilter: any = '';
   lastevaluationid: any;
   error: any = [];
@@ -56,7 +56,7 @@ export class DocumentsevaluationsComponent implements OnInit {
   //Recupérer toutes les documents.
   getEvaluations() {
     this.jarwisService.getEvaluations().subscribe(
-      data => { console.log(data); this.evaluations = data; this.dataSource = data },
+      (data: any) => { console.log(data); this.evaluations = data; },
       error => console.log(error)
     );
   }

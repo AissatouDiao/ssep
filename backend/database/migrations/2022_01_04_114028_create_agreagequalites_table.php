@@ -27,7 +27,7 @@ class CreateAgreagequalitesTable extends Migration
             $table->unsignedInteger('poids_moyen_sac');
             $table->unsignedDecimal('taux_humidite');
             $table->unsignedDecimal('taux_impurete');
-            $table->unsignedDecimal('grains_immatures_taux');
+            $table->unsignedDecimal('graines_immatures_taux');
             $table->string('conforme_code_qualite');
             $table->string('observations');
             $table->timestamps();

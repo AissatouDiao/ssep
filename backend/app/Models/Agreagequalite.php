@@ -25,9 +25,17 @@ class Agreagequalite extends Model
         'region',
         'departement',
         'commune',
-        'date',
-        'quantite_transformee',
-        'origine',
-        'observation',
+        'village',
+        'annee',
+        'nom_organisation_ou_producteur',
+        'produit',
+        'date_controle',
+        'nombre_sacs_lot',
+        'poids_moyen_sac',
+        'taux_humidite',
+        'taux_impurete',
+        'graines_immatures_taux',
+        'conforme_code_qualite',
+        'observations'
        ];
 }

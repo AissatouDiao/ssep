@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Recommandation;
-
 use App\Models\Recommandationtache;
 use App\Http\Requests\RecommandationRequest;
 
@@ -26,13 +26,13 @@ class RecommandationController extends Controller
 
     public function update(RecommandationRequest $request){
         $recommandation = Recommandation::find($request->id);
-       
         $recommandation->titre=$request->titre;
         $recommandation->description=$request->description;
         $recommandation->responsable=$request->responsable;
         $recommandation->date_finale=$request->date_finale;
         $recommandation->statut=$request->statut; 
         $recommandation->pourcentage=$request->pourcentage;
+        $recommandation->date_debut=$request->date_debut;
 
         $recommandation->save();
 
@@ -46,23 +46,53 @@ class RecommandationController extends Controller
 
     public function getRecommandations(){
         $recommandations= Recommandation::all();
+        foreach($recommandations as $r){
+          $this->changeStatut($r);
+        }
         return $recommandations;
     }
 
     public function getRecommandationsByEvaluationId(Request $request){
         $recommandations=Recommandation::where('evaluation_id',$request->id)->get();
+        foreach($recommandations as $r){
+        $this->changeStatut($r);
+        
+        }
         return $recommandations;
 
     }
 
-    public function changeStatut( Request $request){
+    public function changeStatut($request){
         $recommandation=Recommandation::find($request->id);
-        $recommandation->statut=$request->statut;
-        $recommandation->save();
-        return response()->json([
-            "message" => "recommandation mis à jour",
-            
-        ]); 
+        $date_actuelle= Carbon::now();
+        $date_finale=$recommandation->date_finale;
+        $date_debut=$recommandation->date_debut;
+        //si pourcentage egal 100 et date actuel inferieur date finale
+        //si pourcentage egal moins de 100 et date actuel superieur date final.
+        if($recommandation->pourcentage==100){
+            $recommandation->statut="exécutée";
+            $recommandation->save();
+        }else if($recommandation->pourcentage<100 && $date_actuelle->greaterThan($date_finale)){
+            $recommandation->statut="non exécutée";
+            $recommandation->save();
+        }
+        else if(($recommandation->pourcentage>0 && $recommandation->pourcentage<100)&&($date_actuelle->lessThan($date_debut))){
+            $recommandation->statut="dûe et en cours";
+            $recommandation->save();
+        }else{
+            $recommandation->statut="non dûe";
+            $recommandation->save();
+          
+        }
+        //return  $date_finale;
+       
+     /* return response()->json([
+            "message" => $date_actuelle,
+            "message 1"=>$date_finale,
+            "message 2"=>$date_actuelle->greaterThan($date_finale)
+        ]); */
+
+       // $taches=Recommandationtache::where('recommandation_id',$request->id)->get();
     }
 
   

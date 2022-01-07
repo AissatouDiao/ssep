@@ -877,6 +877,27 @@ export class JarwisService {
     return this.http.delete(`${this.baseUrl}/deleteOrganisation/` + data);
   }
 
+  //Agreage qualité
+  importAgreagequaliteFileToDatabase(data: any) {
+    return this.http.post(`${this.baseUrl}/importAgreagequaliteFileToDatabase`, data);
+  }
+
+  getAgreagequalites() {
+    return this.http.get(`${this.baseUrl}/getAgreagequalites`);
+  }
+
+  ajouterAgreagequalite(data: object) {
+    return this.http.post(`${this.baseUrl}/ajouterAgreagequalite`, data);
+  }
+  updateAgreagequalite(data: object) {
+    return this.http.post(`${this.baseUrl}/updateAgreagequalite`, data)
+  }
+  deleteAgreagequalite(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteAgreagequalite/` + data);
+  }
+
+
+
 
   /** Indicateurs */
 

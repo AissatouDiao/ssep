@@ -12,7 +12,7 @@ class RecommandationtacheController extends Controller
         Recommandationtache::create($request->all());
         $lastRecordDate = Recommandationtache::latest()->first();
         return response()->json([
-            "message"=>"Une nouvelle tâche a été ajouté à la recommadation!",
+            "message"=>"Une nouvelle tâche a été ajouté à la recommandation!",
              "last"=>$lastRecordDate,
         ]);
     }
@@ -39,18 +39,26 @@ class RecommandationtacheController extends Controller
         return $tache; 
     }
 
-    public function getRecommandationtaches(Request $request){
+    public function getRecommandationtaches(){
         $taches= Recommandationtache::all();
+        foreach ($taches as $t) {
+           $this->pourcentages($t);
+        }
         return $taches;
     }
 
-    Public function pourcentage($request){
-        $total_taches=  Recommandationtache::where('recommandation_id',$request)->get()->count();
-        $total_achevées=Recommandationtache::where(['recommandation_id'=>$request,'etat'=>'fait'])->get()->count();
-        $pourcentage=$total_achevées*100/$total_taches;
-        $recommandation = Recommandation::find($request);
-        $recommandation->pourcentage=$pourcentage;
-        $recommandation->save();
-        return $pourcentage;
+    Public function pourcentages($request){
+        $total_taches=Recommandationtache::where('recommandation_id',$request->recommandation_id)->get()->count();
+        $total_achevées=Recommandationtache::where(['recommandation_id'=>$request->recommandation_id,'etat'=>'fait'])->get()->count();
+        $recommandation=Recommandation::find($request->recommandation_id);
+        if($total_taches>0){
+            $pourcentage=$total_achevées*100/$total_taches;
+            $recommandation->pourcentage=$pourcentage;
+            $recommandation->save();
+        }else{
+            $pourcentage=0;
+            $recommandation->pourcentage=$pourcentage;
+            $recommandation->save();
+        }
     }
 }

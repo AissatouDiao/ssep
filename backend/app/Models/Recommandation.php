@@ -28,6 +28,7 @@ class Recommandation extends Model
      'date_finale',
      'statut',
      'responsable',
-     'pourcentage'
+     'pourcentage',
+     'date_debut'
     ]; 
 }
