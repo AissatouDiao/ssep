@@ -28,8 +28,9 @@ export class DocumentsevaluationsComponent implements OnInit {
     titre: null,
     description: null,
     responsable: <any>null,
+    date_debut: <any>null,
     date_finale: <any>null,
-    pourcentage: null,
+    pourcentage: 0,
     statut: 'non démarrée'
   }
 
