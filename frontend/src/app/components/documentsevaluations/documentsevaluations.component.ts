@@ -31,7 +31,7 @@ export class DocumentsevaluationsComponent implements OnInit {
     date_debut: <any>null,
     date_finale: <any>null,
     pourcentage: 0,
-    statut: 'non démarrée'
+    statut: 'non dûe'
   }
 
 

@@ -300,13 +300,13 @@
                                                     <label>Statut  (par défaut)</label>
 
                                                     <select name="statut" id="statut" class="form-select" [(ngModel)]="recommandation.statut" required disabled>
-                                                    <option value="non démarrée" selected="selected">Non démarré</option>
+                                                    <option value="non dûe" selected="selected">Non dûe</option>
                                                     <option  value="en cours">En cours</option>
                                                     <option  value="non executée">Dû & Non executé</option>
                                                     <option selected value="executée" >Executé</option>
                                                 </select>
                                                     <label>Pourcentage</label>
-                                                    <input type="number" class="form-control" name="number" [(ngModel)]="recommandation.pourcentage" required/>
+                                                    <input type="number" class="form-control" name="number" [(ngModel)]="recommandation.pourcentage" required disabled/>
                                                     <button class="btn btn-primary" [disabled]="!recommandationForm.valid">Ajouter une nouvelle recommandation</button>
                                                 </form>
                                             </div>
@@ -393,20 +393,21 @@
                                         <input type="text" class="form-control" name="description" [(ngModel)]="recommandation.description" required/><br>
                                         <label>Responsable</label>
                                         <select [(ngModel)]="recommandation.responsable" id="responsable" name="responsable" class="form-control" required>
-                                        <option *ngFor="let u  of users" value="{{u.surname}} {{u.name}}">{{u.surname}} {{u.name}}</option>
-                                    </select><br>
-                                        <label>Date finale d'execution</label>
+                                         <option *ngFor="let u  of users" value="{{u.surname}} {{u.name}}">{{u.surname}} {{u.name}}</option>
+                                        </select><br>
+                                        <label>Date début d'execution</label>
+                                        <input type="date" class="form-control" id="date_debut" name="date_debut" [(ngModel)]="recommandation.date_debut" required />
+                                        <label>Date finale d'execution</label><br>
                                         <input type="date" class="form-control" id="date_finale" name="date_finale" [(ngModel)]="recommandation.date_finale" required />
-                                        <label>Statut  (par défaut)</label>
-
+                                        <label>Statut (par défaut)</label>
                                         <select name="statut" id="statut" class="form-select" [(ngModel)]="recommandation.statut" required disabled>
-                                        <option value="non dûe" selected="selected">Non démarré</option>
-                                        <option  value="en cours">En cours</option>
-                                        <option  value="non executée">Dû & Non executé</option>
-                                        <option selected value="executée" >Executé</option>
-                                    </select>
-                                        <label>Pourcentage</label>
-                                        <input type="number" class="form-control" name="number" [(ngModel)]="recommandation.pourcentage" required/>
+                                            <option value="non dûe" selected="selected">Non dûe</option>
+                                            <option  value="en cours">En cours</option>
+                                            <option  value="non executée">Dû & Non executé</option>
+                                            <option selected value="executée" >Executé</option>
+                                        </select>
+                                        <label>Pourcentage (par défaut)</label>
+                                        <input type="number" class="form-control" name="number" [(ngModel)]="recommandation.pourcentage" required disabled/>
                                         <button class="btn btn-primary" [disabled]="!recommandationForm.valid">Ajouter une nouvelle recommandation</button>
                                     </form>
                                 </div>
