@@ -11,8 +11,8 @@ use App\Http\Requests\RecommandationRequest;
 class RecommandationController extends Controller
 {
     public function add(RecommandationRequest $request){
-
     Recommandation::create($request->all());
+
     return response()->json(["message"=>"une nouvelle recommandation a été crée."]);
        
     }

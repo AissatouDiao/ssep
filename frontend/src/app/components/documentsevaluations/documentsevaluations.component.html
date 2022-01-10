@@ -47,9 +47,9 @@
 
                     <td>{{e.id}}</td>
                     <td>{{e.titre}}</td>
-                    <td>{{e.evaluation}}
+                    <td>
                         <div>
-                            <a href="http://localhost:8000/.{{e.evaluation}}" target="blank">Consulter le PDF</a>
+                            <a href="http://localhost:8000/.{{e.evaluation}}" target="blank">Consulter Document.</a>
                         </div>
                     </td>
                     <td>{{e.created_at|date:'d-MM-y' }}</td>
@@ -168,7 +168,6 @@
                                                                                         <div class="float-left text-primary">
                                                                                             <ul class="list-group" *ngFor="let t of taches">
                                                                                                 <ng-container *ngIf="t.recommandation_id==r.id">
-
                                                                                                     <li class="list-group-item list-group-item-action list-group-item-primary">
                                                                                                         <i class="material-icons" style="cursor:pointer" (click)="deleteTache(t.id)">close</i> {{t.tache}} <input *ngIf="t.etat=='pas fait'" type="checkbox"
                                                                                                             name="" id="t{{t.id}}" (change)="updateTache(t)" />
@@ -176,26 +175,22 @@
                                                                                                     </li><br>
                                                                                                 </ng-container>
                                                                                             </ul>
-
-
                                                                                         </div><br>
                                                                                         <div>
                                                                                             <form #tacheForm=ngForm (ngSubmit)="addTache(r.id)">
-                                                                                                <div><input type="text" name="nom_tache" id="nom_tache" [(ngModel)]="tache.tache" required></div>
+                                                                                                <div><input type="text" name="nom_tache" id="nom_tache" [(ngModel)]="tache.tache" class="form-control" required></div>
                                                                                                 <div style="cursor:pointer" class="text-primary" type="button">
                                                                                                     <button type="submit" class="btn btn-primary" [disabled]="!tacheForm.valid"><i class="material-icons">add</i>Ajouter tâche</button>
                                                                                                 </div>
                                                                                             </form>
                                                                                         </div>
-
-
                                                                                     </div>
                                                                                 </div><br>
 
                                                                                 <div class="row mb-3">
                                                                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Responsable </label>
                                                                                     <div class="col-sm-10">
-                                                                                        <select [(ngModel)]="r.responsable" id="responsable" name="responsable" class="form-control" required>
+                                                                                        <select [(ngModel)]="r.responsable" id="responsable1" name="responsable" class="form-control" required>
                                                                                     <option *ngFor="let u  of users" value="{{u.surname}} {{u.name}}">{{u.surname}} {{u.name}}</option>
                                                                                 </select><br>
                                                                                     </div>
