@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Recommandation;
 use App\Models\Recommandationtache;
 use App\Http\Requests\RecommandationRequest;
+use App\Notifications\Responsable_recommandation;
 
 class RecommandationController extends Controller
 {
     public function add(RecommandationRequest $request){
     Recommandation::create($request->all());
-
+    $lastRecordDate = Recommandation::latest()->first();
+    User::find($request->userresponsable_id)->notify(new Responsable_recommandation($lastRecordDate)); 
     return response()->json(["message"=>"une nouvelle recommandation a été crée."]);
        
     }
@@ -33,6 +36,7 @@ class RecommandationController extends Controller
         $recommandation->statut=$request->statut; 
         $recommandation->pourcentage=$request->pourcentage;
         $recommandation->date_debut=$request->date_debut;
+        $recommandation->userresponsable_id=$request->userresponsable_id;
 
         $recommandation->save();
 

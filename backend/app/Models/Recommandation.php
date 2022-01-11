@@ -29,6 +29,7 @@ class Recommandation extends Model
      'statut',
      'responsable',
      'pourcentage',
-     'date_debut'
+     'date_debut',
+     'userresponsable_id'
     ]; 
 }

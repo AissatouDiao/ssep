@@ -1,7 +1,4 @@
 <ng-container *ngIf="evaluations">
-
-
-
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <i class="material-icons pr-1 text-primary">fact_check</i>
@@ -28,7 +25,6 @@
         </button>
         </div>
     </div><br><br>
-
     <div class="card">
         <table class="table bg-white sm">
             <thead class="table-light">
@@ -122,7 +118,6 @@
                                                                         </div>
                                                                         <div class="modal-body">
                                                                             <form #recommandationForm=ngForm name="recommandationForm" (ngSubmit)="updateRecommandation(r)" enctype="multipart/form-data">
-
                                                                                 <div class="row mb-3">
                                                                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Titre</label>
                                                                                     <div class="col-sm-10">
@@ -134,8 +129,13 @@
                                                                                     <div class="col-sm-10">
                                                                                         <textarea id="description" name="description" [(ngModel)]="r.description" required rows="4" cols="43">
                                                                                         {{r.description}}
-                                                                                    </textarea>
-
+                                                                                        </textarea>
+                                                                                    </div>
+                                                                                </div><br>
+                                                                                <div class="row mb-3">
+                                                                                    <label for="date_finale" class="col-sm-2 col-form-label">Date Début</label>
+                                                                                    <div class="col-sm-10">
+                                                                                        <input type="date" class="form-control" name="date_finale1" id="date_finale1" value="{{r.date_debut|date: 'yyyy-MM-dd'}}" required>
                                                                                     </div>
                                                                                 </div><br>
                                                                                 <div class="row mb-3">
@@ -148,11 +148,11 @@
                                                                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Statut</label>
                                                                                     <div class="col-sm-10">
                                                                                         <select name="statut" id="statut" class="form-select" [(ngModel)]="r.statut" required disabled>
-                                                                                  <option value="non dûe">Non dûe</option>
-                                                                                  <option  value="dûe et en cours">En cours</option>
-                                                                                  <option  value="non exécutée">Dûe & Non executé</option>
-                                                                                  <option selected value="exécutée" >Exécutée</option>
-                                                                              </select>
+                                                                                            <option value="non dûe">Non dûe</option>
+                                                                                            <option  value="dûe et en cours">En cours</option>
+                                                                                            <option  value="non exécutée">Dûe & Non executé</option>
+                                                                                            <option selected value="exécutée" >Exécutée</option>
+                                                                                        </select>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="row mb-3">
@@ -288,12 +288,13 @@
                                                     <input type="text" class="form-control" name="description" [(ngModel)]="recommandation.description" required/><br>
                                                     <label>Responsable</label>
                                                     <select [(ngModel)]="recommandation.responsable" id="responsable" name="responsable" class="form-control" required>
-                                                    <option *ngFor="let u  of users" value="{{u.surname}} {{u.name}}">{{u.surname}} {{u.name}}</option>
-                                                </select><br>
+                                                       <option *ngFor="let u  of users" value="{{u.surname}} {{u.name}}" (click)="getuserresponsableid(u.id)" >{{u.surname}} {{u.name}}</option>
+                                                    </select><br>
+                                                    <label>Date debut d'execution</label>
+                                                    <input type="date" class="form-control" id="date_debuta" name="date_debut" [(ngModel)]="recommandation.date_debut" required />
                                                     <label>Date finale d'execution</label>
                                                     <input type="date" class="form-control" id="date_finale" name="date_finale" [(ngModel)]="recommandation.date_finale" required />
                                                     <label>Statut  (par défaut)</label>
-
                                                     <select name="statut" id="statut" class="form-select" [(ngModel)]="recommandation.statut" required disabled>
                                                     <option value="non dûe" selected="selected">Non dûe</option>
                                                     <option  value="en cours">En cours</option>
@@ -393,7 +394,7 @@
                                         <label>Date début d'execution</label>
                                         <input type="date" class="form-control" id="date_debut" name="date_debut" [(ngModel)]="recommandation.date_debut" required />
                                         <label>Date finale d'execution</label><br>
-                                        <input type="date" class="form-control" id="date_finale" name="date_finale" [(ngModel)]="recommandation.date_finale" required />
+                                        <input type="date" class="form-control" name="date_finale" [(ngModel)]="recommandation.date_finale" required />
                                         <label>Statut (par défaut)</label>
                                         <select name="statut" id="statut" class="form-select" [(ngModel)]="recommandation.statut" required disabled>
                                             <option value="non dûe" selected="selected">Non dûe</option>

@@ -28,6 +28,7 @@ export class DocumentsevaluationsComponent implements OnInit {
     titre: null,
     description: null,
     responsable: <any>null,
+    userresponsable_id: <any>null,
     date_debut: <any>null,
     date_finale: <any>null,
     pourcentage: 0,
@@ -109,8 +110,14 @@ export class DocumentsevaluationsComponent implements OnInit {
       error => console.log(error)
     );
   }
+
+  ur_id: any;
+  getuserresponsableid(id: any) {
+    this.ur_id = id;
+  }
   addRecommandationmodif(id_evaluation: any) {
     this.recommandation.evaluation_id = id_evaluation;
+    this.recommandation.userresponsable_id = this.ur_id;
     this.recommandation.date_finale = (<HTMLInputElement>document.getElementById('date_finale')).value;
     this.recommandation.responsable = (<HTMLInputElement>document.getElementById('responsable')).value;
     // this.recommandation.statut = (<HTMLInputElement>document.getElementById('statut1')).value;

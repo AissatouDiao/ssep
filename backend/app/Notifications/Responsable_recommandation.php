@@ -57,8 +57,8 @@ private $recommandation;
     public function toArray($notifiable)
     {
         return [
-            'data'=>'Vous avez été assigné(e) comme responsable de recommandation '+$this->recommandation->titre+',
-             dont l\'exécution doit être faite entre'+$this->date_debut+' et '+$this->date_finale+'.'
+            'data'=>'Vous avez été assigné(e) comme responsable de recommandation '.$this->recommandation->titre.',
+             dont l\'exécution doit être faite entre'.$this->recommandation->date_debut.' et '.$this->recommandation->date_finale.'.'
         ];
     }
 }
