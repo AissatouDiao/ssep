@@ -50,6 +50,11 @@ class UserController extends Controller
 
     }
 
+    public function getnotifications($request){
+        $user=User::find($request);
+        return $user->notifications;
+    }
+
     
 
 }

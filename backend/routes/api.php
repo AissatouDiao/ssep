@@ -87,6 +87,7 @@ Route::group([
     Route::get('getPermissions',[PermissionController::class,'getPermissions']);
     Route::get('getPermissionsByRoleId/{id}',[PermissionController::class,'getPermissionsByRoleId']);
     Route::get('getUsers',[UserController::class,'getusers']);
+    Route::get('getnotifications/{id}',[UserController::class,'getnotifications']);
     Route::delete('deleteUser/{id}',[UserController::class,'deleteUser']);
     Route::post('updateuserrole',[UserController::class,'updateRoleUser']);
     Route::post('updateuserprofile',[UserController::class,'updateProfileUser']);

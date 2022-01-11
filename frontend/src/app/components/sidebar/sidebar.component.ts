@@ -36,6 +36,10 @@ export class SidebarComponent implements OnInit {
     let data_user: any = localStorage.getItem('data');
     this.user = JSON.parse(data_user);
     console.log(this.user);
+    this.jarwisService.getnotifications(this.user.id).subscribe(
+      (data: any) => { console.log(data) },
+      (error: any) => { console.log(error); }
+    );
   }
 
   permissions_to_role: any;

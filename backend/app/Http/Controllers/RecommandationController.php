@@ -20,12 +20,18 @@ class RecommandationController extends Controller
        
     }
 
+    public function getusersnotifications($request){
+        DB::table('notifications')->get();
+    }
+
     public function delete($request){
         $recommandation= Recommandation::find($request);
         $recommandation->delete();
         return response()->json(["message" => "suppression recommandation effective!"]); 
         
     }
+
+    
 
     public function update(RecommandationRequest $request){
         $recommandation = Recommandation::find($request->id);

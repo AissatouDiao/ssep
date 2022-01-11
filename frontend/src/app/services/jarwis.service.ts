@@ -82,6 +82,9 @@ export class JarwisService {
     return this.http.get(`${this.baseUrl}/getPermissionsByRoleId/` + data);
   }
 
+  getnotifications(data: any) {
+    return this.http.get(`${this.baseUrl}/getnotifications/` + data);
+  }
 
   //recuperer tous les permissions dans la base de données.
   getPermissions() {

@@ -58,7 +58,7 @@ private $recommandation;
     {
         return [
             'data'=>'Vous avez été assigné(e) comme responsable de recommandation '.$this->recommandation->titre.',
-             dont l\'exécution doit être faite entre'.$this->recommandation->date_debut.' et '.$this->recommandation->date_finale.'.'
+             dont l\'exécution doit être faite entre '.$this->recommandation->date_debut.' et '.$this->recommandation->date_finale.'.'
         ];
     }
 }
