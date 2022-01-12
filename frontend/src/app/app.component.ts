@@ -27,6 +27,7 @@ export class AppComponent {
   ngOnInit(): void {
     this.authService.authStatus.subscribe(value => this.loggedIn = value);
     this.getnotifications();
+    this.getfivelastunreadnotifications();
   }
 
   user: any; notifications: any;
@@ -38,6 +39,29 @@ export class AppComponent {
       (error: any) => { console.log(error); }
     );
   }
+
+  unread_notifications: any;
+  getunreadnotifications() {
+    let data_user: any = localStorage.getItem('data');
+    this.user = JSON.parse(data_user);
+    this.jarwisService.getunreadnotifications(this.user.id).subscribe(
+      (data: any) => { console.log(data); this.unread_notifications = data; },
+      (error: any) => { console.log(error); }
+    );
+  }
+
+
+  last_five: any;
+  getfivelastunreadnotifications() {
+    let data_user: any = localStorage.getItem('data');
+    this.user = JSON.parse(data_user);
+    this.jarwisService.getfivelastunreadnotifications(this.user.id).subscribe(
+      (data: any) => { console.log(data); this.last_five = data; },
+      (error: any) => { console.log(error); }
+    );
+  }
+
+
 
   logout(event: MouseEvent) {
     // this.authService.changeAuthStatus(false);

@@ -62,11 +62,11 @@ export class PartenairesComponent implements OnInit {
     );
   }
 
-  //Supprimer recommandation.
+  //Supprimer partenaire.
   delete(id: any) {
 
     //notification et changement de statut.
-    this.notify.confirm('Voulez vous vraiment supprimer ce partenaire ?', 'Attention !Suppression de pertenaire ?', {
+    this.notify.confirm('Voulez vous vraiment supprimer ce partenaire ?', 'Attention !Suppression de partenaire ?', {
       timeout: 0,
       position: SnotifyPosition.rightTop,
       showProgressBar: true,

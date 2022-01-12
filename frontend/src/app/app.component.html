@@ -50,17 +50,16 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="material-icons">notifications</i>
-                                <span class="notification">{{notifications.length}}</span>
+                                <span class="notification">{{last_five.length}}</span>
                                 <p class="d-lg-none d-md-block">
                                     Some Actions
                                 </p>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="nav-link" routerLink="notifications">go to notifications</a>
-                                <ng-container *ngFor="let n of notifications">
+                                <a class="nav-link" routerLink="notifications">Voir toutes mes notifications.</a>
+                                <ng-container *ngFor="let n of last_five;">
                                     <a class="dropdown-item" href="#">{{n.data.data}}</a>
                                 </ng-container>
-
                             </div>
                         </li>
                     </ul>

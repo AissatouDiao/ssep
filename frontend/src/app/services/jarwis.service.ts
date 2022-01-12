@@ -86,6 +86,16 @@ export class JarwisService {
     return this.http.get(`${this.baseUrl}/getnotifications/` + data);
   }
 
+  getunreadnotifications(data: any) {
+    return this.http.get(`${this.baseUrl}/getunreadnotifications/` + data);
+  }
+  getfivelastunreadnotifications(data: any) {
+    return this.http.get(`${this.baseUrl}/getfivelastunreadnotifications/` + data);
+  }
+  deleteNotification(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteNotification/` + data);
+  }
+
   //recuperer tous les permissions dans la base de données.
   getPermissions() {
     return this.http.get(`${this.baseUrl}/getPermissions`);

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use Notification;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Requests\DeleteuserRequest;
 
@@ -54,6 +56,26 @@ class UserController extends Controller
         $user=User::find($request);
         return $user->notifications;
     }
+
+    public function getunreadnotifications($request){
+        $user=User::find($request);
+        return $user->unreadNotifications;
+    }
+
+    public function getfivelastunreadnotifications($request){
+        $user=User::find($request);
+        return $user->unreadNotifications()->take(5)->get();
+    }
+
+    public function deleteNotification($request){
+        DB::table('notifications')->where('id',$request)->delete();
+        return response()->json(["message" => "suppression de notification effective !"]); 
+
+    }
+
+    
+
+    
 
     
 
