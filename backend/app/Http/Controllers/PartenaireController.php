@@ -61,4 +61,16 @@ class PartenaireController extends Controller
        $Partenaire->save();
 
     }
+
+    public function getPourcentages(Request $request){
+
+        $thepourcentages = DB::table('ptbapartenaires')
+       ->where('partenaire_id',$request->id)
+       ->join('partenaires', 'partenaires.id', '=', 'ptbapartenaires.partenaire_id')
+       ->select('partenaires.libelle', 'ptbapartenaires.budget')
+       ->get();
+       return $thepourcentages;
+}
+
+
 }

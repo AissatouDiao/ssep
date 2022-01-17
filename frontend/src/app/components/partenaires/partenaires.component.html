@@ -129,7 +129,7 @@
                                                     <div class="card-body">
                                                         <h5 class="card-title"></h5>
                                                         <p class="card-text">
-                                                            Nom Partenaire: {{p.libelle}} <br> Type Partenaire: {{p.type}} <br> Apport Financier Total : {{p.apport_financier_total}} FCFA <br>
+                                                            Nom Partenaire: {{p.libelle}} <br><br> Type Partenaire: {{p.type}} <br><br> Apport Financier Total : {{p.apport_financier_total}} FCFA <br><br>
                                                         </p>
                                                     </div>
                                                 </div><br>
@@ -167,11 +167,11 @@
     </div>
 </div>
 <ngb-pagination [(page)]="page " currentPage="1 " [pageSize]="pageSize " [collectionSize]="partenaires.length " class="active "></ngb-pagination>
-<button class="btn btn-warning float-right " data-toggle="modal " data-target="#exampleModalCenter ">Nouveau partenaire</button>
+<button class="btn btn-warning float-right" data-toggle="modal" data-target="#exampleModalCenter">Nouveau partenaire</button>
 
 <!-- Modal ajout -->
 <div class="card ">
-    <div class="modal fade " id="exampleModalCenter " tabindex="-1 " role="dialog " aria-labelledby="exampleModalCenterTitle " aria-hidden="true ">
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true ">
         <div class="modal-dialog modal-dialog-centered " role="partenaire ">
             <div class="modal-content ">
                 <div class="card-header card-header-warning text-center ">
