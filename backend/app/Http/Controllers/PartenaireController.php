@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Partenaire;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Sousactivitepartenaire;
 use App\Http\Requests\PartenaireRequest;
 
@@ -15,6 +16,7 @@ class PartenaireController extends Controller
         $partenaires= Partenaire::all();
         foreach($partenaires as $p){
             $this->calculApportFinancierGlobal($p);
+
         }
         return $partenaires;
     }
@@ -66,8 +68,8 @@ class PartenaireController extends Controller
 
         $thepourcentages = DB::table('ptbapartenaires')
        ->where('partenaire_id',$request->id)
-       ->join('partenaires', 'partenaires.id', '=', 'ptbapartenaires.partenaire_id')
-       ->select('partenaires.libelle', 'ptbapartenaires.budget')
+       ->join('ptbas', 'ptbas.id', '=', 'ptbapartenaires.ptba_id')
+       ->select('ptbas.libelle', 'ptbapartenaires.budget')
        ->get();
        return $thepourcentages;
 }

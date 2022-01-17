@@ -234,6 +234,10 @@ export class JarwisService {
   updatePartenaireApport(data: object) {
     return this.http.post(`${this.baseUrl}/updatepartenaireapport`, data)
   }
+
+  getPourcentagesPartenairePtba(data: object) {
+    return this.http.post(`${this.baseUrl}/getPourcentagesPartenairePtba`, data);
+  }
   //-------PTBA--------//
 
   //Ajouter une nouveau ptba
