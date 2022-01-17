@@ -90,8 +90,8 @@ class SousactiviteController extends Controller
     public function getsousactivitebudgettotal($objet){
         $budget_sa= DB::table('sousactivitepartenaires')->where('sousactivite_id',$objet->id)->get()->sum('budget');
         $sa= Sousactivite::find($objet->id);
-        $sa->cout_estimatif= $budget_sa;$sa->save();
-        return $budget_sa;
+        $sa->cout_estimatif= $budget_sa;
+        $sa->save();
     }
 
     public function getMois(){

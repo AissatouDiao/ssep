@@ -52,7 +52,7 @@ class ComposanteController extends Controller
         $budget_c= DB::table('activites')->where('composante_id',$objet->id)->get()->sum('budget');
         $c= Composante::find($objet->id);
         $c->budget= $budget_c;$c->save();
-        return $budget_c;
+       
     }
 
     public function getpartenairesacomposantes($objet){

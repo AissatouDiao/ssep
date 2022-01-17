@@ -42,7 +42,8 @@ export class LoginComponent implements OnInit {
     localStorage.setItem('data', data)
     this.authService.changeAuthStatus(true);
     localStorage.setItem('password', JSON.stringify(this.form));
-    this.router.navigateByUrl('/profile');
+    this.router.navigateByUrl('/tableau-de-bord');
+    window.location.reload();
 
   }
 

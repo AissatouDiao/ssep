@@ -1,5 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ChartType } from 'chart.js';
 import { SnotifyPosition, SnotifyService } from 'ng-snotify';
+import { Label, MultiDataSet } from 'ng2-charts';
 import { JarwisService } from 'src/app/services/jarwis.service';
 
 
@@ -28,6 +30,15 @@ export class PartenairesComponent implements OnInit {
   ngOnInit(): void {
     this.getPartenaires();
   }
+
+  /**
+ * 
+ * Données pour le diagramme circulaire par composante
+ */
+
+  doughnutChartLabels1: Label[] = ['En chargement'];
+  doughnutChartData1: MultiDataSet = [[100]];
+  doughnutChartType1: ChartType = 'pie';
 
   //Recupérer toutes les partenaires.
   getPartenaires() {

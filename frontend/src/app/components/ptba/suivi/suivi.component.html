@@ -29,8 +29,8 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let p of ptbas|slice: (page-1)*pageSize:page*pageSize| searchFilter:searchText">
-            <th scope="row">{{p.id}}</th>
+        <tr *ngFor="let p of ptbas|slice: (page-1)*pageSize:page*pageSize| searchFilter:searchText;let i = index">
+            <th scope="row">{{i}}</th>
             <td style="cursor:pointer" data-toggle="modal" attr.data-target="#exampleModal{{p.id}}">{{p.libelle}}</td>
             <!-- Modal -->
             <div class="modal" role="dialog" id="exampleModal{{p.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

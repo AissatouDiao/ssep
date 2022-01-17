@@ -55,11 +55,10 @@ import { TransformationComponent } from './components/chainesdevaleurs/transform
 
 const routes: Routes = [
 
-  {
-    path: 'login', component: LoginComponent,
-    canActivate: [BeforeloginService]
-  },
-
+  /* {
+     path: 'login', component: LoginComponent,
+     canActivate: [BeforeloginService]
+   },*/
   { path: '404-page-non-trouvee', component: NotfoundComponent },
   { path: '***', redirectTo: '/404-page-non-trouvee' },
   {
@@ -72,10 +71,6 @@ const routes: Routes = [
   },
   {
     path: '', redirectTo: 'tableau-de-bord', pathMatch: 'full'
-  },
-  {
-    path: '', component: LoginComponent,
-    canActivate: [BeforeloginService]
   },
   {
     path: 'profile', component: ProfileComponent,

@@ -99,7 +99,7 @@ export class RapportsComponent implements OnInit {
         this.pourcentages = data;
         data.forEach((d: any) => {
           if (!tableau_pourcentage.includes(d.budget)) {
-            tableau_pourcentage.push((d.budget * 100) / p.budget);
+            tableau_pourcentage.push((((d.budget * 100) / p.budget).toFixed(2)));
           }
           if (!tableau_nompartenaires.includes(d.libelle)) {
             tableau_nompartenaires.push(d.libelle);
@@ -124,9 +124,10 @@ export class RapportsComponent implements OnInit {
     this.jarwisService.getPourcentagesParComposante(p).subscribe(
       (data: any) => {
         console.log(data);
+        console.log(p.budget)
         data.forEach((d: any) => {
           if (!tableau_pourcentage.includes(d.budget)) {
-            tableau_pourcentage.push((d.budget * 100) / p.budget);
+            tableau_pourcentage.push((((d.budget * 100) / p.budget).toFixed(2)));
           }
           if (!tableau_composante.includes(d.libelle)) {
             tableau_composante.push(d.libelle);
@@ -185,7 +186,6 @@ export class RapportsComponent implements OnInit {
     let dateFinal = new Date(date2);
 
     let duration = Math.floor((Date.UTC(dateFinal.getFullYear(), dateFinal.getMonth(), dateFinal.getDate()) - Date.UTC(dateDebut.getFullYear(), dateDebut.getMonth(), dateDebut.getDate())) / (1000 * 60 * 60 * 24));
-    console.log(dateDebut, dateFinal, duration);
     return duration
 
   }

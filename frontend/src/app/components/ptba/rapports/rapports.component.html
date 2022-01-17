@@ -15,7 +15,7 @@
     </div>
     <div class="navbar-form col-6 float-right">
         <div class="input-group no-border">
-            <select class="form-select" [(ngModel)]="ptba_id" (click)="getptbabyid(ptba_id)" required> 
+            <select class="form-select" [(ngModel)]="ptba_id" (click)="getptbabyid(ptba_id)" placeholder="Sélectionner un PTBA" required> 
                <option *ngFor="let p of ptbas" [value]="p.id"  name="ptba_id" >{{p.libelle}}</option>
             </select>
         </div>
@@ -28,19 +28,19 @@
         <ng-container *ngIf="p.id==ptba_id ">
             <div class="row">
 
-                <div class="chart-wrapper">
+                <div class="chart-wrapper pb-2">
                     <div class="chart-wrapper ">
                         <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
                           </canvas>
                     </div>
-                </div><br><br><br><br>
+                </div>
                 <p class="font-weight-bold text-primary text-center border border-primary">Diagramme en donut d'investissement financier par partenaire</p>
-                <div class="chart-wrapper ">
+                <div class="chart-wrapper pb-2">
                     <div class="chart-wrapper ">
                         <canvas baseChart [data]="doughnutChartData1" [labels]="doughnutChartLabels1" [chartType]="doughnutChartType1">
                           </canvas>
                     </div>
-                </div><br><br><br><br>
+                </div>
                 <p class="font-weight-bold text-primary text-center border border-primary">Diagramme en donut de budgétisation financier par composante</p>
                 <!-- <div class="chart-wrapper ">
                     <canvas baseChart [datasets]="barChartData " [labels]="barChartLabels " [options]="barChartOptions " [plugins]="barChartPlugins " [legend]="barChartLegend " [chartType]="barChartType ">
@@ -52,27 +52,51 @@
                 <div class="card-body ">
                     <ng-container *ngFor="let c of composantes ">
                         <ng-container *ngIf="c.ptba_id==ptba_id ">
-                            <div class="alert alert-primary " role="alert ">
-                                {{c.libelle}}
-                                <div class="float-right">
-                                    <h1>0%</h1>
+                            <div class="alert alert-primary row" role="alert ">
+                                <div class="col-6">
+                                    <h1>{{c.libelle}}</h1>
+                                </div>
+                                <div class="col-6">
+                                    <div class="float-right">
+                                        <h1>0%</h1>
+                                    </div>
                                 </div>
                             </div>
                             <ng-container *ngFor="let a of activites ">
                                 <ng-container *ngIf="a.composante_id==c.id ">
                                     <div class="alert alert-info " role="alert ">
-                                        {{a.libelle}}
-                                        <div class="float-right">
-                                            <h2>0%</h2>
+                                        <div class="row">
+                                            <div class="col-6 text-capitalize">
+                                                <h2>{{a.libelle}}</h2>
+                                            </div>
+                                            <div class="col-6">
+                                                <h2>
+                                                    Exécutée à :
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{a.pourcentage}}" aria-valuemin="0" aria-valuemax="100" attr.style="width: {{a.pourcentage}}%"> {{a.pourcentage}}%</div>
+                                                    </div>
+                                                </h2>
+                                            </div>
                                         </div>
                                     </div>
                                     <ng-container *ngFor="let s of sousactivites ">
                                         <ng-container *ngIf="s.activite_id==a.id ">
-                                            <div class="alert alert-warning " role="alert ">
-                                                <div class="text-primary text-bold ">{{s.libelle}}</div> <br> ratio durée: {{s.fin_reel }} - {{s.debut_reel }}<br> {{differencedate(s.debut_reel,s.fin_reel)}}jours
-                                                <br> ratio cout : {{s.cout_reel-s.cout_estimatif}} <br>
+                                            <div class="alert alert-warning" role="alert ">
+
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="text-primary text-bold ">{{s.libelle}}</div> <br> ratio durée: {{s.fin_reel }} - {{s.debut_reel }}<br> {{differencedate(s.debut_reel,s.fin_reel)}}jours
+                                                        <br> ratio cout : {{s.cout_reel-s.cout_estimatif}} <br>
+                                                    </div>
+                                                    <div class="col-6">
+
+                                                    </div>
+                                                </div>
+
                                             </div>
+
                                         </ng-container>
+
                                     </ng-container>
                                 </ng-container>
                             </ng-container>

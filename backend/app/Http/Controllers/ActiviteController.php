@@ -97,11 +97,11 @@ class ActiviteController extends Controller
         return $activites;
     }
 
-    public function getactivitebudgettotal( $objet){
+    public function getactivitebudgettotal($objet){
         $budget_a= DB::table('sousactivites')->where('activite_id',$objet->id)->get()->sum('cout_estimatif');
         $a= Activite::find($objet->id);
-        $a->budget= $budget_a;$a->save();
-        return $budget_a;
+        $a->budget= $budget_a;
+        $a->save();
     }
     public function getpartenairesactivites($objet){
       
@@ -119,13 +119,13 @@ class ActiviteController extends Controller
                     "budget"=>$v->budget
                     ];
                     Activitepartenairefinancier::create($activitepartenaire);
-                  //  $this->getactivitebudgettotal($objet);
+                   $this->getactivitebudgettotal($objet);
                 // return response()->json(["message"=>"nouveau activite enregistré!"]);
                 }else if($budgettotalactivites>$budgettotalpartenaires){
                         $partenaireactivite=Activitepartenairefinancier::where(['activite_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->first();
                         $partenaireactivite->budget=$partenaireactivite->budget + $v->budget;
                         $partenaireactivite->save();
-                   // $this->getactivitebudgettotal($objet);
+                    $this->getactivitebudgettotal($objet);
                 //return response()->json(["message"=>"ancien activite enregistré!"]);
                 }
 

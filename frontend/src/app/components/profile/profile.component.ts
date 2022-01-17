@@ -17,11 +17,10 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
     let ha: any = localStorage.getItem('password');
     this.password = JSON.parse(ha);
-
+    let data_user: any = localStorage.getItem('data');
+    this.user = JSON.parse(data_user);
   }
 
   updateProfile(user: any) {

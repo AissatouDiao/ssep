@@ -25,9 +25,13 @@ export class AppComponent {
   ) { }
 
   ngOnInit(): void {
+    let user = localStorage.getItem('data');
     this.authService.authStatus.subscribe(value => this.loggedIn = value);
-    this.getnotifications();
-    this.getfivelastunreadnotifications();
+    if (user) {
+      this.getnotifications();
+      this.getfivelastunreadnotifications();
+    }
+
   }
 
   user: any; notifications: any;

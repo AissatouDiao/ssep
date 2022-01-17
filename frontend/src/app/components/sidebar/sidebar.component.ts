@@ -24,10 +24,13 @@ export class SidebarComponent implements OnInit {
         this.date = new Date();
       }, 60000)
     this.authService.authStatus.subscribe(value => this.loggedIn = value);
-    this.getUser();
-    this.getPermissionsByRoleId();
-    this.getPermissions();
-    this.getModules();
+    if (this.loggedIn) {
+      this.getUser();
+      this.getPermissionsByRoleId();
+      this.getPermissions();
+      this.getModules();
+    }
+
   }
 
 

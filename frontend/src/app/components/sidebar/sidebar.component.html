@@ -26,7 +26,8 @@
                 </li>
                 <ng-container *ngFor="let m of modules; let i =index">
                     <ng-container *ngFor="let p1 of permissions_to_role; let i1=index">
-                        <li class="nav-item dropdown" routerLinkActive="active" *ngIf="m.id==p1.module_id && m.libelle_module=='Utilisateurs'&& i1==i">
+
+                        <li class="nav-item dropdown" routerLinkActive="active" *ngIf="m.id==p1.module_id && m.libelle_module=='Utilisateurs'">
                             <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="material-icons">person</i>
                                 <p class="text-break">utilisateurs</p>
@@ -39,49 +40,49 @@
 
                             </div>
                         </li>
-                        <li class="nav-item " routerLinkActive="active" *ngIf="m.id==p1.module_id  && m.libelle_module=='PTBA' && i1==i">
+                        <li class="nav-item " routerLinkActive="active" *ngIf="m.id==p1.module_id  && m.libelle_module=='PTBA' ">
                             <a class="nav-link" routerLink="gestion-ptba">
                                 <i class="material-icons">event</i>
                                 <p class="text-break">Gestion PTBA</p>
                             </a>
                         </li>
-                        <li class="nav-item " routerLinkActive="active" *ngIf="m.id==p1.module_id  && m.libelle_module=='Partenaires Projet' && i1==i">
+                        <li class="nav-item " routerLinkActive="active" *ngIf="m.id==p1.module_id  && m.libelle_module=='Partenaires Projet' ">
                             <a class="nav-link" routerLink="gestion-partenaires">
                                 <i class="material-icons">work</i>
                                 <p class="text-break">Gestion des partenaires </p>
                             </a>
                         </li>
-                        <li class="nav-item " routerLinkActive="active" *ngIf="m.id==p1.module_id  && m.libelle_module=='Pistes Bavardes' && i1==i">
+                        <li class="nav-item " routerLinkActive="active" *ngIf="m.id==p1.module_id  && m.libelle_module=='Pistes Bavardes' ">
                             <a class="nav-link" routerLink="gestion-pistes-bavardes">
                                 <i class="material-icons">map</i>
                                 <p class="text-break">Gestion pistes bavardes</p>
                             </a>
                         </li>
-                        <li class="nav-item " routerLinkActive="active" *ngIf="m.id==p1.module_id  && m.libelle_module=='Passation de marchés' && i1==i">
+                        <li class="nav-item " routerLinkActive="active" *ngIf="m.id==p1.module_id  && m.libelle_module=='Passation de marchés'">
                             <a class="nav-link" routerLink="gestion-passations-marches">
                                 <i class="material-icons">receipt_long</i>
                                 <p class="text-break">Gestion passations marchés</p>
                             </a>
                         </li>
-                        <li class="nav-item " routerLinkActive="active" *ngIf="m.id==p1.module_id  && m.libelle_module=='Chaines de valeurs' && i1==i">
+                        <li class="nav-item " routerLinkActive="active" *ngIf="m.id==p1.module_id  && m.libelle_module=='Chaines de valeurs' ">
                             <a class="nav-link" routerLink="gestion-chaines-de-valeurs">
                                 <i class="material-icons">storage</i>
                                 <p class="text-break">Gestion Chaines de valeurs</p>
                             </a>
                         </li>
-                        <li class="nav-item " routerLinkActive="active" *ngIf="m.id==p1.module_id  && m.libelle_module=='Indicateurs'&& i1==i">
+                        <li class="nav-item " routerLinkActive="active" *ngIf="m.id==p1.module_id  && m.libelle_module=='Indicateurs'">
                             <a class="nav-link" routerLink="gestion-indicateurs">
                                 <i class="material-icons">assessment</i>
                                 <p class="text-break ">Gestion indicateurs</p>
                             </a>
                         </li>
-                        <li class="nav-item" routerLinkActive="active" *ngIf="m.id==p1.module_id && m.libelle_module=='Chaines de valeurs'&& i1==i">
+                        <li class="nav-item" routerLinkActive="active" *ngIf="m.id==p1.module_id && m.libelle_module=='Chaines de valeurs'">
                             <a class="nav-link" routerLink="documents-evaluations">
                                 <i class="material-icons">fact_check</i>
                                 <p class="text-break">Gestion des evaluations</p>
                             </a>
                         </li>
-                        <li class="nav-item" routerLinkActive="active" *ngIf="m.id==p1.module_id && m.libelle_module=='Partage de documents'&& i1==i">
+                        <li class="nav-item" routerLinkActive="active" *ngIf="m.id==p1.module_id && m.libelle_module=='Partage de documents'">
                             <a class="nav-link" routerLink="documents">
                                 <i class="material-icons">note_add</i> Gestion des documents (aléatoires) partagés
                             </a>
@@ -101,7 +102,7 @@
     Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger "
     Tip 2: you can also add an image using data-image tag
         -->
-        <div class="logo "><a href="# " class="simple-text logo-normal ">SSEP / PNDL</a></div>
+        <div class="logo"><a href="#" class="simple-text logo-normal">SSEP / PNDL</a></div>
         <div class="pt-4">
             <img src="assets/img/meteo.png" />
         </div>

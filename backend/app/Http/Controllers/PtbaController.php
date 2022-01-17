@@ -59,7 +59,7 @@ class PtbaController extends Controller
         $budget_p=DB::table('composantes')->where('ptba_id',$objet->id)->get()->sum('budget');
         $p=Ptba::find($objet->id);
         $p->budget= $budget_p;$p->save();
-        return $budget_p;
+       
     }
 
     public function getpartenairesptbas( $objet){
