@@ -24,6 +24,7 @@ class Composante extends Model
   protected $fillable = [
    'ptba_id',
    'libelle',
-   'budget'
+   'budget',
+   'pourcentage'
   ];
 }

@@ -26,7 +26,8 @@ export class PlanificationComponent implements OnInit {
   composante = {
     ptba_id: <any>null,
     libelle: '',
-    budget: 0
+    budget: 0,
+    pourcentage: 0
   }
 
   activite = {

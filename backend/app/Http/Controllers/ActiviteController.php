@@ -146,25 +146,18 @@ class ActiviteController extends Controller
     public function pourcentages($objet){
         $nombre_pour_pourcentage= DB::table('sousactivites')->where('activite_id',$objet->id)->count();
         $nombre_sa_complet= DB::table('sousactivites')->where(['activite_id'=>$objet->id,'etat'=>'complet'])->count();
-      
        if($nombre_pour_pourcentage){
         $pourcentage= ($nombre_sa_complet*100)/$nombre_pour_pourcentage;
-        
-       
-
         $activite=Activite::where('id',$objet->id)->get()->first();
         $activite->pourcentage=$pourcentage;
         $activite->save();
         if ($pourcentage==100){
             $activite->etat='achevée';
             $activite->save();
-        }
-        if($pourcentage > 0){
+        }else if($pourcentage > 0){
             $activite->etat='démarrée';
             $activite->save();
         }
        }
-       
-
     }
 }

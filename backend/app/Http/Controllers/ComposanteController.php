@@ -41,6 +41,7 @@ class ComposanteController extends Controller
         foreach($composantes as $c){
             $this->getcomposantebudgettotal($c);
             $this->getpartenairesacomposantes($c);
+            $this->pourcentages($c);
         }
         return $composantes;
     }
@@ -84,5 +85,17 @@ class ComposanteController extends Controller
                 }
             }
        }// return response()->json(["message"=>$activite_by_id]); if((Composantepartenaire::where(['composante_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->exists())and(Composantepartenaire::where(['composante_id'=>$objet->id,'partenaire_id'=>$v->partenaire_id])->first()->isDirty()))
-     }
+    }
+
+
+    public function pourcentages($objet){
+        $nombre_pour_pourcentage= DB::table('activites')->where('composante_id',$objet->id)->count();
+        $nombre_a_complet= DB::table('activites')->where(['composante_id'=>$objet->id,'etat'=>'achevée'])->count();
+        if($nombre_pour_pourcentage){
+            $pourcentage= ($nombre_a_complet*100)/$nombre_pour_pourcentage;
+            $composante=Composante::where('id',$objet->id)->get()->first();
+            $composante->pourcentage=$pourcentage;
+            $composante->save();
+        }
+    }
 }
