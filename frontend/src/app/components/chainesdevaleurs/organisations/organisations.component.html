@@ -1,86 +1,89 @@
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb ">
-        <i class="material-icons pr-1 ">storage</i>
-        <li class="breadcrumb-item">
-            <a routerLink="/gestion-chaines-de-valeurs" class="text-dark">
-                <p class=""> Gestion Chaines de valeur</p>
-            </a>
-        </li>
-        <li class="breadcrumb-item text-primary active" aria-current="page">
-            Organisations
-        </li>
-    </ol>
-</nav>
-<div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-    <div class="card-header"><span class="material-icons">corporate_fare</span></div>
-    <div class="card-body">
+<div *ngIf="lire==true; else elseBlock">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb ">
+            <i class="material-icons pr-1 ">storage</i>
+            <li class="breadcrumb-item">
+                <a routerLink="/gestion-chaines-de-valeurs" class="text-dark">
+                    <p class=""> Gestion Chaines de valeur</p>
+                </a>
+            </li>
+            <li class="breadcrumb-item text-primary active" aria-current="page">
+                Organisations
+            </li>
+        </ol>
+    </nav>
+    <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+        <div class="card-header"><span class="material-icons">corporate_fare</span></div>
+        <div class="card-body">
 
-        <p class="card-text">Ajouter ci-dessous le fichier Excel comportant les nouvelles données pour la base de données nationale des organisations.</p>
-        <form #organisationForm=ngForm name="organisationForm" (ngSubmit)="importOrganisationFileToDatabase()" enctype="multipart/form-data">
-            <div class="input-group mb-3 text-white bg-white">
-                <input (change)="uploadDocument($event)" type="file" accept=".xls, .xlsx, .csv" class="form-control" id="organisation_file" name="organisation_file" class="form-control" required><br><br>
+            <p class="card-text">Ajouter ci-dessous le fichier Excel comportant les nouvelles données pour la base de données nationale des organisations.</p>
+            <form #organisationForm=ngForm name="organisationForm" (ngSubmit)="importOrganisationFileToDatabase()" enctype="multipart/form-data">
+                <div class="input-group mb-3 text-white bg-white">
+                    <input (change)="uploadDocument($event)" type="file" accept=".xls, .xlsx, .csv" class="form-control" id="organisation_file" name="organisation_file" class="form-control" required><br><br>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="!organisationForm.valid" class="btn btn-primary">Importer</button>
+            </form>
+        </div>
+    </div><br>
+    <div *ngIf="messageerror" class="alert alert-danger">
+        {{messageerror}}
+    </div>
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+            <div class="md-form">
+                <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput />
+                <label for="search">Search</label>
             </div>
-            <button type="submit" class="btn btn-primary" [disabled]="!organisationForm.valid" class="btn btn-primary">Importer</button>
-        </form>
-    </div>
-</div><br>
-<div *ngIf="messageerror" class="alert alert-danger">
-    {{messageerror}}
-</div>
-<div class="row">
-    <div class="col-md-12 mx-auto">
-        <div class="md-form">
-            <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput />
-            <label for="search">Search</label>
         </div>
     </div>
-</div>
-<div>
-    <div class="card" style="width: 110%;">
-        <div class="card-header card-header-primary">
-            <h4 class="card-title">Base de données nationale.</h4>
-        </div>
-        <div class="card-body table-responsive">
-            <table #tableEl class="table table-hover table-bordered border-primary" mdbTable id="tableSortExample">
-                <thead>
-                    <tr>
-                        <th *ngFor="let head of headElements; let i = index" scope="col" aria-controls="tableSortExample" scope="col" [mdbTableSort]="organisations" sortBy="headElements[i]">
-                            {{head|titlecase}}
-                            <mdb-icon fas icon="sort"></mdb-icon>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let o of organisations;let i = index">
-                        <th scope="row" *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{i}}</th>
-                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.region}}</td>
-                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.departement}}</td>
-                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.commune}}</td>
-                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.nom_organisation}}</td>
-                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.statut_organisation}}</td>
-                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.prenom_et_nom_responsable}}</td>
-                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.contact_responsable}}</td>
-                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.nombre_membre_organisation}}</td>
-                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.nombre_femmes}}</td>
-                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.nombre_hommes}}</td>
-                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.activites_principales}}</td>
-                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.montant_credit_recu}}</td>
-                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.source_financement}}</td>
-                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"> <i class="material-icons text-primary" *ngIf="modifier==true">edit</i>
-                            <!-- Modal modifier -->
+    <div>
+        <div class="card" style="width: 110%;">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Base de données nationale.</h4>
+            </div>
+            <div class="card-body table-responsive">
+                <table #tableEl class="table table-hover table-bordered border-primary" mdbTable id="tableSortExample">
+                    <thead>
+                        <tr>
+                            <th *ngFor="let head of headElements; let i = index" scope="col" aria-controls="tableSortExample" scope="col" [mdbTableSort]="organisations" sortBy="headElements[i]">
+                                {{head|titlecase}}
+                                <mdb-icon fas icon="sort"></mdb-icon>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let o of organisations;let i = index">
+                            <th scope="row" *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{i}}</th>
+                            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.region}}</td>
+                            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.departement}}</td>
+                            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.commune}}</td>
+                            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.nom_organisation}}</td>
+                            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.statut_organisation}}</td>
+                            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.prenom_et_nom_responsable}}</td>
+                            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.contact_responsable}}</td>
+                            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.nombre_membre_organisation}}</td>
+                            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.nombre_femmes}}</td>
+                            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.nombre_hommes}}</td>
+                            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.activites_principales}}</td>
+                            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.montant_credit_recu}}</td>
+                            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{o.source_financement}}</td>
+                            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"> <i class="material-icons text-primary" *ngIf="modifier==true">edit</i>
+                                <!-- Modal modifier -->
 
-                            <i class="material-icons text-danger" *ngIf="supprimer==true">close</i>
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot class="grey lighten-5 w-100">
-                    <tr>
-                        <td colspan="12">
-                            <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="elements"></mdb-table-pagination>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
+                                <i class="material-icons text-danger" *ngIf="supprimer==true">close</i>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="grey lighten-5 w-100">
+                        <tr>
+                            <td colspan="12">
+                                <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="elements"></mdb-table-pagination>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
-    </div>
-</div><br>
+    </div><br>
+</div>
+<ng-template #elseBlock>Vous n'avez pas accés à ce module.</ng-template>

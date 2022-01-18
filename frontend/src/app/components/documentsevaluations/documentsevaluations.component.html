@@ -1,218 +1,315 @@
-<ng-container>
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <i class="material-icons pr-1 text-primary">fact_check</i>
-            <li class="breadcrumb-item">
-                <p class="text-primary"> Gestion des évaluations</p>
-            </li>
+<div *ngIf="lire==true; else elseBlock">
+    <ng-container>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <i class="material-icons pr-1 text-primary">fact_check</i>
+                <li class="breadcrumb-item">
+                    <p class="text-primary"> Gestion des évaluations</p>
+                </li>
 
-        </ol>
-    </nav><br>
-    <div class="card text-white bg-primary" style="max-width: 18rem;">
-        <div class="card-header">
+            </ol>
+        </nav><br>
+        <div class="card text-white bg-primary" style="max-width: 18rem;">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title text-capitalize">nombre d'évaluations enregistrés :</h5>
+                <h2 class="text-center" *ngIf="evaluations">{{evaluations.length}}</h2>
+            </div>
         </div>
-        <div class="card-body">
-            <h5 class="card-title text-capitalize">nombre d'évaluations enregistrés :</h5>
-            <h2 class="text-center" *ngIf="evaluations">{{evaluations.length}}</h2>
-        </div>
-    </div>
-    <div class="navbar-form" class="col-6 float-right">
-        <div class="input-group no-border">
-            <input type="text" name="search" [(ngModel)]="searchText" autocomplete="off" class="form-control" placeholder="Rechercher...">
-            <button type="submit" class="btn btn-white btn-round btn-just-icon">
-            <i class="material-icons">search</i>
-            <div class="ripple-container"></div>
-        </button>
-        </div>
-    </div><br><br>
-    <div class="card">
-        <table class="table bg-white sm">
-            <thead class="table-light">
-                <tr>
-                    <td>#</td>
-                    <td>Nom</td>
-                    <td>Evaluation</td>
-                    <td>Date création</td>
-                    <td>Mise en ligne par</td>
-                    <td>Recommandations</td>
-                    <td>Options</td>
-                </tr>
-            </thead>
-            <tbody *ngIf="evaluations">
-                <tr *ngFor="let e of evaluations|slice: (page-1)*pageSize:page*pageSize| searchFilter:searchText">
+        <div class="navbar-form" class="col-6 float-right">
+            <div class="input-group no-border">
+                <input type="text" name="search" [(ngModel)]="searchText" autocomplete="off" class="form-control" placeholder="Rechercher...">
+                <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                <i class="material-icons">search</i>
+                <div class="ripple-container"></div>
+            </button>
+            </div>
+        </div><br><br>
+        <div class="card">
+            <table class="table bg-white sm">
+                <thead class="table-light">
+                    <tr>
+                        <td>#</td>
+                        <td>Nom</td>
+                        <td>Evaluation</td>
+                        <td>Date création</td>
+                        <td>Mise en ligne par</td>
+                        <td>Recommandations</td>
+                        <td>Options</td>
+                    </tr>
+                </thead>
+                <tbody *ngIf="evaluations">
+                    <tr *ngFor="let e of evaluations|slice: (page-1)*pageSize:page*pageSize| searchFilter:searchText">
 
-                    <td>{{e.id}}</td>
-                    <td>{{e.titre}}</td>
-                    <td>
-                        <div>
-                            <a href="http://localhost:8000/.{{e.evaluation}}" target="blank">Consulter Document.</a>
-                        </div>
-                    </td>
-                    <td>{{e.created_at|date:'d-MM-y' }}</td>
-                    <td>
-                        <div *ngFor="let u of users">
-                            <div *ngIf="u.id==e.user_id">{{u.surname}} {{u.name}}</div>
-                        </div>
-                    </td>
-                    <td>
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" attr.data-target="#exampleModal{{e.id}}">
-                    recommandations
-                   </button>
-                        <!-- Modal -->
-                        <div class="modal " id="exampleModal{{e.id}}" tabindex="-1" aria-labelledby="" aria-hidden="true">
-                            <div class="modal-dialog modal-lg modal-dialog-scrollable">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title font-weight-light primary text-primary text-center" id="exampleModalLabel ">
+                        <td>{{e.id}}</td>
+                        <td>{{e.titre}}</td>
+                        <td>
+                            <div>
+                                <a href="http://localhost:8000/.{{e.evaluation}}" target="blank">Consulter Document.</a>
+                            </div>
+                        </td>
+                        <td>{{e.created_at|date:'d-MM-y' }}</td>
+                        <td>
+                            <div *ngFor="let u of users">
+                                <div *ngIf="u.id==e.user_id">{{u.surname}} {{u.name}}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" attr.data-target="#exampleModal{{e.id}}">
+                        recommandations
+                       </button>
+                            <!-- Modal -->
+                            <div class="modal " id="exampleModal{{e.id}}" tabindex="-1" aria-labelledby="" aria-hidden="true">
+                                <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title font-weight-light primary text-primary text-center" id="exampleModalLabel ">
 
-                                            Tableau des recommandations pour l'évaluation: {{e.titre}}.
-                                        </h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div>
-                                            <table class="table table-bordered bg-white">
-                                                <thead class="table-dark">
-                                                    <tr>
-                                                        <td>#</td>
-                                                        <td>Nom Evaluation</td>
-                                                        <td>Titre</td>
-                                                        <td>Description</td>
-                                                        <td>Date création</td>
-                                                        <td>Date finale</td>
-                                                        <td>Responsable</td>
-                                                        <td>Statut</td>
-                                                        <td>Pourcentage</td>
-                                                        <td>Options</td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody *ngIf="recommandations">
-                                                    <tr *ngFor="let r of recommandations">
-                                                        <td *ngIf="r.evaluation_id==e.id">{{r.id}} </td>
-                                                        <td *ngIf="r.evaluation_id==e.id">{{e.titre}}</td>
-                                                        <td *ngIf="r.evaluation_id==e.id">{{r.titre}}</td>
-                                                        <td *ngIf="r.evaluation_id==e.id">{{r.description |slice:0:20}}... </td>
-                                                        <td *ngIf="r.evaluation_id==e.id">{{r.created_at|date:'d-MM-y' }}</td>
-                                                        <td *ngIf="r.evaluation_id==e.id">{{r.date_finale|date:'d-MM-y'}}</td>
-                                                        <td *ngIf="r.evaluation_id==e.id">{{r.responsable}}</td>
-                                                        <td *ngIf="r.evaluation_id==e.id">{{r.statut}} </td>
-                                                        <td *ngIf="r.evaluation_id==e.id">{{r.pourcentage}}</td>
-                                                        <td *ngIf="r.evaluation_id==e.id" class="td-actions text-right float-right">
-                                                            <button type="button" rel="tooltip" title="Modifier recommandation" data-toggle="modal" attr.data-target="#m{{r.id}}" class="btn btn-primary btn-link btn-sm">
-                                                            <i class="material-icons">edit</i>
-                                                          </button>
-                                                            <!-- Modal Modifier -->
-                                                            <div class="modal " id="m{{r.id}}" tabindex="-1" role="dialog" attr.aria-labelledby="exampleModalLabel" aria-hidden="true" style="float: left;">
-                                                                <div class="modal-dialog modal-dialog-scrollable" role="document">
-                                                                    <div class="modal-content">
-                                                                        <div class="card-header card-header-primary text-center">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title text-center" id="exampleModalLongTitle">Modifier la recommandation {{r.titre}}.</h5>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                      </button>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <form #recommandationForm=ngForm name="recommandationForm" (ngSubmit)="updateRecommandation(r)" enctype="multipart/form-data">
-                                                                                <div class="row mb-3">
-                                                                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Titre</label>
-                                                                                    <div class="col-sm-10">
-                                                                                        <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="r.titre" required>
-                                                                                    </div>
-                                                                                </div><br>
-                                                                                <div class="row mb-3">
-                                                                                    <label for="description" class="col-sm-2 col-form-label">Description</label>
-                                                                                    <div class="col-sm-10">
-                                                                                        <textarea id="description" name="description" [(ngModel)]="r.description" required rows="4" cols="43">
-                                                                                        {{r.description}}
-                                                                                        </textarea>
-                                                                                    </div>
-                                                                                </div><br>
-                                                                                <div class="row mb-3">
-                                                                                    <label for="date_finale" class="col-sm-2 col-form-label">Date Début</label>
-                                                                                    <div class="col-sm-10">
-                                                                                        <input type="date" class="form-control" name="date_finale1" id="date_finale1" value="{{r.date_debut|date: 'yyyy-MM-dd'}}" required>
-                                                                                    </div>
-                                                                                </div><br>
-                                                                                <div class="row mb-3">
-                                                                                    <label for="date_finale" class="col-sm-2 col-form-label">Date Finale</label>
-                                                                                    <div class="col-sm-10">
-                                                                                        <input type="date" class="form-control" name="date_finale1" id="date_finale1" value="{{r.date_finale|date: 'yyyy-MM-dd'}}" required>
-                                                                                    </div>
-                                                                                </div><br>
-                                                                                <div class="row mb-3">
-                                                                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Statut</label>
-                                                                                    <div class="col-sm-10">
-                                                                                        <select name="statut" id="statut" class="form-select" [(ngModel)]="r.statut" required disabled>
-                                                                                            <option value="non dûe">Non dûe</option>
-                                                                                            <option  value="dûe et en cours">En cours</option>
-                                                                                            <option  value="non exécutée">Dûe & Non executé</option>
-                                                                                            <option selected value="exécutée" >Exécutée</option>
-                                                                                        </select>
-                                                                                    </div>
+                                                Tableau des recommandations pour l'évaluation: {{e.titre}}.
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div>
+                                                <table class="table table-bordered bg-white">
+                                                    <thead class="table-dark">
+                                                        <tr>
+                                                            <td>#</td>
+                                                            <td>Nom Evaluation</td>
+                                                            <td>Titre</td>
+                                                            <td>Description</td>
+                                                            <td>Date création</td>
+                                                            <td>Date finale</td>
+                                                            <td>Responsable</td>
+                                                            <td>Statut</td>
+                                                            <td>Pourcentage</td>
+                                                            <td>Options</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngIf="recommandations">
+                                                        <tr *ngFor="let r of recommandations">
+                                                            <td *ngIf="r.evaluation_id==e.id">{{r.id}} </td>
+                                                            <td *ngIf="r.evaluation_id==e.id">{{e.titre}}</td>
+                                                            <td *ngIf="r.evaluation_id==e.id">{{r.titre}}</td>
+                                                            <td *ngIf="r.evaluation_id==e.id">{{r.description |slice:0:20}}... </td>
+                                                            <td *ngIf="r.evaluation_id==e.id">{{r.created_at|date:'d-MM-y' }}</td>
+                                                            <td *ngIf="r.evaluation_id==e.id">{{r.date_finale|date:'d-MM-y'}}</td>
+                                                            <td *ngIf="r.evaluation_id==e.id">{{r.responsable}}</td>
+                                                            <td *ngIf="r.evaluation_id==e.id">{{r.statut}} </td>
+                                                            <td *ngIf="r.evaluation_id==e.id">{{r.pourcentage}}</td>
+                                                            <td *ngIf="r.evaluation_id==e.id" class="td-actions text-right float-right">
+                                                                <button type="button" rel="tooltip" title="Modifier recommandation" data-toggle="modal" attr.data-target="#m{{r.id}}" class="btn btn-primary btn-link btn-sm">
+                                                                <i class="material-icons">edit</i>
+                                                              </button>
+                                                                <!-- Modal Modifier -->
+                                                                <div class="modal " id="m{{r.id}}" tabindex="-1" role="dialog" attr.aria-labelledby="exampleModalLabel" aria-hidden="true" style="float: left;">
+                                                                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="card-header card-header-primary text-center">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title text-center" id="exampleModalLongTitle">Modifier la recommandation {{r.titre}}.</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                          </button>
                                                                                 </div>
-                                                                                <div class="row mb-3">
-                                                                                    <label for="date_finale" class="col-sm-2 col-form-label">Pourcentage--{{r.pourcentage}}</label>
-                                                                                    <div class="col-sm-10">
-                                                                                        <input type="range" min="0" max="100" class="form-control-range" name="pourcentage" id="pourcentage" [(ngModel)]="r.pourcentage" value="{{r.pourcentage}}" disabled required>
-                                                                                    </div>
-                                                                                </div><br>
-
-                                                                                <div class="row mb-3 ">
-                                                                                    <label class="col-sm-2 col-form-label">Tâches</label>
-                                                                                    <div class="col-sm-10">
-                                                                                        <div class="float-left text-primary">
-                                                                                            <ul class="list-group" *ngFor="let t of taches">
-                                                                                                <ng-container *ngIf="t.recommandation_id==r.id">
-                                                                                                    <li class="list-group-item list-group-item-action list-group-item-primary">
-                                                                                                        <i class="material-icons" style="cursor:pointer" (click)="deleteTache(t.id)">close</i> {{t.tache}} <input *ngIf="t.etat=='pas fait'" type="checkbox"
-                                                                                                            name="" id="t{{t.id}}" (change)="updateTache(t)" />
-                                                                                                        <i class="material-icons" *ngIf="t.etat=='fait'">done</i>
-                                                                                                    </li><br>
-                                                                                                </ng-container>
-                                                                                            </ul>
-                                                                                        </div><br>
-                                                                                        <div>
-                                                                                            <form #tacheForm=ngForm (ngSubmit)="addTache(r.id)">
-                                                                                                <div><input type="text" name="nom_tache" id="nom_tache" [(ngModel)]="tache.tache" class="form-control" required></div>
-                                                                                                <div style="cursor:pointer" class="text-primary" type="button">
-                                                                                                    <button type="submit" class="btn btn-primary" [disabled]="!tacheForm.valid"><i class="material-icons">add</i>Ajouter tâche</button>
-                                                                                                </div>
-                                                                                            </form>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <form #recommandationForm=ngForm name="recommandationForm" (ngSubmit)="updateRecommandation(r)" enctype="multipart/form-data">
+                                                                                    <div class="row mb-3">
+                                                                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Titre</label>
+                                                                                        <div class="col-sm-10">
+                                                                                            <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="r.titre" required>
+                                                                                        </div>
+                                                                                    </div><br>
+                                                                                    <div class="row mb-3">
+                                                                                        <label for="description" class="col-sm-2 col-form-label">Description</label>
+                                                                                        <div class="col-sm-10">
+                                                                                            <textarea id="description" name="description" [(ngModel)]="r.description" required rows="4" cols="43">
+                                                                                            {{r.description}}
+                                                                                            </textarea>
+                                                                                        </div>
+                                                                                    </div><br>
+                                                                                    <div class="row mb-3">
+                                                                                        <label for="date_finale" class="col-sm-2 col-form-label">Date Début</label>
+                                                                                        <div class="col-sm-10">
+                                                                                            <input type="date" class="form-control" name="date_finale1" id="date_finale1" value="{{r.date_debut|date: 'yyyy-MM-dd'}}" required>
+                                                                                        </div>
+                                                                                    </div><br>
+                                                                                    <div class="row mb-3">
+                                                                                        <label for="date_finale" class="col-sm-2 col-form-label">Date Finale</label>
+                                                                                        <div class="col-sm-10">
+                                                                                            <input type="date" class="form-control" name="date_finale1" id="date_finale1" value="{{r.date_finale|date: 'yyyy-MM-dd'}}" required>
+                                                                                        </div>
+                                                                                    </div><br>
+                                                                                    <div class="row mb-3">
+                                                                                        <label for="inputPassword3" class="col-sm-2 col-form-label">Statut</label>
+                                                                                        <div class="col-sm-10">
+                                                                                            <select name="statut" id="statut" class="form-select" [(ngModel)]="r.statut" required disabled>
+                                                                                                <option value="non dûe">Non dûe</option>
+                                                                                                <option  value="dûe et en cours">En cours</option>
+                                                                                                <option  value="non exécutée">Dûe & Non executé</option>
+                                                                                                <option selected value="exécutée" >Exécutée</option>
+                                                                                            </select>
                                                                                         </div>
                                                                                     </div>
-                                                                                </div><br>
+                                                                                    <div class="row mb-3">
+                                                                                        <label for="date_finale" class="col-sm-2 col-form-label">Pourcentage--{{r.pourcentage}}</label>
+                                                                                        <div class="col-sm-10">
+                                                                                            <input type="range" min="0" max="100" class="form-control-range" name="pourcentage" id="pourcentage" [(ngModel)]="r.pourcentage" value="{{r.pourcentage}}" disabled required>
+                                                                                        </div>
+                                                                                    </div><br>
 
-                                                                                <div class="row mb-3">
-                                                                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Responsable </label>
-                                                                                    <div class="col-sm-10">
-                                                                                        <select [(ngModel)]="r.responsable" id="responsable1" name="responsable" class="form-control" required>
-                                                                                    <option *ngFor="let u  of users" value="{{u.surname}} {{u.name}}">{{u.surname}} {{u.name}}</option>
-                                                                                </select><br>
+                                                                                    <div class="row mb-3 ">
+                                                                                        <label class="col-sm-2 col-form-label">Tâches</label>
+                                                                                        <div class="col-sm-10">
+                                                                                            <div class="float-left text-primary">
+                                                                                                <ul class="list-group" *ngFor="let t of taches">
+                                                                                                    <ng-container *ngIf="t.recommandation_id==r.id">
+                                                                                                        <li class="list-group-item list-group-item-action list-group-item-primary">
+                                                                                                            <i class="material-icons" style="cursor:pointer" (click)="deleteTache(t.id)">close</i> {{t.tache}} <input *ngIf="t.etat=='pas fait'" type="checkbox"
+                                                                                                                name="" id="t{{t.id}}" (change)="updateTache(t)" />
+                                                                                                            <i class="material-icons" *ngIf="t.etat=='fait'">done</i>
+                                                                                                        </li><br>
+                                                                                                    </ng-container>
+                                                                                                </ul>
+                                                                                            </div><br>
+                                                                                            <div>
+                                                                                                <form #tacheForm=ngForm (ngSubmit)="addTache(r.id)">
+                                                                                                    <div><input type="text" name="nom_tache" id="nom_tache" [(ngModel)]="tache.tache" class="form-control" required></div>
+                                                                                                    <div style="cursor:pointer" class="text-primary" type="button">
+                                                                                                        <button type="submit" class="btn btn-primary" [disabled]="!tacheForm.valid"><i class="material-icons">add</i>Ajouter tâche</button>
+                                                                                                    </div>
+                                                                                                </form>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div><br>
+
+                                                                                    <div class="row mb-3">
+                                                                                        <label for="inputPassword3" class="col-sm-2 col-form-label">Responsable </label>
+                                                                                        <div class="col-sm-10">
+                                                                                            <select [(ngModel)]="r.responsable" id="responsable1" name="responsable" class="form-control" required>
+                                                                                        <option *ngFor="let u  of users" value="{{u.surname}} {{u.name}}">{{u.surname}} {{u.name}}</option>
+                                                                                    </select><br>
+                                                                                        </div>
                                                                                     </div>
-                                                                                </div>
-                                                                                <button type="submit" class="btn btn-primary" [disabled]="!recommandationForm.valid">Enregistrer</button>
-                                                                            </form>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                                                    <button type="submit" class="btn btn-primary" [disabled]="!recommandationForm.valid">Enregistrer</button>
+                                                                                </form>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <!-- Modal Modifier -->
-                                                            <button type="button" rel="tooltip" title="Supprimer recommandation" (click)="deleteRecommandation(r.id)" class="btn btn-danger btn-link btn-sm">
-                                                           <i class="material-icons">close</i>
-                                                       </button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                                                <!-- Modal Modifier -->
+                                                                <button type="button" rel="tooltip" title="Supprimer recommandation" (click)="deleteRecommandation(r.id)" class="btn btn-danger btn-link btn-sm">
+                                                               <i class="material-icons">close</i>
+                                                           </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="td-actions ">
+                            <button type="button" rel="tooltip" title="Modifier recommandation" data-toggle="modal" attr.data-target="#m{{e.id}}" class="btn btn-primary btn-link btn-sm">
+                           <i class="material-icons">edit</i>
+                        </button>
+                            <button type="button" rel="tooltip" title="Supprimer recommandation" (click)="delete(e.id)" class="btn btn-danger btn-link btn-sm">
+                          <i class="material-icons">close</i>
+                       </button>
+                        </td>
+                        <!-- Modal Modifier Evaluation -->
+                        <div class="modal" id="m{{e.id}}" tabindex="-1" role="dialog" attr.aria-labelledby="m{{e.id}}" aria-hidden="true">
+                            <div class="modal-dialog  modal-lg modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                    <div class="card-header card-header-primary text-center">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-center" id="exampleModalLongTitle">Modifier la document {{e.titre}}.</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form #documentForm=ngForm name="documentForm" (ngSubmit)="update(e)" enctype="multipart/form-data">
+                                            <div class="alert alert-danger" [hidden]="!error1">
+                                                {{error1}}
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <h6 class="p-3 mb-2 bg-primary text-white">Mofifier les données de l'évaluation.</h6>
+                                                    <div class="row mb-3">
+                                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Titre</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="e.titre" required>
+                                                        </div>
+                                                    </div><br>
+                                                    <div class="row mb-3">
+                                                        <label for="inputPassword3" class="col-sm-2 col-form-label text-break">Evaluation</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="file" accept=".pdf, .doc, .docx" class="form-control" name="evaluation" (change)="uploadDocument1($event)" id="file1" [(ngModel)]="e.evaluation">
+                                                            <div class="text-left"> (.pdf ou .docx seulement)</div>
+                                                        </div>
+                                                        <div class="text-center">
+                                                            <a href="http://localhost:8000/.{{e.evaluation}}" target="blank">Veuillez consulter ici le PDF déja défini, avant modification.</a>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="row mb-3">
+
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" name="user_id" id="user_id" value="{{e.user_id}}" [(ngModel)]="e.user_id" hidden required>
+                                                        </div>
+                                                    </div>
+
+                                                    <button type="submit" class="btn btn-primary" [disabled]="!documentForm.valid">Enregistrer</button>
+                                                </div>
+
+
+                                                <div class="col-6">
+                                                    <h6 class="p-3 mb-2 bg-primary text-white">Ajouter nouvelle recommandation à l'évaluation.</h6>
+                                                    <form #recommandationForm=ngForm name="documentForm" (ngSubmit)="addRecommandationmodif(e.id)">
+                                                        <input type="text" name="evaluation_id" id="evaluation_id1" class="form-control" value="{{e.id}}" hidden />
+                                                        <label>Titre</label>
+                                                        <input type="text" class="form-control" name="titre" [(ngModel)]="recommandation.titre" required />
+                                                        <label>Description</label>
+                                                        <input type="text" class="form-control" name="description" [(ngModel)]="recommandation.description" required/><br>
+                                                        <label>Responsable</label>
+                                                        <select [(ngModel)]="recommandation.responsable" id="responsable" name="responsable" class="form-control" required>
+                                                           <option *ngFor="let u  of users" value="{{u.surname}} {{u.name}}" (click)="getuserresponsableid(u.id)" >{{u.surname}} {{u.name}}</option>
+                                                        </select><br>
+                                                        <label>Date debut d'execution</label>
+                                                        <input type="date" class="form-control" id="date_debuta" name="date_debut" [(ngModel)]="recommandation.date_debut" required />
+                                                        <label>Date finale d'execution</label>
+                                                        <input type="date" class="form-control" id="date_finale" name="date_finale" [(ngModel)]="recommandation.date_finale" required />
+                                                        <label>Statut  (par défaut)</label>
+                                                        <select name="statut" id="statut" class="form-select" [(ngModel)]="recommandation.statut" required disabled>
+                                                        <option value="non dûe" selected="selected">Non dûe</option>
+                                                        <option  value="en cours">En cours</option>
+                                                        <option  value="non executée">Dû & Non executé</option>
+                                                        <option selected value="executée" >Executé</option>
+                                                    </select>
+                                                        <label>Pourcentage</label>
+                                                        <input type="number" class="form-control" name="number" [(ngModel)]="recommandation.pourcentage" required disabled/>
+                                                        <button class="btn btn-primary" [disabled]="!recommandationForm.valid">Ajouter une nouvelle recommandation</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                        </form>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
@@ -221,210 +318,116 @@
                                 </div>
                             </div>
                         </div>
-                    </td>
-                    <td class="td-actions ">
-                        <button type="button" rel="tooltip" title="Modifier recommandation" data-toggle="modal" attr.data-target="#m{{e.id}}" class="btn btn-primary btn-link btn-sm">
-                       <i class="material-icons">edit</i>
-                    </button>
-                        <button type="button" rel="tooltip" title="Supprimer recommandation" (click)="delete(e.id)" class="btn btn-danger btn-link btn-sm">
-                      <i class="material-icons">close</i>
-                   </button>
-                    </td>
-                    <!-- Modal Modifier Evaluation -->
-                    <div class="modal" id="m{{e.id}}" tabindex="-1" role="dialog" attr.aria-labelledby="m{{e.id}}" aria-hidden="true">
-                        <div class="modal-dialog  modal-lg modal-dialog-scrollable" role="document">
-                            <div class="modal-content">
-                                <div class="card-header card-header-primary text-center">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title text-center" id="exampleModalLongTitle">Modifier la document {{e.titre}}.</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                        <!-- Modal Modifier -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-9">
+                <ngb-pagination [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="evaluations.length" class="active"></ngb-pagination>
+            </div>
+            <div class="col-3">Pagination par : <input type="number" class="form-control" [(ngModel)]="pageSize" min=5/></div>
+        </div>
+
+        <button class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Nouvelle evaluation</button>
+
+        <!-- Modal ajout -->
+        <div class="w-100">
+            <div class="card">
+                <div class="modal " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog  modal-lg modal-dialog-scrollable" role="document">
+                        <div class="modal-content ">
+
+                            <div class="card-header card-header-primary text-center">
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-center" id="exampleModalLongTitle">Ajouter une nouvelle document</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <h6 class="p-3 mb-2 bg-primary text-white">Ajout Evaluation</h6>
+                                        <form #documentForm=ngForm name="documentForm" (ngSubmit)="ajouter()" enctype="multipart/form-data">
+                                            <div class="row mb-3">
+                                                <label for="titre">Titre</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" name="titre" id="titre" [(ngModel)]="evaluation.titre" required>
+                                                </div>
+                                                <div class="alert alert-danger" [hidden]="!error.titre">
+                                                    {{error.titre}}
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="inputPassword3">Document</label>
+                                                <div class="col-sm-10">
+                                                    <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocument($event)" class="form-control" name="evaluation" id="evaluation" [(ngModel)]="evaluation.evaluation" required>
+                                                    <div class="text-left"> (.pdf ou .docx seulement)</div>
+                                                </div>
+                                                <div class="alert alert-danger" [hidden]="!error.evaluation">
+                                                    {{error.evaluation}}
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" name="user_id" id="user_id" [(ngModel)]="user.id" hidden required>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary" [disabled]="!documentForm.valid">Enregistrer</button>
+                                        </form>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <h6 class="p-3 mb-2 bg-primary text-white">Ajout Recommandation</h6>
+                                        <form #recommandationForm=ngForm name="documentForm" (ngSubmit)="addRecommandation()">
+                                            <input type="text" name="evaluation_id" class="form-control" hidden />
+                                            <label>Titre</label>
+                                            <input type="text" class="form-control" name="titre" [(ngModel)]="recommandation.titre" required />
+                                            <label>Description</label>
+                                            <input type="text" class="form-control" name="description" [(ngModel)]="recommandation.description" required/><br>
+                                            <label>Responsable</label>
+                                            <select [(ngModel)]="recommandation.responsable" id="responsable" name="responsable" class="form-control" required>
+                                             <option *ngFor="let u  of users" value="{{u.surname}} {{u.name}}">{{u.surname}} {{u.name}}</option>
+                                            </select><br>
+                                            <label>Date début d'execution</label>
+                                            <input type="date" class="form-control" id="date_debut" name="date_debut" [(ngModel)]="recommandation.date_debut" required />
+                                            <label>Date finale d'execution</label><br>
+                                            <input type="date" class="form-control" name="date_finale" [(ngModel)]="recommandation.date_finale" required />
+                                            <label>Statut (par défaut)</label>
+                                            <select name="statut" id="statut" class="form-select" [(ngModel)]="recommandation.statut" required disabled>
+                                                <option value="non dûe" selected="selected">Non dûe</option>
+                                                <option  value="en cours">En cours</option>
+                                                <option  value="non executée">Dû & Non executé</option>
+                                                <option selected value="executée" >Executé</option>
+                                            </select>
+                                            <label>Pourcentage (par défaut)</label>
+                                            <input type="number" class="form-control" name="number" [(ngModel)]="recommandation.pourcentage" required disabled/>
+                                            <button class="btn btn-primary" [disabled]="!recommandationForm.valid">Ajouter une nouvelle recommandation</button>
+                                        </form>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <h6 class="p-3 mb-2 bg-primary text-white">Recommandations</h6>
+                                        <ng-container *ngFor="let r of recommandationsEvaluationById">
+                                            <div class="alert alert-primary" role="alert">{{r.titre}}</div>
+                                        </ng-container>
                                     </div>
                                 </div>
-                                <div class="modal-body">
-                                    <form #documentForm=ngForm name="documentForm" (ngSubmit)="update(e)" enctype="multipart/form-data">
-                                        <div class="alert alert-danger" [hidden]="!error1">
-                                            {{error1}}
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <h6 class="p-3 mb-2 bg-primary text-white">Mofifier les données de l'évaluation.</h6>
-                                                <div class="row mb-3">
-                                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Titre</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="e.titre" required>
-                                                    </div>
-                                                </div><br>
-                                                <div class="row mb-3">
-                                                    <label for="inputPassword3" class="col-sm-2 col-form-label text-break">Evaluation</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="file" accept=".pdf, .doc, .docx" class="form-control" name="evaluation" (change)="uploadDocument1($event)" id="file1" [(ngModel)]="e.evaluation">
-                                                        <div class="text-left"> (.pdf ou .docx seulement)</div>
-                                                    </div>
-                                                    <div class="text-center">
-                                                        <a href="http://localhost:8000/.{{e.evaluation}}" target="blank">Veuillez consulter ici le PDF déja défini, avant modification.</a>
-                                                    </div>
-                                                </div>
-                                                <br>
-                                                <div class="row mb-3">
-
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control" name="user_id" id="user_id" value="{{e.user_id}}" [(ngModel)]="e.user_id" hidden required>
-                                                    </div>
-                                                </div>
-
-                                                <button type="submit" class="btn btn-primary" [disabled]="!documentForm.valid">Enregistrer</button>
-                                            </div>
 
 
-                                            <div class="col-6">
-                                                <h6 class="p-3 mb-2 bg-primary text-white">Ajouter nouvelle recommandation à l'évaluation.</h6>
-                                                <form #recommandationForm=ngForm name="documentForm" (ngSubmit)="addRecommandationmodif(e.id)">
-                                                    <input type="text" name="evaluation_id" id="evaluation_id1" class="form-control" value="{{e.id}}" hidden />
-                                                    <label>Titre</label>
-                                                    <input type="text" class="form-control" name="titre" [(ngModel)]="recommandation.titre" required />
-                                                    <label>Description</label>
-                                                    <input type="text" class="form-control" name="description" [(ngModel)]="recommandation.description" required/><br>
-                                                    <label>Responsable</label>
-                                                    <select [(ngModel)]="recommandation.responsable" id="responsable" name="responsable" class="form-control" required>
-                                                       <option *ngFor="let u  of users" value="{{u.surname}} {{u.name}}" (click)="getuserresponsableid(u.id)" >{{u.surname}} {{u.name}}</option>
-                                                    </select><br>
-                                                    <label>Date debut d'execution</label>
-                                                    <input type="date" class="form-control" id="date_debuta" name="date_debut" [(ngModel)]="recommandation.date_debut" required />
-                                                    <label>Date finale d'execution</label>
-                                                    <input type="date" class="form-control" id="date_finale" name="date_finale" [(ngModel)]="recommandation.date_finale" required />
-                                                    <label>Statut  (par défaut)</label>
-                                                    <select name="statut" id="statut" class="form-select" [(ngModel)]="recommandation.statut" required disabled>
-                                                    <option value="non dûe" selected="selected">Non dûe</option>
-                                                    <option  value="en cours">En cours</option>
-                                                    <option  value="non executée">Dû & Non executé</option>
-                                                    <option selected value="executée" >Executé</option>
-                                                </select>
-                                                    <label>Pourcentage</label>
-                                                    <input type="number" class="form-control" name="number" [(ngModel)]="recommandation.pourcentage" required disabled/>
-                                                    <button class="btn btn-primary" [disabled]="!recommandationForm.valid">Ajouter une nouvelle recommandation</button>
-                                                </form>
-                                            </div>
-                                        </div>
-
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-
-                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <!-- Modal Modifier -->
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="row">
-        <div class="col-9">
-            <ngb-pagination [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="evaluations.length" class="active"></ngb-pagination>
-        </div>
-        <div class="col-3">Pagination par : <input type="number" class="form-control" [(ngModel)]="pageSize" min=5/></div>
-    </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
 
-    <button class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Nouvelle evaluation</button>
-
-    <!-- Modal ajout -->
-    <div class="w-100">
-        <div class="card">
-            <div class="modal " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog  modal-lg modal-dialog-scrollable" role="document">
-                    <div class="modal-content ">
-
-                        <div class="card-header card-header-primary text-center">
-                            <div class="modal-header">
-                                <h5 class="modal-title text-center" id="exampleModalLongTitle">Ajouter une nouvelle document</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
                             </div>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <h6 class="p-3 mb-2 bg-primary text-white">Ajout Evaluation</h6>
-                                    <form #documentForm=ngForm name="documentForm" (ngSubmit)="ajouter()" enctype="multipart/form-data">
-                                        <div class="row mb-3">
-                                            <label for="titre">Titre</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="titre" id="titre" [(ngModel)]="evaluation.titre" required>
-                                            </div>
-                                            <div class="alert alert-danger" [hidden]="!error.titre">
-                                                {{error.titre}}
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <label for="inputPassword3">Document</label>
-                                            <div class="col-sm-10">
-                                                <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocument($event)" class="form-control" name="evaluation" id="evaluation" [(ngModel)]="evaluation.evaluation" required>
-                                                <div class="text-left"> (.pdf ou .docx seulement)</div>
-                                            </div>
-                                            <div class="alert alert-danger" [hidden]="!error.evaluation">
-                                                {{error.evaluation}}
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="user_id" id="user_id" [(ngModel)]="user.id" hidden required>
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary" [disabled]="!documentForm.valid">Enregistrer</button>
-                                    </form>
-                                </div>
-                                <div class="col-sm-4">
-                                    <h6 class="p-3 mb-2 bg-primary text-white">Ajout Recommandation</h6>
-                                    <form #recommandationForm=ngForm name="documentForm" (ngSubmit)="addRecommandation()">
-                                        <input type="text" name="evaluation_id" class="form-control" hidden />
-                                        <label>Titre</label>
-                                        <input type="text" class="form-control" name="titre" [(ngModel)]="recommandation.titre" required />
-                                        <label>Description</label>
-                                        <input type="text" class="form-control" name="description" [(ngModel)]="recommandation.description" required/><br>
-                                        <label>Responsable</label>
-                                        <select [(ngModel)]="recommandation.responsable" id="responsable" name="responsable" class="form-control" required>
-                                         <option *ngFor="let u  of users" value="{{u.surname}} {{u.name}}">{{u.surname}} {{u.name}}</option>
-                                        </select><br>
-                                        <label>Date début d'execution</label>
-                                        <input type="date" class="form-control" id="date_debut" name="date_debut" [(ngModel)]="recommandation.date_debut" required />
-                                        <label>Date finale d'execution</label><br>
-                                        <input type="date" class="form-control" name="date_finale" [(ngModel)]="recommandation.date_finale" required />
-                                        <label>Statut (par défaut)</label>
-                                        <select name="statut" id="statut" class="form-select" [(ngModel)]="recommandation.statut" required disabled>
-                                            <option value="non dûe" selected="selected">Non dûe</option>
-                                            <option  value="en cours">En cours</option>
-                                            <option  value="non executée">Dû & Non executé</option>
-                                            <option selected value="executée" >Executé</option>
-                                        </select>
-                                        <label>Pourcentage (par défaut)</label>
-                                        <input type="number" class="form-control" name="number" [(ngModel)]="recommandation.pourcentage" required disabled/>
-                                        <button class="btn btn-primary" [disabled]="!recommandationForm.valid">Ajouter une nouvelle recommandation</button>
-                                    </form>
-                                </div>
-                                <div class="col-sm-4">
-                                    <h6 class="p-3 mb-2 bg-primary text-white">Recommandations</h6>
-                                    <ng-container *ngFor="let r of recommandationsEvaluationById">
-                                        <div class="alert alert-primary" role="alert">{{r.titre}}</div>
-                                    </ng-container>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Fin Modal ajout-->
-</ng-container>
+        <!-- Fin Modal ajout-->
+    </ng-container>
+</div>
+<ng-template #elseBlock>Vous n'avez pas accès à ce module.</ng-template>

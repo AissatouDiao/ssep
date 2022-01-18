@@ -104,7 +104,8 @@ export class OrganisationsComponent implements OnInit {
   permissions_module: any;
   modifier: any;
   supprimer: any;
-  ajouter: any
+  ajouter: any;
+  lire: any;
   khalei = true;
   getPermissionsByRoleId() {
     this.jarwisService.getPermissionsByRoleId(this.user.role_id).subscribe(
@@ -116,6 +117,8 @@ export class OrganisationsComponent implements OnInit {
             this.permissions_module = d.permisions_to_module;
             this.modifier = d.permisions_to_module.modify;
             this.supprimer = d.permisions_to_module.delete;
+            this.ajouter = d.permisions_to_module.add;
+            this.lire = d.permissions_module.lire;
           }
         });
         // this.permissions_to_role = data;
