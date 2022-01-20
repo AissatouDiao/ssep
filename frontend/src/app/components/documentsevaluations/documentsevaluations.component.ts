@@ -416,17 +416,14 @@ export class DocumentsevaluationsComponent implements OnInit {
         console.log(data);
         await data.forEach((d: any, index: any) => {
           d.permisions_to_module = JSON.parse(d.permisions_to_module);
-          if (d.module_id == 6) {
+          if (d.module_id == 9) {
             this.permissions_module = d.permisions_to_module;
             this.modifier = d.permisions_to_module.modify;
             this.supprimer = d.permisions_to_module.delete;
             this.ajouter1 = d.permisions_to_module.add;
-            this.lire = d.permissions_module.lire;
+            this.lire = d.permisions_to_module.read;
           }
         });
-        // this.permissions_to_role = data;
-        //console.log(this.permissions_to_role);
-        //alert(this.modifier);
       },
       (error: any) => { console.log(error) }
     );

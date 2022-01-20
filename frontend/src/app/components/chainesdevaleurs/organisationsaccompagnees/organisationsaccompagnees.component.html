@@ -1,76 +1,78 @@
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb ">
-        <i class="material-icons pr-1 ">storage</i>
-        <li class="breadcrumb-item">
-            <a routerLink="/gestion-chaines-de-valeurs" class="text-dark">
-                <p class=""> Gestion Chaines de valeur</p>
-            </a>
-        </li>
-        <li class="breadcrumb-item text-secondary active" aria-current="page">
-            Organisations
-        </li>
-    </ol>
-</nav>
-<div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
-    <div class="card-header"><span class="material-icons">corporate_fare</span></div>
-    <div class="card-body">
+<div *ngIf="lire==true; else elseBlock">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb ">
+            <i class="material-icons pr-1 ">storage</i>
+            <li class="breadcrumb-item">
+                <a routerLink="/gestion-chaines-de-valeurs" class="text-dark">
+                    <p class=""> Gestion Chaines de valeur</p>
+                </a>
+            </li>
+            <li class="breadcrumb-item text-secondary active" aria-current="page">
+                Organisations
+            </li>
+        </ol>
+    </nav>
+    <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+        <div class="card-header"><span class="material-icons">corporate_fare</span></div>
+        <div class="card-body">
 
-        <p class="card-text">Ajouter ci-dessous le fichier Excel comportant les nouvelles données pour la base de données nationale des organisations.</p>
-        <form #organisationForm=ngForm name="organisationForm" enctype="multipart/form-data">
-            <div class="input-group mb-3 text-white bg-white">
-                <input type="file" accept=".xls, .xlsx, .csv" class="form-control" id="organisation_file" name="organisation_file" class="form-control" required><br><br>
+            <p class="card-text">Ajouter ci-dessous le fichier Excel comportant les nouvelles données pour la base de données nationale des organisations.</p>
+            <form #organisationForm=ngForm name="organisationForm" enctype="multipart/form-data">
+                <div class="input-group mb-3 text-white bg-white">
+                    <input type="file" accept=".xls, .xlsx, .csv" class="form-control" id="organisation_file" name="organisation_file" class="form-control" required><br><br>
+                </div>
+                <button type="submit" class="btn btn-secondary" [disabled]="!organisationForm.valid" class="btn btn-secondary">Importer</button>
+            </form>
+        </div>
+    </div><br>
+    <div>
+        <div class="card" style="width: 110%;">
+            <div class="card-header card-header-secondary">
+                <h4 class="card-title">Base de données nationale.</h4>
             </div>
-            <button type="submit" class="btn btn-secondary" [disabled]="!organisationForm.valid" class="btn btn-secondary">Importer</button>
-        </form>
-    </div>
-</div><br>
-
-<div>
-    <div class="card" style="width: 110%;">
-        <div class="card-header card-header-secondary">
-            <h4 class="card-title">Base de données nationale.</h4>
+            <div class="card-body table-responsive">
+                <table class="table table-hover table-bordered border-secondary">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Région</th>
+                            <th scope="col">Département</th>
+                            <th scope="col">Commune</th>
+                            <th scope="col">Nom Organisation</th>
+                            <th scope="col">Statut Organisation</th>
+                            <th scope="col">Prénom et nom responsable</th>
+                            <th scope="col">Contact responsable</th>
+                            <th scope="col">Nombre de membres de l'organisation</th>
+                            <th scope="col">Nombre membres Hommes</th>
+                            <th scope="col">Nombre de membres Femmes</th>
+                            <th scope="col">Activités principales</th>
+                            <th scope="col">MONTANT DE CREDIT RECU</th>
+                            <th scope="col">SOURCE DE FINANCEMENT</th>
+                            <th scope="col" class="bg-secondary text-white">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td colspan="2">Larry the Bird</td>
+                            <td>@twitter</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="card-body table-responsive">
-            <table class="table table-hover table-bordered border-secondary">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Région</th>
-                        <th scope="col">Département</th>
-                        <th scope="col">Commune</th>
-                        <th scope="col">Nom Organisation</th>
-                        <th scope="col">Statut Organisation</th>
-                        <th scope="col">Prénom et nom responsable</th>
-                        <th scope="col">Contact responsable</th>
-                        <th scope="col">Nombre de membres de l'organisation</th>
-                        <th scope="col">Nombre membres Hommes</th>
-                        <th scope="col">Nombre de membres Femmes</th>
-                        <th scope="col">Activités principales</th>
-                        <th scope="col">MONTANT DE CREDIT RECU</th>
-                        <th scope="col">SOURCE DE FINANCEMENT</th>
-                        <th scope="col" class="bg-secondary text-white">Options</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div><br>
+    </div><br>
+</div>
+<ng-template #elseBlock>Vous n'avez pas accès à ce module.</ng-template>

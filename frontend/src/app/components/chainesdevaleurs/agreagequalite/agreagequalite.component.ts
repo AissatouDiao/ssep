@@ -30,6 +30,8 @@ export class AgreagequaliteComponent implements OnInit {
     this.getPermissionsByRoleId();
   }
 
+
+
   ngAfterViewInit() {
     this.mdbTablePagination.setMaxVisibleItemsNumberTo(5);
     this.mdbTablePagination.calculateFirstItemIndex();
@@ -95,7 +97,8 @@ export class AgreagequaliteComponent implements OnInit {
   permissions_module: any;
   modifier: any;
   supprimer: any;
-  ajouter: any
+  ajouter: any;
+  lire: any;
   khalei = true;
   getPermissionsByRoleId() {
     this.jarwisService.getPermissionsByRoleId(this.user.role_id).subscribe(
@@ -107,6 +110,7 @@ export class AgreagequaliteComponent implements OnInit {
             this.permissions_module = d.permisions_to_module;
             this.modifier = d.permisions_to_module.modify;
             this.supprimer = d.permisions_to_module.delete;
+            this.lire = d.permisions_to_module.read;
           }
         });
         // this.permissions_to_role = data;

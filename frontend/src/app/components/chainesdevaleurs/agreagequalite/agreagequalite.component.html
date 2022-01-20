@@ -1,72 +1,75 @@
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb ">
-        <i class="material-icons pr-1 ">storage</i>
-        <li class="breadcrumb-item">
-            <a routerLink="/gestion-chaines-de-valeurs" class="text-dark">
-                <p class=""> Gestion Chaines de valeur</p>
-            </a>
-        </li>
-        <li class="breadcrumb-item text-white active" aria-current="page">
-            Agréage Qualité
-        </li>
-    </ol>
-</nav>
-<div class="card text-dark bg-white mb-3" style="max-width: 18rem;">
-    <div class="card-header"><span class="material-icons">graphic_eq</span></div>
-    <div class="card-body">
+<div *ngIf="lire==true; else elseBlock">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb ">
+            <i class="material-icons pr-1 ">storage</i>
+            <li class="breadcrumb-item">
+                <a routerLink="/gestion-chaines-de-valeurs" class="text-dark">
+                    <p class=""> Gestion Chaines de valeur</p>
+                </a>
+            </li>
+            <li class="breadcrumb-item text-white active" aria-current="page">
+                Agréage Qualité
+            </li>
+        </ol>
+    </nav>
+    <div class="card text-dark bg-white mb-3" style="max-width: 18rem;">
+        <div class="card-header"><span class="material-icons">graphic_eq</span></div>
+        <div class="card-body">
 
-        <p class="card-text">Ajouter ci-dessous le fichier Excel comportant les nouvelles données pour la base de données nationale des agreagequalites.</p>
-        <form #agreagequaliteForm=ngForm name="agreagequaliteForm" (ngSubmit)="  importAgreagequaliteFileToDatabase()" enctype="multipart/form-data">
-            <div class="input-group mb-3 text-dark bg-white">
-                <input (change)="uploadDocument($event)" type="file" accept=".xls, .xlsx, .csv" class="form-control" id="agreagequalite_file" name="agreagequalite_file" class="form-control" required><br><br>
+            <p class="card-text">Ajouter ci-dessous le fichier Excel comportant les nouvelles données pour la base de données nationale des agreagequalites.</p>
+            <form #agreagequaliteForm=ngForm name="agreagequaliteForm" (ngSubmit)="  importAgreagequaliteFileToDatabase()" enctype="multipart/form-data">
+                <div class="input-group mb-3 text-dark bg-white">
+                    <input (change)="uploadDocument($event)" type="file" accept=".xls, .xlsx, .csv" class="form-control" id="agreagequalite_file" name="agreagequalite_file" class="form-control" required><br><br>
+                </div>
+                <button type="submit" class="btn btn-white" [disabled]="!agreagequaliteForm.valid" class="btn btn-white">Importer</button>
+            </form>
+        </div>
+    </div><br>
+    <div *ngIf="messageerror" class="alert alert-danger">
+        {{messageerror}}
+    </div>
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+            <div class="md-form">
+                <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput />
+                <label for="search">Search</label>
             </div>
-            <button type="submit" class="btn btn-white" [disabled]="!agreagequaliteForm.valid" class="btn btn-white">Importer</button>
-        </form>
-    </div>
-</div><br>
-<div *ngIf="messageerror" class="alert alert-danger">
-    {{messageerror}}
-</div>
-<div class="row">
-    <div class="col-md-12 mx-auto">
-        <div class="md-form">
-            <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput />
-            <label for="search">Search</label>
         </div>
     </div>
-</div>
-<div>
-    <div class="card" style="width: 110%;">
-        <div class="card-header card-header-white">
-            <h4 class="card-title text-dark">Base de données nationale.</h4>
-        </div>
-        <div class="card-body table-responsive">
-            <table #tableEl class="table table-hover table-bordered border-white" mdbTable id="tableSortExample">
-                <thead>
-                    <tr>
-                        <th *ngFor="let head of headElements; let i = index" scope="col" aria-controls="tableSortExample" scope="col" [mdbTableSort]="agreagequalites" sortBy="headElements[i]">
-                            {{head|titlecase}}
-                            <mdb-icon fas icon="sort"></mdb-icon>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let a of agreagequalites;let i = index">
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
+    <div>
+        <div class="card" style="width: 110%;">
+            <div class="card-header card-header-white">
+                <h4 class="card-title text-dark">Base de données nationale.</h4>
+            </div>
+            <div class="card-body table-responsive">
+                <table #tableEl class="table table-hover table-bordered border-white" mdbTable id="tableSortExample">
+                    <thead>
+                        <tr>
+                            <th *ngFor="let head of headElements; let i = index" scope="col" aria-controls="tableSortExample" scope="col" [mdbTableSort]="agreagequalites" sortBy="headElements[i]">
+                                {{head|titlecase}}
+                                <mdb-icon fas icon="sort"></mdb-icon>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let a of agreagequalites;let i = index">
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
 
-                </tbody>
-                <tfoot class="grey lighten-5 w-100">
-                    <tr>
-                        <td colspan="12">
-                            <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="elements"></mdb-table-pagination>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
+                    </tbody>
+                    <tfoot class="grey lighten-5 w-100">
+                        <tr>
+                            <td colspan="12">
+                                <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="elements"></mdb-table-pagination>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
-    </div>
-</div><br>
+    </div><br>
+</div>
+<ng-template #elseBlock>Vous n'avez pas accès à ce module.</ng-template>

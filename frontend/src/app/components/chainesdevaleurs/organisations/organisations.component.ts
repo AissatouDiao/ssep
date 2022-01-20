@@ -118,7 +118,7 @@ export class OrganisationsComponent implements OnInit {
             this.modifier = d.permisions_to_module.modify;
             this.supprimer = d.permisions_to_module.delete;
             this.ajouter = d.permisions_to_module.add;
-            this.lire = d.permissions_module.lire;
+            this.lire = d.permisions_to_module.read;
           }
         });
         // this.permissions_to_role = data;
