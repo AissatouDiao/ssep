@@ -14,8 +14,8 @@ export class OrganisationsComponent implements OnInit {
 
 
   //pour la paginsation
-  @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective | any;
-  @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent | any;
+  @ViewChild(MdbTableDirective, { static: true }) mdbTable!: MdbTableDirective | any;
+  @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination!: MdbTablePaginationComponent | any;
 
 
   elements: any = [];
@@ -80,7 +80,7 @@ export class OrganisationsComponent implements OnInit {
     );
   }
 
-  organisations: any;
+  organisations: any[] = [];
   getorganisations() {
     this.jarwisService.getOrganisations().subscribe(
       (data: any) => {

@@ -82,5 +82,7 @@ class RoleController extends Controller
         return response()->json(["message" => "modification rôle effective!"]); 
         
     }
+
+   
 }
 

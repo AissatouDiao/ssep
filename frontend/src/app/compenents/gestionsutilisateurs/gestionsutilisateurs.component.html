@@ -171,7 +171,12 @@
         </div>
     </div>
 </div>
-<ngb-pagination [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="users.length" class="active"></ngb-pagination>
+<div class="row">
+    <div class="col-9">
+        <ngb-pagination [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="users.length" class="active"></ngb-pagination>
+    </div>
+    <div class="col-3">Pagination par : <input type="number" class="form-control" [(ngModel)]="pageSize" min=5/></div>
+</div>
 
 
 

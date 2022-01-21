@@ -294,75 +294,93 @@
                                                             <tr>
                                                                 <th scope="col">#</th>
                                                                 <th scope="col">Modules</th>
+                                                                <th scope="col">Etat</th>
                                                                 <th scope="col">Permissions</th>
 
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr *ngFor="let m of modules; let i =index">
-                                                                <td>{{m.id}}</td>
-                                                                <td>{{m.libelle_module}}</td>
-                                                                <td>
 
-                                                                    <form action="">
-                                                                        <div class="form-check">
-                                                                            <label class="form-check-label">
-                                                                                <input class=" form-control" type="hidden" attr.value="{{m.id}}" name="module_id" id="{{m.id}}" />
-                                                                                <span class="">
-                                                                                <span class="check"></span>
-                                                                                </span>
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="form-check" *ngIf="role!=null">
-                                                                            <label class="form-check-label">
-                                                                                <input class=" form-control" type="hidden" attr.value="{{role[0]['id']}}" name="role_id"id="{{role[0]['id']}}"  />
-                                                                                <span class="">
-                                                                                <span class="check"></span>
-                                                                                </span>
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="form-check">
-                                                                            Ajouter lecture
-                                                                            <label class="form-check-label">
-                                                                                <input class="form-check-input form-control" type="checkbox" name="lecture" id="lecture"/>
-                                                                                <span class="form-check-sign">
-                                                                                <span class="check"></span>
-                                                                                </span>
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="form-check">
-                                                                            Activer l'ajout
-                                                                            <label class="form-check-label">
-                                                                                <input class="form-check-input form-control" type="checkbox" name="ajout" id="ajout" />
-                                                                                <span class="form-check-sign">
-                                                                                <span class="check"></span>
-                                                                                </span>
-                                                                            </label>
 
-                                                                        </div>
-                                                                        <div class="form-check">
-                                                                            Activer la modification
-                                                                            <label class="form-check-label">
-                                                                                <input class="form-check-input form-control" type="checkbox" name="modification" id="modification" />
-                                                                                <span class="form-check-sign">
-                                                                                <span class="check"></span>
-                                                                                </span>
-                                                                           </label>
-                                                                        </div>
-                                                                        <div class="form-check ">
-                                                                            Activer la suppression
-                                                                            <label class="form-check-label">
-                                                                                <input class="form-check-input form-control" type="checkbox" name="suppression" id="suppression" />
-                                                                                <span class="form-check-sign">
-                                                                                <span class="check"></span>
-                                                                                </span>
-                                                                            </label>
-                                                                        </div>
-                                                                        <button type="submit" class="btn btn-primary text-center" name="buttontable" (click)="onIn(i)" [disabled]="button_table">valider pour {{m.libelle_module}}</button>
-                                                                    </form>
-                                                                </td>
+                                                            <tr *ngFor="let pr of permissions_to_role">
+                                                                <ng-container *ngFor="let m of modules">
+                                                                    <ng-container *ngIf="pr.module_id==m.id">
+                                                                        <td>{{m.id}}</td>
+                                                                        <td>{{m.libelle_module}}</td>
+                                                                        <td>
+                                                                            <p>Lecture : <i class="material-icons" *ngIf="pr.permisions_to_module.read==true">done</i>
+                                                                                <i class="material-icons" *ngIf="pr.permisions_to_module.read==false">close</i>
+                                                                            </p>
+                                                                            <p>Ajouter : <i class="material-icons" *ngIf="pr.permisions_to_module.add==true">done</i>
+                                                                                <i class="material-icons" *ngIf="pr.permisions_to_module.add==false">close</i></p>
+                                                                            <p>Modifier : <i class="material-icons" *ngIf="pr.permisions_to_module.modify==true">done</i>
+                                                                                <i class="material-icons" *ngIf="pr.permisions_to_module.modify==false">close</i></p>
+                                                                            <p>Supprimer : <i class="material-icons" *ngIf="pr.permisions_to_module.delete==true">done</i>
+                                                                                <i class="material-icons" *ngIf="pr.permisions_to_module.delete==false">close</i></p>
+                                                                        </td>
+                                                                        <td>
+                                                                            <form action="">
+                                                                                <div class="form-check">
+                                                                                    <label class="form-check-label">
+                                                                                    <input class=" form-control" type="hidden" attr.value="{{m.id}}" name="module_id" id="{{m.id}}" />
+                                                                                    <span class="">
+                                                                                    <span class="check"></span>
+                                                                                    </span>
+                                                                                </label>
+                                                                                </div>
+                                                                                <div class="form-check" *ngIf="role!=null">
+                                                                                    <label class="form-check-label">
+                                                                                    <input class=" form-control" type="hidden" attr.value="{{role[0]['id']}}" name="role_id"id="{{role[0]['id']}}"  />
+                                                                                    <span class="">
+                                                                                    <span class="check"></span>
+                                                                                    </span>
+                                                                                </label>
+                                                                                </div>
+                                                                                <div class="form-check">
+                                                                                    Ajouter lecture
+                                                                                    <label class="form-check-label">
+                                                                                    <input class="form-check-input form-control" type="checkbox" name="lecture{{pr.id}}" id="lecture{{pr.id}}" [(ngModel)]="pr.permisions_to_module.read" />
+                                                                                    <span class="form-check-sign">
+                                                                                    <span class="check"></span>
+                                                                                    </span>
+                                                                                </label>
+                                                                                </div>
+                                                                                <div class="form-check">
+                                                                                    Activer l'ajout
+                                                                                    <label class="form-check-label">
+                                                                                    <input class="form-check-input form-control" type="checkbox" name="ajout{{pr.id}}" id="ajout{{pr.id}}" [(ngModel)]="pr.permisions_to_module.add"  />
+                                                                                    <span class="form-check-sign">
+                                                                                    <span class="check"></span>
+                                                                                    </span>
+                                                                                </label>
+
+                                                                                </div>
+                                                                                <div class="form-check">
+                                                                                    Activer la modification
+                                                                                    <label class="form-check-label">
+                                                                                    <input class="form-check-input form-control" type="checkbox" name="modification{{pr.id}}" id="modification{{pr.id}}" [(ngModel)]="pr.permisions_to_module.modify" />
+                                                                                    <span class="form-check-sign">
+                                                                                    <span class="check"></span>
+                                                                                    </span>
+                                                                               </label>
+                                                                                </div>
+                                                                                <div class="form-check ">
+                                                                                    Activer la suppression
+                                                                                    <label class="form-check-label">
+                                                                                    <input class="form-check-input form-control" type="checkbox" name="suppression{{pr.id}}" id="suppression{{pr.id}}" [(ngModel)]="pr.permisions_to_module.delete" />
+                                                                                    <span class="form-check-sign">
+                                                                                    <span class="check"></span>
+                                                                                    </span>
+                                                                                </label>
+                                                                                </div>
+                                                                                <button type="submit" class="btn btn-primary text-center" name="buttontable" [disabled]="button_table">valider pour {{m.libelle_module}}</button>
+                                                                            </form>
+                                                                        </td>
+                                                                    </ng-container>
+
+                                                                </ng-container>
+
                                                             </tr>
-
 
 
                                                         </tbody>
@@ -381,8 +399,13 @@
                         </tbody>
                     </table>
                     <!-- Fin Table of roles-->
-                    <ngb-pagination [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="roles.length" class="active">
-                    </ngb-pagination>
+
+                    <div class="row">
+                        <div class="col-9">
+                            <ngb-pagination [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="roles.length" class="active"></ngb-pagination>
+                        </div>
+                        <div class="col-3">Pagination par : <input type="number" class="form-control" [(ngModel)]="pageSize" min=5/></div>
+                    </div>
                 </div>
             </div>
         </div>
