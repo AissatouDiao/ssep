@@ -41,11 +41,17 @@ export class AddRolesComponent implements OnInit {
       data => { console.log(data); this.modules = data; },
       error => console.log(error)
     );
-
     this.getUser();
-
+  }
+  moduleExists(idmodule: any, arr: any) {
+    console.log()
+    return arr.some(function (el: any) {
+      return el.module_id === idmodule;
+    });
 
   }
+
+
   getRoles() {
     //recuperation des roles
     this.jarwisService.getRoles().subscribe(
@@ -152,6 +158,15 @@ export class AddRolesComponent implements OnInit {
       error => { console.log(error); this.notify.error('Veuillez revoir les données renseignées.') }
     );
   }
+
+  updatePermissionsToRole(r: any) {
+    console.log(r);
+    this.jarwisService.updatePermissionsToRole(r).subscribe(
+      (data: any) => { console.log(data); this.notify.success(data.message); },
+      error => { console.log(error); this.notify.error('Veuillez revoir les données renseignées.') }
+    );
+  }
+
 
   user: any;
   getUser() {

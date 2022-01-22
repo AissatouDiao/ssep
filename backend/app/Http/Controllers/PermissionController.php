@@ -16,4 +16,14 @@ class PermissionController extends Controller
         $permissions=Permission::where('role_id',$request)->get();
         return $permissions;
     }
+
+    public function updatePermissionsToRole(Request $request){
+        $permission=Permission::find($request->id);
+        $permission->permisions_to_module=$request->permisions_to_module;
+        $permission->save();
+        return response()->json(
+            ["message"=> "Mis à jour effectué avec succès"]
+        );
+
+    }
 }

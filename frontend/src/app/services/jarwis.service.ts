@@ -77,6 +77,9 @@ export class JarwisService {
   addPermissions(data: object) {
     return this.http.post(`${this.baseUrl}/addpermissions`, data)
   }
+  updatePermissionsToRole(data: object) {
+    return this.http.post(`${this.baseUrl}/updatePermissionsToRole`, data)
+  }
 
   getPermissionsByRoleId(data: any) {
     return this.http.get(`${this.baseUrl}/getPermissionsByRoleId/` + data);

@@ -68,6 +68,8 @@ class RoleController extends Controller
         ]);
     }
 
+ 
+
     public function delete($request){
         $role= Role::find($request);
         $role->delete();
