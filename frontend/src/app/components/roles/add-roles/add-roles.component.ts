@@ -21,36 +21,37 @@ export class AddRolesComponent implements OnInit {
   }
   roles: any = [];
   modules: any = [];
-
   table1: boolean = true;
   button_table: boolean = false;
 
   role: any
 
   constructor(private jarwisService: JarwisService, hoElement: ElementRef,
-    private notify: SnotifyService) {
-
-
-  }
+    private notify: SnotifyService) { }
 
   ngOnInit(): void {
 
     this.getRoles();
-    //recuperation des modules
-    this.jarwisService.getModules().subscribe(
-      data => { console.log(data); this.modules = data; },
-      error => console.log(error)
-    );
+    this.getModules();
     this.getUser();
   }
+
+
   moduleExists(idmodule: any, arr: any) {
     console.log()
     return arr.some(function (el: any) {
       return el.module_id === idmodule;
     });
-
   }
 
+  getModules() {
+    //recuperation des modules
+    this.jarwisService.getModules().subscribe(
+      data => { console.log(data); this.modules = data; },
+      error => console.log(error)
+    );
+
+  }
 
   getRoles() {
     //recuperation des roles
@@ -96,13 +97,8 @@ export class AddRolesComponent implements OnInit {
     permissions.permisions_to_module.add = (<HTMLInputElement>document.getElementsByName('ajout')[i]).checked;
     permissions.permisions_to_module.modify = (<HTMLInputElement>document.getElementsByName('modification')[i]).checked;
     permissions.permisions_to_module.delete = (<HTMLInputElement>document.getElementsByName('suppression')[i]).checked;
-
     console.log(typeof (permissions));
-
-
-
     (<HTMLInputElement>document.getElementsByName('buttontable')[i]).disabled = true;
-
     //Enregistrement permission
     this.jarwisService.addPermissions(permissions).subscribe(
       data => {
@@ -112,8 +108,6 @@ export class AddRolesComponent implements OnInit {
         console.log(error);
       }
     );
-
-
     if (i == 9) {
       window.location.reload();
     }

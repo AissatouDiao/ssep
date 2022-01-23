@@ -111,7 +111,7 @@
 
                                 </div>
                             </div>
-                            <i class="material-icons text-danger" (click)="deleteIndicateur(i.id)">close</i>
+                            <i class="material-icons text-danger" (click)="deleteIndicateur(i.id)">delete_forever</i>
                         </td>
 
 
@@ -188,7 +188,7 @@
         <div class="card border-success mb-3" style="max-width: 25rem;">
             <div class="card-header bg-transparent border-success">{{indicateur_affichage.nom}}</div>
             <div class="card-body text-success">
-                <h3 class=""><span class="badge badge-primary">type : {{indicateur_affichage.type}}</span></h3>
+                <h3 class=""><span class="alert alert-primary">type : {{indicateur_affichage.type}}</span></h3>
                 <div class="card-text">
                     <div>
                         <ul class="list-group">
