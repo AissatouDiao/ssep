@@ -37,23 +37,22 @@
         </div>
     </div>
     <div>
-        <div class="card" style="width: 110%;">
+        <div class="" style="width: 110%;">
             <div class="card-header card-header-primary">
                 <h4 class="card-title">Base de données nationale.</h4>
             </div>
             <div class="card-body table-responsive">
-                <table #tableEl class="table table-hover table-bordered border-primary" mdbTable id="tableSortExample">
+                <table #tableEl class="table table-hover table-bordered" mdbTable id="tableSortExample">
                     <thead>
-                        <tr>
+                        <tr class="thead-dark">
                             <th *ngFor="let head of headElements; let i = index" scope="col" aria-controls="tableSortExample" scope="col" [mdbTableSort]="organisations" sortBy="headElements[i]">
                                 {{head|titlecase}}
-                                <mdb-icon fas icon="sort"></mdb-icon>
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="bg-white">
                         <tr *ngFor="let o of organisations|slice: (page-1)*pageSize:page*pageSize;let i = index">
-                            <td scope="row">{{i}}</td>
+                            <td scope="row">{{i+1}}</td>
                             <td>{{o.region}}</td>
                             <td>{{o.departement}}</td>
                             <td>{{o.commune}}</td>
@@ -70,7 +69,7 @@
                             <td> <i class="material-icons text-primary" *ngIf="modifier==true">edit</i>
                                 <!-- Modal modifier -->
 
-                                <i class="material-icons text-danger" *ngIf="supprimer==true">close</i>
+                                <i class="material-icons text-danger" *ngIf="supprimer==true">delete_forever</i>
                             </td>
                         </tr>
                     </tbody>
@@ -80,13 +79,13 @@
                         </tr>
                     </tfoot>
                 </table>
-
             </div>
         </div>
     </div><br>
     <div class="row">
-        <div class="col-9">
-            <ngb-pagination [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="organisations.length" class="active"></ngb-pagination>
+        <div class="col-9 d-flex justify-content-between p-2">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" currentPage="1" [pageSize]="pageSize" [collectionSize]="organisations.length"
+                class="active"></ngb-pagination>
         </div>
         <div class="col-3">Pagination par : <input type="number" class="form-control" [(ngModel)]="pageSize" min=5/></div>
     </div>

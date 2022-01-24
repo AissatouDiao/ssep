@@ -2,7 +2,7 @@
     <ol class="breadcrumb">
         <i class="material-icons pr-1">person</i>
         <li class="breadcrumb-item">
-            <p class=""> Utilisateurs</p>
+            <p class="">Utilisateurs</p>
         </li>
         <li class="breadcrumb-item text-primary active" aria-current="page">Gestion des rôles</li>
     </ol>
@@ -34,19 +34,13 @@
                             </div>
                         </div>
                     </form><br><br>
-
                     <div *ngIf="role!=null">
                         <div class="alert alert-success" *ngIf="role|keyvalue" role="alert">
                             Veuillez choisir, ci-dessous, les modules et permissions correspondants au rôle : <b>{{role[0]['libelle_role']}}</b>.
                         </div>
 
                     </div>
-
-
-
                     <h4 class="text-center"> Ajouter les modules et permissions</h4><br>
-
-
                     <!--
 
                     <mat-tab-group mat-align-tabs="start" [hidden]="table1">
@@ -113,7 +107,6 @@
                     </mat-tab-group>-->
 
                     <table class="table table-dark" [hidden]="table1">
-
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -139,7 +132,7 @@
                                         </div>
                                         <div class="form-check" *ngIf="role!=null">
                                             <label class="form-check-label">
-                                                <input class=" form-control" type="hidden" attr.value="{{role[0]['id']}}" name="role_id"id="{{role[0]['id']}}"  />
+                                                <input class="form-control" type="hidden" attr.value="{{role[0]['id']}}" name="role_id" id="{{role[0]['id']}}"  />
                                                 <span class="">
                                                 <span class="check"></span>
                                                 </span>
@@ -154,6 +147,7 @@
                                                 </span>
                                             </label>
                                         </div>
+
                                         <div class="form-check">
                                             Activer l'ajout
                                             <label class="form-check-label">
@@ -162,7 +156,6 @@
                                                 <span class="check"></span>
                                                 </span>
                                             </label>
-
                                         </div>
                                         <div class="form-check">
                                             Activer la modification
@@ -251,7 +244,7 @@
                             <tr *ngFor="let r of roles |slice: (page-1)*pageSize:page*pageSize| searchFilter:searchText">
                                 <td>{{r.id}}</td>
                                 <td>{{r.libelle_role}}</td>
-                                <td class="td-actions ">
+                                <td class="td-actions">
                                     <button type="button" rel="tooltip" title="Modifier role" data-toggle="modal" data-toggle="modal" attr.data-target='#m{{r.id}}' (click)=" this.getPermissionsByRoleId(r.id)" class="btn btn-primary btn-link btn-sm">
                                         <i class="material-icons">edit</i>
                                     </button>
@@ -300,7 +293,7 @@
                                                         <tbody>
                                                             <ng-container *ngFor="let m of modules;let i=index">
                                                                 <ng-container *ngFor="let pr of permissions_to_role">
-                                                                    <ng-container *ngIf="pr.module_id==m.id;else autre">
+                                                                    <ng-container *ngIf="pr.module_id==m.id">
                                                                         <tr>
                                                                             <td>{{i+1}}</td>
                                                                             <td>{{m.libelle_module}}</td>
@@ -375,10 +368,8 @@
                                                                             </td>
                                                                         </tr>
                                                                     </ng-container>
-                                                                    <ng-template #autre>
-                                                                    </ng-template>
                                                                 </ng-container>
-                                                                <ng-container *ngIf="!moduleExists(m.id,permissions_to_role)">
+                                                                <ng-container *ngIf="permissions_to_role">
                                                                     <tr>
                                                                         <td>{{i+1}}</td>
                                                                         <td>{{m.libelle_module}}</td>
@@ -393,18 +384,19 @@
                                                                                     </span>
                                                                                 </label>
                                                                                 </div>
-                                                                                <div class="form-check" *ngIf="role!=null">
+                                                                                <div class="form-check">
                                                                                     <label class="form-check-label">
-                                                                                    <input class=" form-control" type="hidden" attr.value="{{role[0]['id']}}" name="role_id"id="{{role[0]['id']}}"  />
+                                                                                    <input class=" form-control" type="hidden" attr.value="{{r.id}}" name="role_id" id="{{r.id}}"  />
                                                                                     <span class="">
                                                                                     <span class="check"></span>
                                                                                     </span>
                                                                                 </label>
                                                                                 </div>
+
                                                                                 <div class="form-check">
                                                                                     Ajouter lecture
                                                                                     <label class="form-check-label">
-                                                                                    <input class="form-check-input form-control" type="checkbox" name="lecture" id="lecture"/>
+                                                                                    <input class="form-check-input form-control" type="checkbox" (change)="getcheckboxvalue($event)" name="lecture_a"  id="lecture_a{{i}}"/>
                                                                                     <span class="form-check-sign">
                                                                                     <span class="check"></span>
                                                                                     </span>
@@ -413,7 +405,7 @@
                                                                                 <div class="form-check">
                                                                                     Activer l'ajout
                                                                                     <label class="form-check-label">
-                                                                                    <input class="form-check-input form-control" type="checkbox" name="ajout" id="ajout" />
+                                                                                    <input class="form-check-input form-control" type="checkbox" name="ajout" id="ajout{{i}}"/>
                                                                                     <span class="form-check-sign">
                                                                                     <span class="check"></span>
                                                                                     </span>
@@ -422,22 +414,22 @@
                                                                                 <div class="form-check">
                                                                                     Activer la modification
                                                                                     <label class="form-check-label">
-                                                                                    <input class="form-check-input form-control" type="checkbox" name="modification" id="modification" />
+                                                                                    <input class="form-check-input form-control" type="checkbox" name="modification" id="modification{{i}}"/>
                                                                                     <span class="form-check-sign">
                                                                                     <span class="check"></span>
                                                                                     </span>
                                                                                </label>
                                                                                 </div>
-                                                                                <div class="form-check ">
+                                                                                <div class="form-check">
                                                                                     Activer la suppression
                                                                                     <label class="form-check-label">
-                                                                                    <input class="form-check-input form-control" type="checkbox" name="suppression" id="suppression" />
+                                                                                    <input class="form-check-input form-control" type="checkbox" name="suppression" id="suppression{{i}}"/>
                                                                                     <span class="form-check-sign">
                                                                                     <span class="check"></span>
                                                                                     </span>
                                                                                 </label>
                                                                                 </div>
-                                                                                <button type="submit" class="btn btn-primary text-center" name="buttontable1" (click)="onIn(i)" [disabled]="button_table">valider pour {{m.libelle_module}}</button>
+                                                                                <button type="submit" class="btn btn-primary text-center" name="buttontable1" (click)="onIn1(i)" [disabled]="button_table">valider pour {{m.libelle_module}}</button>
                                                                             </form>
                                                                         </td>
                                                                     </tr>
@@ -461,7 +453,7 @@
 
                     <div class="row">
                         <div class="col-9">
-                            <ngb-pagination [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="roles.length" class="active"></ngb-pagination>
+                            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="roles.length" class="active"></ngb-pagination>
                         </div>
                         <div class="col-3">Pagination par : <input type="number" class="form-control" [(ngModel)]="pageSize" min=5/></div>
                     </div>

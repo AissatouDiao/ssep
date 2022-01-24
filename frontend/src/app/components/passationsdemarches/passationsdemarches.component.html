@@ -15,240 +15,312 @@
         </button>
     </div>
 </div><br><br>
-<table class="table table-striped table-bordered table-hover table-primary">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Libelle</th>
-            <th scope="col">Passation marché</th>
-            <th scope="col">Statut</th>
-            <th scope="col">Auteur</th>
-            <th scope="col">Proposition</th>
-            <th scope="col">Options</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let p of passations">
-            <th scope="row">{{p.id}}</th>
-            <td>{{p.libelle}}</td>
-            <td>{{p.passationmarche}}
-                <div>
-                    <a href="http://localhost:8000/.{{p.passationmarche}}" target="blank">Consulter le PDF</a>
-                </div>
-            </td>
-            <td>
-                <form action="" #test="ngForm">
-                    <select name="statut" id="statut" class="bg-primary form-select" [(ngModel)]="p.statut" (click)="getstatut(p)" (change)="changeStatut($event,p)">
-                        <option value="émis" [disabled]="p.statut=='entreprise sélectionnée' || p.statut=='en traitement'">émis</option>
-                        <option value="en traitement" [disabled]="p.statut=='entreprise sélectionnée'"> en traitement</option>
-                        <option value="entreprise sélectionnée"><button id="pes{{p.id}}" data-toggle="modal" attr.data-target="#pp{{p.id}}">entreprise sélectionnée</button></option>
-                    </select>
-                </form>
-                <!-- Modal ajout proposition -->
-                <div class="w-100">
-                    <div class="card">
-                        <div class="modal" id="pp{{p.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-scrollable" role="document">
-                                <div class="modal-content">
-                                    <div class="card-header card-header-primary text-center">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title text-center" id="exampleModalLongTitle">Ajouter la proposition de l'entreprise</h5>
-                                            <button type="button" class="close" data-dismiss="modal" id="closeproposition1{{p.id}}" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <form #documentpropositionForm=ngForm name="documentpropositionForm" (ngSubmit)="ajouterproposition(p.id)" enctype="multipart/form-data">
-                                                <div class="alert alert-danger" [hidden]="!error">
-                                                    {{error}}
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <label for="inputEmail3">Titre</label><br>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control" name="libelle" id="inputEmail3" [(ngModel)]="proposition.libelle" required>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <label for="inputPassword3">Document</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocument2($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="proposition.passationproposition" required>
-                                                        <div class="text-left"> (.pdf ou .docx seulement)</div>
-                                                    </div>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary text-center" id="enregistrerproposition" [disabled]="!documentpropositionForm.valid">Enregistrer</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer ">
-                                        <button type="button" class="btn btn-secondary " id="closeproposition{{p.id}}" data-dismiss="modal">OK</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Fin Modal ajout proposition-->
-            </td>
-            <td>{{p.auteur}}</td>
-            <td>
-                <ng-container *ngFor="let pp of passationspropositions">
-                    <ng-container *ngIf="pp.passation_id==p.id && p.statut=='entreprise sélectionnée'">
-                        <div>
-                            <a href="http://localhost:8000/.{{pp.passationproposition}}" target="blank">Consulter le PDF</a>
-                        </div>
-                    </ng-container>
-                </ng-container>
-                <ng-container *ngIf="p.statut=='émis'">
-                    stade émission
-                </ng-container>
-                <ng-container *ngIf="p.statut=='en traitement'">
-                    en attente de proposition
-                </ng-container>
-            </td>
-            <td class="td-actions ">
-                <button type="button" rel="tooltip" title="Modifier recommandation" data-toggle="modal" attr.data-target="#m{{p.id}}" class="btn btn-primary btn-link btn-sm">
-                   <i class="material-icons">edit</i>
-                </button>
-                <!-- Modal modifier -->
-                <div class="w-100">
-                    <div class="card">
-                        <div class="modal" id="m{{p.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog   modal-dialog-scrollable" role="document">
-                                <div class="modal-content ">
 
-                                    <div class="card-header card-header-primary text-center">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title text-center" id="exampleModalLongTitle">Modiffier {{p.libelle}}</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<div class="card text-white bg-info" style="max-width: 20rem;">
+    <div class="card-header">
+    </div>
+    <div class="card-body">
+        <h5 class="card-title text-capitalize">nombre de documents enregistrés :</h5>
+        <h2 class="text-center">{{passations.length}}</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-9">
+        <table class="table table-striped table-bordered table-hover table-primary">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Libelle</th>
+                    <th scope="col">Passation marché</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col">Auteur</th>
+                    <th scope="col">Proposition</th>
+                    <th scope="col">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of passations">
+                    <th scope="row">{{p.id}}</th>
+                    <td>{{p.libelle}}</td>
+                    <td>{{p.passationmarche}}
+                        <div>
+                            <a href="http://localhost:8000/.{{p.passationmarche}}" target="blank">Consulter le PDF</a>
+                        </div>
+                    </td>
+                    <td>
+                        <form action="" #test="ngForm">
+                            <select name="statut" id="statut" class="bg-primary form-select" [(ngModel)]="p.statut" (click)="getstatut(p)" (change)="changeStatut($event,p)">
+                            <option value="émis" [disabled]="p.statut=='entreprise sélectionnée' || p.statut=='en traitement'">émis</option>
+                            <option value="en traitement" [disabled]="p.statut=='entreprise sélectionnée'"> en traitement</option>
+                            <option value="entreprise sélectionnée"><button id="pes{{p.id}}" data-toggle="modal" attr.data-target="#pp{{p.id}}">entreprise sélectionnée</button></option>
+                        </select>
+                        </form>
+                        <!-- Modal ajout proposition -->
+                        <div class="w-100">
+                            <div class="card">
+                                <div class="modal" id="pp{{p.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                        <div class="modal-content">
+                                            <div class="card-header card-header-primary text-center">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title text-center" id="exampleModalLongTitle">Ajouter la proposition de l'entreprise</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" id="closeproposition1{{p.id}}" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <form #documentpropositionForm=ngForm name="documentpropositionForm" (ngSubmit)="ajouterproposition(p.id)" enctype="multipart/form-data">
+                                                        <div class="alert alert-danger" [hidden]="!error">
+                                                            {{error}}
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <label for="inputEmail3">Titre</label><br>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control" name="libelle" id="inputEmail3" [(ngModel)]="proposition.libelle" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <label for="inputPassword3">Document</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocument2($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="proposition.passationproposition" required>
+                                                                <div class="text-left"> (.pdf ou .docx seulement)</div>
+                                                            </div>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary text-center" id="enregistrerproposition" [disabled]="!documentpropositionForm.valid">Enregistrer</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer ">
+                                                <button type="button" class="btn btn-secondary " id="closeproposition{{p.id}}" data-dismiss="modal">OK</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <form #documentForm=ngForm name="documentForm" (ngSubmit)="update(p)" enctype="multipart/form-data">
-                                                <div class="alert alert-danger" [hidden]="!error">
-                                                    {{error}}
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <label for="inputEmail3">Titre</label><br>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control" name="libelle" id="inputEmail3" value="{{p.libelle}}" [(ngModel)]="p.libelle" required>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <label for="inputPassword3">Document</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="file" accept=".pdf, .doc, .docx" class="form-control" name="passationmarche" (change)="uploadDocument1($event)" id="file1" [(ngModel)]="p.passationmarche">
-                                                        <div class="text-left"> (.pdf ou .docx seulement)</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <a href="http://localhost:8000/.{{p.passationmarche}}" target="blank">Consulter le PDF avant modification</a>
-                                                </div>
-
-                                                <div class="row mb-3">
-                                                    <label for="inputEmail3">Statut</label><br>
-                                                    <div class="alert alert-primary col-6" role="alert">
-                                                        {{p.statut}}
-                                                    </div>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary text-center" [disabled]="!documentForm.valid">Enregistrer</button>
-                                            </form>
-
-
-                                        </div>
-
-
-                                    </div>
-                                    <div class="modal-footer ">
-                                        <button type="button" class="btn btn-secondary " data-dismiss="modal">OK</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!-- Fin Modal modifier-->
-                <button type="button" rel="tooltip" title="Supprimer passation" (click)="delete(p.id)" class="btn btn-danger btn-link btn-sm">
-                  <i class="material-icons">delete_forever</i>
-               </button>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<ngb-pagination [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="passations.length" class="active"></ngb-pagination>
+                        <!-- Fin Modal ajout proposition-->
+                    </td>
+                    <td>{{p.auteur}}</td>
+                    <td>
+                        <ng-container *ngFor="let pp of passationspropositions">
+                            <ng-container *ngIf="pp.passation_id==p.id && p.statut=='entreprise sélectionnée'">
+                                <div>
+                                    <a href="http://localhost:8000/.{{pp.passationproposition}}" target="blank">Consulter le PDF</a>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="p.statut=='émis'">
+                            stade émission
+                        </ng-container>
+                        <ng-container *ngIf="p.statut=='en traitement'">
+                            en attente de proposition
+                        </ng-container>
+                    </td>
+                    <td class="td-actions ">
+                        <button type="button" rel="tooltip" title="Modifier recommandation" data-toggle="modal" attr.data-target="#m{{p.id}}" class="btn btn-primary btn-link btn-sm">
+                       <i class="material-icons">edit</i>
+                    </button>
+                        <!-- Modal modifier -->
+                        <div class="w-100">
+                            <div class="card">
+                                <div class="modal" id="m{{p.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog   modal-dialog-scrollable" role="document">
+                                        <div class="modal-content ">
 
-<button class="btn btn-primary float-right" id="openlmodalbouton" data-toggle="modal" data-target="#exampleModalCenter">Nouvelle Passation de marché</button>
+                                            <div class="card-header card-header-primary text-center">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title text-center" id="exampleModalLongTitle">Modiffier {{p.libelle}}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <form #documentForm=ngForm name="documentForm" (ngSubmit)="update(p)" enctype="multipart/form-data">
+                                                        <div class="alert alert-danger" [hidden]="!error">
+                                                            {{error}}
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <label for="inputEmail3">Titre</label><br>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control" name="libelle" id="inputEmail3" value="{{p.libelle}}" [(ngModel)]="p.libelle" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <label for="inputPassword3">Document</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="file" accept=".pdf, .doc, .docx" class="form-control" name="passationmarche" (change)="uploadDocument1($event)" id="file1" [(ngModel)]="p.passationmarche">
+                                                                <div class="text-left"> (.pdf ou .docx seulement)</div>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <a href="http://localhost:8000/.{{p.passationmarche}}" target="blank">Consulter le PDF avant modification</a>
+                                                        </div>
 
-<!-- Modal ajout -->
-<div class="w-100">
-    <div class="card">
-        <div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog   modal-dialog-scrollable" role="document">
-                <div class="modal-content ">
+                                                        <div class="row mb-3">
+                                                            <label for="inputEmail3">Statut</label><br>
+                                                            <div class="alert alert-primary col-6" role="alert">
+                                                                {{p.statut}}
+                                                            </div>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary text-center" [disabled]="!documentForm.valid">Enregistrer</button>
+                                                    </form>
 
-                    <div class="card-header card-header-primary text-center">
-                        <div class="modal-header">
-                            <h5 class="modal-title text-center" id="exampleModalLongTitle">Ajouter une nouvelle passation de marché</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="modal-footer ">
+                                                <button type="button" class="btn btn-secondary " data-dismiss="modal">OK</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            f
-                            <form #documentFormajoutpassation=ngForm name="documentFormajoutpassation" (ngSubmit)="ajouter()" enctype="multipart/form-data">
-                                <div class="alert alert-danger" [hidden]="!error">
-                                    {{error}}
+                        <!-- Fin Modal modifier-->
+                        <button type="button" rel="tooltip" title="Supprimer passation" (click)="delete(p.id)" class="btn btn-danger btn-link btn-sm">
+                      <i class="material-icons">delete_forever</i>
+                   </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-9 d-flex justify-content-between p-2">
+                <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" currentPage="1" [pageSize]="pageSize" [collectionSize]="passations.length"
+                    class="active"></ngb-pagination>
+            </div>
+            <div class="col-3">Pagination par : <input type="number" class="form-control" [(ngModel)]="pageSize" min=5/></div>
+        </div>
+
+        <button class="btn btn-primary float-right" id="openlmodalbouton" data-toggle="modal" data-target="#exampleModalCenter">Nouvelle Passation de marché</button>
+
+        <!-- Modal ajout -->
+        <div class="w-100">
+            <div class="card">
+                <div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog   modal-dialog-scrollable" role="document">
+                        <div class="modal-content ">
+
+                            <div class="card-header card-header-primary text-center">
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-center" id="exampleModalLongTitle">Ajouter une nouvelle passation de marché</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                                 </div>
-                                <div class="row mb-3">
-                                    <label for="inputEmail3">Titre</label><br>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="libzllz" id="inputEmail3" [(ngModel)]="passation.libelle" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputPassword3">Document</label>
-                                    <div class="col-sm-10">
-                                        <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocument($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="passation.passationmarche" required>
-                                        <div class="text-left"> (.pdf ou .docx seulement)</div>
-                                    </div>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+
+                                    <form #documentFormajoutpassation=ngForm name="documentFormajoutpassation" (ngSubmit)="ajouter()" enctype="multipart/form-data">
+                                        <div class="alert alert-danger" [hidden]="!error">
+                                            {{error}}
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="inputEmail3">Titre</label><br>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="libzllz" id="inputEmail3" [(ngModel)]="passation.libelle" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="inputPassword3">Document</label>
+                                            <div class="col-sm-10">
+                                                <input type="file" accept=".pdf, .doc, .docx" (change)="uploadDocument($event)" class="form-control" name="evaluation" id="file" [(ngModel)]="passation.passationmarche" required>
+                                                <div class="text-left"> (.pdf ou .docx seulement)</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="inputEmail3">Statut</label><br>
+                                            <div class="col-sm-10">
+                                                <select name="etat" id="etat" class="form-select" [(ngModel)]="passation.statut" required disabled>
+                                                <option value="émis">émis</option>
+                                                <option value="en traitement"> en traitement</option>
+                                                <option value="entreprise sélectionnée" >entreprise sélectionnée</option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="user_id" id="user_id" [(ngModel)]="user.id" hidden required>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary text-center" [disabled]="!documentFormajoutpassation.valid">Enregistrer</button>
+                                    </form>
+
+
                                 </div>
 
-                                <div class="row mb-3">
-                                    <label for="inputEmail3">Statut</label><br>
-                                    <div class="col-sm-10">
-                                        <select name="etat" id="etat" class="form-select" [(ngModel)]="passation.statut" required disabled>
-                                            <option value="émis">émis</option>
-                                            <option value="en traitement"> en traitement</option>
-                                            <option value="entreprise sélectionnée" >entreprise sélectionnée</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
 
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="user_id" id="user_id" [(ngModel)]="user.id" hidden required>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary text-center" [disabled]="!documentFormajoutpassation.valid">Enregistrer</button>
-                            </form>
-
-
+                            </div>
+                            <div class="modal-footer ">
+                                <button type="button" class="btn btn-secondary " data-dismiss="modal">OK</button>
+                            </div>
                         </div>
-
-
-                    </div>
-                    <div class="modal-footer ">
-                        <button type="button" class="btn btn-secondary " data-dismiss="modal">OK</button>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Fin Modal ajout-->
+    </div>
+    <div class="col-3">
+        =
+        <div class="card text-white bg-info col-4" style="max-width: 20rem;">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title text-capitalize">nombre de documents enregistrés :</h5>
+                <h2 class="text-center">{{passations.length}}</h2>
+            </div>
+        </div><br>
+        <div class="card text-white bg-info col-4" style="max-width: 20rem;">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title text-capitalize">nombre de documents enregistrés :</h5>
+                <h2 class="text-center">{{passations.length}}</h2>
+            </div>
+        </div><br>
+        <div class="card text-white bg-info col-4" style="max-width: 20rem;">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title text-capitalize">nombre de documents enregistrés :</h5>
+                <h2 class="text-center">{{passations.length}}</h2>
+            </div>
+        </div><br>
+        <!--
+        <div class="card">
+            <div class="card-header">
+                Quote
+            </div>
+            <div class="card-body">
+                <div class="card text-white bg-info col-4" style="max-width: 20rem;">
+                    <div class="card-header">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-capitalize">nombre de documents enregistrés :</h5>
+                        <h2 class="text-center">{{passations.length}}</h2>
+                    </div>
+                </div><br>
+                <div class="card text-white bg-info col-4" style="max-width: 20rem;">
+                    <div class="card-header">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-capitalize">nombre de documents enregistrés :</h5>
+                        <h2 class="text-center">{{passations.length}}</h2>
+                    </div>
+                </div><br>
+
+            </div>
+        </div>
+        -->
     </div>
 </div>
-<!-- Fin Modal ajout-->

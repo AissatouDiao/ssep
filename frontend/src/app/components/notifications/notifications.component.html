@@ -21,7 +21,7 @@
                     <ng-container *ngIf="notifications.length==0">
                         <div class="alert alert-danger alert-with-icon text-center" data-notify="container"><i class="material-icons" data-notify="icon">report</i> Aucune nouvelle notification.</div>
                     </ng-container>
-                    <ngb-pagination [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="notifications.length" class="active"></ngb-pagination>
+                    <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="notifications.length" class="active"></ngb-pagination>
                 </div>
             </div>
 

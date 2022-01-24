@@ -20,7 +20,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let i of indicateurs;let index = index" style="cursor:pointer" (click)="affichage(i)">
+                    <tr *ngFor="let i of indicateurs|slice: (page-1)*pageSize:page*pageSize;let index = index" style="cursor:pointer" (click)="affichage(i)">
 
                         <th scope="row">{{index}}</th>
                         <td>{{i.nom}}</td>
@@ -113,11 +113,16 @@
                             </div>
                             <i class="material-icons text-danger" (click)="deleteIndicateur(i.id)">delete_forever</i>
                         </td>
-
-
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="row">
+            <div class="col-9 d-flex justify-content-between p-2">
+                <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" currentPage="1" [pageSize]="pageSize" [collectionSize]="indicateurs.length"
+                    class="active"></ngb-pagination>
+            </div>
+            <div class="col-3">Pagination par : <input type="number" class="form-control" [(ngModel)]="pageSize" min=5/></div>
         </div>
         <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">Nouveau indicateur</button>
         <!-- Modal -->
@@ -161,9 +166,6 @@
                                 <label class="text-dark" for="formGroupExampleInput7">Valeur Cible :</label>
                                 <input type="text" class="form-control" name="valeur_cible" [(ngModel)]="indicateur.valeur_cible" id="formGroupExampleInput7" required>
                             </div>
-
-
-
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -188,7 +190,7 @@
         <div class="card border-success mb-3" style="max-width: 25rem;">
             <div class="card-header bg-transparent border-success">{{indicateur_affichage.nom}}</div>
             <div class="card-body text-success">
-                <h3 class=""><span class="alert alert-primary">type : {{indicateur_affichage.type}}</span></h3>
+                <h3 class=""><span class="alert alert-primary">Type : {{indicateur_affichage.type}}</span></h3>
                 <div class="card-text">
                     <div>
                         <ul class="list-group">

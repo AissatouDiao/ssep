@@ -1,0 +1,34 @@
+<td>
+                    <div>
+                        <input type="hidden" value="{{m.id}}" name="id{{m.id}}" id="hoElement">
+                    </div>
+
+
+                    <div class="form-check ">
+                        <label class="form-check-label " for="l{{m.id}}">Activer la lecture</label>
+                        <input class="form-check-input" type="checkbox" attr.name="lire{{m.id}}" id="l{{m.id}}" [(ngModel)]="fake_permissions.permissions_to_module.lire" [ngModelOptions]="{standalone: true}">
+                        <span class="form-check-sign">
+                            <span class="check"></span>
+                        </span>
+
+
+                        <input class="form-check-input bg-primary form-control" type="checkbox" attr.name="lire{{m.id}}" id="l{{m.id}}" [(ngModel)]="fake_permissions.permissions_to_module.lire" [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class=" form-check  ">
+                        <label class="form-check-label" for="a{{m.id}}">Activer l'ajout</label>
+                        <input class="form-check-input bg-success form-control" type="checkbox" attr.name="ajouter{{m.id}}" id="a{{m.id}}" [(ngModel)]="fake_permissions.permissions_to_module.ajouter" [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="form-check ">
+                        <label class="form-check-label" for="m{{m.id}}">Activer la modification </label>
+                        <input class="form-check-input bg-warning form-control" type="checkbox" attr.name="modifier{{m.id}} " id="m{{m.id}} " [(ngModel)]="fake_permissions.permissions_to_module.modifier" [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="form-check ">
+                        <label class="form-check-label" for="s{{m.id}}">Activer la suppression</label>
+                        <input class="form-check-input bg-danger form-control" type="checkbox" attr.name="s{{m.id}}" id="s{{m.id}} " [(ngModel)]="fake_permissions.permissions_to_module.supprimer" [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="">
+                        <label>random</label>
+                        <input class=" form-control" type="hidden" value="{{m.id}}" attr.name="{{m.id}}" id="{{m.id}}" ngModel [ngModelOptions]="{standalone: true}">
+                    </div>
+
+                </td>

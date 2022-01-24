@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ChartDataSets, ChartPoint, ChartType } from 'chart.js';
 import { SnotifyPosition, SnotifyService } from 'ng-snotify';
 import { Color, Label } from 'ng2-charts';
@@ -11,6 +11,9 @@ import { JarwisService } from 'src/app/services/jarwis.service';
 })
 export class IndicateursComponent implements OnInit {
 
+  @Input() page: any = 1;
+  @Input() pageSize: any = 10;
+
   constructor(private jarwisService: JarwisService, private notify: SnotifyService) { }
 
   ngOnInit(): void {
@@ -18,10 +21,10 @@ export class IndicateursComponent implements OnInit {
     this.getvaleurannuelles();
   }
 
-  indicateurs: any;
+  indicateurs: any[] = [];
   getIndicateurs() {
     this.jarwisService.getIndicateurs().subscribe(
-      data => { console.log(data); this.indicateurs = data },
+      (data: any) => { console.log(data); this.indicateurs = data },
       error => console.log(error)
     );
   }

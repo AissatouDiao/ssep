@@ -125,7 +125,7 @@
         </tbody>
     </table>
 </div>
-<ngb-pagination [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="recommandations.length" class="active">
+<ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="recommandations.length" class="active">
 </ngb-pagination>
 <button class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Nouvelle recommandation</button>
 
