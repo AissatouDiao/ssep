@@ -2,10 +2,20 @@
     <ol class="breadcrumb">
         <i class="material-icons pr-1 ">map</i>
         <li class="breadcrumb-item">
-            <p class=""> Gestion des pistes bavardes</p>
+            <a class="text-dark" routerLink="/gestion-pistes-bavardes">
+                <p class=""> Gestion des pistes bavardes</p>
+            </a>
         </li>
-        <li class="breadcrumb-item">Travaux</li>
-        <li class="breadcrumb-item">{{region.libelle}}</li>
+        <li class="breadcrumb-item">
+            <a class="text-dark" routerLink="/gestion-pistes-bavardes/travaux">
+                 Travaux
+            </a>
+        </li>
+        <li class="breadcrumb-item">
+            <a class="text-dark" routerLink="/gestion-pistes-bavardes/travaux">
+                 {{region.libelle}}
+            </a>
+        </li>
         <li class="breadcrumb-item text-primary active" aria-current="page">Communes</li>
     </ol>
 </nav><br>

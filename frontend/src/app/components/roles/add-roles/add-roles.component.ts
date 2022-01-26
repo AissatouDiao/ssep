@@ -107,9 +107,7 @@ export class AddRolesComponent implements OnInit {
         console.log(error);
       }
     );
-    if (i == 9) {
-      window.location.reload();
-    }
+
   }
 
 
@@ -118,11 +116,13 @@ export class AddRolesComponent implements OnInit {
 
     return e1
   }
-  onIn1(i: number) {
-    //objet json
-    console.log((<HTMLInputElement>document.getElementsByName('lecture_a')[i]).checked);
 
-    /*let permissions = {
+  onIn1(i: number, ir: number) {
+    //objet json
+    console.log((<HTMLInputElement>document.getElementById('lecture' + i + ir)).checked);
+    console.log(i);
+
+    let permissions = {
       module_id: '',
       role_id: '',
       permisions_to_module: {
@@ -135,14 +135,14 @@ export class AddRolesComponent implements OnInit {
 
     //recuperation de données
 
-    permissions.module_id = (<HTMLInputElement>document.getElementsByName('module_id')[i]).value;
-    permissions.role_id = (<HTMLInputElement>document.getElementsByName('role_id')[i]).value;
-    permissions.permisions_to_module.read = (<HTMLInputElement>document.getElementById('lecture' + i)).checked;
-    permissions.permisions_to_module.add = (<HTMLInputElement>document.getElementById('ajout' + i)).checked;
-    permissions.permisions_to_module.modify = (<HTMLInputElement>document.getElementById('modification' + i)).checked;
-    permissions.permisions_to_module.delete = (<HTMLInputElement>document.getElementById('suppression' + i)).checked;
-    console.log((<HTMLInputElement>document.getElementById('lecture' + i)).checked);
-    (<HTMLInputElement>document.getElementsByName('buttontable1')[i]).disabled = true;
+    permissions.module_id = (<HTMLInputElement>document.getElementById('module_id' + i + ir)).value;
+    permissions.role_id = (<HTMLInputElement>document.getElementById('role_id' + i + ir)).value;
+    permissions.permisions_to_module.read = (<HTMLInputElement>document.getElementById('lecture' + i + ir)).checked;
+    permissions.permisions_to_module.add = (<HTMLInputElement>document.getElementById('ajout' + i + ir)).checked;
+    permissions.permisions_to_module.modify = (<HTMLInputElement>document.getElementById('modification' + i + ir)).checked;
+    permissions.permisions_to_module.delete = (<HTMLInputElement>document.getElementById('suppression' + i + ir)).checked;
+    (<HTMLInputElement>document.getElementById('buttontable' + i + ir)).disabled = true;
+    console.log(permissions);
     //Enregistrement permission
     this.jarwisService.addPermissions(permissions).subscribe(
       data => {
@@ -152,9 +152,7 @@ export class AddRolesComponent implements OnInit {
         console.log(error);
       }
     );
-    if (i == 9) {
-      window.location.reload();
-    }*/
+
   }
 
   delete(id: any) {

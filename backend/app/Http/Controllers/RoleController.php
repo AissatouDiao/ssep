@@ -24,20 +24,8 @@ class RoleController extends Controller
          
         ]);
 
-        /*$users = Role::find(2)->users;
 
-        $Role= User::find(8);
 
-        ;
-        Role::create($request->all());
-        $lastRecordDate = Role::latest()->first();
-        return response()->json([
-            "message"=>"Un nouveau rôle a été ajouté !",
-            $lastRecordDate,
-            "users_par_role"=>$users,
-            "role_du_user"=>$Role->role->libelle_role
-         
-        ]);*/
     }
 
     public function getroles(Request $request){
@@ -55,17 +43,27 @@ class RoleController extends Controller
     }
 
     public function addpermissions(AddPermissionsRequest $request){
-    
-        
-        Permission::create([
+        $permission=Permission::where([
             'module_id'=>$request->module_id,
-            'role_id'=>$request->role_id,
-            'permisions_to_module'=>json_encode($request->permisions_to_module)
+            'role_id'=>$request->role_id   
         ]);
-        return response()->json([
-            "message"=>"Module et permissions ajoutés !",
-            "error"=>$request->permisions_to_module
-        ]);
+        if(!$permission->exists()){
+            Permission::create([
+                'module_id'=>$request->module_id,
+                'role_id'=>$request->role_id,
+                'permisions_to_module'=>json_encode($request->permisions_to_module)
+            ]);
+            return response()->json([
+                "message"=>"Module et permissions ajoutés !",
+                "error"=>$request->permisions_to_module
+            ]);
+        }else{
+            return response()->json([
+                "message"=>"Ce module est déjà ajouté au rôle!",
+            ]);
+    }
+        
+      
     }
 
  
