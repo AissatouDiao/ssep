@@ -400,9 +400,6 @@ export class DocumentsevaluationsComponent implements OnInit {
     this.user1 = JSON.parse(data_user);
     console.log(this.user);
   }
-
-
-
   permissions_to_role: any;
   permissions_module: any;
   modifier: any;

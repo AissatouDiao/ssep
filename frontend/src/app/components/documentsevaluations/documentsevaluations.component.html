@@ -102,7 +102,7 @@
                                                             <td *ngIf="r.evaluation_id==e.id">{{r.statut}} </td>
                                                             <td *ngIf="r.evaluation_id==e.id">{{r.pourcentage}}</td>
                                                             <td *ngIf="r.evaluation_id==e.id" class="td-actions text-right float-right">
-                                                                <button type="button" rel="tooltip" title="Modifier recommandation" data-toggle="modal" attr.data-target="#m{{r.id}}" class="btn btn-primary btn-link btn-sm">
+                                                                <button *ngIf="modifier==true" type="button" rel="tooltip" title="Modifier recommandation" data-toggle="modal" attr.data-target="#m{{r.id}}" class="btn btn-primary btn-link btn-sm">
                                                                 <i class="material-icons">edit</i>
                                                               </button>
                                                                 <!-- Modal Modifier -->
@@ -206,7 +206,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <!-- Modal Modifier -->
-                                                                <button type="button" rel="tooltip" title="Supprimer recommandation" (click)="deleteRecommandation(r.id)" class="btn btn-danger btn-link btn-sm">
+                                                                <button *ngIf="supprimer==true" type="button" rel="tooltip" title="Supprimer recommandation" (click)="deleteRecommandation(r.id)" class="btn btn-danger btn-link btn-sm">
                                                                <i class="material-icons">delete_forever</i>
                                                            </button>
                                                             </td>
@@ -224,10 +224,10 @@
                             </div>
                         </td>
                         <td class="td-actions ">
-                            <button type="button" rel="tooltip" title="Modifier recommandation" data-toggle="modal" attr.data-target="#m{{e.id}}" class="btn btn-primary btn-link btn-sm">
+                            <button type="button" *ngIf="modifier==true" rel="tooltip" title="Modifier recommandation" data-toggle="modal" attr.data-target="#m{{e.id}}" class="btn btn-primary btn-link btn-sm">
                            <i class="material-icons">edit</i>
                         </button>
-                            <button type="button" rel="tooltip" title="Supprimer recommandation" (click)="delete(e.id)" class="btn btn-danger btn-link btn-sm">
+                            <button type="button" *ngIf="supprimer==true" rel="tooltip" title="Supprimer recommandation" (click)="delete(e.id)" class="btn btn-danger btn-link btn-sm">
                           <i class="material-icons">delete_forever</i>
                        </button>
                         </td>
@@ -330,7 +330,7 @@
             <div class="col-3">Pagination par : <input type="number" class="form-control" [(ngModel)]="pageSize" min=5/></div>
         </div>
 
-        <button class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Nouvelle evaluation</button>
+        <button *ngIf="ajouter1==true" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Nouvelle evaluation</button>
 
         <!-- Modal ajout -->
         <div class="w-100">

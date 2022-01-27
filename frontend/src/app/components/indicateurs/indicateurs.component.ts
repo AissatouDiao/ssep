@@ -15,10 +15,12 @@ export class IndicateursComponent implements OnInit {
   @Input() pageSize: any = 10;
 
   constructor(private jarwisService: JarwisService, private notify: SnotifyService) { }
-
+user:any
   ngOnInit(): void {
     this.getIndicateurs();
     this.getvaleurannuelles();
+    let data_user: any = localStorage.getItem('data');
+    this.user = JSON.parse(data_user);
   }
 
   indicateurs: any[] = [];
@@ -196,4 +198,36 @@ export class IndicateursComponent implements OnInit {
   public lineChartType: ChartType = 'line';
   public lineChartPlugins = [];
 
+  //récupérer l'utilisateur
+  user1: any;
+  getUser() {
+    let data_user: any = localStorage.getItem('data');
+    this.user1 = JSON.parse(data_user);
+    console.log(this.user);
+  }
+  permissions_to_role: any;
+  permissions_module: any;
+  modifier: any;
+  supprimer: any;
+  ajouter1: any;
+  lire: any;
+  khalei = true;
+  getPermissionsByRoleId() {
+    this.jarwisService.getPermissionsByRoleId(this.user.role_id).subscribe(
+      async (data: any) => {
+        console.log(data);
+        await data.forEach((d: any, index: any) => {
+          d.permisions_to_module = JSON.parse(d.permisions_to_module);
+          if (d.module_id == 9) {
+            this.permissions_module = d.permisions_to_module;
+            this.modifier = d.permisions_to_module.modify;
+            this.supprimer = d.permisions_to_module.delete;
+            this.ajouter1 = d.permisions_to_module.add;
+            this.lire = d.permisions_to_module.read;
+          }
+        });
+      },
+      (error: any) => { console.log(error) }
+    );
+  }
 }
