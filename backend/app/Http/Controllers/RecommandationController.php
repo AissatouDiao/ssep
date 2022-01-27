@@ -72,6 +72,8 @@ class RecommandationController extends Controller
 
     }
 
+  
+
     public function changeStatut($request){
         $recommandation=Recommandation::find($request->id);
         $date_actuelle= Carbon::now();
@@ -105,6 +107,7 @@ class RecommandationController extends Controller
        // $taches=Recommandationtache::where('recommandation_id',$request->id)->get();
     }
 
+    
   
 }
 
