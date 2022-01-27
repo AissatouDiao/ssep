@@ -19,7 +19,7 @@ class CreateAgreagequalitesTable extends Migration
             $table->string('departement');
             $table->string('commune');
             $table->string('village');
-            $table->unsignedInteger('annee');
+            $table->string('annee');
             $table->string('nom_organisation_ou_producteur');
             $table->string('produit');
             $table->date('date_controle');

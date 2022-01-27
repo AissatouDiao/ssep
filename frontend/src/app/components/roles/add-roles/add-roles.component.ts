@@ -145,8 +145,8 @@ export class AddRolesComponent implements OnInit {
     console.log(permissions);
     //Enregistrement permission
     this.jarwisService.addPermissions(permissions).subscribe(
-      data => {
-        console.log(data); this.notify.success('Module ajouté au rôle.');
+      (data: any) => {
+        console.log(data); this.notify.success(data.message);
       },
       error => {
         console.log(error);

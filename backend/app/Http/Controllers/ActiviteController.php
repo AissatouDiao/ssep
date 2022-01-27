@@ -160,4 +160,6 @@ class ActiviteController extends Controller
         }
        }
     }
+
+    public function get_sa_length_activite_id(){}
 }

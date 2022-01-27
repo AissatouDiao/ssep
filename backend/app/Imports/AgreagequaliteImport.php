@@ -26,7 +26,7 @@ class AgreagequaliteImport implements ToModel,SkipsOnError, WithHeadingRow, With
         $agreage_qualite=[
             'region'=>$row['Région'],
             'departement'=>$row['Departement'],
-            'commune'=>$row['Commune'],
+            'commune'=>$row['Commune/CR'],
             'village'=>$row['Village'],
             'annee'=>$row['Annee'],
             'nom_organisation_ou_producteur'=>$row['Nom organisation ou Producteur'],
@@ -44,18 +44,18 @@ class AgreagequaliteImport implements ToModel,SkipsOnError, WithHeadingRow, With
         $ligne_agreage_qualite= Agreagequalite::where([
             'region'=>$agreage_qualite['region'],
             'departement'=>$agreage_qualite['departement'],
-            'commune'=>$the_organisation['commune'],
-            'village'=>$the_organisation['village'],
-            'nom_organisation_ou_producteur'=>$the_organisation['nom_organisation_ou_producteur'],
-            'produit'=>$the_organisation['produit'],
-            'date_controle'=>$the_organisation['date_controle'],
-            'nombre_sacs_lot'=>$the_organisation['nombre_sacs_lot'],
-            'poids_moyen_sac'=>$the_organisation['poids_moyen_sac'],
-            'taux_humidite'=>$the_organisation['taux_humidite'],
-            'taux_impurete'=>$the_organisation['taux_impurete'],
-            'graines_immatures_taux'=>$the_organisation['graines_immatures_taux'],
-            'conforme_code_qualite'=>$the_organisation['conforme_code_qualite'],
-            'observations'=>$the_organisation['observations'],
+            'commune'=>$agreage_qualite['commune'],
+            'village'=>$agreage_qualite['village'],
+            'nom_organisation_ou_producteur'=>$agreage_qualite['nom_organisation_ou_producteur'],
+            'produit'=>$agreage_qualite['produit'],
+            'date_controle'=>$agreage_qualite['date_controle'],
+            'nombre_sacs_lot'=>$agreage_qualite['nombre_sacs_lot'],
+            'poids_moyen_sac'=>$agreage_qualite['poids_moyen_sac'],
+            'taux_humidite'=>$agreage_qualite['taux_humidite'],
+            'taux_impurete'=>$agreage_qualite['taux_impurete'],
+            'graines_immatures_taux'=>$agreage_qualite['graines_immatures_taux'],
+            'conforme_code_qualite'=>$agreage_qualite['conforme_code_qualite'],
+            'observations'=>$agreage_qualite['observations'],
             ])->first();
         if($ligne_agreage_qualite===null){
             return  new Agreagequalite($agreage_qualite);  
@@ -65,6 +65,24 @@ class AgreagequaliteImport implements ToModel,SkipsOnError, WithHeadingRow, With
     }
     public function rules(): array
     {
+
+     return[
+        'region'=>'required|string',
+        'departement'=>'required|string',
+        'commune'=>'required|string',
+        'village'=>'required|string',
+        'annee'=>'required|string',
+        'nom_organisation_ou_producteur'=>'required|string',
+        'produit'=>'required|string',
+        'date_controle'=>'required|string',
+        'nombre_sacs_lot'=>'required|numeric',
+        'poids_moyen_sac'=>'required|numeric',
+        'taux_humidite'=>'required|numeric',
+        'taux_impurete'=>'required|numeric',
+        'graines_immatures_taux'=>'required|numeric',
+        'conforme_code_qualite'=>'required|string',
+        'observations'=>'required|string'
+     ];
        /* return [
             '*.email' => ['email', 'unique:users,email'],
        
@@ -85,7 +103,9 @@ class AgreagequaliteImport implements ToModel,SkipsOnError, WithHeadingRow, With
             'SOURCE DE FINANCEMENT'=>'required|string',
         ];*/
 
-        return [];
+
+
+      
     }
 
   
@@ -95,7 +115,7 @@ class AgreagequaliteImport implements ToModel,SkipsOnError, WithHeadingRow, With
     }
 
     function checkifexist($value){
-        $ligne_agreage_qualite= Organisation::find($value)->fisrt();
+        $ligne_agreage_qualite= Agreagequalite::find($value)->fisrt();
         if($ligne_agreage_qualite){
             //ds the things
  

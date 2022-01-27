@@ -14,7 +14,7 @@ export class ExcelService {
   public exportAsExcelFile(json: any[], excelFileName: string): void {
 
     const myworksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
-    const myworkbook: XLSX.WorkBook = { Sheets: { 'data': myworksheet }, SheetNames: ['data'] };
+    const myworkbook: XLSX.WorkBook = { Sheets: { 'data': myworksheet, 'data2': myworksheet }, SheetNames: ['data', 'data2'] };
     const excelBuffer: any = XLSX.write(myworkbook, { bookType: 'xlsx', type: 'array' });
     this.saveAsExcelFile(excelBuffer, excelFileName);
   }
@@ -37,9 +37,12 @@ export class ExcelService {
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element.nativeElement);
     // generate workbook and add the worksheet
     const workbook: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, ws, 'Sheet1');
+    //XLSX.utils.
+    XLSX.utils.book_append_sheet(workbook, ws, fileName);
+
     // save to file
     XLSX.writeFile(workbook, `${fileName}${EXCEL_EXTENSION}`);
+
 
   }
 }

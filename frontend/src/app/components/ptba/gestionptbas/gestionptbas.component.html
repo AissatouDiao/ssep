@@ -53,39 +53,41 @@
                                 </div>
                                 <div class="modal-body">
                                     <div>
-                                        <table #userTable id="id{{i}}" class="table-primary table-bordered border-primary">
+                                        <table #userTable id="id{{i}}" class="table table-bordered border-primary">
                                             <thead class="thead-white">
                                                 <tr>
                                                     <td colspan="9" class="text-center">PTBA du {{p.annee}}</td>
                                                 </tr>
-                                                <tr>
-                                                    <th scope="col">{{p.libelle}}</th>
-                                                    <th scope="col">
-                                                        <tr>
-                                                            <td>Budget Total PTBA</td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <td>{{p.budget}}</td>
-                                                        </tr>
-                                                    </th>
+                                                <tr class="bg-dark text-white">
+                                                    <th rowspan="2">{{p.libelle}}</th>
+                                                    <td>Budget Total PTBA</td>
                                                     <ng-container *ngFor="let pp of partenairesptbas">
-                                                        <th scope="col" *ngIf="pp.ptba_id==p.id">
+                                                        <ng-container scope="col" *ngIf="pp.ptba_id==p.id">
                                                             <ng-container *ngFor="let pts of partenaires">
                                                                 <ng-container *ngIf="pp.partenaire_id==pts.id">
 
-                                                                    <tr>
-                                                                        <td>{{pts.libelle}}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>{{pp.budget}}</td>
-                                                                    </tr>
+                                                                    <th>{{pts.libelle}}</th>
+
+
                                                                 </ng-container>
                                                             </ng-container>
-                                                        </th>
+                                                        </ng-container>
                                                     </ng-container>
                                                 </tr>
-                                                <tr>
+                                                <tr class="bg-dark text-white">
+                                                    <td>{{p.budget}}</td>
+                                                    <ng-container *ngFor="let pp of partenairesptbas">
+                                                        <ng-container scope="col" *ngIf="pp.ptba_id==p.id">
+                                                            <ng-container *ngFor="let pts of partenaires">
+                                                                <ng-container *ngIf="pp.partenaire_id==pts.id">
+                                                                    <td>{{pp.budget}}</td>
+                                                                </ng-container>
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                </tr>
+
+                                                <tr class="bg-primary text-white">
                                                     <th scope="col">No.</th>
                                                     <th scope="col">Activités Principales</th>
                                                     <th scope="col">Sous-activités</th>
@@ -96,42 +98,36 @@
                                                     <th scope="col">Partie responsable</th>
                                                     <th scope="col">Partie(s) associée(s)</th>
                                                 </tr>
-
                                             </thead>
                                             <tbody>
-
                                                 <ng-container *ngFor="let c of composantes">
                                                     <ng-container *ngIf="c.ptba_id==p.id">
+
                                                         <tr>
-                                                            <th> {{c.libelle}}</th>
-
-                                                            <th>
-                                                                <tr>
-                                                                    <td>Budget Total Composante</td>
-
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>{{c.budget}}</td>
-                                                                </tr>
-                                                            </th>
+                                                            <th rowspan="2">{{c.libelle}}</th>
+                                                            <td>Budget Total Composante</td>
                                                             <ng-container *ngFor="let cp of composantespartenaires">
-                                                                <th scope="col" *ngIf="cp.composante_id==c.id">
+                                                                <ng-container scope="col" *ngIf="cp.composante_id==c.id">
                                                                     <ng-container *ngFor="let pts of partenaires">
                                                                         <ng-container *ngIf="cp.partenaire_id==pts.id">
-
-                                                                            <tr>
-                                                                                <td>{{pts.libelle}}</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>{{cp.budget}}</td>
-                                                                            </tr>
-
+                                                                            <td>{{pts.libelle}}</td>
                                                                         </ng-container>
                                                                     </ng-container>
-                                                                </th>
+                                                                </ng-container>
                                                             </ng-container>
                                                         </tr>
-
+                                                        <tr>
+                                                            <td>{{c.budget}}</td>
+                                                            <ng-container *ngFor="let cp of composantespartenaires">
+                                                                <ng-container scope="col" *ngIf="cp.composante_id==c.id">
+                                                                    <ng-container *ngFor="let pts of partenaires">
+                                                                        <ng-container *ngIf="cp.partenaire_id==pts.id">
+                                                                            <td>{{cp.budget}}</td>
+                                                                        </ng-container>
+                                                                    </ng-container>
+                                                                </ng-container>
+                                                            </ng-container>
+                                                        </tr>
                                                         <ng-container *ngFor="let a of activites">
                                                             <ng-container *ngIf="c.id==a.composante_id">
                                                                 <tr>
@@ -145,8 +141,7 @@
                                                                         </ng-container>
                                                                     </td>
                                                                     <td>{{a.extrant}}</td>
-                                                                    <td>
-
+                                                                    <th>
                                                                         <ng-container *ngFor="let s of sousactivites">
                                                                             <ng-container *ngIf="s.activite_id==a.id">
                                                                                 <ng-container *ngFor="let ms of moissousactivites">
@@ -160,13 +155,13 @@
                                                                                 </ng-container>
                                                                             </ng-container>
                                                                         </ng-container>
-                                                                    </td>
+                                                                    </th>
                                                                     <td>{{a.budget}}</td>
                                                                     <td>
                                                                         <ng-container *ngFor="let paf of partenaireactivitefinancier">
                                                                             <ng-container *ngFor="let p of partenaires">
                                                                                 <ng-container *ngIf="paf.activite_id==a.id && paf.partenaire_id==p.id">
-                                                                                    {{p.libelle}}
+                                                                                    {{p.libelle}},
                                                                                 </ng-container>
                                                                             </ng-container>
                                                                         </ng-container>
@@ -177,7 +172,7 @@
                                                                             <ng-container *ngFor="let p of partenaires">
 
                                                                                 <ng-container *ngIf="paf.activite_id==a.id && paf.partenaire_id==p.id">
-                                                                                    {{p.libelle}}
+                                                                                    {{p.libelle}},
                                                                                 </ng-container>
                                                                             </ng-container>
                                                                         </ng-container>
@@ -188,7 +183,7 @@
                                                                             <ng-container *ngFor="let p of partenaires">
 
                                                                                 <ng-container *ngIf="paf.activite_id==a.id && paf.partenaire_id==p.id">
-                                                                                    {{p.libelle}}
+                                                                                    {{p.libelle}},
                                                                                 </ng-container>
                                                                             </ng-container>
                                                                         </ng-container>
@@ -196,14 +191,11 @@
                                                                 </tr>
                                                             </ng-container>
                                                         </ng-container>
-
                                                     </ng-container>
                                                 </ng-container>
                                             </tbody>
                                         </table>
-
                                     </div>
-
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
