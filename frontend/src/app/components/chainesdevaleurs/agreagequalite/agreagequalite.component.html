@@ -17,7 +17,7 @@
         <div class="card-body">
 
             <p class="card-text">Ajouter ci-dessous le fichier Excel comportant les nouvelles données pour la base de données nationale des agreagequalites.</p>
-            <form #agreagequaliteForm=ngForm name="agreagequaliteForm" (ngSubmit)="  importAgreagequaliteFileToDatabase()" enctype="multipart/form-data">
+            <form #agreagequaliteForm=ngForm name="agreagequaliteForm" (ngSubmit)="importAgreagequaliteFileToDatabase()" enctype="multipart/form-data">
                 <div class="input-group mb-3 text-dark bg-white">
                     <input (change)="uploadDocument($event)" type="file" accept=".xls, .xlsx, .csv" class="form-control" id="agreagequalite_file" name="agreagequalite_file" class="form-control" required><br><br>
                 </div>
@@ -54,9 +54,21 @@
                     <tbody>
                         <tr *ngFor="let a of agreagequalites;let i = index">
                             <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <td>{{a.region}}</td>
+                            <td>{{a.departement}}</td>
+                            <td>{{a.commune}}</td>
+                            <td>{{a.village}}</td>
+                            <td>{{a.annee}}</td>
+                            <td>{{a.nom_organisation_ou_producteur}}</td>
+                            <td>{{a.produit}}</td>
+                            <td>{{a.date_controle}}</td>
+                            <td>{{a.nombre_sacs_lot}}</td>
+                            <td>{{a.poids_moyen_sac}}</td>
+                            <td>{{a.taux_humidite}}</td>
+                            <td>{{a.taux_impurete}}</td>
+                            <td>{{a.graines_immatures_taux}}</td>
+                            <td>{{a.conforme_code_qualite}}</td>
+                            <td>{{a.observations}}</td>
                         </tr>
 
                     </tbody>

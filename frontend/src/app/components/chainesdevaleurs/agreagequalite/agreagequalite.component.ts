@@ -78,8 +78,8 @@ export class AgreagequaliteComponent implements OnInit {
     this.jarwisService.getAgreagequalites().subscribe(
       (data: any) => {
         console.log(data); this.agreagequalites = data;
-        this.mdbTable.setDataSource(this.agreagequalites);
-        this.previous = this.mdbTable.getDataSource();
+        // this.mdbTable.setDataSource(this.agreagequalites);
+        // this.previous = this.mdbTable.getDataSource();
       },
       (error: any) => { console.log(error); }
     );

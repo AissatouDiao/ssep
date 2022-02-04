@@ -3,16 +3,17 @@
 namespace App\Imports;
 
 
-use App\Models\Organisation;
+
 use App\Models\Agreagequalite;
+use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsErrors;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
-use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
-
+use Maatwebsite\Excel\Imports\HeadingRowFormatter;
+HeadingRowFormatter::default('none');
 class AgreagequaliteImport implements ToModel,SkipsOnError, WithHeadingRow, WithValidation
 {
    
@@ -25,23 +26,23 @@ class AgreagequaliteImport implements ToModel,SkipsOnError, WithHeadingRow, With
     {
         $agreage_qualite=[
             'region'=>$row['Région'],
-            'departement'=>$row['Departement'],
-            'commune'=>$row['Commune/CR'],
+            'departement'=>$row['Département'],
+            'commune'=>$row['Commune-CR'],
             'village'=>$row['Village'],
-            'annee'=>$row['Annee'],
+            'annee'=>$row['Année'],
             'nom_organisation_ou_producteur'=>$row['Nom organisation ou Producteur'],
             'produit'=>$row['Produit'],
-            'date_controle'=>$row['Date de controle'],
+            'date_controle'=>$row['Date de contrôle'],
             'nombre_sacs_lot'=>$row['Nombre de sacs du lot'],
-            'poids_moyen_sac'=>$row['Poids moyen d \'un sac'],
-            'taux_humidite'=>$row['Taux d\'humidite'],
-            'taux_impurete'=>$row['Taux d\'impurete'],
-            'graines_immatures_taux'=>$row['Graines immatures'],
-            'conforme_code_qualite'=>$row['Conforme au code qualite'],
+            'poids_moyen_sac'=>$row['Poids moyen d\'un sac'],
+            'taux_humidite'=>$row['Taux d\'humidité'],
+            'taux_impurete'=>$row['Taux d\'impureté'],
+            'graines_immatures_taux'=>$row['Grains immatures'],
+            'conforme_code_qualite'=>$row['Conforme au code qualité'],
             'observations'=>$row['Observations'],
-           
         ];
-        $ligne_agreage_qualite= Agreagequalite::where([
+
+        $ligne_agreage_qualite=Agreagequalite::where([
             'region'=>$agreage_qualite['region'],
             'departement'=>$agreage_qualite['departement'],
             'commune'=>$agreage_qualite['commune'],
@@ -56,9 +57,10 @@ class AgreagequaliteImport implements ToModel,SkipsOnError, WithHeadingRow, With
             'graines_immatures_taux'=>$agreage_qualite['graines_immatures_taux'],
             'conforme_code_qualite'=>$agreage_qualite['conforme_code_qualite'],
             'observations'=>$agreage_qualite['observations'],
-            ])->first();
+        ])->first();
+        
         if($ligne_agreage_qualite===null){
-            return  new Agreagequalite($agreage_qualite);  
+            return new Agreagequalite($agreage_qualite);  
         }else {
             return null;
         }
@@ -67,21 +69,22 @@ class AgreagequaliteImport implements ToModel,SkipsOnError, WithHeadingRow, With
     {
 
      return[
-        'region'=>'required|string',
-        'departement'=>'required|string',
-        'commune'=>'required|string',
-        'village'=>'required|string',
-        'annee'=>'required|string',
-        'nom_organisation_ou_producteur'=>'required|string',
-        'produit'=>'required|string',
-        'date_controle'=>'required|string',
-        'nombre_sacs_lot'=>'required|numeric',
-        'poids_moyen_sac'=>'required|numeric',
-        'taux_humidite'=>'required|numeric',
-        'taux_impurete'=>'required|numeric',
-        'graines_immatures_taux'=>'required|numeric',
-        'conforme_code_qualite'=>'required|string',
-        'observations'=>'required|string'
+        'Région'=>'required|string',
+        'Département'=>'required|string',
+        'Commune-CR'=>'required|string',
+        'Village'=>'required|string',
+        'Année'=>'required|string',
+        'Nom organisation ou Producteur'=>'required|string',
+        'Produit'=>'required|string',
+        'Date de contrôle'=>'required',
+        'Nombre de sacs du lot'=>'required|numeric',
+        'Poids moyen d\'un sac'=>'required|numeric',
+        'Taux d\'humidité'=>'required|numeric',
+        'Taux d\'impureté'=>'required|numeric',
+        'Grains immatures'=>'required|numeric',
+        'Conforme au code qualité'=>'required|string',
+        'Observations'=>'required|string'
+        
      ];
        /* return [
             '*.email' => ['email', 'unique:users,email'],

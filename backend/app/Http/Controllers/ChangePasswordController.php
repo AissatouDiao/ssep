@@ -66,16 +66,15 @@ class ChangePasswordController extends Controller
             'data'=>'Password was successfuly changed'
         ],Response::HTTP_CREATED );
     }
+
+
     private function changePassword1($request){
         //recuperation de l'utilisatreur par mail
         $user=User::whereEmail($request->email)->first();
-
         //mis à jour du mot de passe de l'utilisateur
         $user->update(['password'=>$request->password]);
-        
         //suppresion de la ligne du token donné pour le reset password
         $this->getPasswordResetTableRow1($request)->delete();
-
         //reponse retourné sous format json
         return response()->json([
             'data'=>'Password was successfuly changed'
@@ -86,10 +85,8 @@ class ChangePasswordController extends Controller
     public function changePasswordProfile(Request $request){
         //recuperation de l'utilisatreur par mail
         $user=User::find($request->id);
-
         //mis à jour du mot de passe de l'utilisateur
         $user->update(['password'=>$request->password]);
-        
         //reponse retourné sous format json
         return response()->json([
             'data'=>'Password profile was successfuly changed'

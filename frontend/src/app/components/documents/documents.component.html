@@ -123,7 +123,7 @@
     </div>
     <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="documents.length" class="active">
     </ngb-pagination>
-    <button *ngif="ajouter1==true" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Nouveau document</button>
+    <button *ngIf="ajouter1==true" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Nouveau document</button>
     <div class="card">
         <!-- Modal ajout -->
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

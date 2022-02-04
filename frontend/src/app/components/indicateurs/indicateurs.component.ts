@@ -15,12 +15,13 @@ export class IndicateursComponent implements OnInit {
   @Input() pageSize: any = 10;
 
   constructor(private jarwisService: JarwisService, private notify: SnotifyService) { }
-user:any
+  user: any
   ngOnInit(): void {
     this.getIndicateurs();
     this.getvaleurannuelles();
     let data_user: any = localStorage.getItem('data');
     this.user = JSON.parse(data_user);
+    this.getPermissionsByRoleId();
   }
 
   indicateurs: any[] = [];
@@ -218,7 +219,7 @@ user:any
         console.log(data);
         await data.forEach((d: any, index: any) => {
           d.permisions_to_module = JSON.parse(d.permisions_to_module);
-          if (d.module_id == 9) {
+          if (d.module_id == 3) {
             this.permissions_module = d.permisions_to_module;
             this.modifier = d.permisions_to_module.modify;
             this.supprimer = d.permisions_to_module.delete;

@@ -31,6 +31,7 @@ export class PartenairesComponent implements OnInit {
     this.getPartenaires();
     let data_user: any = localStorage.getItem('data');
     this.user = JSON.parse(data_user);
+    this.getPermissionsByRoleId();
   }
 
   /**
@@ -160,7 +161,7 @@ export class PartenairesComponent implements OnInit {
         console.log(data);
         await data.forEach((d: any, index: any) => {
           d.permisions_to_module = JSON.parse(d.permisions_to_module);
-          if (d.module_id == 9) {
+          if (d.module_id == 7) {
             this.permissions_module = d.permisions_to_module;
             this.modifier = d.permisions_to_module.modify;
             this.supprimer = d.permisions_to_module.delete;

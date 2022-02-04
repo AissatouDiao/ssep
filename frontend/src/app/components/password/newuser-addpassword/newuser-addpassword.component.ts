@@ -45,7 +45,7 @@ export class NewuserAddpasswordComponent implements OnInit {
 
   handleResponse(data: any) {
 
-    this.notify.confirm('Done! Now login with new password', 'Go to login', {
+    this.notify.confirm('Fait! Connectez vous avec votre nouveau password', 'Se connecter !', {
       buttons: [
         {
           text: 'okay',

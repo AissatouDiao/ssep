@@ -68,11 +68,8 @@ export class AppComponent {
 
 
   logout(event: MouseEvent) {
-    // this.authService.changeAuthStatus(false);
-    event.preventDefault();
     this.tokenService.remove();
     localStorage.clear();
-    window.location.reload();
     this.route.navigateByUrl('/login');
   }
 }

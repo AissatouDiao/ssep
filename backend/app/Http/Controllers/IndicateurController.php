@@ -16,7 +16,7 @@ class IndicateurController extends Controller
             'annee'=>0,
             'valeur'=>null,
         ];
-        for($i=0; $i<$lastRecordDate->nombre_annees; $i++) {
+        for($i=1; $i<$lastRecordDate->nombre_annees; $i++) {
             $valeur_annuelle['annee']=$lastRecordDate->annee_debut+$i;
             Valeurannuelle::create($valeur_annuelle);
         }

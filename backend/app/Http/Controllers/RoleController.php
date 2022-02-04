@@ -37,7 +37,7 @@ class RoleController extends Controller
 
     public function getmodules(Request $request){
 
-        $roles= Module::all();
+        $roles= Module::orderBy('id', 'ASC')->get();
         return $roles;
         
     }

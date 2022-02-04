@@ -30,6 +30,7 @@ export class DocumentsComponent implements OnInit {
     let data_user: any = localStorage.getItem('data');
     this.user = JSON.parse(data_user);
     console.log(this.user);
+    this.getPermissionsByRoleId();
 
   }
 
@@ -170,7 +171,7 @@ export class DocumentsComponent implements OnInit {
         console.log(data);
         await data.forEach((d: any, index: any) => {
           d.permisions_to_module = JSON.parse(d.permisions_to_module);
-          if (d.module_id == 9) {
+          if (d.module_id == 10) {
             this.permissions_module = d.permisions_to_module;
             this.modifier = d.permisions_to_module.modify;
             this.supprimer = d.permisions_to_module.delete;

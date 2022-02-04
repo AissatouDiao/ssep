@@ -43,8 +43,6 @@ export class LoginComponent implements OnInit {
     this.authService.changeAuthStatus(true);
     localStorage.setItem('password', JSON.stringify(this.form));
     this.router.navigateByUrl('/tableau-de-bord');
-    window.location.reload();
-
   }
 
   //recuperation de l'erreur eventuel de la reponse de l'api

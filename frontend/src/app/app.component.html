@@ -1,25 +1,25 @@
-<app-sidebar></app-sidebar>
+<app-sidebar *ngIf="loggedIn"></app-sidebar>
 <ng-snotify></ng-snotify>
+<div *ngIf="!loggedIn" class="mt-5">
+    <div class="text-center text-white">
+        <h2 class="card text-white  simple-text bg-primary mb-3" style="width: 30%;height:45%">
+            <a class="navbar-brand" routerLink="/login" class="text-white" *ngIf="!loggedIn"> Pistes Bavardes</a>
+        </h2>
+        <router-outlet></router-outlet>
+    </div>
 
-
+</div>
 <!--balise de ng-tofify en haut (package pour notification pour angular)-->
 <div>
-
     <div class="main-panel">
         <!-- Navbar -->
-
         <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
             <div class="container-fluid">
                 <div class="navbar-wrapper">
                     <h2 class="card text-white  simple-text bg-primary mb-3">
                         <a class="navbar-brand" href="javascript:;" *ngIf="loggedIn">
-                        Projet Pistes Bavardes
+                         Pistes Bavardes
                     </a>
-                    </h2>
-                </div>
-                <div class="text-left">
-                    <h2>
-                        <a class="navbar-brand" href="javascript:;" *ngIf="!loggedIn">Projet Pistes Bavardes</a>
                     </h2>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,23 +67,16 @@
 
         <!-- End Navbar -->
 
-        <hr class="text-primary">
+        <hr class="text-primary" *ngIf="loggedIn">
         <router-outlet></router-outlet>
-        <div class="text-center" *ngIf="!loggedIn">
+
+
+        <!--
+              <div class="text-center" *ngIf="!loggedIn">
             <app-login></app-login>
         </div>
+        -->
 
     </div>
 
 </div>
-
-<!--
-<div *ngIf="!loggedIn">
-    <div class="navbar-wrapper text-center bold"><br>
-        <p class="navbar-brand fs-2 fst-italic">Système de suivi et d'évaluation du PDZP /PNDL</p>
-    </div>
-    <div class="container pt-4">
-        <app-login></app-login>
-    </div>
-</div>
--->

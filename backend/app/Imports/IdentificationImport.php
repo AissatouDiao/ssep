@@ -6,10 +6,15 @@ use App\Models\Identification;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class IdentificationImport implements ToModel
+class IdentificationImport implements ToModel,SkipsOnError, WithHeadingRow, WithValidation
 {
+
+    use Importable,SkipsErrors;
     /**
     * @param array $row
     *
@@ -49,7 +54,7 @@ class IdentificationImport implements ToModel
             'nombre_moutons_produits'=>$row['SOURCE DE FINANCEMENT'],
            
         ];
-        $identification= Organisation::where([
+        $identification= Identification::where([
             'region'=>$the_identification['region'],
             'departement'=>$the_identification['departement'],
             'commune'=>$the_identification['commune'],
@@ -85,5 +90,32 @@ class IdentificationImport implements ToModel
         }else {
             return null;
         }
+    }
+
+    public function rules(): array
+    {
+       /* return [
+            '*.email' => ['email', 'unique:users,email'],
+       
+        ];*/
+        return [
+            'Region'=>'required|string',
+            'Departement'=>'required|string',
+            'Commune'=>'required|string',
+            'Nom organisation'=>'required|string',
+            'Statut Organisation'=>'required|string',
+            'Prenom et nom responsable'=>'required|string',
+            'Contact responsable'=>'required|numeric',
+            'Nombre de membres de organisation'=>'required',
+            'Nombre de membres Femmes'=>'required|numeric',
+            'Nombre de membres Hommes'=>'required|numeric',
+            'Activités principales'=>'required|string',
+            'MONTANT DE CREDIT RECU'=>'required|numeric',
+            'SOURCE DE FINANCEMENT'=>'required|string',
+        ];
+    }
+
+    function chunkSize(): int {
+        return 1000;
     }
 }
