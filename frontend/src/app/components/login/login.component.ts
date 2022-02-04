@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
     localStorage.setItem('data', data)
     this.authService.changeAuthStatus(true);
     localStorage.setItem('password', JSON.stringify(this.form));
+    location.replace('/tableau-de-bord');
     this.router.navigateByUrl('/tableau-de-bord');
   }
 
@@ -49,4 +50,5 @@ export class LoginComponent implements OnInit {
   handleError(error: { error: { error: any; }; }) {
     this.error = error.error.error;
   }
+
 }

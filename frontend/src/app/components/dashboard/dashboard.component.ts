@@ -9,9 +9,12 @@ import { Label, MultiDataSet } from 'ng2-charts';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit(): void {
+
   }
 
   doughnutChartLabels: Label[] = ['En chargement'];
