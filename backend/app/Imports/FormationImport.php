@@ -11,7 +11,8 @@ use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
-
+use Maatwebsite\Excel\Imports\HeadingRowFormatter;
+HeadingRowFormatter::default('none');
 class FormationImport implements ToModel,SkipsOnError, WithHeadingRow, WithValidation
 {
     use Importable,SkipsErrors;
@@ -33,8 +34,9 @@ class FormationImport implements ToModel,SkipsOnError, WithHeadingRow, WithValid
             'organisation_base'=>$row['Organisation de base'],
             'date_formation'=>$row['Date de formation'],
             'theme_formation'=>$row['Theme'],
-            'telephone'=>$row['Lieu de formation'],
-            'lieu_formation'=>$row['Relais'],
+            'telephone'=>$row['Téléphone'],
+            'lieu_formation'=>$row['Lieu de formation'],
+            'relais'=>$row['Relais'],
             'telephone_relais'=>$row['N° téléphone relais'],
         ];
         $formation= Formation::where([
@@ -49,9 +51,8 @@ class FormationImport implements ToModel,SkipsOnError, WithHeadingRow, WithValid
             'theme_formation'=>$the_formation['theme_formation'],
             'telephone'=>$the_formation['telephone'],
             'lieu_formation'=>$the_formation['lieu_formation'],
+            'relais'=>$the_formation['relais'],
             'telephone_relais'=>$the_formation['telephone_relais'],
-   
-            
             ])->first();
         if($formation===null){
             return  new Formation($the_formation);  
@@ -85,20 +86,20 @@ class FormationImport implements ToModel,SkipsOnError, WithHeadingRow, WithValid
         ];*/
 
         return[
-        'region'=>'required|string',
-        'departement'=>'required|string',
-        'commune'=>'required|string',
-        'village'=>'required|string',
-        'prenom_nom'=>'required|string',
-        'genre'=>'required|string',
-        'organisation_de_base'=>'required|string',
-        'date_formation'=>'required|date',
-        'theme_formation'=>'required|string',
-        'telephone'=>'required|numeric',
-        'lieu_formation'=>'required|string',
-        'telephone_relais'=>'required|numeric',
+        'Région'=>'required|string',
+        'Département'=>'required|string',
+        'Commune'=>'required|string',
+        'Village'=>'required|string',
+        'Prénom & Nom'=>'required|string',
+        'Genre'=>'required|string',
+        'Organisation de base'=>'required|string',
+        'Date de formation'=>'required|date',
+        'Theme'=>'required|string',
+        'Téléphone'=>'required|numeric',
+        'Lieu de formation'=>'required|string',
+        'Relais'=>'required|string',
+        'N° téléphone relais'=>'required|numeric',
         ];
-   
     }
 
     function chunkSize(): int {

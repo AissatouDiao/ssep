@@ -33,6 +33,7 @@ class Formation extends Model
         'theme_formation',
         'telephone',
         'lieu_formation',
+        'relais',
         'telephone_relais',
        ];
 }

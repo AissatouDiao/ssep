@@ -1,12 +1,12 @@
 @component('mail::message')
-# Change password request
+# Requête changement de mot de passe.
 
-Click on the button below to change the password.
+Cliquez sur le bouton ci-dessous pour changer le mot de passe.
 
 @component('mail::button', ['url' => 'http://localhost:4200/response-password-reset?token='.$token->token ])
-Reset Password
+Changer mon mot de passe
 @endcomponent
 
-Thanks,<br>
+Bien à vous,<br>
 {{ config('app.name') }}
 @endcomponent

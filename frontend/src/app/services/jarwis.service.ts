@@ -882,11 +882,9 @@ export class JarwisService {
   importOrganisationFileToDatabase(data: any) {
     return this.http.post(`${this.baseUrl}/importOrganisationFileToDatabase`, data);
   }
-
   getOrganisations() {
     return this.http.get(`${this.baseUrl}/getOrganisations`);
   }
-
   ajouterOrganisation(data: object) {
     return this.http.post(`${this.baseUrl}/ajouterOrganisation`, data);
   }
@@ -914,6 +912,104 @@ export class JarwisService {
   }
   deleteAgreagequalite(data: any) {
     return this.http.delete(`${this.baseUrl}/deleteAgreagequalite/` + data);
+  }
+
+  //Formations
+  importFormationFileToDatabase(data: any) {
+    return this.http.post(`${this.baseUrl}/importFormationFileToDatabase`, data);
+  }
+  getFormations() {
+    return this.http.get(`${this.baseUrl}/getFormations`);
+  }
+  ajouterFormation(data: object) {
+    return this.http.post(`${this.baseUrl}/ajouterFormation`, data);
+  }
+  updateFormation(data: object) {
+    return this.http.post(`${this.baseUrl}/updateFormation`, data)
+  }
+  deleteFormation(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteFormation/` + data);
+  }
+  //Georeferencements
+  importGeoreferencementFileToDatabase(data: any) {
+    return this.http.post(`${this.baseUrl}/importGeoreferencementFileToDatabase`, data);
+  }
+  getGeoreferencements() {
+    return this.http.get(`${this.baseUrl}/getGeoreferencements`);
+  }
+  ajouterGeoreferencement(data: object) {
+    return this.http.post(`${this.baseUrl}/ajouterGeoreferencement`, data);
+  }
+  updateGeoreferencement(data: object) {
+    return this.http.post(`${this.baseUrl}/updateGeoreferencement`, data)
+  }
+  deleteGeoreferencement(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteGeoreferencement/` + data);
+  }
+  //Identifications
+  importIdentificationFileToDatabase(data: any) {
+    return this.http.post(`${this.baseUrl}/importIdentificationFileToDatabase`, data);
+  }
+  getIdentifications() {
+    return this.http.get(`${this.baseUrl}/getIdentifications`);
+  }
+  ajouterIdentification(data: object) {
+    return this.http.post(`${this.baseUrl}/ajouterIdentification`, data);
+  }
+  updateIdentification(data: object) {
+    return this.http.post(`${this.baseUrl}/updateIdentification`, data)
+  }
+  deleteIdentification(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteIdentification/` + data);
+  }
+  //Organisationaccompagnees
+  importOrganisationaccompagneeFileToDatabase(data: any) {
+    return this.http.post(`${this.baseUrl}/importOrganisationaccompagneeFileToDatabase`, data);
+  }
+  getOrganisationaccompagnees() {
+    return this.http.get(`${this.baseUrl}/getOrganisationaccompagnees`);
+  }
+  ajouterOrganisationaccompagnee(data: object) {
+    return this.http.post(`${this.baseUrl}/ajouterOrganisationaccompagnee`, data);
+  }
+  updateOrganisationaccompagnee(data: object) {
+    return this.http.post(`${this.baseUrl}/updateOrganisationaccompagnee`, data)
+  }
+  deleteOrganisationaccompagnee(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteOrganisationaccompagnee/` + data);
+  }
+  //Suiviproductions
+  importSuiviproductionFileToDatabase(data: any) {
+    return this.http.post(`${this.baseUrl}/importSuiviproductionFileToDatabase`, data);
+  }
+  getSuiviproductions() {
+    return this.http.get(`${this.baseUrl}/getSuiviproductions`);
+  }
+  ajouterSuiviproduction(data: object) {
+    return this.http.post(`${this.baseUrl}/ajouterSuiviproduction`, data);
+  }
+  updateSuiviproduction(data: object) {
+    return this.http.post(`${this.baseUrl}/updateSuiviproduction`, data)
+  }
+  deleteSuiviproduction(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteSuiviproduction/` + data);
+  }
+
+  //Transformations
+  importTransformationFileToDatabase(data: any) {
+    return this.http.post(`${this.baseUrl}/importTransformationFileToDatabase`, data);
+  }
+  getTransformations() {
+    return this.http.get(`${this.baseUrl}/getTransformations`);
+  }
+  ajouterTransformation(data: object) {
+    return this.http.post(`${this.baseUrl}/ajouterTransformation`, data);
+  }
+  updateTransformation(data: object) {
+    return this.http.post(`${this.baseUrl}/updateTransformation`, data)
+  }
+  deleteTransformation(data: any) {
+    return this.http.delete(`${this.baseUrl}/deleteTransformation/` + data);
   }
 
 

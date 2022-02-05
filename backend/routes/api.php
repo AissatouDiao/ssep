@@ -307,7 +307,48 @@ Route::group([
     Route::get('getAgreagequalites', [AgreagequaliteController::class,'getAgreagequalites']);
     Route::delete('deleteAgreagequalite/{id}',[AgreagequaliteController::class,'deleteAgreagequalite']);
     Route::post('updateAgreagequalite',[AgreagequaliteController::class,'updateAgreagequalite']);
-   
+    //Formations
+    Route::post('importFormationFileToDatabase',[FormationController::class,'importFormationFileToDatabase']);
+    Route::post('ajouterFormation',[FormationController::class,'ajouterFormation']);
+    Route::get('getFormations', [FormationController::class,'getFormations']);
+    Route::delete('deleteFormation/{id}',[FormationController::class,'deleteFormation']);
+    Route::post('updateFormation',[FormationController::class,'updateFormation']);
+    //Georeferencements
+    Route::post('importGeoreferencementFileToDatabase',[GeoreferencementController::class,'importGeoreferencementFileToDatabase']);
+    Route::post('ajouterGeoreferencement',[GeoreferencementController::class,'ajouterGeoreferencement']);
+    Route::get('getGeoreferencements', [GeoreferencementController::class,'getGeoreferencements']);
+    Route::delete('deleteGeoreferencement/{id}',[GeoreferencementController::class,'deleteGeoreferencement']);
+    Route::post('updateGeoreferencement',[GeoreferencementController::class,'updateGeoreferencement']);
+    //Identifications
+    Route::post('importIdentificationFileToDatabase',[IdentificationController::class,'importIdentificationFileToDatabase']);
+    Route::post('ajouterIdentification',[IdentificationController::class,'ajouterIdentification']);
+    Route::get('getIdentifications', [IdentificationController::class,'getIdentifications']);
+    Route::delete('deleteIdentification/{id}',[IdentificationController::class,'deleteIdentification']);
+    Route::post('updateIdentification',[IdentificationController::class,'updateIdentification']);
+    //Organisationaccompagnees
+    Route::post('importOrganisationaccompagneeFileToDatabase',[OrganisationaccompagneeController::class,'importOrganisationaccompagneeFileToDatabase']);
+    Route::post('ajouterOrganisationaccompagnee',[OrganisationaccompagneeController::class,'ajouterOrganisationaccompagnee']);
+    Route::get('getOrganisationaccompagnees', [OrganisationaccompagneeController::class,'getOrganisationaccompagnees']);
+    Route::delete('deleteOrganisationaccompagnee/{id}',[OrganisationaccompagneeController::class,'deleteOrganisationaccompagnee']);
+    Route::post('updateOrganisationaccompagnee',[OrganisationaccompagneeController::class,'updateOrganisationaccompagnee']);
+    //Suiviproductions
+    Route::post('importSuiviproductionFileToDatabase',[SuiviproductionController::class,'importSuiviproductionFileToDatabase']);
+    Route::post('ajouterSuiviproduction',[SuiviproductionController::class,'ajouterSuiviproduction']);
+    Route::get('getSuiviproductions', [SuiviproductionController::class,'getSuiviproductions']);
+    Route::delete('deleteSuiviproduction/{id}',[SuiviproductionController::class,'deleteSuiviproduction']);
+    Route::post('updateSuiviproduction',[SuiviproductionController::class,'updateSuiviproduction']);
+    //Organisations
+    Route::post('importOrganisationFileToDatabase',[OrganisationController::class,'importOrganisationFileToDatabase']);
+    Route::post('ajouterOrganisation',[OrganisationController::class,'ajouterOrganisation']);
+    Route::get('getOrganisations', [OrganisationController::class,'getOrganisations']);
+    Route::delete('deleteOrganisation/{id}',[OrganisationController::class,'deleteOrganisation']);
+    Route::post('updateOrganisation',[OrganisationController::class,'updateOrganisation']);
+    //Transformations
+    Route::post('importTransformationFileToDatabase',[TransformationController::class,'importTransformationFileToDatabase']);
+    Route::post('ajouterTransformation',[TransformationController::class,'ajouterTransformation']);
+    Route::get('getTransformations', [TransformationController::class,'getTransformations']);
+    Route::delete('deleteTransformation/{id}',[TransformationController::class,'deleteTransformation']);
+    Route::post('updateTransformation',[TransformationController::class,'updateTransformation']);
     //Indicateurs
     Route::post('addindicateur',[IndicateurController::class,'add']);
     Route::get('getindicateurs', [IndicateurController::class,'getindicateurs']);

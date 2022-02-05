@@ -33,6 +33,6 @@ class ResetPasswordMail extends Mailable
     {
         return $this->markdown('Email.passwordReset')->with([
             'token'=> $this->token
-            ]);
+        ]);
     }
 }
