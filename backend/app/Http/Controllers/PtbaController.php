@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Ptba;
 use Illuminate\Http\Request;
 use App\Models\Ptbapartenaire;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class PtbaController extends Controller
 {
+
     public function add(Request $request){
         Ptba::create($request->all());
         $lastRecordDate = Ptba::latest()->first();
@@ -103,23 +105,47 @@ class PtbaController extends Controller
     }
 
    public function getPourcentages(Request $request){
-
              $thepourcentages = DB::table('ptbapartenaires')
             ->where('ptba_id',$request->id)
             ->join('partenaires', 'partenaires.id', '=', 'ptbapartenaires.partenaire_id')
             ->select('partenaires.libelle', 'ptbapartenaires.budget')
             ->get();
             return $thepourcentages;
+    }
+
+   public function getPourcentagesParComposante( $request){
+     $thepourcentages = DB::table('composantes')
+    ->where('ptba_id',$request->id)
+    ->select('composantes.libelle', 'composantes.budget')
+    ->get();
+    return $thepourcentages; 
+    }
+
+    public function getCurrentOrLastPtba(){
+       // $currentdate = Carbon::now();
+        $currentyear = Carbon::now()->format('Y');
+        $currentyearinteger = (int)$currentyear;
+        $ptba=PTBA::where('annee',$currentyearinteger)->first();
+        if($ptba!=null){
+            return $ptba;
+        }
+  
+        if($ptba===null){
+            $lastptbabeforecurrentyear=PTBA::where('annee',$currentyearinteger-1)->first();
+            return $lastptbabeforecurrentyear ;
+        }else{
+            $lastRecordDate = Ptba::latest()->first();
+            $lastrecorddateptba=PTBA::where('annee',$lastRecordDate)->first();
+            return $lastrecorddateptba;
+        }
+        
+    }
+
+   public function getCurrentOrLastPtbaComposante(){
+    $ptba=$this->getCurrentOrLastPtba();
+    return $this->getPourcentagesParComposante($ptba);
+   
    }
-
-   public function getPourcentagesParComposante(Request $request){
-
-    $thepourcentages = DB::table('composantes')
-   ->where('ptba_id',$request->id)
-   ->select('composantes.libelle', 'composantes.budget')
-   ->get();
-   return $thepourcentages;
-}
 
 
 

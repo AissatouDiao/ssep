@@ -281,6 +281,11 @@ export class JarwisService {
   deletePtba(data: any) {
     return this.http.delete(`${this.baseUrl}/deletePtba/` + data);
   }
+
+  //getCurrentOrLastPtbaComposante
+  getCurrentOrLastPtbaComposante() {
+    return this.http.get(`${this.baseUrl}/getCurrentOrLastPtbaComposante`);
+  }
   //-------Composante--------//
   getComposantes() {
     return this.http.get(`${this.baseUrl}/getcomposantes`);

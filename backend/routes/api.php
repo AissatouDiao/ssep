@@ -138,6 +138,7 @@ Route::group([
     Route::delete('deletePtba/{id}',[PtbaController::class,'delete']);
     Route::post('updateptba',[PtbaController::class,'update']);
     Route::post('changestatutreptba',[PtbaController::class,'changeStatut']);
+    Route::get('getCurrentOrLastPtbaComposante', [PtbaController::class,'getCurrentOrLastPtbaComposante']);
     //Composante getComposantePartenaires
     Route::post('addcomposante',[ComposanteController::class,'add']);
     Route::get('getcomposantes', [ComposanteController::class,'getAll']);
