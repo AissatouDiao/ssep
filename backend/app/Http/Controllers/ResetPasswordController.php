@@ -29,17 +29,14 @@ class ResetPasswordController extends Controller
     }
 
     public function sendEmailAfterSignUpForPassword(){
-
-        
         //si l'email existe dans la BD, une réponse est envoyée
-        if($this->validateEmail($request->email)==false){
+        if($this->validateEmail($request->email)){
+            $this->sendAddPassswordMail($request->email); 
+            return $this->succesResponse();
+           
+        }else{
             return $this->failedResponse($request->email);
-  
-          }
-  
-          $this->sendAddPassswordMail($request->email); 
-          return $this->succesResponse();
-
+        }
     }
 
 

@@ -10,7 +10,7 @@ import { JarwisService } from 'src/app/services/jarwis.service';
 })
 export class ResponseResetComponent implements OnInit {
 
-
+  error1: any;
   public error: any = [];
 
   public form = {
@@ -61,8 +61,8 @@ export class ResponseResetComponent implements OnInit {
 
   }
 
-  handleError(error: any) {
-    this.error = error.error.errors;
+  handleError(error1: any) {
+    this.error1 = error1.error.error;
   }
 
 }

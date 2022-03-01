@@ -47,14 +47,16 @@ class ChangePasswordController extends Controller
     private function tokenNotFoundResponse()
     {
         return response()->json([
-            'error'=>'this mail or this token wasn\'t found in our database/ Or you have already used this link !']);
+            
+            'error'=>'Ce mail ou ce token n\'existe pas dans notre base de données / Ou vous avez déjà utilisé ce lien !'],401);
     }
 
   
     private function changePassword($request){
-        //recuperation de l'utilisatreur par mail
+       
+             //recuperation de l'utilisatreur par mail
         $user=User::whereEmail($request->email)->first();
-
+        
         //mis à jour du mot de passe de l'utilisateur
         $user->update(['password'=>$request->password]);
         
@@ -65,10 +67,13 @@ class ChangePasswordController extends Controller
         return response()->json([
             'data'=>'Password was successfuly changed'
         ],Response::HTTP_CREATED );
+      
+       
     }
 
 
     private function changePassword1($request){
+        if(!!User::where('email',$email)->first()){
         //recuperation de l'utilisatreur par mail
         $user=User::whereEmail($request->email)->first();
         //mis à jour du mot de passe de l'utilisateur
@@ -77,8 +82,9 @@ class ChangePasswordController extends Controller
         $this->getPasswordResetTableRow1($request)->delete();
         //reponse retourné sous format json
         return response()->json([
-            'data'=>'Password was successfuly changed'
+            'data'=>'Mot de passe ajouté avev succès !'
         ],Response::HTTP_CREATED );
+    }
     }
 
     //function for change the password
