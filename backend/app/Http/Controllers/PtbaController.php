@@ -111,12 +111,12 @@ class PtbaController extends Controller
             ->select('partenaires.libelle', 'ptbapartenaires.budget')
             ->get();
             return $thepourcentages;
-    }
+   }
 
    public function getPourcentagesParComposante( $request){
      $thepourcentages = DB::table('composantes')
     ->where('ptba_id',$request->id)
-    ->select('composantes.libelle', 'composantes.budget')
+    ->select('composantes.libelle', 'composantes.budget','composantes.pourcentage')
     ->get();
     return $thepourcentages; 
     }
@@ -129,7 +129,6 @@ class PtbaController extends Controller
         if($ptba!=null){
             return $ptba;
         }
-  
         if($ptba===null){
             $lastptbabeforecurrentyear=PTBA::where('annee',$currentyearinteger-1)->first();
             return $lastptbabeforecurrentyear ;
@@ -138,7 +137,6 @@ class PtbaController extends Controller
             $lastrecorddateptba=PTBA::where('annee',$lastRecordDate)->first();
             return $lastrecorddateptba;
         }
-        
     }
 
    public function getCurrentOrLastPtbaComposante(){
@@ -147,7 +145,10 @@ class PtbaController extends Controller
    
    }
 
-
+   public function getPourcentageOfComposanteForCurrentPtba($id){
+    $composantes=DB::table('composantes')->where('ptba_id',$id)->get();
+    return $composantes;
+   }
 
 
 }

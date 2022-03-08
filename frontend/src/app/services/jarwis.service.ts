@@ -282,9 +282,16 @@ export class JarwisService {
     return this.http.delete(`${this.baseUrl}/deletePtba/` + data);
   }
 
-  //getCurrentOrLastPtbaComposante
+  //getCurrentOrLastPtbaComposante 
   getCurrentOrLastPtbaComposante() {
     return this.http.get(`${this.baseUrl}/getCurrentOrLastPtbaComposante`);
+  }
+  getCurrentOrLastPtba() {
+    return this.http.get(`${this.baseUrl}/getCurrentOrLastPtba`);
+  }
+  //getPourcentageOfComposanteForCurrentPtba
+  getPourcentageOfComposanteForCurrentPtba(data: any) {
+    return this.http.get(`${this.baseUrl}/getPourcentageOfComposanteForCurrentPtba/` + data);
   }
   //-------Composante--------//
   getComposantes() {
