@@ -26,6 +26,8 @@ class Piste extends Model
       'commune_id',
       'nom',
       'kilometrage',
-      'coordonnees'
+      'coordonnees',
+      'pourcentagephysique',
+      'pourcentagefinancier'
     ];
 }

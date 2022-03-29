@@ -95,4 +95,9 @@ class PartagedocumentController extends Controller
         return $partagedocuments;
     }
 
+
+    public function getNumberDocuments(){
+        $documentsnombre= Partagedocument::all()->count();
+        return $documentsnombre;
+    }
 }

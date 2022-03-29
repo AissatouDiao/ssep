@@ -139,4 +139,9 @@ class PassationmarcheController extends Controller
         $passationpropositions=Passationproposition::all();
         return $passationpropositions;
     }
+
+    public function getNumberPassations(){
+        $passationsnombre= Passationmarche::all()->count();
+        return $passationsnombre;
+    }
 }

@@ -17,6 +17,11 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getCurrentOrLastPtba();
     this.getPourcentageComposantePtba();
+    this.getNumberPartenaires();
+    this.getNumberEvaluations();
+    this.getNumberPassations();
+    this.getNumberDocuments();
+    this.getPistes();
   }
 
   doughnutChartLabels: Label[] = ['En chargement'];
@@ -27,13 +32,42 @@ export class DashboardComponent implements OnInit {
     responsive: true,
   };
   barChartLabels: Label[] = ['Pata', 'Mbeuleup', 'Kounlinto', 'Dinguiraye', 'Bambaly'];
+  barChartLabels1: Label[] = ['Pata', 'Mbeuleup', 'Kounlinto', 'Dinguiraye', 'Bambaly'];
   barChartType: ChartType = 'bar';
   barChartLegend = true;
   barChartPlugins = [];
 
   barChartData: ChartDataSets[] = [
-    { data: [45, 37, 60, 70, 46, 33], label: 'Avancement travaux pistes' }
+    { data: [45, 37, 60, 200, 46, 33], label: 'Avancement travaux pistes' }
   ];
+  barChartData1: ChartDataSets[] = [
+    { data: [45, 37, 60, 200, 46, 33], label: 'Avancement travaux pistes' }
+  ];
+  pistes: any; pourcentagepiste_p: any = []; pourcentagepiste_f: any = []; pistesname: any = [];
+  //Recupérer toutes les regions.
+  getPistes() {
+    let p: any
+    this.jarwisService.getPistes().subscribe(
+      (data: any) => {
+        console.log(data); this.pistes = data;
+        data.forEach((d: any) => {
+          this.pourcentagepiste_p.push(d.pourcentagephysique);
+          this.pourcentagepiste_f.push(d.pourcentagefinancier);
+          this.pistesname.push(d.nom);
+        });
+        //localStorage.setItem('pistes', JSON.stringify(this.pistes))
+        this.barChartData = [
+          { data: this.pourcentagepiste_p, label: 'Avancement Physique Travaux Pistes.' }
+        ];
+        this.barChartData1 = [
+          { data: this.pourcentagepiste_f, label: 'Avancement Financier Travaux Pistes.' }
+        ];
+        this.barChartLabels = this.pistesname;
+      },
+      (error: any) => console.log(error)
+    );
+
+  }
 
   getPourcentageComposantePtba() {
     let tableau_pourcentage: any[] = [];
@@ -68,6 +102,36 @@ export class DashboardComponent implements OnInit {
   getPourcentageOfComposanteForCurrentPtba(id: any) {
     this.jarwisService.getPourcentageOfComposanteForCurrentPtba(id).subscribe(
       (data: any) => { console.log(data); },
+      (error: any) => { console.log(error); }
+    );
+  }
+
+  partenaires: any;
+  getNumberPartenaires() {
+    this.jarwisService.getNumberPartenaires().subscribe(
+      (data: any) => { console.log(data); this.partenaires = data; },
+      (error: any) => { console.log(error); }
+    );
+  }
+
+  evaluations: any;
+  getNumberEvaluations() {
+    this.jarwisService.getNumberEvaluations().subscribe(
+      (data: any) => { console.log(data); this.evaluations = data; },
+      (error: any) => { console.log(error); }
+    );
+  }
+  passations: any;
+  getNumberPassations() {
+    this.jarwisService.getNumberPassations().subscribe(
+      (data: any) => { console.log(data); this.passations = data; },
+      (error: any) => { console.log(error); }
+    );
+  }
+  documents: any;
+  getNumberDocuments() {
+    this.jarwisService.getNumberDocuments().subscribe(
+      (data: any) => { console.log(data); this.documents = data; },
       (error: any) => { console.log(error); }
     );
   }

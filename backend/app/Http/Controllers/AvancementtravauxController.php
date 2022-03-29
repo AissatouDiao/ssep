@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Piste;
 use Illuminate\Http\Request;
 use App\Models\Pistetravauxavancement;
 
@@ -33,7 +34,9 @@ class AvancementtravauxController extends Controller
         $reste_f= 100 - $pourcentagetotal_f;
         if((($pourcentagetotal_p<100) and ($pourcentagetotal_f<100)) and (($reste_p >= $request->p_physique)and($reste_f>=$request->p_financier))){
             Pistetravauxavancement::create($request->all());
-            
+            $piste= Piste::where('id',$request->piste_id)->first();
+            $piste->pourcentagephysique=$request->p_physique;
+            $piste->pourcentagefinancier=$request->p_financier;
             return response()->json([
                 "message"=>"Un nouvel avancement a été ajouté !",
             ]);

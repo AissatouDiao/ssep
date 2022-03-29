@@ -8,7 +8,7 @@
                             <i class="material-icons">work</i>
                         </div>
 
-                        <h2 class="card-title text-warning float-left">45</h2>
+                        <h2 class="card-title text-warning float-left">{{partenaires}}</h2>
                         <p class="card-category">Partenaires</p>
                     </div>
                     <div class="card-footer">
@@ -26,7 +26,7 @@
                             <i class="material-icons">fact_check</i>
                         </div>
 
-                        <h2 class="card-title text-dark float-left">50</h2>
+                        <h2 class="card-title text-dark float-left">{{evaluations}}</h2>
                         <p class="card-category">Evaluations</p>
                     </div>
                     <div class="card-footer">
@@ -44,7 +44,7 @@
                             <i class="material-icons">receipt_long</i>
                         </div>
 
-                        <h2 class="card-title text-info float-left">75</h2>
+                        <h2 class="card-title text-info float-left">{{passations}}</h2>
                         <p class="card-category">Passations </p>
                     </div>
                     <div class="card-footer">
@@ -62,7 +62,7 @@
                             <i class="material-icons">note_add</i>
                         </div>
 
-                        <h2 class="card-title text-primary float-left">24</h2>
+                        <h2 class="card-title text-primary float-left">{{documents}}</h2>
                         <p class="card-category">Documents</p>
                     </div>
                     <div class="card-footer">
@@ -92,44 +92,40 @@
                             Recommandation 3<span class="badge badge-primary badge-pill">12%</span>
                         </li>
                     </ul>
-                </div>
-            </div>
+                 </div>
+               </div>
             -->
             <div class="col-6">
-                <div class="s">
-                    <div class="card">
-                        <div class="chart-wrapper">
-                            <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
-                      </canvas>
-                        </div>
+                <div class="card">
+                    <div class="chart-wrapper mb-2">
+                        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+                        </canvas>
                     </div>
                 </div>
             </div>
             <div class="col-6">
-                <div class="card border-primary col-12"><br>
-                    <h3 class="h5 text-center border text-capitalize card text-white  simple-text bg-primary mb-3">{{ptba.libelle}}</h3>
-                    <div class="chart-wrapper">
-                        <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
-                      </canvas>
-                    </div>
-                    <div>
-                        <ng-container *ngFor="let c of composantes">
-
-
-
-                            {{c.libelle}}
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped" role="progressbar" attr.style="width: {{c.pourcentage}}%" aria-valuenow="{{c.pourcentage}}" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-
-                        </ng-container><br>
+                <div class="card">
+                    <div class="chart-wrapper mb-2">
+                        <canvas baseChart [datasets]="barChartData1" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+                        </canvas>
                     </div>
                 </div>
             </div>
-
-
-
-
+            <div class="card border-primary col-12"><br>
+                <h3 class="h5 text-center border text-capitalize card text-white  simple-text bg-primary mb-3">{{ptba.libelle}}</h3>
+                <div class="chart-wrapper">
+                    <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
+                  </canvas>
+                </div>
+                <div>
+                    <ng-container *ngFor="let c of composantes">
+                        {{c.libelle}}
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped" role="progressbar" attr.style="width: {{c.pourcentage}}%" aria-valuenow="{{c.pourcentage}}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </ng-container><br>
+                </div>
+            </div>
         </div>
 
         <!-- <div class="row">
@@ -182,8 +178,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
+          </div>
+          <div class="row">
             <div class="col-lg-6 col-md-12">
                 <div class="card">
                     <div class="card-header card-header-tabs card-header-primary">
@@ -473,7 +469,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+         </div>
         -->
     </div>
 </div>

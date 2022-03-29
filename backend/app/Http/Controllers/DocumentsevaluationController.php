@@ -93,4 +93,9 @@ class DocumentsevaluationController extends Controller
         $evaluations=Documentsevaluation::all();
         return $evaluations;
     }
+
+    public function getNumberEvaluations(){
+        $evaluationsnombre= Documentsevaluation::all()->count();
+        return $evaluationsnombre;
+    }
 }

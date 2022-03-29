@@ -47,7 +47,7 @@ class PartenaireController extends Controller
             "Partenaire"=>$Partenaire
        ]);
 
-    }
+    }   
 
     public function updatePartenaireApport($request){
         $Partenaire=Partenaire::find($request->id);
@@ -72,7 +72,11 @@ class PartenaireController extends Controller
        ->select('ptbas.libelle', 'ptbapartenaires.budget')
        ->get();
        return $thepourcentages;
-}
+    }
 
+    public function getNumberPartenaires(){
+        $partenairesnombre= Partenaire::all()->count();
+        return $partenairesnombre;
+    }
 
 }

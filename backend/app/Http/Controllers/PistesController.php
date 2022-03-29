@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use id;
 use App\Models\Piste;
 use Illuminate\Http\Request;
+use App\Models\Pistetravauxavancement;
 
 class PistesController extends Controller
 {
     public function getPistes(Request $request){
 
         $pistes= Piste::all();
+        foreach ($pistes as $p) {
+           $this->addpourcentagetopiste($p);
+        }
         return $pistes;
     }
 
@@ -53,4 +58,14 @@ class PistesController extends Controller
 
     }
 
+    public function addpourcentagetopiste($request){
+        $pourcentagetotal_p= Pistetravauxavancement::where('piste_id',$request->id)->sum('p_physique');
+        $pourcentagetotal_f= Pistetravauxavancement::where('piste_id',$request->id)->sum('p_financier');
+        $piste=Piste::where('id',$request->id)->first();
+        $piste->pourcentagephysique=$pourcentagetotal_p;
+        $piste->pourcentagefinancier=$pourcentagetotal_f;
+        $piste->save();
+    }
+
+    
 }

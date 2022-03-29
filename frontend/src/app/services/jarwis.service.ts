@@ -179,9 +179,13 @@ export class JarwisService {
 
   //-----Recommandation tache fin---------//
 
-  //Recuperer tous les documents partagés dans la base de données
+  //Recuperer tous les documents partagés dans la base de données 
   getDocuments() {
     return this.http.get(`${this.baseUrl}/getdocuments`);
+  }
+  //Récupérer nombre de documents enregistrés.
+  getNumberDocuments() {
+    return this.http.get(`${this.baseUrl}/getNumberDocuments`);
   }
   //Ajouter un nouveau document
   addDocument(data: object) {
@@ -201,6 +205,11 @@ export class JarwisService {
   getEvaluations() {
     return this.http.get(`${this.baseUrl}/getevaluations`);
   }
+
+  //Recuperer le nombre d'évaluations enregistrés
+  getNumberEvaluations() {
+    return this.http.get(`${this.baseUrl}/getNumberEvaluations`);
+  }
   //Ajouter un nouveau evaluation
   addEvaluation(data: object) {
     return this.http.post(`${this.baseUrl}/addevaluation`, data, { responseType: 'json' });
@@ -218,6 +227,11 @@ export class JarwisService {
   //Recuperer tous les evaluations partagés dans la base de données
   getPartenaires() {
     return this.http.get(`${this.baseUrl}/getpartenaires`);
+  }
+
+  //Recuperer nombre total parteanaire
+  getNumberPartenaires() {
+    return this.http.get(`${this.baseUrl}/getNumberPartenaires`);
   }
   //Ajouter un nouveau partenaire
   addPartenaire(data: object) {
@@ -429,9 +443,12 @@ export class JarwisService {
 
   //------Passation marché------//
 
-  //Recuperer tous les evaluations partagés dans la base de données
+  //Recuperer tous les evaluations partagés dans la base de données 
   getPassations() {
     return this.http.get(`${this.baseUrl}/getpassationmarches`);
+  }
+  getNumberPassations() {
+    return this.http.get(`${this.baseUrl}/getNumberPassations`);
   }
   //Ajouter un nouveau partenaire
   addPassation(data: object) {

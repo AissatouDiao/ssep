@@ -96,7 +96,7 @@ Route::group([
     Route::post('updateuserrole',[UserController::class,'updateRoleUser']);
     Route::post('updateuserprofile',[UserController::class,'updateProfileUser']);
     Route::post('changepasswordprofile',[ChangePasswordController::class,'changePasswordProfile']);
-    //Recommandations
+    //Recommandations 
     Route::post('addrecommandation',[RecommandationController::class,'add']);
     Route::get('getrecommandations', [RecommandationController::class,'getRecommandations']);
     Route::post('getrecommandationsbyevaluationsid', [RecommandationController::class,'getRecommandationsByEvaluationId']);
@@ -110,19 +110,22 @@ Route::group([
     Route::delete('deleteRecommandationTache/{id}',[RecommandationtacheController::class,'delete']);
     Route::post('updaterecommandationtache',[RecommandationtacheController::class,'update']); 
    // Route::post('changestatutrecommandationtache',[RecommandationtacheController::class,'changeStatut']);
-   //Partagedocuments
+   //Partagedocuments 
     Route::post('adddocument',[PartagedocumentController::class,'add']);
+    Route::get('getNumberDocuments', [PartagedocumentController::class,'getNumberDocuments']);
     Route::get('getdocuments', [PartagedocumentController::class,'getDocumentpartages']);
     Route::delete('deleteDocument/{id}',[PartagedocumentController::class,'delete']);
     Route::post('updatedocument',[PartagedocumentController::class,'update']); 
-   //Evaluations
+   //Evaluations getNumberEvaluations
     Route::post('addevaluation',[DocumentsevaluationController::class,'add']);
     Route::get('getevaluations', [DocumentsevaluationController::class,'getEvaluations']);
+    Route::get('getNumberEvaluations', [DocumentsevaluationController::class,'getNumberEvaluations']);
     Route::delete('deleteEvaluation/{id}',[DocumentsevaluationController::class,'delete']);
     Route::post('updateevaluation',[DocumentsevaluationController::class,'update']); 
     //Partenaires
     Route::post('addpartenaire',[PartenaireController::class,'ajouterPartenaire']);
     Route::get('getpartenaires', [PartenaireController::class,'getPartenaires']);
+    Route::get('getNumberPartenaires', [PartenaireController::class,'getNumberPartenaires']);
     Route::delete('deletePartenaire/{id}',[PartenaireController::class,'deletePartenaire']);
     Route::post('updatepartenaire',[PartenaireController::class,'updatePartenaire']); 
     Route::post('updatepartenaireapport',[PartenaireController::class,'updatePartenaireApport']);
@@ -181,9 +184,10 @@ Route::group([
     Route::post('getptbabudgettotal',[CalculBudgetsController::class,'getptbabudgettotal']);
     Route::post('getpartenairesactivites',[CalculBudgetsController::class,'getpartenairesactivites']);   
     Route::post('test',[CalculBudgetsController::class,'getpartenairesacomposantes']);
-    //Passation de marchés addproposition
+    //Passation de marchés addproposition getNumberPassations
     Route::post('addpassationmarche',[PassationmarcheController::class,'add']);
     Route::get('getpassationmarches', [PassationmarcheController::class,'getPassationmarches']);
+    Route::get('getNumberPassations', [PassationmarcheController::class,'getNumberPassations']);
     Route::delete('deletepassation/{id}',[PassationmarcheController::class,'delete']);
     Route::post('updatepassationmarche',[PassationmarcheController::class,'update']); 
     Route::post('changestatutpassation',[PassationmarcheController::class,'changeStatut']);
