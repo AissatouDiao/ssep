@@ -237,6 +237,7 @@ Route::group([
     Route::post('addcommune',[CommuneController::class,'add']);
     Route::get('getcommunes', [CommuneController::class,'getCommunes']);
     Route::delete('deleteCommune/{id}',[CommuneController::class,'delete']);
+    Route::get('getCommuneRegionById/{id}',[CommuneController::class,'getCommuneRegionById']);
     Route::get('getCommuneById/{id}',[CommuneController::class,'getCommuneById']);
     Route::post('updatecommune',[CommuneController::class,'update']);
     //Prealables Commune
@@ -293,6 +294,7 @@ Route::group([
     Route::get('getpistes', [PistesController::class,'getPistes']);
     Route::delete('deletepiste/{id}',[PistesController::class,'deletePiste']);
     Route::get('getPisteByCommuneId/{id}',[PistesController::class,'getPisteByCommuneId']);
+
     Route::get('getPisteById/{id}',[PistesController::class,'getPisteById']);
     Route::post('updatepiste',[PistesController::class,'updatePiste']); 
     //Gestion des avancements de travaux pistes bavardes 

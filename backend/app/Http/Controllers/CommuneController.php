@@ -31,6 +31,11 @@ class CommuneController extends Controller
         $commune->delete();
         return response()->json(["data" => "suppression effective!"]);
     }
+    public function getCommuneRegionById( $request){
+        $communebyid= Commune::where('region_id',$request)->get();
+        return $communebyid; 
+    }
+
     public function getCommuneById( $request){
         $commune= Commune::find($request);
         return $commune; 

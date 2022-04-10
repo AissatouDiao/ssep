@@ -1,20 +1,10 @@
-<div class="row">
-    <nav aria-label=" col-12">
-        <ol class="breadcrumb">
-            <i class="material-icons pr-1 ">map</i>
-            <li class="breadcrumb-item">
-                <p class=""> Gestion des pistes bavardes</p>
-            </li>
-            <li class="breadcrumb-item">Travaux</li>
-            <li class="breadcrumb-item">Regions</li>
-            <li class="breadcrumb-item">Communes</li>
-            <li class="breadcrumb-item">Execution de marché</li>
-            <li class="breadcrumb-item text-primary active" aria-current="page">{{piste.nom}}</li>
-        </ol>
-    </nav><br>
+<div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+    <div class="card-header"><i class="material-icons pr-1 ">map</i></div>
+    <div class="card-body">
+        <h2 class="card-title">Mbeuleup</h2>
+        <p class="card-text">Exécution marché : Pistes Avancement travaux</p>
+    </div>
 </div>
-
-
 <div class="row">
     <div class="col-sm-6">
         <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
@@ -74,9 +64,49 @@
     </tbody>
 </table><br>
 
-<ng-container *ngFor="let m of mois">
-    <ng-container *ngFor="let a of avancements">
-        <td *ngIf="a.mois_id==m.id">
+<div>
+    <ng-container *ngFor="let m of mois">
+        <ng-container *ngFor="let a of avancements">
+            <td *ngIf="a.mois_id==m.id">
+                <!-- Modal Avancement ajout -->
+                <div class="modal fade" id="m{{m.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content card">
+                            <div class="modal-header">
+                                <div class="card-header card-header-danger">
+                                    <h5 class="modal-title card-title" id="exampleModalLabel">Ajout d'avancement</h5>
+                                </div>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="" #avancementmodifForm=ngForm (ngSubmit)="updateAvancement(a)">
+                                    <label class="form-label" for="mois">Choisissez le mois</label>
+                                    <select name="mois1" id="mois" class="form-select" [(ngModel)]="a.mois_id" required disabled>
+                                <ng-container *ngFor="let m of mois">
+                                            <option value={{m.id}} >{{m.mois}}</option>
+                                </ng-container>
+                            </select><br>
+
+                                    <label class="form-label" for="p_physique">Ajouter pourcentage physique</label>
+                                    <input type="number" class="form-control" min="0" max="100" name="p_physique1" [(ngModel)]="a.p_physique" required><br>
+                                    <label class="form-label" for="p_financier">Ajouter pourcentage financier</label>
+                                    <input type="number" class="form-control" min="0" max="100" name="p_financier1" [(ngModel)]="a.p_financier" required><br>
+
+                                    <div class="modal-footer">
+                                        <button class="btn btn-danger" [disabled]="!avancementmodifForm.valid">Enregistrer</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Avancement ajout-->
+            </td>
+        </ng-container>
+        <td>
             <!-- Modal Avancement ajout -->
             <div class="modal fade" id="m{{m.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -86,25 +116,23 @@
                                 <h5 class="modal-title card-title" id="exampleModalLabel">Ajout d'avancement</h5>
                             </div>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                         </div>
                         <div class="modal-body">
-                            <form action="" #avancementmodifForm=ngForm (ngSubmit)="updateAvancement(a)">
-                                <label class="form-label" for="mois">Choisissez le mois</label>
-                                <select name="mois1" id="mois" class="form-select" [(ngModel)]="a.mois_id" required disabled>
-                                <ng-container *ngFor="let m of mois">
-                                            <option value={{m.id}} >{{m.mois}}</option>
-                                </ng-container>
-                            </select><br>
+                            <form #avancementForm=ngForm (ngSubmit)="addAvancement()">
 
+                                <input type="number" id="avancementmoisid" name="mois_id" value={{m.id}} hidden>
+                                <div class="alert alert-primary text-center" role="alert">
+                                    {{m.mois}}
+                                </div>
                                 <label class="form-label" for="p_physique">Ajouter pourcentage physique</label>
-                                <input type="number" class="form-control" min="0" max="100" name="p_physique1" [(ngModel)]="a.p_physique" required><br>
+                                <input type="number" class="form-control" min="0" max="100" name="p_physique" [(ngModel)]="avancement.p_physique" required><br>
                                 <label class="form-label" for="p_financier">Ajouter pourcentage financier</label>
-                                <input type="number" class="form-control" min="0" max="100" name="p_financier1" [(ngModel)]="a.p_financier" required><br>
+                                <input type="number" class="form-control" min="0" max="100" name="p_financier" [(ngModel)]="avancement.p_financier" required><br>
 
                                 <div class="modal-footer">
-                                    <button class="btn btn-danger" [disabled]="!avancementmodifForm.valid">Enregistrer</button>
+                                    <button class="btn btn-danger" [disabled]="!avancementForm.valid">Enregistrer</button>
                                 </div>
                             </form>
                         </div>
@@ -115,44 +143,7 @@
             <!-- Modal Avancement ajout-->
         </td>
     </ng-container>
-    <td>
-        <!-- Modal Avancement ajout -->
-        <div class="modal fade" id="m{{m.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content card">
-                    <div class="modal-header">
-                        <div class="card-header card-header-danger">
-                            <h5 class="modal-title card-title" id="exampleModalLabel">Ajout d'avancement</h5>
-                        </div>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    </div>
-                    <div class="modal-body">
-                        <form #avancementForm=ngForm (ngSubmit)="addAvancement()">
-
-                            <input type="number" id="avancementmoisid" name="mois_id" value={{m.id}} hidden>
-                            <div class="alert alert-primary text-center" role="alert">
-                                {{m.mois}}
-                            </div>
-                            <label class="form-label" for="p_physique">Ajouter pourcentage physique</label>
-                            <input type="number" class="form-control" min="0" max="100" name="p_physique" [(ngModel)]="avancement.p_physique" required><br>
-                            <label class="form-label" for="p_financier">Ajouter pourcentage financier</label>
-                            <input type="number" class="form-control" min="0" max="100" name="p_financier" [(ngModel)]="avancement.p_financier" required><br>
-
-                            <div class="modal-footer">
-                                <button class="btn btn-danger" [disabled]="!avancementForm.valid">Enregistrer</button>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <!-- Modal Avancement ajout-->
-    </td>
-</ng-container>
-
+</div>
 
 
 <!-- <button class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModalp">Ajouter Avancement</button>

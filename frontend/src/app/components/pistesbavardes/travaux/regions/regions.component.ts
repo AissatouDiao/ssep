@@ -35,13 +35,22 @@ export class RegionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getID();
-    this.getCommunes();
+    this.getrCommunes();
   }
 
   //Recupérer toutes les communes.  
   getCommunes() {
     this.jarwisService.getCommunes().subscribe(
-      data => { console.log(data); this.communes = data },
+      data => { console.log(data); },
+      error => console.log(error)
+    );
+  }
+
+  getrCommunes() {
+    let monid = this.getID();
+    console.log(monid);
+    this.jarwisService.getCommuneRegionById(monid).subscribe(
+      data => { console.log(data); this.communes = data; },
       error => console.log(error)
     );
   }
@@ -112,7 +121,7 @@ export class RegionsComponent implements OnInit {
   getID() {
     this.idregion = this.route.snapshot.paramMap.get('id');
     this.getRegionById(this.idregion);
-
+    return this.idregion;
   }
 
 

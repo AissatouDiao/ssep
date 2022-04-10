@@ -107,7 +107,7 @@ export class GestionpistesComponent implements OnInit {
     const view = new MapView({
       map: map,
       center: [-14.452362, 14.497401], // Longitude, latitude
-      zoom: 7.5, // Zoom level
+      zoom: 8, // Zoom level
       container: this.viewDivElement.nativeElement// Div element
     });
 

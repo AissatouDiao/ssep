@@ -671,6 +671,10 @@ export class JarwisService {
     return this.http.get(`${this.baseUrl}/getCommuneById/` + data);
   }
 
+  getCommuneRegionById(data: any) {
+    return this.http.get(`${this.baseUrl}/getCommuneRegionById/` + data);
+  }
+
   //---------------------- Prealables communes -----------------------------//
   //Recuperer tous les evaluations partagés dans la base de données
   getPrealableCommunes() {

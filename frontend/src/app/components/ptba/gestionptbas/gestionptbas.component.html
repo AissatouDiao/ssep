@@ -1,13 +1,16 @@
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <i class="material-icons pr-1">event</i>
+    <ol class="breadcrumb ">
+        <i class="material-icons pr-1 ">event</i>
         <li class="breadcrumb-item">
-            <p class=""> Gestion PTBA</p>
+            <a routerLink="/gestion-ptba" class="text-dark">
+                <p class=""> Gestion PTBA</p>
+            </a>
         </li>
-        <li class="breadcrumb-item text-primary active" aria-current="page">PTBAs</li>
+        <li class="breadcrumb-item text-primary active" aria-current="page">
+            PTBAs
+        </li>
     </ol>
 </nav>
-
 <div class="navbar-form" class="col-6 float-right">
     <div class="input-group no-border">
         <input type="text" name="search" [(ngModel)]="searchText" autocomplete="off" class="form-control" placeholder="Rechercher...">
