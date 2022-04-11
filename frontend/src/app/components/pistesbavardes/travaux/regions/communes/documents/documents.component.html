@@ -1,4 +1,4 @@
-<div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+<div class="card text-white bg-primary mb-3" style="max-width: 18rem;cursor:pointer" (click)="goback()">
     <div class="card-header"><i class="material-icons pr-1 ">map</i></div>
     <div class="card-body">
         <h2 class="card-title">Mbeuleup</h2>
@@ -15,7 +15,7 @@
             <div class="card-body table-responsive">
                 <div class="navbar-form" class="col-6 float-right">
                     <div class="input-group no-border">
-                        <input type="text" name="search" autocomplete="off" class="form-control" placeholder="Rechercher...">
+                        <input type="text" name="search1" [(ngModel)]="searchText1" autocomplete="off" class="form-control" placeholder="Rechercher...">
                         <button type="submit" class="btn btn-white btn-round btn-just-icon">
                             <i class="material-icons">search</i>
                             <div class="ripple-container"></div>
@@ -30,7 +30,7 @@
                         <th>Options</th>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let p of prealables">
+                        <tr *ngFor="let p of prealables |slice: (page1-1)*pageSize1:page1*pageSize1 | searchFilter:searchText1">
                             <ng-container *ngIf="p.commune_id==idcommune">
 
                                 <td>{{p.id}}</td>
@@ -95,6 +95,11 @@
 
                     </tbody>
                 </table>
+                <div class="pb-5">
+                    <ngb-pagination [maxSize]="8" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [(page)]="page1" currentPage="1" [pageSize]="pageSize1" [collectionSize]="prealables.length" class="active">
+                    </ngb-pagination>
+                    <div class="col-3 float-right">Pagination par : <input type="number" class="form-control" [(ngModel)]="pageSize1" min=8/></div>
+                </div><br>
                 <button class="btn btn-info" data-toggle="modal" data-target="#exampleModalp">Ajouter Préalable</button>
                 <!-- Modal prealable ajout -->
 
@@ -149,7 +154,7 @@
             <div class="card-body table-responsive">
                 <div class="navbar-form" class="col-6 float-right">
                     <div class="input-group no-border">
-                        <input type="text" name="search" autocomplete="off" class="form-control" placeholder="Rechercher...">
+                        <input type="text" name="search2" [(ngModel)]="searchText2" autocomplete="off" class="form-control" placeholder="Rechercher...">
                         <button type="submit" class="btn btn-white btn-round btn-just-icon">
                             <i class="material-icons">search</i>
                             <div class="ripple-container"></div>
@@ -164,7 +169,7 @@
                         <th>Options</th>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let l of lancements">
+                        <tr *ngFor="let l of lancements |slice: (page2-1)*pageSize2:page2*pageSize2 | searchFilter:searchText2">
                             <ng-container *ngIf="l.commune_id==idcommune">
 
                                 <td>{{l.id}}</td>
@@ -227,6 +232,11 @@
                         </tr>
                     </tbody>
                 </table>
+                <div class="pb-5">
+                    <ngb-pagination [maxSize]="8" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [(page)]="page2" currentPage="1" [pageSize]="pageSize2" [collectionSize]="lancements.length" class="active">
+                    </ngb-pagination>
+                    <div class="col-3 float-right">Pagination par : <input type="number" class="form-control" [(ngModel)]="pageSize2" min=8/></div>
+                </div><br>
                 <button class="btn btn-warning" data-toggle="modal" data-target="#exampleModalr">Ajouter lancement de procédure</button>
                 <!-- Modal rapport ajout -->
 
@@ -284,7 +294,7 @@
             <div class="card-body table-responsive">
                 <div class="navbar-form" class="col-6 float-right">
                     <div class="input-group no-border">
-                        <input type="text" name="search" autocomplete="off" class="form-control" placeholder="Rechercher...">
+                        <input type="text" name="search3" [(ngModel)]="searchText3" autocomplete="off" class="form-control" placeholder="Rechercher...">
                         <button type="submit" class="btn btn-white btn-round btn-just-icon">
                             <i class="material-icons">search</i>
                             <div class="ripple-container"></div>
@@ -299,7 +309,7 @@
                         <th>Options</th>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let e of evaluations">
+                        <tr *ngFor="let e of evaluations |slice: (page3-1)*pageSize3:page3*pageSize3 | searchFilter:searchText3">
                             <ng-container *ngIf="e.commune_id==idcommune">
                                 <td>{{e.id}}</td>
                                 <td>{{e.libelle}}</td>
@@ -359,9 +369,13 @@
                                 <!--Fin modal rapport modifier -->
                             </ng-container>
                         </tr>
-
                     </tbody>
                 </table>
+                <div class="pb-5">
+                    <ngb-pagination [maxSize]="8" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [(page)]="page3" currentPage="1" [pageSize]="pageSize3" [collectionSize]="evaluations.length" class="active">
+                    </ngb-pagination>
+                    <div class="col-3 float-right">Pagination par : <input type="number" class="form-control" [(ngModel)]="pageSize3" min=8/></div>
+                </div><br>
                 <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalpv">Ajouter évalution de procédure</button>
                 <!-- Modal evaluation de procedure ajout -->
 

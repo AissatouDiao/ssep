@@ -11,7 +11,7 @@ import { JarwisService, } from 'src/app/services/jarwis.service';
 export class RegionsComponent implements OnInit {
 
   @Input() page: any = 1;
-  @Input() pageSize: any = 5;
+  @Input() pageSize: any = 8;
   searchText: any; searchFilter: any = '';
 
   @ViewChild('communeForm')

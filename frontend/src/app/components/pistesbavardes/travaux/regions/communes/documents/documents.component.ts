@@ -1,14 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SnotifyPosition, SnotifyService } from 'ng-snotify';
 import { JarwisService } from 'src/app/services/jarwis.service';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.component.html',
   styleUrls: ['./documents.component.scss']
 })
 export class Documents1Component implements OnInit {
+  @Input() page1: any = 1;
+  @Input() pageSize1: any = 10;
+  searchText1: any; searchFilter1: any = '';
+
+  @Input() page2: any = 1;
+  @Input() pageSize2: any = 10;
+  searchText2: any; searchFilter2: any = '';
+
+  @Input() page3: any = 1;
+  @Input() pageSize3: any = 10;
+  searchText3: any; searchFilter3: any = '';
+
+  goback() {
+    this.location.back();
+  }
+
   prealables: any; idcommune: any; lancements: any; procedure: any; evaluations: any;
   prealable = {
     libelle: <any>null,
@@ -31,7 +47,8 @@ export class Documents1Component implements OnInit {
   constructor(
     private jarwisService: JarwisService,
     private notify: SnotifyService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) { }
 
   ngOnInit(): void {

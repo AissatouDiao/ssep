@@ -32,7 +32,7 @@
 
 
 <div class="row">
-    <div class="col-3" *ngFor="let c of communes | searchFilter:searchText">
+    <div class="col-3" *ngFor="let c of communes |slice: (page-1)*pageSize:page*pageSize | searchFilter:searchText">
 
         <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
             <div class="card-header  text-primary bg-white float-left">{{region.libelle}}</div>
@@ -89,8 +89,11 @@
 
     </div>
 </div>
-
-
+<div class="pb-5">
+    <ngb-pagination [maxSize]="8" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="communes.length" class="active">
+    </ngb-pagination>
+    <div class="col-3 float-right">Pagination par : <input type="number" class="form-control" [(ngModel)]="pageSize" min=8/></div>
+</div><br>
 <button class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Nouvelle commune</button>
 
 <!-- Modal ajout -->
