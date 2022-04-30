@@ -93,7 +93,7 @@ export class PlanificationComponent implements OnInit {
       (error: any) => { console.log(error); }
     );
   }
-
+  errorptba: any = [];
   addPtba(form: any) {
     if (this.ptba.annee < 2000 || this.ptba.annee > 2300) {
       this.erreur = "l'année doit être entre 2000 et 2300."
@@ -101,7 +101,7 @@ export class PlanificationComponent implements OnInit {
       this.erreur = null;
       this.jarwisService.addPtba(this.ptba).subscribe(
         (data: any) => { console.log(data); this.last_ptba = data.last; this.notify.success('le ptba a été ajouté'); form.reset(); },
-        (error: any) => { console.log(error) },
+        (error: any) => { console.log(error); this.errorptba = error.error.errors; this.notify.error("Il semble que les données renseignées existent déjà dans la base de données.") },
       );
     }
   }

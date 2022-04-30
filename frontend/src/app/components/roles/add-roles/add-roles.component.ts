@@ -43,6 +43,7 @@ export class AddRolesComponent implements OnInit {
     });
   }
 
+  //récupération modules
   getModules() {
     //recuperation des modules
     this.jarwisService.getModules().subscribe(
@@ -51,7 +52,7 @@ export class AddRolesComponent implements OnInit {
     );
 
   }
-
+  //récupération roles
   getRoles() {
     //recuperation des roles
     this.jarwisService.getRoles().subscribe(
@@ -60,6 +61,8 @@ export class AddRolesComponent implements OnInit {
     );
   }
 
+  error: any = [];
+  //fonction ajout nouveau rôle
   onSubmit() {
     this.jarwisService.addRole(this.form).subscribe(
       data => {
@@ -70,9 +73,10 @@ export class AddRolesComponent implements OnInit {
         this.table1 = false;
         this.addRoleForm.reset();
         this.notify.success("Un nouveau rôle a été ajouté.");
+        this.error = [];
 
       },
-      error => console.log(error)
+      (error: any) => { console.log(error); this.error = error.error.errors; }
     );
   }
 
@@ -156,8 +160,6 @@ export class AddRolesComponent implements OnInit {
   }
 
   delete(id: any) {
-
-
     //notification et changement de statut.
     this.notify.confirm('Voulez vous vraiment supprimer ce rôle ?', 'Attention !Suppression de rôle ?', {
       timeout: 0,
@@ -174,9 +176,6 @@ export class AddRolesComponent implements OnInit {
               (data: any) => { this.getRoles(); this.notify.success(data.message); },
               error => console.log(error)
             );
-
-
-
           }, bold: false
         },
         {
@@ -188,10 +187,11 @@ export class AddRolesComponent implements OnInit {
     });
   }
 
+  error1: any = [];
   updaterole(r: any) {
     this.jarwisService.updaterole(r).subscribe(
-      (data: any) => { console.log(data); this.notify.success(data.message); },
-      error => { console.log(error); this.notify.error('Veuillez revoir les données renseignées.') }
+      (data: any) => { console.log(data); this.notify.success(data.message); this.error1 = []; },
+      error => { console.log(error); this.error1 = error.error.errors; this.notify.error('Veuillez revoir les données renseignées.') }
     );
   }
 

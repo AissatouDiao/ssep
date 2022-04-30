@@ -26,6 +26,9 @@
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="libelle_roles" id="inputEmail3" [(ngModel)]="form.libelle_role" required>
                             </div>
+                            <div class="alert alert-danger" [hidden]="!error.libelle_role">
+                                {{error.libelle_role}}
+                            </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-10 offset-2">
@@ -274,7 +277,9 @@
                                                                 <input type="text" class="form-control" name="libelle" id="inputEmail3" [(ngModel)]="r.libelle_role" required>
                                                             </div>
                                                         </div>
-
+                                                        <div class="alert alert-danger" [hidden]="!error1.libelle_role">
+                                                            {{error1.libelle_role}}
+                                                        </div>
 
                                                         <button type="submit" class="btn btn-danger" [disabled]="!roleupdateForm.valid">Enregistrer</button>
                                                     </form>

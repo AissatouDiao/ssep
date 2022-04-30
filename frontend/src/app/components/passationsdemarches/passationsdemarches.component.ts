@@ -39,10 +39,12 @@ export class PassationsdemarchesComponent implements OnInit {
   constructor(private jarwisService: JarwisService, private notify: SnotifyService) { }
 
   ngOnInit(): void {
+
     this.getPassations();
     let data_user: any = localStorage.getItem('data');
     this.user = JSON.parse(data_user);
     this.getPassationsPropositions();
+    this.getPermissionsByRoleId();
   }
 
   //Recupérer toutes les passations de marchés.

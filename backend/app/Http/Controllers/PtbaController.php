@@ -6,12 +6,13 @@ use Carbon\Carbon;
 use App\Models\Ptba;
 use Illuminate\Http\Request;
 use App\Models\Ptbapartenaire;
+use App\Http\Requests\PtbaRequest;
 use Illuminate\Support\Facades\DB;
 
 class PtbaController extends Controller
 {
 
-    public function add(Request $request){
+    public function add(PtbaRequest $request){
         Ptba::create($request->all());
         $lastRecordDate = Ptba::latest()->first();
         return response()->json([

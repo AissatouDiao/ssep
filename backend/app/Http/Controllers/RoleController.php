@@ -6,8 +6,9 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\Module;
 use App\Models\Permission;
-use App\Http\Requests\AddRoleRequest;
 use Illuminate\Http\Request;
+use App\Http\Requests\AddRoleRequest;
+use App\Http\Requests\UpdateroleRequest;
 use App\Http\Requests\AddPermissionsRequest;
 
 class RoleController extends Controller
@@ -20,12 +21,7 @@ class RoleController extends Controller
         return response()->json([
             "message"=>"Un nouveau rôle a été ajouté !",
             $lastRecordDate,
-          
-         
         ]);
-
-
-
     }
 
     public function getroles(Request $request){
@@ -75,7 +71,7 @@ class RoleController extends Controller
         
     }
 
-    public function updaterole(Request $request){
+    public function updaterole(UpdateroleRequest $request){
         $role=Role::find($request->id);
         $role->libelle_role=$request->libelle_role;
         $role->save();

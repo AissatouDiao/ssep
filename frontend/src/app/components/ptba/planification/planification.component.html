@@ -51,10 +51,16 @@
                     <input type="text" name="evaluation_id" class="form-control" hidden />
                     <label>Titre</label>
                     <input type="text" class="form-control" name="titre" [(ngModel)]="ptba.libelle" required />
+                    <div class="alert alert-danger" [hidden]="!errorptba.libelle">
+                        {{errorptba.libelle}}
+                    </div>
                     <label>Année</label>
                     <input type="number" min="2000" max="2200" class="form-control" id="annee" name="annee" [(ngModel)]="ptba.annee" required />
                     <div class="alert alert-danger" *ngIf="erreur!=null">
                         {{erreur}}
+                    </div>
+                    <div class="alert alert-danger" [hidden]="!errorptba.annee">
+                        {{errorptba.annee}}
                     </div>
                     <label>Etat</label>
                     <select name="etat" id="etat" class="form-select" [(ngModel)]="ptba.etat" required disabled>
