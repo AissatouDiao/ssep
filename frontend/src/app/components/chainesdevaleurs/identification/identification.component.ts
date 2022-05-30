@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SnotifyService } from 'ng-snotify';
 import { JarwisService } from 'src/app/services/jarwis.service';
 
 @Component({
@@ -8,11 +9,14 @@ import { JarwisService } from 'src/app/services/jarwis.service';
 })
 export class IdentificationComponent implements OnInit {
 
-  constructor(private jarwisService: JarwisService) { }
+  constructor(private jarwisService: JarwisService,
+    private notify: SnotifyService
+  ) { }
 
   ngOnInit(): void {
     this.getUser();
     this.getPermissionsByRoleId();
+    this.getidentifications();
   }
 
   //récupérer l'utilisateur
@@ -52,5 +56,38 @@ export class IdentificationComponent implements OnInit {
     );
   }
 
+
+
+  messageerror: any; identificationFile: any;
+  importidentificationFileToDatabase() {
+    this.messageerror = null;
+    const formdata1 = new FormData();
+    // let a = (<HTMLInputElement>document.getElementById('organisation_file')).value;
+    formdata1.append('fichier', this.identificationFile);
+    console.log(formdata1);
+    let donnees = formdata1;
+    this.jarwisService.importIdentificationFileToDatabase(donnees).subscribe(
+      (data: any) => {
+        console.log(data); this.notify.success(data.message); this.getidentifications();
+      },
+      error => { console.log(error); this.messageerror = error.error.errors; this.notify.error('Veuillez revoir les données renseignées.'); }
+    );
+  }
+
+  uploadDocument(event: any) {
+    this.identificationFile = event.target.files[0];
+    console.log(this.identificationFile);
+  }
+
+  identifications: any;
+  getidentifications() {
+    this.jarwisService.getIdentifications().subscribe(
+      (data: any) => {
+        console.log(data);
+        this.identifications = data;
+      },
+      (error: any) => { console.log(error); }
+    );
+  }
 
 }

@@ -41,23 +41,18 @@ export class PartenairesComponent implements OnInit {
 
   doughnutChartLabels: Label[] = ['En chargement'];
   doughnutChartData: MultiDataSet = [[100]];
-  doughnutChartType: ChartType = 'pie';
+  doughnutChartType: ChartType = 'doughnut';
 
   apport_by_ptba: any;
   getpourcentagesptba(p: any) {
-
-
     let tableau_pourcentage: any[] = [];
     let tableau_nompartenaires: any[] = [];
-
-
     this.jarwisService.getPourcentagesPartenairePtba(p).subscribe(
       (data: any) => {
         console.log(data);
         this.apport_by_ptba = data;
         data.forEach((d: any) => {
           if (!tableau_pourcentage.includes(d.budget)) {
-
             tableau_pourcentage.push((((d.budget * 100) / p.apport_financier_total).toFixed(2)));
           }
           if (!tableau_nompartenaires.includes(d.libelle)) {
@@ -73,8 +68,6 @@ export class PartenairesComponent implements OnInit {
         console.log(error)
       }
     );
-
-
   }
 
   //Recupérer toutes les partenaires.

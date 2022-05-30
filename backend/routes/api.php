@@ -23,6 +23,7 @@ use App\Http\Controllers\DecompteszoneController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\AgreagequaliteController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\IdentificationController;
 use App\Http\Controllers\PrealableszoneController;
 use App\Http\Controllers\RecommandationController;
 use App\Http\Controllers\ValeurannuelleController;
@@ -37,6 +38,7 @@ use App\Http\Controllers\RapportdactiviteszoneController;
 use App\Http\Controllers\ContratsexecutionmarcheController;
 use App\Http\Controllers\DecomptesexecutionmarcheController;
 use App\Http\Controllers\GarantiesexecutionmarcheController;
+use App\Http\Controllers\OrganisationsaccompagneeController;
 use App\Http\Controllers\ActivitepartenaireassocieController;
 use App\Http\Controllers\LancementsprocedurecommuneController;
 use App\Http\Controllers\ActivitepartenairefinancierController;
@@ -335,11 +337,11 @@ Route::group([
     Route::delete('deleteIdentification/{id}',[IdentificationController::class,'deleteIdentification']);
     Route::post('updateIdentification',[IdentificationController::class,'updateIdentification']);
     //Organisationaccompagnees
-    Route::post('importOrganisationaccompagneeFileToDatabase',[OrganisationaccompagneeController::class,'importOrganisationaccompagneeFileToDatabase']);
-    Route::post('ajouterOrganisationaccompagnee',[OrganisationaccompagneeController::class,'ajouterOrganisationaccompagnee']);
-    Route::get('getOrganisationaccompagnees', [OrganisationaccompagneeController::class,'getOrganisationaccompagnees']);
-    Route::delete('deleteOrganisationaccompagnee/{id}',[OrganisationaccompagneeController::class,'deleteOrganisationaccompagnee']);
-    Route::post('updateOrganisationaccompagnee',[OrganisationaccompagneeController::class,'updateOrganisationaccompagnee']);
+    Route::post('importOrganisationaccompagneeFileToDatabase',[OrganisationsaccompagneeController::class,'importOrganisationaccompagneeFileToDatabase']);
+    Route::post('ajouterOrganisationaccompagnee',[OrganisationsaccompagneeController::class,'ajouterOrganisationaccompagnee']);
+    Route::get('getOrganisationaccompagnees', [OrganisationsaccompagneeController::class,'getOrganisationaccompagnees']);
+    Route::delete('deleteOrganisationaccompagnee/{id}',[OrganisationsaccompagneeController::class,'deleteOrganisationaccompagnee']);
+    Route::post('updateOrganisationaccompagnee',[OrganisationsaccompagneeController::class,'updateOrganisationaccompagnee']);
     //Suiviproductions
     Route::post('importSuiviproductionFileToDatabase',[SuiviproductionController::class,'importSuiviproductionFileToDatabase']);
     Route::post('ajouterSuiviproduction',[SuiviproductionController::class,'ajouterSuiviproduction']);

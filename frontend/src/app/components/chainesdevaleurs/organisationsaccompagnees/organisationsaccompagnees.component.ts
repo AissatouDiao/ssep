@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SnotifyService } from 'ng-snotify';
 import { JarwisService } from 'src/app/services/jarwis.service';
 
 @Component({
@@ -8,11 +9,14 @@ import { JarwisService } from 'src/app/services/jarwis.service';
 })
 export class OrganisationsaccompagneesComponent implements OnInit {
 
-  constructor(private jarwisService: JarwisService) { }
+  constructor(private jarwisService: JarwisService,
+    private notify: SnotifyService
+  ) { }
 
   ngOnInit(): void {
     this.getUser();
     this.getPermissionsByRoleId();
+    this.getorganisationsaccompagnees();
   }
 
   //récupérer l'utilisateur
@@ -52,5 +56,39 @@ export class OrganisationsaccompagneesComponent implements OnInit {
     );
   }
 
+  //Importation du fichier 
+  messageerror: any; organisationaccompagneeFile: any;
+  importorganisationaccompagneeFileToDatabase() {
+    this.messageerror = null;
+    const formdata1 = new FormData();
+    formdata1.append('fichier', this.organisationaccompagneeFile);
+    console.log(formdata1);
+    let donnees = formdata1;
+    this.jarwisService.importOrganisationaccompagneeFileToDatabase(donnees).subscribe(
+      (data: any) => {
+        console.log(data); this.notify.success(data.message); this.getorganisationsaccompagnees();
+      },
+      error => { console.log(error); this.messageerror = error.error.errors; this.notify.error('Veuillez revoir les données renseignées.'); }
+    );
+  }
+
+  //recupérer le document importé
+  uploadDocument(event: any) {
+    this.organisationaccompagneeFile = event.target.files[0];
+    console.log(this.organisationaccompagneeFile);
+  }
+
+  //récupérer les organisations accompagnées dans la base de données
+  organisationsaccompagnees: any;
+  getorganisationsaccompagnees() {
+    this.jarwisService.getOrganisationaccompagnees().subscribe(
+      (data: any) => {
+        console.log(data);
+        this.organisationsaccompagnees = data;
+      },
+      (error: any) => { console.log(error); }
+    );
+
+  }
 
 }

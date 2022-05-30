@@ -82,7 +82,7 @@ class ChangePasswordController extends Controller
         $this->getPasswordResetTableRow1($request)->delete();
         //reponse retourné sous format json
         return response()->json([
-            'data'=>'Mot de passe ajouté avev succès !'
+            'data'=>'Mot de passe ajouté avec succès !'
         ],Response::HTTP_CREATED );
     }
     }

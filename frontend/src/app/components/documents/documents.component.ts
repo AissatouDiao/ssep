@@ -68,8 +68,8 @@ export class DocumentsComponent implements OnInit {
     formdata1.append('documentpartage', this.files);
     console.log(formdata1);
     this.jarwisService.addDocument(formdata1).subscribe(
-      data => { console.log(data); this.getDocuments(); },
-      error => { console.log(error); this.handleError(error) }
+      (data: any) => { console.log(data); this.getDocuments(); this.notify.success("Document ajouté avec succès !"); },
+      (error: any) => { console.log(error); this.handleError(error); this.notify.error("Veuillez revoir les données renseignées.") }
     );
   }
 
@@ -164,7 +164,6 @@ export class DocumentsComponent implements OnInit {
   supprimer: any;
   ajouter1: any;
   lire: any;
-  khalei = true;
   getPermissionsByRoleId() {
     this.jarwisService.getPermissionsByRoleId(this.user.role_id).subscribe(
       async (data: any) => {
