@@ -189,7 +189,7 @@ export class JarwisService {
   }
   //Ajouter un nouveau document
   addDocument(data: object) {
-    return this.http.post(`${this.baseUrl}/adddocument`, data, { responseType: 'blob' });
+    return this.http.post(`${this.baseUrl}/adddocument`, data);
   }
   //update document
   updateDocument(data: object) {

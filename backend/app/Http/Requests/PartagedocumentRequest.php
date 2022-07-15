@@ -25,7 +25,7 @@ class PartagedocumentRequest extends FormRequest
     {
         return [
             'user_id'=>'required',
-            'titre'=>'required',
+            'titre'=>'required|unique:partagedocuments',
             'documentpartage.*'=>'required|file|mimes:docx,pdf|max:2048'
         ];
     }

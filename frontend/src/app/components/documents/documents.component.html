@@ -56,11 +56,11 @@
                     </td>
                     <td class="td-actions text-right float-right">
                         <button *ngIf="modifier==true" type="button" rel="tooltip" title="Modifier document" data-toggle="modal" attr.data-target="#m{{d.id}}" class="btn btn-primary btn-link btn-sm">
-                    <i class="material-icons">edit</i>
-                </button>
+                            <i class="material-icons">edit</i>
+                        </button>
                         <button *ngIf="supprimer==true" type="button" rel="tooltip" title="Supprimer recommansation" (click)="delete(d.id)" class="btn btn-danger btn-link btn-sm">
-                    <i class="material-icons">delete_forever</i>
-                </button>
+                            <i class="material-icons">delete_forever</i>
+                        </button>
                     </td>
                     <!-- Modal Modifier -->
                     <div class="modal fade" id="m{{d.id}}" tabindex="-1" role="dialog" attr.aria-labelledby="m{{d.id}}" aria-hidden="true">
@@ -76,10 +76,8 @@
                                     </div>
                                 </div>
                                 <div class="modal-body">
-                                    <form #documentForm=ngForm name="documentForm" (ngSubmit)="update(d)" enctype="multipart/form-data">
-                                        <div class="alert alert-danger" [hidden]="!error">
-                                            {{error}}
-                                        </div>
+                                    <form #documentForm=ngForm name="documentForm" id="documentForm" (ngSubmit)="update(d)" enctype="multipart/form-data">
+
 
                                         <div class="row mb-3">
                                             <label for="inputEmail3" class="col-sm-2 col-form-label">Titre</label>
@@ -116,13 +114,16 @@
                         </div>
                     </div>
                     <!-- Modal Modifier -->
-
                 </tr>
             </tbody>
         </table>
     </div>
-    <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [(page)]="page" currentPage="1" [pageSize]="pageSize" [collectionSize]="documents.length" class="active">
-    </ngb-pagination>
+    <div class="row">
+        <div class="col-9 d-flex justify-content-between p-2">
+            <ngb-pagination [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" currentPage="1" [pageSize]="pageSize" [collectionSize]="documents.length" class="active"></ngb-pagination>
+        </div>
+        <div class="col-3">Pagination par : <input type="number" class="form-control" [(ngModel)]="pageSize" min=5/></div>
+    </div>
     <button *ngIf="ajouter1==true" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Nouveau document</button>
     <div class="card">
         <!-- Modal ajout -->
@@ -139,14 +140,13 @@
                     </div>
                     <div class="modal-body">
                         <form #documentForm=ngForm name="documentForm" (ngSubmit)="ajouter()" enctype="multipart/form-data">
-                            <div class="alert alert-danger" [hidden]="!error">
-                                {{error}}
-                            </div>
-
                             <div class="row mb-3">
                                 <label for="inputEmail3" class="col-sm-2 col-form-label">Titre</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" name="titre" id="inputEmail3" [(ngModel)]="document.titre" required>
+                                    <div class="alert alert-danger" *ngIf="error.titre">
+                                        {{error.titre}}
+                                    </div>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -156,9 +156,7 @@
                                     <div class="text-left"> (.pdf ou .docx seulement)</div>
                                 </div>
                             </div>
-
                             <div class="row mb-3">
-
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" name="user_id" id="user_id" [(ngModel)]="user.id" hidden required>
                                 </div>

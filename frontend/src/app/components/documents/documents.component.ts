@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { SnotifyService, SnotifyPosition } from 'ng-snotify';
 import { JarwisService } from 'src/app/services/jarwis.service';
 
@@ -13,7 +13,10 @@ export class DocumentsComponent implements OnInit {
   @Input() pageSize: any = 10;
   searchText: any; searchFilter: any = '';
 
-  documents: any; error: any; user: any; users: any;
+  @ViewChild('documentForm')
+  documentForm!: any;
+
+  documents: any; user: any; users: any;
 
   document = {
     titre: '',
@@ -59,7 +62,7 @@ export class DocumentsComponent implements OnInit {
   }
 
   data: any; fileURL: any;
-
+  error: any = [];
   ajouter() {
     this.document.user_id = this.user.id;
     const formdata1 = new FormData();
@@ -68,16 +71,12 @@ export class DocumentsComponent implements OnInit {
     formdata1.append('documentpartage', this.files);
     console.log(formdata1);
     this.jarwisService.addDocument(formdata1).subscribe(
-      (data: any) => { console.log(data); this.getDocuments(); this.notify.success("Document ajouté avec succès !"); },
-      (error: any) => { console.log(error); this.handleError(error); this.notify.error("Veuillez revoir les données renseignées.") }
+      (data: any) => { console.log(data); this.getDocuments(); this.documentForm.reset(); this.notify.success("Document ajouté avec succès !"); },
+      (error: any) => { console.log(error); this.error = error.error.errors; this.notify.error("Veuillez revoir les données renseignées.") }
     );
   }
 
-  //recuperation de l'erreur eventuel de la reponse de l'api.
-  handleError(error: { error: { error: any; }; }) {
 
-    this.error = error.error.error;
-  }
 
   //Supprimer recommandation.
   delete(id: any) {

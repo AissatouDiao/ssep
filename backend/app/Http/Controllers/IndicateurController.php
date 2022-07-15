@@ -37,7 +37,7 @@ class IndicateurController extends Controller
         $Indicateur->valeur_cible=$request->valeur_cible;
         $Indicateur->save();
        return response()->json([
-           "message"=>"L'indicateur mise à jour avec succès !",
+           "message"=>"L'indicateur a été mise à jour avec succès !",
             "Indicateur"=>$Indicateur
        ]);
     }

@@ -83,7 +83,7 @@ export class PartenairesComponent implements OnInit {
       (data: any) => {
         console.log(data); this.notify.success(data.message); this.getPartenaires();
         this.partenaireForm.reset();
-
+        this.notify.success("Nouveau partenaire ajouté avec succès.");
       },
       error => { console.log(error); this.notify.error('Veuillez revoir les données renseignées.') }
     );

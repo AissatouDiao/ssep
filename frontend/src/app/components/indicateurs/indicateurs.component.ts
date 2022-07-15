@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ChartDataSets, ChartPoint, ChartType } from 'chart.js';
 import { SnotifyPosition, SnotifyService } from 'ng-snotify';
 import { Color, Label } from 'ng2-charts';
@@ -13,6 +13,12 @@ export class IndicateursComponent implements OnInit {
 
   @Input() page: any = 1;
   @Input() pageSize: any = 10;
+
+
+  @ViewChild('indicateurForm')
+  indicateurForm!: any;
+
+  searchText: any; searchFilter: any = '';
 
   constructor(private jarwisService: JarwisService, private notify: SnotifyService) { }
   user: any
@@ -56,7 +62,7 @@ export class IndicateursComponent implements OnInit {
 
   addIndicateur() {
     this.jarwisService.addIndicateur(this.indicateur).subscribe(
-      data => { console.log(data); this.getIndicateurs(); this.getvaleurannuelles(); this.notify.success('un nouveau indicateur ajouté ') },
+      data => { console.log(data); this.getIndicateurs(); this.getvaleurannuelles(); this.indicateurForm.reset(); this.notify.success('un nouveau indicateur ajouté ') },
       error => console.log(error)
     );
   }
